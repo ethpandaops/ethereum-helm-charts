@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lighthouse.fullname" . }}-headless
+  labels:
+    {{- include "lighthouse.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+    - port: {{ include "lighthouse.p2pPort" . }}
+      targetPort: p2p-tcp
+      protocol: TCP
+      name: p2p-tcp
+    - port: {{ include "lighthouse.p2pPort" . }}
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+    - port: {{ include "lighthouse.httpPort" . }}
+      targetPort: http-api
+      protocol: TCP
+      name: http-api
+    - port: {{ include "lighthouse.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "lighthouse.selectorLabels" . | nindent 4 }}
