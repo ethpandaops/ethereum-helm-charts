@@ -1,0 +1,15 @@
+replicas:
+
+extraArgs:
+  - --network=prater
+  - --eth1-endpoints=https://rpc.slock.it/goerli
+
+p2pNodePort:
+  enabled: true
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 100Gi
+  storageClassName: do-block-storage

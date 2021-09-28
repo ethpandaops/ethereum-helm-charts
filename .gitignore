@@ -1,0 +1,8 @@
+# Terraform
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+
+# Helmsman
+.helmsman-tmp

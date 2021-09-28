@@ -1,0 +1,14 @@
+context: ethereum
+
+namespaces:
+  ethereum:
+    protected: false
+
+apps:
+  lighthouse-beacon:
+    namespace: ethereum
+    enabled: true
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    valuesFiles:
+      - "values/lighthouse-beacon.yaml"
