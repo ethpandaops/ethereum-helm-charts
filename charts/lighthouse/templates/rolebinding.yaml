@@ -1,0 +1,15 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "lighthouse.serviceAccountName" . }}
+  labels:
+    {{- include "lighthouse.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "lighthouse.serviceAccountName" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "lighthouse.serviceAccountName" . }}
+{{- end }}

@@ -20,16 +20,23 @@ mode: "beacon"
 ## Additional arguments
 extraArgs:
   - --network=prater
-  - --eth1
   - --eth1-endpoints=http://your-eth1-node:8051
 
-# When nodePort is enabled, your P2P port will be exposed via service type NodePort.
+# When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
-nodePort:
+p2pNodePort:
   enabled: false
-
-
+  startAt: 31000
+  # portsOverwrite allows you to set a specific nodePort for each replica
+  portsOverwrite: {}
+  #  "0": 32345
+  #  "3": 32348
+  initContainer:
+    image:
+      repository: lachlanevenson/k8s-kubectl
+      tag: v1.21.3
+      pullPolicy: IfNotPresent
 
 ingress:
   enabled: false
@@ -97,6 +104,24 @@ podManagementPolicy: OrderedReady
 rbac:
   create: true
   pspEnabled: true
+  clusterRules:
+     # Required to obtain the nodes external IP
+    - apiGroups: [""]
+      resources:
+      - "nodes"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+  rules:
+    # Required to get information about the serices nodePort.
+    - apiGroups: [""]
+      resources:
+      - "services"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
 
 resources: {}
 # limits:

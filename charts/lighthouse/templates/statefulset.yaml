@@ -38,6 +38,35 @@ spec:
       {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
       {{- end }}
+      {{- if .Values.p2pNodePort.enabled }}
+        - name: init-nodeport
+          image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"
+          imagePullPolicy: {{.Values.p2pNodePort.initContainer.image.pullPolicy }}
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          command:
+            - sh
+            - -c
+            - >
+              export EXTERNAL_PORT=$(kubectl get services -l "pod in (${POD_NAME}), type in (p2p)" -o jsonpath='{.items[0].spec.ports[0].nodePort}');
+              export EXTERNAL_IP=$(kubectl get nodes "${NODE_NAME}" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}');
+              echo "EXTERNAL_PORT=$EXTERNAL_PORT" >  /env/init-nodeport;
+              echo "EXTERNAL_IP=$EXTERNAL_IP"     >> /env/init-nodeport;
+              cat /env/init-nodeport;
+          volumeMounts:
+            - name: env-nodeport
+              mountPath: /env
+      {{- end }}
       {{- if .Values.initChownData.enabled }}
         - name: init-chown-data
           image: "{{ .Values.initChownData.image.repository }}:{{ .Values.initChownData.image.tag }}"
@@ -62,34 +91,45 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["lighthouse"]
-          args:
-            # Storage
-            - --datadir=/data
-            - beacon_node
-            # ENR Setup
-            - --disable-upnp
-            - --disable-enr-auto-update
-            - --enr-address=$(POD_IP)
-            - --enr-tcp-port={{ include "lighthouse.p2pPort" . }}
-            - --enr-udp-port={{ include "lighthouse.p2pPort" . }}
-            # P2P Port
-            - --listen-address=0.0.0.0
-            - --port={{ include "lighthouse.p2pPort" . }}
-            - --discovery-port={{ include "lighthouse.p2pPort" . }}
-            # HTTP Ports
-            - --http-address=0.0.0.0
-            - --http-port={{ include "lighthouse.httpPort" . }}
-            # Metrics
-            - --metrics
-            - --metrics-address=0.0.0.0
-            - --metrics-port={{ include "lighthouse.metricsPort" . }}
-          {{- range .Values.extraArgs }}
-            - "{{ . }}"
-          {{- end }}
+          command:
+            - sh
+            - -ac
+            - >
+            {{- if .Values.p2pNodePort.enabled }}
+              . /env/init-nodeport;
+            {{- end }}
+              exec lighthouse
+              --datadir=/data
+              beacon_node
+              --disable-upnp
+              --disable-enr-auto-update
+            {{- if .Values.p2pNodePort.enabled }}
+              --enr-address=$EXTERNAL_IP
+              --enr-tcp-port=$EXTERNAL_PORT
+              --enr-udp-port=$EXTERNAL_PORT
+            {{- else }}
+              --enr-address=$(POD_IP)
+              --enr-tcp-port={{ include "lighthouse.p2pPort" . }}
+              --enr-udp-port={{ include "lighthouse.p2pPort" . }}
+            {{- end }}
+              --listen-address=0.0.0.0
+              --port={{ include "lighthouse.p2pPort" . }}
+              --discovery-port={{ include "lighthouse.p2pPort" . }}
+              --http-address=0.0.0.0
+              --http-port={{ include "lighthouse.httpPort" . }}
+              --metrics
+              --metrics-address=0.0.0.0
+              --metrics-port={{ include "lighthouse.metricsPort" . }}
+            {{- range .Values.extraArgs }}
+              {{ . }}
+            {{- end }}
           volumeMounts:
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{- end }}
+            {{- if .Values.p2pNodePort.enabled }}
+            - name: env-nodeport
+              mountPath: /env
             {{- end }}
             - name: storage
               mountPath: "/data"
@@ -138,6 +178,10 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+      {{- if .Values.p2pNodePort.enabled }}
+        - name: env-nodeport
+          emptyDir: {}
+      {{- end }}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
