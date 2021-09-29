@@ -1,4 +1,9 @@
+# This is the CT (chart testing) config file
+# More infos under https://github.com/helm/chart-testing#configuration
+remote: origin
+target-branch: main
 chart-dirs:
   - charts
+# Temporarily remove version increment check while the charts are under heavy development
 check-version-increment: false
 lint-conf: lintconf.yaml
