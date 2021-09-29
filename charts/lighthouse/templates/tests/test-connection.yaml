@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.httpPort" . }}']
+      args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.httpPort" . }}/eth/v1/node/health']
   restartPolicy: Never
