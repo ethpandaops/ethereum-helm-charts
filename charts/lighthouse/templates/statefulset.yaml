@@ -191,4 +191,4 @@ spec:
       selector:
         {{- toYaml .Values.persistence.selector | nindent 8 }}
       {{- end }}
-  {{- end }}
+  {{- en d }}
