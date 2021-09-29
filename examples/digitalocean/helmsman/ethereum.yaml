@@ -5,9 +5,16 @@ namespaces:
     protected: false
 
 apps:
+  lighthouse-bootnode:
+    namespace: ethereum
+    enabled: false
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    valuesFiles:
+      - "values/lighthouse-bootnode.yaml"
   lighthouse-beacon:
     namespace: ethereum
-    enabled: true
+    enabled: false
     chart: "../../../charts/lighthouse"
     version: "0.1.0"
     valuesFiles:

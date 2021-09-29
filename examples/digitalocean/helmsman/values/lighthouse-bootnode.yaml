@@ -1,0 +1,13 @@
+replicas: 1
+
+mode: bootnode
+
+livenessProbe: null
+readinessProbe: null
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+  storageClassName: do-block-storage
