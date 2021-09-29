@@ -18,7 +18,7 @@ spec:
     scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
-    port: {{ include "lighthouse.metricsPort" . }}
+    port: metrics
     path: {{ .Values.serviceMonitor.path }}
     scheme: {{ .Values.serviceMonitor.scheme }}
     {{- if .Values.serviceMonitor.tlsConfig }}

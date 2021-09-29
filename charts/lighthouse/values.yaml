@@ -15,12 +15,12 @@ image:
   # pullSecrets:
   #   - myRegistryKeySecretName
 
-mode: "beacon"
+mode: "beacon" # Can be 'beacon','bootnode' or 'validator'
 
 ## Additional arguments
-extraArgs:
-  - --network=prater
-  - --eth1-endpoints=http://your-eth1-node:8051
+extraArgs: []
+  #- --network=prater
+  #- --eth1-endpoints=http://your-eth1-node:8051
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.
@@ -147,7 +147,7 @@ serviceAccount:
   name: ""
   #automountServiceAccountToken: ""
 
-terminationGracePeriodSeconds: 4800
+terminationGracePeriodSeconds: 30
 
 ## Tolerations for pod assignment
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
