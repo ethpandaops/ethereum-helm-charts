@@ -36,3 +36,19 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 - Node 2: `40002`
 - Node 3: `32000`
 - Node 4: `40004`
+
+
+## Validator node targeting a beacon node service
+
+This example runs a validator on the prater network that targets a pre-existing `lighthouse-beacon` service:
+
+```yaml
+replicas: 1
+
+mode: validator
+
+extraArgs:
+  - --network=prater
+  - --enable-doppelganger-protection
+  - --beacon-nodes=http://lighthouse-beacon:5052
+```

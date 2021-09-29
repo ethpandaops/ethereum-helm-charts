@@ -96,6 +96,8 @@ spec:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else if eq .Values.mode "beacon" }}
             {{- include "lighthouse.beaconCommand" . | nindent 12 }}
+          {{- else if eq .Values.mode "validator" }}
+            {{- include "lighthouse.validatorCommand" . | nindent 12 }}
           {{- else if eq .Values.mode "bootnode" }}
             {{- include "lighthouse.bootnodeCommand" . | nindent 12 }}
           {{- end }}
@@ -111,17 +113,21 @@ spec:
               mountPath: "/data"
               subPath: {{ .Values.persistence.subPath }}
           ports:
+          {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
               containerPort: {{ include "lighthouse.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
               containerPort: {{ include "lighthouse.p2pPort" . }}
               protocol: UDP
+          {{- end }}
+          {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
             - name: http-api
               containerPort: {{ include "lighthouse.httpPort" . }}
               protocol: TCP
             - name: metrics
               containerPort: {{ include "lighthouse.metricsPort" . }}
+          {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:

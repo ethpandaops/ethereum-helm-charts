@@ -19,8 +19,14 @@ mode: "beacon" # Can be 'beacon','bootnode' or 'validator'
 
 ## Additional arguments
 extraArgs: []
+  ## Example for beacon mode
   #- --network=prater
   #- --eth1-endpoints=http://your-eth1-node:8051
+  ##
+  ## Example for validator mode
+  #- --network=prater
+  #- --enable-doppelganger-protection
+  #- --beacon-nodes=http://lighthouse-beacon:5052
 
 customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|bootnode|validator)
 
@@ -62,14 +68,14 @@ annotations: {}
 
 livenessProbe:
   tcpSocket:
-    port: p2p-tcp
+    port: http-api
   initialDelaySeconds: 60
   periodSeconds: 120
 
 readinessProbe:
   tcpSocket:
-    port: p2p-tcp
-  initialDelaySeconds: 5
+    port: http-api
+  initialDelaySeconds: 10
   periodSeconds: 10
 
 ## ref: https://kubernetes.io/docs/concepts/services-networking/network-policies/

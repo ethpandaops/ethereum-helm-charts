@@ -1,4 +1,6 @@
 {{- if .Values.p2pNodePort.enabled -}}
+{{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
+
 {{- range $i, $e := until (int $.Values.replicas) }}
 
 {{- $port := add $.Values.p2pNodePort.startAt $i -}}
@@ -31,6 +33,8 @@ spec:
   selector:
     {{- include "lighthouse.selectorLabels" $ | nindent 4 }}
     statefulset.kubernetes.io/pod-name: {{ include "lighthouse.fullname" $ }}-{{ $i }}
+
+{{- end }}
 
 {{- end }}
 {{- end }}

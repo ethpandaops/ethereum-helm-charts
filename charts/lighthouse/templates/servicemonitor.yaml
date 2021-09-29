@@ -1,4 +1,5 @@
 {{- if .Values.serviceMonitor.enabled }}
+{{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -36,4 +37,5 @@ spec:
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}
+{{- end}}
 {{- end }}
