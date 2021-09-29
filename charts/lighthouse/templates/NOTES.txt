@@ -1,0 +1,6 @@
+{{- if (eq .Values.mode "validator") }}
+Get your validator API keys using:
+  {{- range $i, $e := until (int $.Values.replicas) }}
+  export VALIDATOR_API_KEY_{{$i}}=$(kubectl -n {{ $.Release.Namespace }} exec {{ include "lighthouse.fullname" $ }}-{{$i}} -c lighthouse -- cat /data/validators/api-token.txt)
+  {{- end }}
+{{- end }}

@@ -1,0 +1,52 @@
+
+alertmanager:
+  enabled: true
+  ingress:
+    enabled: false
+  alertmanagerSpec:
+    retention: 120h
+    resources: {}
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: do-block-storage
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
+
+grafana:
+  enabled: true
+  adminPassword: prom-operator
+  ingress:
+    enabled: false
+
+
+kubeEtcd:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+prometheusOperator:
+  enabled: true
+  resources: {}
+
+prometheus:
+  enabled: true
+  ingress:
+    enabled: false
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+    retention: 10d
+    retentionSize: ""
+    resources: {}
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: do-block-storage
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 100Gi

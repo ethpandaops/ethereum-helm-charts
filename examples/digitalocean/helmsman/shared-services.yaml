@@ -1,0 +1,19 @@
+context: shared-services
+
+helmRepos:
+  prometheus-community: https://prometheus-community.github.io/helm-charts
+
+namespaces:
+  shared-services:
+    protected: false
+
+apps:
+  # Metrics collection
+  kube-prometheus-stack:
+    namespace: shared-services
+    enabled: true
+    chart: "prometheus-community/kube-prometheus-stack"
+    version: "18.0.12"
+    valuesFiles:
+      - "values/kube-prometheus-stack.yaml"
+    wait: true
