@@ -1,3 +1,4 @@
 chart-dirs:
   - charts
 check-version-increment: false
+lint-conf: lintconf.yaml
