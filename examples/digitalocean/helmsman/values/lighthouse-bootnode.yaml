@@ -3,7 +3,10 @@ replicas: 1
 mode: bootnode
 
 livenessProbe: null
-readinessProbe: null
+readinessProbe:
+  tcpSocket: null
+  exec:
+    command: ["cat", "/data/beacon/network/enr.dat"]
 
 persistence:
   enabled: true
