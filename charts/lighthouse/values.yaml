@@ -22,6 +22,8 @@ extraArgs: []
   #- --network=prater
   #- --eth1-endpoints=http://your-eth1-node:8051
 
+customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|bootnode|validator)
+
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.
 # This is useful if you want to expose and announce your node to the Internet.

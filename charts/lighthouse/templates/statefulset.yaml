@@ -92,7 +92,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-          {{- if eq .Values.mode "beacon" }}
+          {{- if gt (len .Values.customCommand) 0 }}
+            {{- toYaml .Values.customCommand | nindent 12}}
+          {{- else if eq .Values.mode "beacon" }}
             {{- include "lighthouse.beaconCommand" . | nindent 12 }}
           {{- else if eq .Values.mode "bootnode" }}
             {{- include "lighthouse.bootnodeCommand" . | nindent 12 }}
