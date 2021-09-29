@@ -2,7 +2,11 @@ replicas: 1
 
 mode: bootnode
 
+extraArgs:
+  - --network=prater
+
 livenessProbe: null
+
 readinessProbe:
   tcpSocket: null
   exec:

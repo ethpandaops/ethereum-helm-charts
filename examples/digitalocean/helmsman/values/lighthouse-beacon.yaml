@@ -1,8 +1,26 @@
 replicas: 1
 
+mode: beacon
+
 extraArgs:
   - --network=prater
-  - --eth1-endpoints=https://rpc.slock.it/goerli
+  - --eth1-endpoints=https://rpc.slock.it/goerli,https://goerli.prylabs.net/,https://goerli-light.eth.linkpool.io
+
+livenessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /eth/v1/node/health
+    port: http-api
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /eth/v1/node/health
+    port: http-api
+  initialDelaySeconds: 10
+  periodSeconds: 10
 
 p2pNodePort:
   enabled: true

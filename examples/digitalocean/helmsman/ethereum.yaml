@@ -19,3 +19,10 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - "values/lighthouse-beacon.yaml"
+  lighthouse-validator:
+    namespace: ethereum
+    enabled: false
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    valuesFiles:
+      - "values/lighthouse-validator.yaml"
