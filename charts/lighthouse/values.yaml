@@ -170,13 +170,6 @@ podDisruptionBudget: {}
 updateStrategy:
   type: RollingUpdate
 
-serviceMonitor:
-  enabled: false
-  interval: ""
-  additionalLabels: {}
-  annotations: {}
-  # scrapeTimeout: 10s
-
 ## Init containers to be added to the pod
 initContainers: []
 # - name: my-init-container
@@ -219,6 +212,7 @@ serviceMonitor:
   path: /metrics
   #  namespace: monitoring  (defaults to use the namespace this chart is deployed to)
   labels: {}
+  annotations: {}
   interval: 1m
   scheme: http
   tlsConfig: {}
