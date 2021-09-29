@@ -6,6 +6,7 @@ extraArgs:
 
 p2pNodePort:
   enabled: true
+  startAt: 32000
 
 persistence:
   enabled: true
@@ -13,3 +14,6 @@ persistence:
   - ReadWriteOnce
   size: 100Gi
   storageClassName: do-block-storage
+
+serviceMonitor:
+  enabled: true

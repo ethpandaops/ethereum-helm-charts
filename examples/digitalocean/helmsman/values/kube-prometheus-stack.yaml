@@ -37,6 +37,8 @@ prometheus:
   ingress:
     enabled: false
   prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
     retention: 10d
     retentionSize: ""
     resources: {}
