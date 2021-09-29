@@ -1,4 +1,4 @@
-replicas:
+replicas: 1
 
 extraArgs:
   - --network=prater
