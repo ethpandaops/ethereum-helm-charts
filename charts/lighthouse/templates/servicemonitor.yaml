@@ -12,6 +12,10 @@ metadata:
     {{- if .Values.serviceMonitor.labels }}
     {{- toYaml .Values.serviceMonitor.labels | nindent 4 }}
     {{- end }}
+  {{- if .Values.serviceMonitor.annotations }}
+  annotations:
+  {{ toYaml .Values.serviceMonitor.annotations | nindent 4 }}
+  {{- end }}
 spec:
   endpoints:
   - interval: {{ .Values.serviceMonitor.interval }}
