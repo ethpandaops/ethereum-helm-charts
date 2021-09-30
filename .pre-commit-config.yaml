@@ -1,0 +1,8 @@
+repos:
+  - repo: https://github.com/skylenet/ethereum-helm-charts
+    rev: v0.0.1
+    hooks:
+      - id: helm-docs
+        args:
+          - --chart-search-root=.
+          - --template-files=README.md.gotmpl
