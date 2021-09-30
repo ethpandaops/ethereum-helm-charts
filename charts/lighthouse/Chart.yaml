@@ -2,6 +2,7 @@ apiVersion: v2
 name: lighthouse
 description: An open-source Ethereum 2.0 client, written in Rust
 home: https://lighthouse.sigmaprime.io/
+icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
 sources:
   - https://github.com/sigp/lighthouse
 type: application
