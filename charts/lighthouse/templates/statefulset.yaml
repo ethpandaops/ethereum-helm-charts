@@ -81,11 +81,9 @@ spec:
             - name: storage
               mountPath: "/data"
       {{- end }}
-      {{- if .Values.image.pullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-      {{- range .Values.image.pullSecrets }}
-        - name: {{ . }}
-      {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -111,7 +109,6 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
-              subPath: {{ .Values.persistence.subPath }}
           ports:
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
