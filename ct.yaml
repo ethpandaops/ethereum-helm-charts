@@ -1,7 +1,7 @@
 # This is the CT (chart testing) config file
 # More infos under https://github.com/helm/chart-testing#configuration
 remote: origin
-target-branch: main
+target-branch: master
 chart-dirs:
   - charts
 # Temporarily remove version increment check while the charts are under heavy development
