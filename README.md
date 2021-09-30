@@ -10,7 +10,20 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 
 ## Development
 
-The `README` for every chart is auto generated using [helm-docs](https://github.com/norwoodj/helm-docs). You can quickly run it locally using docker:
+### Pre-commit hooks
+
+This repository used [`pre-commit`](https://pre-commit.com/) to manage and run certain git hooks. Hook definitions can be found within the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
+
+Run the following to add the hooks to your local repository:
+
+```sh
+$ pre-commit install
+```
+
+
+### Useful commands
+
+The `README` for every chart is auto generated using [helm-docs](https://github.com/norwoodj/helm-docs). This is defined as a pre-commit hook. If you want to run it manually, you can quickly use docker:
 
 ```sh
 docker run --rm --volume "$(pwd):/helm-docs" -u $(id -u) jnorwood/helm-docs:v1.5.0
