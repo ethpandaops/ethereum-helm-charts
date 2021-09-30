@@ -10,6 +10,11 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 
 ## Development
 
+### Prerequisites
+
+- [`pre-commit`](https://pre-commit.com/) - Used to setup pre-commit git hooks
+- [`docker`](https://www.docker.com/) - Used by many Makefile targets
+
 ### Pre-commit hooks
 
 This repository used [`pre-commit`](https://pre-commit.com/) to manage and run certain git hooks. Hook definitions can be found within the [`.pre-commit-config.yaml`](.pre-commit-config.yaml) file.
@@ -17,22 +22,21 @@ This repository used [`pre-commit`](https://pre-commit.com/) to manage and run c
 Run the following to add the hooks to your local repository:
 
 ```sh
-$ pre-commit install
+make init
 ```
-
 
 ### Useful commands
 
-The `README` for every chart is auto generated using [helm-docs](https://github.com/norwoodj/helm-docs). This is defined as a pre-commit hook. If you want to run it manually, you can quickly use docker:
+The `README` for every chart is auto generated using [helm-docs](https://github.com/norwoodj/helm-docs). This is defined as a pre-commit hook. If you want to run it manually, you can run:
 
 ```sh
-docker run --rm --volume "$(pwd):/helm-docs" -u $(id -u) jnorwood/helm-docs:v1.5.0
+make docs
 ```
 
-The [CT (Chart Testing)](https://github.com/helm/chart-testing) tool is used to lint and validate charts. You can run this locally using docker:
+The [CT (Chart Testing)](https://github.com/helm/chart-testing) tool is used to lint and validate charts. You can run this via:
 
 ```sh
-docker run --rm --workdir /workdir --volume "$(pwd):/workdir" quay.io/helmpack/chart-testing:v3.4.0 ct lint
+make lint
 ```
 
 ## License
