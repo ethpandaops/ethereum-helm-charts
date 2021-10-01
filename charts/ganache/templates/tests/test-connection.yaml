@@ -15,7 +15,7 @@ spec:
        - --location
        - --request
        - POST
-       - 'localhost:8545/'
+       - '{{ include "ganache.fullname" . }}:{{ include "ganache.httpPort" . }}/'
        - --header
        - 'Content-Type: application/json'
        - --data-raw

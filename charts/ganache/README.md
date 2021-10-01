@@ -78,11 +78,11 @@ secretEnv:
 
 extraArgs:
   - --mnemonic="$(MNEMONIC)"
-  - --accounts 10
-  - --defaultBalanceEther 1000
-  - --networkId 5123
-  - --chainID 5123
-  - --blockTime 3
+  - --accounts=10
+  - --defaultBalanceEther=1000
+  - --networkId=5123
+  - --chainID=5123
+  - --blockTime=3
 ```
 
 ## Fork an existing blockchain
