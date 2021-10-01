@@ -68,7 +68,7 @@ spec:
             - /app/ganache-core.docker.cli.js
             - --host=0.0.0.0
             - --port={{ include "ganache.httpPort" . }}
-            - --db /data
+            - --db=/data
             {{- if .Values.extraArgs }}
             {{ toYaml .Values.extraArgs | nindent 12}}
             {{- end }}
