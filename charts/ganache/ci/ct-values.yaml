@@ -1,0 +1,6 @@
+secretEnv:
+  # Don't re-use this mnemonic for production environments
+  MNEMONIC: census exchange hotel volcano sea hunt mother enlist twelve lonely cause female
+
+extraArgs:
+  - --mnemonic="$(MNEMONIC)"
