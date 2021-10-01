@@ -1,0 +1,15 @@
+apiVersion: v2
+name: ganache
+description: >
+  Ganache is an Ethereum simulator that makes developing Ethereum applications faster, easier, and safer.
+  It includes all popular RPC functions and features (like events) and can be run deterministically to make development a breeze.
+home: https://www.trufflesuite.com/ganache
+icon: https://www.trufflesuite.com/img/ganache-logomark.svg
+sources:
+  - https://github.com/trufflesuite/ganache
+type: application
+version: 0.1.0
+appVersion: "6.12.2"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
