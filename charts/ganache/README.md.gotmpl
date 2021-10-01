@@ -1,0 +1,46 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Private blockchain with pre-filled accounts generated from an HD wallet using a mnemonic phrase
+
+```yaml
+secretEnv:
+  # Don't re-use this mnemonic for production environments
+  MNEMONIC: census exchange hotel volcano sea hunt mother enlist twelve lonely cause female
+
+extraArgs:
+  - --mnemonic="$(MNEMONIC)"
+  - --accounts=10
+  - --defaultBalanceEther=1000
+  - --networkId=5123
+  - --chainID=5123
+  - --blockTime=3
+```
+
+## Fork an existing blockchain
+
+```yaml
+extraEnv:
+  - name: BLOCK_NUMBER
+    value: "13331332"
+secretEnv:
+  INFURA_PROJECT_ID: "xxxxx"
+
+extraArgs:
+  - --fork="https://mainnet.infura.io/v3/$(INFURA_PROJECT_ID)@$(BLOCK_NUMBER)"
+```

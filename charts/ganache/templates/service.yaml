@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ganache.fullname" . }}
+  labels:
+    {{- include "ganache.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "ganache.httpPort" . }}
+      targetPort: http-api
+      protocol: TCP
+      name: http-api
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "ganache.selectorLabels" . | nindent 4 }}
