@@ -6,7 +6,11 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 
 ## List of charts
 
+Clients
 - [`lighthouse`](charts/lighthouse) - An open-source Ethereum 2.0 client, written in Rust
+
+Tooling
+- [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer (ETH1.x)
 
 ## Development
 
