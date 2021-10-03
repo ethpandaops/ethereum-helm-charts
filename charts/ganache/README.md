@@ -81,7 +81,7 @@ extraArgs:
   - --accounts=10
   - --defaultBalanceEther=1000
   - --networkId=5123
-  - --chainID=5123
+  - --chainId=5123
   - --blockTime=3
 ```
 
