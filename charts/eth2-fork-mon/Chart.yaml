@@ -1,0 +1,14 @@
+apiVersion: v2
+name: eth2-fork-mon
+description: >
+  Simple client/server to track the (real-time) status of a (configurable) set of eth2 beacon nodes.
+home: https://github.com/ralexstokes/eth2-fork-mon
+icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+sources:
+  - https://github.com/ralexstokes/eth2-fork-mon
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
