@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "prysm.fullname" . }}-test-connection"
+  labels:
+    {{- include "prysm.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "prysm.fullname" . }}:{{ include "prysm.httpPort" . }}/eth/v1/node/version']
+  restartPolicy: Never
