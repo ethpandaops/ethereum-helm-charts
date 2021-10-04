@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "eth2-fork-mon.labels" . | nindent 4 }}
 data:
-  config.yaml:
+  config.yaml: |
     {{- toYaml .Values.config | nindent 4}}
