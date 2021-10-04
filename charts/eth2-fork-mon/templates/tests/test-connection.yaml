@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "eth2-fork-mon.fullname" . }}-test-connection"
+  labels:
+    {{- include "eth2-fork-mon.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "eth2-fork-mon.fullname" . }}:{{ include "eth2-fork-mon.httpPort" . }}/'
+  restartPolicy: Never

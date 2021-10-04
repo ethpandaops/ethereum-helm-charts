@@ -1,0 +1,3 @@
+customArgs:
+  - -config-file=/config.yaml
+  - -output-dir=/public

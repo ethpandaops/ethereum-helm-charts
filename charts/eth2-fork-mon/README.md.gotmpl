@@ -1,0 +1,31 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Setting the configuration file
+
+```yaml
+config:
+  endpoints:
+    - http://beacon-node:port
+  http_timeout_milliseconds: 0
+  eth2:
+    network: mainnet
+    seconds_per_slot: 12
+    genesis_time: 1606824023
+    slots_per_epoch: 32
+```
