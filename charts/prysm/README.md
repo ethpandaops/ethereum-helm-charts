@@ -26,8 +26,8 @@ An open-source Ethereum 2.0 client, written in Go
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
-| image.repository | string | `"gcr.io/prysmaticlabs/prysm/beacon-chain"` | Prysm container image repository |
-| image.tag | string | `"stable"` |  |
+| image.repository | string | `"skylenet/prysm-beacon-debian"` | Prysm container image repository |
+| image.tag | string | `"latest"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
