@@ -35,21 +35,10 @@ Simple client/server to track the (real-time) status of a (configurable) set of 
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
-| initChownData.enabled | bool | `true` | Init container to set the correct permissions to access data directories |
-| initChownData.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
-| initChownData.image.repository | string | `"busybox"` | Container repository |
-| initChownData.image.tag | string | `"1.34.0"` | Container tag |
-| initChownData.resources | object | `{}` | Resource requests and limits |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
-| persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
-| persistence.annotations | object | `{}` | Annotations for volume claim template |
-| persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
-| persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
-| persistence.selector | object | `{}` | Selector for volume claim template |
-| persistence.size | string | `"5Gi"` | Requested size for volume claim template |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |

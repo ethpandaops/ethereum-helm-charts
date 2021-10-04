@@ -24,7 +24,8 @@ customCommand: [] # Only change this if you need to change the default command
 # @default -- See `values.yaml`
 config:
   endpoints:
-    - http://beacon-node:port
+    - addr: http://beacon-node:4000
+      eth1: ""
   http_timeout_milliseconds: 0
   eth2:
     network: mainnet
@@ -80,23 +81,6 @@ readinessProbe:
 
 # -- Node selector for pods
 nodeSelector: {}
-
-persistence:
-  # -- Uses an EmptyDir when not enabled
-  enabled: false
-  # -- Use an existing PVC when persistence.enabled
-  existingClaim: null
-  # -- Access mode for the volume claim template
-  accessModes:
-  - ReadWriteOnce
-  # -- Requested size for volume claim template
-  size: 5Gi
-  # -- Annotations for volume claim template
-  annotations: {}
-  # -- Selector for volume claim template
-  selector: {}
-  #   matchLabels:
-  #     app.kubernetes.io/name: something
 
 # -- Pod labels
 podLabels: {}
@@ -177,22 +161,3 @@ extraEnv: []
 
 # -- Additional env variables injected via a created secret
 secretEnv: {}
-
-initChownData:
-  # -- Init container to set the correct permissions to access data directories
-  enabled: true
-  image:
-    # -- Container repository
-    repository: busybox
-    # -- Container tag
-    tag: "1.34.0"
-    # -- Container pull policy
-    pullPolicy: IfNotPresent
-  # -- Resource requests and limits
-  resources: {}
-  #  limits:
-  #    cpu: 100m
-  #    memory: 128Mi
-  #  requests:
-  #    cpu: 100m
-  #    memory: 128Mi
