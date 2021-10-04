@@ -14,12 +14,11 @@ image:
 
 # -- Extra args for the ganache container
 extraArgs: []
-  ## Example for beacon mode
   #- --accounts=10
   #- --mnemonic="$(MNEMONIC)"
 
 # -- Command replacement for the ganache container
-customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|bootnode|validator)
+customCommand: [] # Only change this if you need to change the default command
 
 ingress:
   # -- Ingress resource for the HTTP API
