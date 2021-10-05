@@ -22,6 +22,7 @@
 {{- end }}
   --rest-api-enabled=true
   --rest-api-interface=0.0.0.0
+  --rest-api-host-allowlist=*
   --rest-api-port={{ include "teku.httpPort" . }}
   --metrics-enabled=true
   --metrics-interface=0.0.0.0
