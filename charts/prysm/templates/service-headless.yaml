@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "prysm.fullname" . }}-headless
+  labels:
+    {{- include "prysm.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+  {{- if eq .Values.mode "beacon" }}
+    - port: {{ include "prysm.p2pPort" . }}
+      targetPort: p2p-tcp
+      protocol: TCP
+      name: p2p-tcp
+    - port: {{ include "prysm.p2pPort" . }}
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+  {{- end }}
+  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+    - port: {{ include "prysm.httpPort" . }}
+      targetPort: http-api
+      protocol: TCP
+      name: http-api
+    - port: {{ include "prysm.rpcPort" . }}
+      targetPort: rpc
+      protocol: TCP
+      name: rpc
+    - port: {{ include "prysm.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "prysm.selectorLabels" . | nindent 4 }}

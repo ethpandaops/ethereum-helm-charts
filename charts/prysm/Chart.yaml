@@ -1,0 +1,13 @@
+apiVersion: v2
+name: prysm
+description: An open-source Ethereum 2.0 client, written in Go
+home: https://docs.prylabs.network/docs/getting-started/
+icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+sources:
+  - https://github.com/prysmaticlabs/prysm
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
