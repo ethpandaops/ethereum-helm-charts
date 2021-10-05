@@ -1,3 +1,4 @@
+{{- if not (eq .Values.mode "bootnode") }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -11,5 +12,10 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
+      {{- if eq .Values.mode "beacon" }}
       args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.httpPort" . }}/eth/v1/node/version']
+      {{- else if eq .Values.mode "validator" }}
+      args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.metricsPort" . }}/metrics']
+      {{- end }}
   restartPolicy: Never
+{{- end }}
