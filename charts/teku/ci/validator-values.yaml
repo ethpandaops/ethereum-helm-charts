@@ -20,7 +20,9 @@ initContainers:
       KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
       for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
       do
+        echo "====";
         key="NODE_${INDEX}_SECRET_${i}";
+        echo "$key";
         PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
         echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
         secret="NODE_${INDEX}_SECRET_${i}";
