@@ -13,13 +13,6 @@ readinessProbe:
     path: /enr
     port: 8888
 
-persistence:
-  enabled: true
-  accessModes:
-  - ReadWriteOnce
-  size: 1Gi
-  storageClassName: do-block-storage
-
 extraContainers:
   - name: enr-http
     image: msoap/shell2http:1.13
