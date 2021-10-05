@@ -16,5 +16,6 @@ spec:
       args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.httpPort" . }}/eth/v1/node/version']
       {{- else if eq .Values.mode "validator" }}
       args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.metricsPort" . }}/metrics']
+      {{- end }}
   restartPolicy: Never
 {{- end }}
