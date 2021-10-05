@@ -39,7 +39,6 @@
 - /app/cmd/validator/validator
 - --accept-terms-of-use=true
 - --datadir=/data
-- --walletdir=/data/wallet
 - --monitoring-host=0.0.0.0
 - --monitoring-port={{ include "prysm.metricsPort" . }}
 {{- range .Values.extraArgs }}
