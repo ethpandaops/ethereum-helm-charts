@@ -1,0 +1,40 @@
+{{- if .Values.p2pNodePort.enabled -}}
+{{- if eq .Values.mode "beacon" }}
+
+{{- range $i, $e := until (int $.Values.replicas) }}
+
+{{- $port := add $.Values.p2pNodePort.startAt $i -}}
+{{- if hasKey $.Values.p2pNodePort.portsOverwrite ($i | toString) -}}
+  {{ $port = index $.Values.p2pNodePort.portsOverwrite ($i | toString) }}
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "teku.fullname" $ }}-p2p-{{ $i }}
+  labels:
+    {{- include "teku.labels" $ | nindent 4 }}
+    pod: {{ include "teku.fullname" $ }}-{{ $i }}
+    type: p2p
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: p2p-tcp
+      port: {{ include "teku.p2pPort" $ }}
+      protocol: TCP
+      targetPort: p2p-tcp
+      nodePort: {{ $port }}
+    - name: p2p-udp
+      port: {{ include "teku.p2pPort" $ }}
+      protocol: UDP
+      targetPort: p2p-udp
+      nodePort: {{ $port }}
+  selector:
+    {{- include "teku.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: {{ include "teku.fullname" $ }}-{{ $i }}
+
+{{- end }}
+
+{{- end }}
+{{- end }}

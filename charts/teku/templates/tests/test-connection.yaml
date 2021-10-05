@@ -1,0 +1,20 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "teku.fullname" . }}-test-connection"
+  labels:
+    {{- include "teku.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+    {{- if eq .Values.mode "beacon" }}
+      args: ['{{ include "teku.fullname" . }}:{{ include "teku.httpPort" . }}/eth/v1/node/version']
+    {{- else }}
+      args: ['{{ include "teku.fullname" . }}:{{ include "teku.metricsPort" . }}/metrics']
+    {{- end }}
+  restartPolicy: Never
