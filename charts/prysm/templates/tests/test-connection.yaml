@@ -1,3 +1,4 @@
+{{- if eq .Values.mode "beacon" }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -13,3 +14,4 @@ spec:
       command: ['wget']
       args: ['{{ include "prysm.fullname" . }}:{{ include "prysm.httpPort" . }}/eth/v1/node/version']
   restartPolicy: Never
+{{- end }}
