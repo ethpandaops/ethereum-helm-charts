@@ -217,6 +217,8 @@ extraPorts: []
 
 # -- Additional env variables
 extraEnv: []
+#- name: JAVA_OPTS
+#  value: "-Xmx6000m -Xms6000m"
 
 # -- Additional env variables injected via a created secret
 secretEnv: {}

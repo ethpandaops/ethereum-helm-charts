@@ -37,6 +37,7 @@
 # Validator command
 */}}
 {{- define "teku.validatorCommand" -}}
+- /opt/teku/bin/teku
 - validator-client
 - --log-destination=CONSOLE
 - --data-path=/data
