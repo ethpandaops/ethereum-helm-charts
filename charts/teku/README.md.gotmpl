@@ -111,11 +111,17 @@ extraArgs:
   - --validator-keys=/data/validator/keys:/data/validator/secrets
   - --beacon-node-api-endpoint=http://teku-beacon:4000
 
-livenessProbe:
+readinessProbe:
   tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
 
 readinessProbe:
   tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
 
 secretEnv:
   # Note: Never publish any of your production secrets online. These are just used for testing purposes.
