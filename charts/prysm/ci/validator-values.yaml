@@ -68,9 +68,6 @@ extraArgs:
   - --wallet-password-file=/data/wallet-password.txt
   - --beacon-rpc-provider=prysm-beacon:4000
 
-serviceMonitor:
-  enabled: true
-
 livenessProbe:
   tcpSocket: null
   exec:
