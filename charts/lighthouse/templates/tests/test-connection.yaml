@@ -1,4 +1,4 @@
-{{- if not eq .Values.mode "bootnode" }}
+{{- if not (eq .Values.mode "bootnode") }}
 apiVersion: v1
 kind: Pod
 metadata:
