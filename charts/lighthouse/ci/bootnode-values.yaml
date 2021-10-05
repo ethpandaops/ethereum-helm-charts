@@ -1,0 +1,45 @@
+replicas: 1
+
+mode: bootnode
+
+extraArgs:
+  - --network=prater
+
+livenessProbe: null
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /enr
+    port: 8888
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+  storageClassName: do-block-storage
+
+extraContainers:
+  - name: enr-http
+    image: msoap/shell2http:1.13
+    imagePullPolicy: IfNotPresent
+    args:
+    - -port
+    - "8888"
+    - /enr
+    - "cat /data/beacon/network/enr.dat"
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly: true
+    ports:
+      - name: enr-http
+        containerPort: 8888
+        protocol: TCP
+
+extraPorts:
+  - port: 8888
+    targetPort: enr-http
+    protocol: TCP
+    name: enr
