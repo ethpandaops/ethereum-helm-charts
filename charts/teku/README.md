@@ -140,6 +140,9 @@ initContainers:
   - name: init-keystore
     image: bash:latest
     imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
     command:
     - bash
     - -c
@@ -183,7 +186,7 @@ extraArgs:
   - --validator-keys=/data/validator/keys:/data/validator/secrets
   - --beacon-node-api-endpoint=http://teku-beacon:4000
 
-readinessProbe:
+livenessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics

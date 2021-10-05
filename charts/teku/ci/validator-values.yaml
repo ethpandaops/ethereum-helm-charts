@@ -6,6 +6,9 @@ initContainers:
   - name: init-keystore
     image: bash:latest
     imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
     command:
     - bash
     - -c
