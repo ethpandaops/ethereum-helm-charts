@@ -1,4 +1,4 @@
-{{- if eq .Values.mode "beacon" }}
+
 apiVersion: v1
 kind: Pod
 metadata:
@@ -12,6 +12,9 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
+    {{- if eq .Values.mode "beacon" }}
       args: ['{{ include "prysm.fullname" . }}:{{ include "prysm.httpPort" . }}/eth/v1/node/version']
+    {{- else }}
+      args: ['{{ include "prysm.fullname" . }}:{{ include "prysm.metricsPort" . }}/metrics']
+    {{- end }}
   restartPolicy: Never
-{{- end }}
