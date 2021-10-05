@@ -151,15 +151,15 @@ initContainers:
       export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
       mkdir -p /data/validator/keys;
       mkdir -p /data/validator/secrets;
-      KEY_COUNT="NODE_$INDEX_KEY_COUNT";
+      KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
       for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
       do
-        key="NODE_$INDEX_SECRET_$i";
+        key="NODE_${INDEX}_SECRET_${i}";
         PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
-        echo ${!key} > "/data/validator/keys/0x$PUBKEY.json";
-        secret="NODE_$INDEX_SECRET_$i";
-        echo ${!secret} > "/data/validator/secrets/0x$PUBKEY.txt";
-        echo "Added 0x$PUBKEY";
+        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+        secret="NODE_${INDEX}_SECRET_${i}";
+        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+        echo "Added 0x${PUBKEY}";
       done
     volumeMounts:
       - name: storage
