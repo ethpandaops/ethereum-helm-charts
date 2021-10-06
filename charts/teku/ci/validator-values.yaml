@@ -44,8 +44,11 @@ initContainers:
 
 extraArgs:
   - --validator-keys=/data/validator/keys:/data/validator/secrets
-  - --beacon-node-api-endpoint=http://127.0.0.1:5051
-  - --network=auto
+  - --beacon-node-api-endpoint=http://teku-beacon:5051
+  # If we use --network=auto, it will try to get the network info from the beacon node
+  # During the CI test, there's not beacon node running... thus it gets stuck on retrying
+  # and doesn't even start the metric server which is used for the liveness/readiness probes
+  - --network=prater
 
 livenessProbe:
   tcpSocket: null
