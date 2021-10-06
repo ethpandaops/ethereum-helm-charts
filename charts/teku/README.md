@@ -95,8 +95,8 @@ An open-source Ethereum 2.0 client, written in Java
 mode: "beacon"
 
 extraArgs:
-  - --prater
-  - --http-web3provider==https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=prater
+  - --eth1-endpoints=https://goerli.infura.io/v3/<YOUR_API_SECRET>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -107,9 +107,6 @@ This will make your nodes accessible via the Internet using services of type [No
 replicas: 5
 
 mode: "beacon"
-
-image:
-  repository: gcr.io/tekuaticlabs/teku/beacon-chain
 
 p2pNodePort:
   enabled: true

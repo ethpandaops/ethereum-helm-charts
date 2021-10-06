@@ -96,7 +96,7 @@ mode: "beacon"
 
 extraArgs:
   - --prater
-  - --http-web3provider==https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --http-web3provider=https://goerli.infura.io/v3/<YOUR_API_SECRET>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -107,9 +107,6 @@ This will make your nodes accessible via the Internet using services of type [No
 replicas: 5
 
 mode: "beacon"
-
-image:
-  repository: gcr.io/prysmaticlabs/prysm/beacon-chain
 
 p2pNodePort:
   enabled: true
@@ -180,24 +177,26 @@ extraArgs:
 livenessProbe:
   tcpSocket: null
   exec:
-  - /app/cmd/validator/validator
-  - accounts
-  - list
-  - --accept-terms-of-use=true
-  - --wallet-dir=/data/wallet
-  - --wallet-password-file=/data/wallet-password.txt
+    command:
+      - /app/cmd/validator/validator
+      - accounts
+      - list
+      - --accept-terms-of-use=true
+      - --wallet-dir=/data/wallet
+      - --wallet-password-file=/data/wallet-password.txt
   initialDelaySeconds: 60
   periodSeconds: 120
 
 readinessProbe:
   tcpSocket: null
   exec:
-  - /app/cmd/validator/validator
-  - accounts
-  - list
-  - --accept-terms-of-use=true
-  - --wallet-dir=/data/wallet
-  - --wallet-password-file=/data/wallet-password.txt
+    command:
+      - /app/cmd/validator/validator
+      - accounts
+      - list
+      - --accept-terms-of-use=true
+      - --wallet-dir=/data/wallet
+      - --wallet-password-file=/data/wallet-password.txt
   initialDelaySeconds: 10
   periodSeconds: 10
 
