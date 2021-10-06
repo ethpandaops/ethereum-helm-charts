@@ -47,10 +47,6 @@
   exec lighthouse
   validator
   --datadir=/data
-  --http
-  --http-address=0.0.0.0
-  --http-port={{ include "lighthouse.httpPort" . }}
-  --unencrypted-http-transport
   --metrics
   --metrics-address=0.0.0.0
   --metrics-port={{ include "lighthouse.metricsPort" . }}
