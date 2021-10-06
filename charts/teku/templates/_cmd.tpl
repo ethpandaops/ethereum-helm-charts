@@ -26,6 +26,7 @@
   --rest-api-port={{ include "teku.httpPort" . }}
   --metrics-enabled=true
   --metrics-interface=0.0.0.0
+  --metrics-host-allowlist=*
   --metrics-port={{ include "teku.metricsPort" . }}
 {{- range .Values.extraArgs }}
   {{ . }}
@@ -43,6 +44,7 @@
 - --data-path=/data
 - --metrics-enabled
 - --metrics-interface=0.0.0.0
+- --metrics-host-allowlist=*
 - --metrics-port={{ include "teku.metricsPort" . }}
 {{- range .Values.extraArgs }}
 -  {{ . }}
