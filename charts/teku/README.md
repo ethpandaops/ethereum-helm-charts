@@ -154,7 +154,7 @@ initContainers:
       KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
       for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
       do
-        key="NODE_${INDEX}_SECRET_${i}";
+        key="NODE_${INDEX}_KEY_${i}";
         PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
         echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
         secret="NODE_${INDEX}_SECRET_${i}";
@@ -184,7 +184,8 @@ initContainers:
 
 extraArgs:
   - --validator-keys=/data/validator/keys:/data/validator/secrets
-  - --beacon-node-api-endpoint=http://teku-beacon:4000
+  - --beacon-node-api-endpoint=http://teku-beacon:5051
+  - --network=auto
 
 livenessProbe:
   tcpSocket: null
