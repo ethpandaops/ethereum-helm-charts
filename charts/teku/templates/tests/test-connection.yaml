@@ -9,9 +9,9 @@ metadata:
     "helm.sh/hook": test
 spec:
   containers:
-    - name: wget
-      image: busybox
-      command: ['wget']
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
     {{- if eq .Values.mode "beacon" }}
       args: ['{{ include "teku.fullname" . }}:{{ include "teku.httpPort" . }}/eth/v1/node/version']
     {{- else }}
