@@ -1,0 +1,7 @@
+replicas: 2
+
+p2pNodePort:
+  enabled: true
+  startAt: 30000
+  portsOverwrite:
+    "1": 32000
