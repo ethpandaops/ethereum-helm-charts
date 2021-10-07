@@ -5,3 +5,6 @@ p2pNodePort:
   startAt: 30000
   portsOverwrite:
     "1": 32000
+
+extraArgs:
+ - --nat=extip:127.0.0.1
