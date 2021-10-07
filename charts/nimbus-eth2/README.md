@@ -26,8 +26,8 @@ An open-source Ethereum 2.0 client, written in Java
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | nimbus-eth2 container pull policy |
-| image.repository | string | `"statusteam/nimbus_beacon_node"` | nimbus-eth2 container image repository |
-| image.tag | string | `"deploy-eth2-prod"` | nimbus-eth2 container image tag |
+| image.repository | string | `"statusim/nimbus-eth2"` | nimbus-eth2 container image repository |
+| image.tag | string | `"amd64-latest"` | nimbus-eth2 container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

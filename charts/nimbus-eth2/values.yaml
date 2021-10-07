@@ -9,9 +9,9 @@ replicas: 1
 
 image:
   # -- nimbus-eth2 container image repository
-  repository: statusteam/nimbus_beacon_node
+  repository: statusim/nimbus-eth2
   # -- nimbus-eth2 container image tag
-  tag: deploy-eth2-prod
+  tag: amd64-latest
   # -- nimbus-eth2 container pull policy
   pullPolicy: IfNotPresent
 
