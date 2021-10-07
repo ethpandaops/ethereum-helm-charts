@@ -117,7 +117,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 - Node 3: `32000`
 - Node 4: `30004`
 
-## Validator node targeting a beacon node service
+## Validator node
 
 This example runs a validator on the prater network and injects the keystores via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
