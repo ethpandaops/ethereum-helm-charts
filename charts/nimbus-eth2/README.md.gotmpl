@@ -57,6 +57,8 @@ replicas: 1
 extraArgs:
   - --network=prater
   - --web3-url=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --validators-dir=/data/validator/keys
+  - --secrets-dir=/data/validator/secrets
 
 initContainers:
   - name: init-keystore

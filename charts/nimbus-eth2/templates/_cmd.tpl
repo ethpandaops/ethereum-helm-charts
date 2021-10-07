@@ -10,8 +10,6 @@
 {{- end }}
   exec /usr/local/bin/nimbus_beacon_node
   --data-dir=/data
-  --validators-dir=/data/validator/keys
-  --secrets-dir=/data/validator/secrets
   --enr-auto-update=false
 {{- if .Values.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
