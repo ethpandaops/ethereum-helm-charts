@@ -8,6 +8,7 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 
 Clients
 - [`lighthouse`](charts/lighthouse) - An open-source Ethereum 2.0 client, written in Rust
+- [`nimbus-eth2`](charts/nimbus-eth2) - An open-source Ethereum 2.0 client, written in Nim
 - [`prysm`](charts/prysm) - An open-source Ethereum 2.0 client, written in Go
 - [`teku`](charts/teku) - An open-source Ethereum 2.0 client, written in Java
 

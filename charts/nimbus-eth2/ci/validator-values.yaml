@@ -1,0 +1,58 @@
+replicas: 1
+
+initContainers:
+  - name: init-keystore
+    image: bash:latest
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    - -c
+    - >
+      apk add jq;
+      export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      mkdir -p /data/validator/keys;
+      mkdir -p /data/validator/secrets;
+      KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
+      for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
+      do
+        echo "====";
+        key="NODE_${INDEX}_KEY_${i}";
+        PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
+        mkdir -p "/data/validator/keys/0x${PUBKEY}";
+        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/keystore.json";
+        secret="NODE_${INDEX}_SECRET_${i}";
+        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+        echo "Added 0x${PUBKEY}";
+      done
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly:
+    env:
+      - name: NODE_0_KEY_COUNT
+        value: "1"
+      - name: NODE_0_SECRET_0
+        value: Mrc085nWbjTc1mhAPt_Ukj4m_vui2iUQWr6TwNRq_4k=
+      - name: NODE_0_KEY_0
+        value: >
+          {"crypto":{"checksum":{"function":"sha256","message":"7bbdd8cda652d792dceae7477b911106296620c44a6c1d0356c6ff52daca2b5b","params":{}},"cipher":{"function":"aes-128-ctr","message":"689f5c97fad87665e2fe8acbc0aad91bdc85de7756ebdc496f1373bae01c02c8","params":{"iv":"7b8e1ed4480dee19cbb1528394ad2095"}},"kdf":{"function":"pbkdf2","message":"","params":{"c":262144,"dklen":32,"prf":"hmac-sha256","salt":"bb560dfbb56016e0630e4415b74d86ede9090c0545854ed7c0ad921047a39cef"}}},"path":"","pubkey":"8e48cbd28d25847a6b122a62179b6ac11ee7877a4c489799918308e6252b7f6601f969179ac7465e256c01815b71b6d1","uuid":"f13ece4f-d57e-4789-accc-ad50f0fef882","version":4}
+
+
+extraArgs:
+  - --validators-dir=/data/validator/keys
+  - --secrets-dir=/data/validator/secrets
+
+livenessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
