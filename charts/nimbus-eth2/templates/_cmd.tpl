@@ -8,7 +8,7 @@
 {{- if .Values.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec /usr/local/bin/nimbus-eth2_beacon_node
+  exec /usr/local/bin/nimbus_beacon_node
   --data-path=/data
   --validators-dir=/data/validator/keys
   --secrets-dir=/data/validator/secrets
