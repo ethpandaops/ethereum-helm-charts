@@ -1,0 +1,13 @@
+apiVersion: v2
+name: nimbus
+description: An open-source Ethereum 2.0 client, written in Java
+home: https://nimbus.guide/
+icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+sources:
+  - https://github.com/status-im/nimbus-eth2
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
