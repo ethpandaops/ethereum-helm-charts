@@ -37,17 +37,17 @@ mode: "beacon"
 
 p2pNodePort:
   enabled: true
-  startAt: 40000
+  startAt: 30000
   portsOverwrite:
     "3": 32000
 ```
 
 This would create 5 beacon nodes, exposed via Node Port services with the following configuration:
-- Node 0: `40000`
-- Node 1: `40001`
-- Node 2: `40002`
+- Node 0: `30000`
+- Node 1: `30001`
+- Node 2: `30002`
 - Node 3: `32000`
-- Node 4: `40004`
+- Node 4: `30004`
 
 
 ## Validator node targeting a beacon node service
