@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: {{ include "nimbus.fullname" . }}
+  name: {{ include "nimbus-eth2.fullname" . }}
   labels:
-    {{- include "nimbus.labels" . | nindent 4 }}
+    {{- include "nimbus-eth2.labels" . | nindent 4 }}
 spec:
 {{- if .Values.podDisruptionBudget.minAvailable }}
   minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
@@ -14,5 +14,5 @@ spec:
 {{- end }}
   selector:
     matchLabels:
-      {{- include "nimbus.selectorLabels" . | nindent 6 }}
+      {{- include "nimbus-eth2.selectorLabels" . | nindent 6 }}
 {{- end }}

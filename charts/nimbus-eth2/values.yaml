@@ -8,19 +8,19 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- nimbus container image repository
+  # -- nimbus-eth2 container image repository
   repository: statusteam/nimbus_beacon_node
-  # -- nimbus container image tag
+  # -- nimbus-eth2 container image tag
   tag: deploy-eth2-prod
-  # -- nimbus container pull policy
+  # -- nimbus-eth2 container pull policy
   pullPolicy: IfNotPresent
 
-# -- Extra args for the nimbus container
+# -- Extra args for the nimbus-eth2 container
 extraArgs: []
   #- --network=prater
   #- --web3-url=http://your-eth1-node:8051
 
-# -- Command replacement for the nimbus container
+# -- Command replacement for the nimbus-eth2 container
 customCommand: [] # Only change this if you need to change the default command
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.

@@ -1,5 +1,5 @@
 apiVersion: v2
-name: nimbus
+name: nimbus-eth2
 description: An open-source Ethereum 2.0 client, written in Java
 home: https://nimbus.guide/
 icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png

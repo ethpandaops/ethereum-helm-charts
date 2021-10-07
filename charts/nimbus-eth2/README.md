@@ -1,5 +1,5 @@
 
-# nimbus
+# nimbus-eth2
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
@@ -17,17 +17,17 @@ An open-source Ethereum 2.0 client, written in Java
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| customCommand | list | `[]` | Command replacement for the nimbus container |
-| extraArgs | list | `[]` | Extra args for the nimbus container |
+| customCommand | list | `[]` | Command replacement for the nimbus-eth2 container |
+| extraArgs | list | `[]` | Extra args for the nimbus-eth2 container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
-| image.repository | string | `"statusteam/nimbus_beacon_node"` | nimbus container image repository |
-| image.tag | string | `"deploy-eth2-prod"` | nimbus container image tag |
+| image.pullPolicy | string | `"IfNotPresent"` | nimbus-eth2 container pull policy |
+| image.repository | string | `"statusteam/nimbus_beacon_node"` | nimbus-eth2 container image repository |
+| image.tag | string | `"deploy-eth2-prod"` | nimbus-eth2 container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -168,13 +168,13 @@ initContainers:
           secretKeyRef:
             # Name of the secret that will be generated for you. This is normally `${RELEASE-name}-env`
             # You might need to change this
-            name: nimbus-env
+            name: nimbus-eth2-env
             key: NODE_0_SECRET_0
       - name: NODE_0_KEY_0
         valueFrom:
           secretKeyRef:
             # See comment on the previous secretKeyRef
-            name: nimbus-env
+            name: nimbus-eth2-env
             key: NODE_0_KEY_0
 
 livenessProbe:

@@ -1,0 +1,15 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "nimbus-eth2.serviceAccountName" . }}
+  labels:
+    {{- include "nimbus-eth2.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "nimbus-eth2.serviceAccountName" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "nimbus-eth2.serviceAccountName" . }}
+{{- end }}
