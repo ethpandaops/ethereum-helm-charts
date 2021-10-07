@@ -106,7 +106,7 @@ spec:
             - name: storage
               mountPath: "/data"
           ports:
-          {{- if not ().Values.p2pNodePort.enabled) }}
+          {{- if not (.Values.p2pNodePort.enabled) }}
             - name: p2p-tcp
               containerPort: {{ include "nimbus-eth2.p2pPort" . }}
               protocol: TCP
