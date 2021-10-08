@@ -151,8 +151,6 @@ spec:
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
-            - name: storage
-              mountPath: "/data"
           ports:
             - name: http-rpc
               containerPort: {{ include "erigon.httpPort" . }}

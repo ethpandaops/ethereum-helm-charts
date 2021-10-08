@@ -34,12 +34,8 @@
 - sh
 - -ac
 - >
-  while ! nc -z 127.0.0.1 9090; do
-    sleep 1;
-    echo "waiting for erigon container";
-  done
+  while ! nc -z 127.0.0.1 9090; do sleep 1; done;
   exec rpcdaemon
-  --datadir=/data
   --private.api.addr=127.0.0.1:9090
   --http.addr=0.0.0.0
   --http.port={{ include "erigon.httpPort" . }}
