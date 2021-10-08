@@ -3,7 +3,7 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-An open-source Ethereum execution layer client, written in Go
+Go Ethereum (Geth for short) is one of the original implementations of the Ethereum protocol. Currently, it is the most widespread client with the biggest user base and variety of tooling for users and developers. It is written in Go, fully open source and licensed under the GNU LGPL v3
 
 **Homepage:** <https://geth.ethereum.org/>
 
@@ -17,7 +17,7 @@ An open-source Ethereum execution layer client, written in Go
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | string | `"[Node.P2P]\nDialRatio = 3\n"` |  |
+| config | string | See `values.yaml` for example | TOML config file |
 | customCommand | list | `[]` | Command replacement for the geth container |
 | extraArgs | list | `[]` | Extra args for the geth container |
 | extraContainers | list | `[]` | Additional containers |
