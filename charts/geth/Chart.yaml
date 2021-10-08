@@ -1,0 +1,13 @@
+apiVersion: v2
+name: geth
+description: An open-source Ethereum execution layer client, written in Go
+home: https://geth.ethereum.org/
+icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+sources:
+  - https://github.com/ethereum/go-ethereum
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
