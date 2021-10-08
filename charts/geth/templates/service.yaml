@@ -24,7 +24,7 @@ spec:
       protocol: TCP
       name: ws-rpc
     - port: {{ include "geth.metricsPort" . }}
-      targetPort: metrics
+      targetPort: ws-rpc
       protocol: TCP
       name: metrics
   {{- if .Values.extraPorts }}
