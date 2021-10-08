@@ -44,6 +44,14 @@ p2pNodePort:
       tag: v1.21.3
       # -- Container pull policy
       pullPolicy: IfNotPresent
+  portForwardContainer:
+    image:
+      # -- Container image for the port forwarder
+      repository: alpine/socat
+      # -- Container tag
+      tag: latest
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
 
 ingress:
   # -- Ingress resource for the HTTP API

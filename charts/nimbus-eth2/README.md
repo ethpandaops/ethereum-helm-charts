@@ -47,6 +47,9 @@ An open-source Ethereum 2.0 client, written in Java
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| p2pNodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
+| p2pNodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
 | p2pNodePort.portsOverwrite | object | See `values.yaml` for example | Overwrite a port for specific replicas |
 | p2pNodePort.startAt | int | `31000` | Port used to start |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
