@@ -37,7 +37,7 @@
   exec rpcdaemon
   --datadir=/data
   --http.addr=0.0.0.0
-  --http.port={{ include "geth.httpPort" . }}
+  --http.port={{ include "erigon.httpPort" . }}
   --http.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
