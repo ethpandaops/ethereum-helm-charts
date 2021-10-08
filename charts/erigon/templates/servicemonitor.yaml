@@ -38,7 +38,7 @@ spec:
     scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
-    port: metrics-rpcdaemon
+    port: metrics-rpcd
     path: {{ .Values.serviceMonitor.path }}
     scheme: {{ .Values.serviceMonitor.scheme }}
     {{- if .Values.serviceMonitor.tlsConfig }}

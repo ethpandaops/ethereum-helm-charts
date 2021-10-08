@@ -157,7 +157,7 @@ spec:
             - name: http-rpc
               containerPort: {{ include "erigon.httpPort" . }}
               protocol: TCP
-            - name: metrics-rpcdaemon
+            - name: metrics-rpcd
               containerPort: {{ include "erigon.metricsPortRPCDaemon" . }}
               protocol: TCP
           livenessProbe:
