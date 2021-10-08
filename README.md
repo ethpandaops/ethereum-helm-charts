@@ -6,11 +6,14 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 
 ## List of charts
 
-Clients
-- [`lighthouse`](charts/lighthouse) - An open-source Ethereum 2.0 client, written in Rust
-- [`nimbus-eth2`](charts/nimbus-eth2) - An open-source Ethereum 2.0 client, written in Nim
-- [`prysm`](charts/prysm) - An open-source Ethereum 2.0 client, written in Go
-- [`teku`](charts/teku) - An open-source Ethereum 2.0 client, written in Java
+Execution layer clients
+- [`geth`](charts/geth)
+
+Consensus layer clients
+- [`lighthouse`](charts/lighthouse)
+- [`nimbus-eth2`](charts/nimbus-eth2)
+- [`prysm`](charts/prysm)
+- [`teku`](charts/teku)
 
 Tooling
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
