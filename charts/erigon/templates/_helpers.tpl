@@ -62,7 +62,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "erigon.p2pPort" -}}
-{{- printf "30304" -}}
+{{- printf "30303" -}}
 {{- end -}}
 
 {{- define "erigon.httpPort" -}}
