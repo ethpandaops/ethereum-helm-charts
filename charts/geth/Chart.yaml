@@ -1,6 +1,9 @@
 apiVersion: v2
 name: geth
-description: An open-source Ethereum execution layer client, written in Go
+description: >
+  Go Ethereum (Geth for short) is one of the original implementations of the Ethereum protocol.
+  Currently, it is the most widespread client with the biggest user base and variety of tooling for users and developers.
+  It is written in Go, fully open source and licensed under the GNU LGPL v3
 home: https://geth.ethereum.org/
 icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
 sources:
