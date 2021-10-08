@@ -142,7 +142,7 @@ spec:
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
-        - name: proxy-p2p-udp
+        - name: port-forward-p2p-udp
           image: "{{ .Values.p2pNodePort.portForwardContainer.image.repository }}:{{ .Values.p2pNodePort.portForwardContainer.image.tag }}"
           imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
           command:
@@ -159,7 +159,7 @@ spec:
             - name: env-nodeport
               mountPath: /env
               readOnly: true
-        - name: proxy-p2p-tcp
+        - name: port-forward-p2p-tcp
           image: "{{ .Values.p2pNodePort.portForwardContainer.image.repository }}:{{ .Values.p2pNodePort.portForwardContainer.image.tag }}"
           imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
           command:
