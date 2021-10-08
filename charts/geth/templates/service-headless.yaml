@@ -20,11 +20,11 @@ spec:
       protocol: TCP
       name: http-rpc
     - port: {{ include "geth.wsPort" . }}
-      targetPort: http-rpc
+      targetPort: ws-rpc
       protocol: TCP
       name: ws-rpc
     - port: {{ include "geth.metricsPort" . }}
-      targetPort: ws-rpc
+      targetPort: metrics
       protocol: TCP
       name: metrics
   {{- if .Values.extraPorts }}
