@@ -19,6 +19,8 @@ image:
 extraArgs: []
   #- --goerli
 
+# -- TOML config file
+# @default -- See `values.yaml` for example
 config: |
   [Node.P2P]
   DialRatio = 3

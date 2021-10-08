@@ -17,7 +17,7 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | string | `"[Node.P2P]\nDialRatio = 3\n"` |  |
+| config | string | See `values.yaml` for example | TOML config file |
 | customCommand | list | `[]` | Command replacement for the geth container |
 | extraArgs | list | `[]` | Extra args for the geth container |
 | extraContainers | list | `[]` | Additional containers |
