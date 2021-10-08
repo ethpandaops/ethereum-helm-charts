@@ -7,6 +7,7 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 ## List of charts
 
 Execution layer clients
+- [`erigon`](charts/erigon)
 - [`geth`](charts/geth)
 
 Consensus layer clients
