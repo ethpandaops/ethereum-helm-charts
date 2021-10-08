@@ -251,7 +251,7 @@ serviceMonitor:
   # https://github.com/coreos/prometheus-operator
   enabled: false
   # -- Path to scrape
-  path: /metrics
+  path: /debug/metrics
   # -- Alternative namespace for ServiceMonitor
   namespace: null
   # -- Additional ServiceMonitor labels
