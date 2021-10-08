@@ -138,7 +138,7 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
-        - name: {{ .Chart.Name }}-rpcdaemon
+        - name: {{ .Chart.Name }}-rpcd
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
