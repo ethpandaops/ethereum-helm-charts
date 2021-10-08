@@ -22,7 +22,7 @@
   --http.addr=0.0.0.0
   --http.port={{ include "geth.httpPort" . }}
   --http.vhosts=*
-  --http.corsdomains=*
+  --http.corsdomain=*
   --ws
   --ws.addr=0.0.0.0
   --ws.port={{ include "geth.wsPort" . }}
