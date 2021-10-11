@@ -10,6 +10,7 @@
 {{- end }}
   exec ./Nethermind.Runner
   --datadir=/data
+  --KeyStore.KeyStoreDirectory=/data/keystore
   --Network.LocalIp=$(POD_IP)
 {{- if .Values.p2pNodePort.enabled }}
   --Network.ExternalIp==$EXTERNAL_IP
