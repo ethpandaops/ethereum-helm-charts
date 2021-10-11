@@ -27,7 +27,7 @@
   --JsonRpc.WebSocketsPort={{ include "nethermind.httpPort" . }}
   --Metrics.Enabled=true
   --Metrics.NodeName=$(POD_NAME)
-  --Metrics.ExposedPort={{ include "nethermind.metricsPort" . }}
+  --Metrics.ExposePort={{ include "nethermind.metricsPort" . }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
