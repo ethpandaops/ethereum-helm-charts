@@ -19,10 +19,6 @@ spec:
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ include "nethermind.wsPort" . }}
-      targetPort: ws-rpc
-      protocol: TCP
-      name: ws-rpc
     - port: {{ include "nethermind.metricsPort" . }}
       targetPort: metrics
       protocol: TCP
