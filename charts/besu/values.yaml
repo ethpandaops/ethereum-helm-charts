@@ -19,12 +19,6 @@ image:
 extraArgs: []
   #- --network=goerli
 
-# -- TOML config file
-# @default -- See `values.yaml` for example
-config: |
-  # Custom config within a TOML file
-  # bootnodes=["enode://001@123:4567", "enode://002@123:4567", "enode://003@123:4567"]
-
 # -- Command replacement for the besu container
 customCommand: [] # Only change this if you need to change the default command
 

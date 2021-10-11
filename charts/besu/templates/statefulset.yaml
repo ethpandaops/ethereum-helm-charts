@@ -23,7 +23,6 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -106,9 +105,6 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
-            - name: config
-              mountPath: "/config"
-              readOnly: true
           ports:
           {{- if not (.Values.p2pNodePort.enabled) }}
             - name: p2p-tcp
@@ -202,9 +198,6 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
-        - name: config
-          configMap:
-            name: {{ include "besu.fullname" . }}
   {{- if not .Values.persistence.enabled }}
         - name: storage
           emptyDir: {}

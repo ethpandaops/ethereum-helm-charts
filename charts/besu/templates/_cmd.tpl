@@ -10,7 +10,6 @@
 {{- end }}
   exec besu
   --data-path=/data
-  --config-file=/config/besu.toml
   --nat-method=NONE
 {{- if .Values.p2pNodePort.enabled }}
   --p2p-host=$EXTERNAL_IP

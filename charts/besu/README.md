@@ -17,7 +17,6 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | string | See `values.yaml` for example | TOML config file |
 | customCommand | list | `[]` | Command replacement for the besu container |
 | extraArgs | list | `[]` | Extra args for the besu container |
 | extraContainers | list | `[]` | Additional containers |
