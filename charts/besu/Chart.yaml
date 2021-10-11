@@ -1,0 +1,15 @@
+apiVersion: v2
+name: besu
+description: >
+  An Ethereum execution layer client designed to be enterprise-friendly for both public and private,
+  permissioned network use cases. Besu is written in Java and released under the Apache 2.0 Licence.
+home: https://www.hyperledger.org/use/besu
+icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+sources:
+  - https://github.com/hyperledger/besu
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
