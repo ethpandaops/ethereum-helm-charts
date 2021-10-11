@@ -8,7 +8,7 @@
 {{- if .Values.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec ./Nethermind.Runner
+  exec /nethermind/Nethermind.Runner
   --datadir=/data
   --KeyStore.KeyStoreDirectory=/data/keystore
   --Network.LocalIp=$(POD_IP)
