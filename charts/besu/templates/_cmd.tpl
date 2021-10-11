@@ -26,7 +26,6 @@
   --rpc-ws-enabled
   --rpc-ws-host=0.0.0.0
   --rpc-ws-port={{ include "besu.wsPort" . }}
-  --ws.origins=*
   --metrics-enabled
   --metrics-host=0.0.0.0
   --metrics-port={{ include "besu.metricsPort" . }}
