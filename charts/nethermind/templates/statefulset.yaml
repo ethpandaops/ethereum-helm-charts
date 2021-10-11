@@ -89,7 +89,7 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- /* Temporary fix for https://github.com/NethermindEth/nethermind/issues/3510 */ }}
+          {{/* Temporary fix for https://github.com/NethermindEth/nethermind/issues/3510 */}}
           workingDir: "/data"
           command:
           {{- if gt (len .Values.customCommand) 0 }}
