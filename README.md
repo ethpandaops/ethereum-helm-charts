@@ -10,6 +10,7 @@ Execution layer clients
 - [`besu`](charts/besu)
 - [`erigon`](charts/erigon)
 - [`geth`](charts/geth)
+- [`nethermind`](charts/nethermind)
 
 Consensus layer clients
 - [`lighthouse`](charts/lighthouse)
