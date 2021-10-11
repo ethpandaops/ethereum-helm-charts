@@ -9,7 +9,7 @@ replicas: 1
 
 image:
   # -- nethermind container image repository
-  repository: hyperledger/nethermind
+  repository: nethermind/nethermind
   # -- nethermind container image tag
   tag: latest
   # -- nethermind container pull policy
