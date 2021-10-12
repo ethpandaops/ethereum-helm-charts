@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ethstats
+description: >
+  Visual interface for tracking ethereum network status.
+  It uses WebSockets to receive stats from running nodes and output them through a web interface.
+home: https://ethstats.net/
+sources:
+  - https://github.com/puppeth/eth-netstats
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
