@@ -20,7 +20,8 @@ Consensus layer clients
 
 Tooling
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
-- [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer (ETH1.x)
+- [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
+- [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
 
 ## Development
 
