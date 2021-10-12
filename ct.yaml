@@ -7,3 +7,5 @@ chart-dirs:
 # Temporarily remove version increment check while the charts are under heavy development
 check-version-increment: false
 lint-conf: lintconf.yaml
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
