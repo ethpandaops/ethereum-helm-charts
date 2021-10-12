@@ -1,0 +1,18 @@
+apiVersion: v2
+name: beaconchain-explorer
+description: >
+  Beacon chain explorer built using golang and using a PostgreSQL database for storing and indexing data.
+home: https://beaconcha.in/
+icon: https://pbs.twimg.com/profile_images/1274442538057961474/-cZGkGhP_400x400.jpg
+sources:
+  - https://github.com/gobitfly/eth2-beaconchain-explorer
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
+dependencies:
+- name: postgresql
+  version: "10.12.3"
+  repository: "https://charts.bitnami.com/bitnami"
+  when: postgresql.enabled
