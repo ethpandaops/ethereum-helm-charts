@@ -52,7 +52,7 @@ spec:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
-          command:
+          args:
             {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
           volumeMounts:
