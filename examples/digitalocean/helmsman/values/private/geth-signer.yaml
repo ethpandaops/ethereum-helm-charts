@@ -120,9 +120,3 @@ persistence:
   size: 5Gi
 
 resources: {}
-
-
-#export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
-#      ENODE=$(curl -s geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode);
-#      echo "Adding bootnode peer $ENODE";
-# echo "{\"jsonrpc\":\"2.0\",\"method\":\"admin_addPeer\",\"params\":[\"$ENODE\"],\"id\":1}" | nc local:/data/geth.ipc;
