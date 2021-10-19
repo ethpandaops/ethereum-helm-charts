@@ -1,0 +1,128 @@
+replicas: 3
+
+podManagementPolicy: Parallel
+
+extraArgs:
+- --bootnodes="$(wget -qO- http://geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode )"
+- --networkid=1337331
+- --ethstats=$(hostname):PrivateNetwork@ethstats:3000
+- --unlock=0x$(sed -E 's/.*"address":"?([^,"]*)"?.*/\1/' /data/keystore/signer.json)
+- --password=/data/keystore/signer.password
+- --allow-insecure-unlock
+- --mine
+- --verbosity=4
+
+initContainers:
+- name: init-genesis
+  image: ethereum/client-go:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ac
+    - >
+      if ! [ -f /data/genesis.json ];
+      then
+        echo $GENESIS > /data/genesis.json;
+        geth init --datadir /data /data/genesis.json;
+        echo "Genesis init done";
+      else
+        echo "Genesis is already initialized";
+      fi
+  env:
+    - name: GENESIS
+      value: >
+        {
+          "config": {
+            "chainId":1337331,
+            "homesteadBlock":0,
+            "eip150Block":0,
+            "eip155Block":0,
+            "eip158Block":0,
+            "byzantiumBlock":0,
+            "constantinopleBlock":0,
+            "petersburgBlock":0,
+            "istanbulBlock":0,
+            "berlinBlock":0,
+            "londonBlock":0,
+            "clique": {
+              "period": 12,
+              "epoch": 30000
+            }
+          },
+          "difficulty": "1",
+          "gasLimit": "8000000",
+          "extradata": "0x000000000000000000000000000000000000000000000000000000000000000036d56343bc308d4ffaac2f793d121aba905fa6cc5e762d4a3847cadaf40a4b0c39574b0ff6698c7815d7acc1019fdf8ab4f0f7bd31ec1487ecb5a2bd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "alloc": {
+            "c41208bdb04cada3439b8daf95efa267eddb8fd1": { "balance": "0x152d02c7e14af6800000" }
+          }
+        }
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+- name: init-keystore
+  image: bash:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - bash
+    - -ac
+    - >
+      mkdir -p /data/keystore;
+      export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      echo "Adding key for node $INDEX";
+      echo '' > /data/keystore/signer.password;
+      key="SIGNER_KEY_$INDEX";
+      echo ${!key} > /data/keystore/signer.json
+  env:
+    - name: SIGNER_KEY_0
+      value: >
+        {"address":"36d56343bc308d4ffaac2f793d121aba905fa6cc","crypto":{"cipher":"aes-128-ctr","ciphertext":"ba2bde34db89053af013ff86180d471316388737e50a6c88450092b4e7945f0a","cipherparams":{"iv":"42b4d85dac7f246ff1e1b84c9346879f"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"6bd8f086e565bab018ddcc31a48d3a45b87e1e084e1f64520200c81e01eeea00"},"mac":"e095eb4f01a9b9095c595dfd0dbe2befe863269ab2533f38ca948570e69b8367"},"id":"0ace152e-07d4-4e96-ad08-e8d108cef9fd","version":3}
+    - name: SIGNER_KEY_1
+      value: >
+        {"address":"5e762d4a3847cadaf40a4b0c39574b0ff6698c78","crypto":{"cipher":"aes-128-ctr","ciphertext":"1c5f8ff8921d3eec8215ecc60d0bd082f8f5486dd04c01a9a7e4f977cc680f18","cipherparams":{"iv":"5f9d8ceebbf8834b9400545c95f55736"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"0072b4d749703285cbd7b9aa1907e7a44834a962ca7f886dc90e4c71a9f8a867"},"mac":"2094d1c2f8f77b4e2b3112d4568f98d89560994fdc3166de6aafb35cc09d0384"},"id":"0e9c951c-9b27-465c-bcea-a12b74934e4c","version":3}
+    - name: SIGNER_KEY_2
+      value: >
+        {"address":"15d7acc1019fdf8ab4f0f7bd31ec1487ecb5a2bd","crypto":{"cipher":"aes-128-ctr","ciphertext":"5c5872a538adad20e5ef32eab86f88ec7689acd7c7d8cbb49b53ddba0617cc9b","cipherparams":{"iv":"2cbaec07ad298cad68ff87a27f1f971a"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"ea7c6528d8e0587f37f16d32666bfd132f2b83815872de7f5c55981523ff4dd7"},"mac":"acf420f49759ba92362366950f198fda81ff5eff03b6777b72c006dff5085118"},"id":"3bbf12aa-6b70-47f4-b3a9-61a4f121adf2","version":3}
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+extraContainers:
+  - name: enode-http
+    image: msoap/shell2http:1.13
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - sh
+    - -ace
+    - >
+      apk update && apk add jq -y;
+      exec /app/shell2http -port 8888 /enode
+      "echo '{\"jsonrpc\":\"2.0\",\"method\":\"admin_nodeInfo\",\"params\":[],\"id\":1}' | nc local:/data/geth.ipc | jq -r '.result.enode'"
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly: true
+    ports:
+      - name: enode-http
+        containerPort: 8888
+        protocol: TCP
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+resources: {}
+
+
+#export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+#      ENODE=$(curl -s geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode);
+#      echo "Adding bootnode peer $ENODE";
+# echo "{\"jsonrpc\":\"2.0\",\"method\":\"admin_addPeer\",\"params\":[\"$ENODE\"],\"id\":1}" | nc local:/data/geth.ipc;

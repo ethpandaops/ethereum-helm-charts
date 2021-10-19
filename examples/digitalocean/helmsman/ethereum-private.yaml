@@ -1,0 +1,40 @@
+context: ethereum-private
+
+namespaces:
+  ethereum-private:
+    protected: false
+
+apps:
+  # Execution layer
+  ethstats:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/ethstats"
+    version: "0.1.0"
+    priority: -100
+    valuesFiles:
+      - values/private/ethstats.yaml
+  geth-bootnode:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/geth"
+    version: "0.1.0"
+    priority: -100
+    wait: true
+    valuesFiles:
+      - values/private/geth-bootnode.yaml
+  geth-signer:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/geth"
+    version: "0.1.0"
+    priority: -90
+    valuesFiles:
+      - values/private/geth-signer.yaml
+  geth:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/geth"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/geth.yaml

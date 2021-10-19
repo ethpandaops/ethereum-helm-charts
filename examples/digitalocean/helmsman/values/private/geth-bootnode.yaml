@@ -1,0 +1,101 @@
+replicas: 1
+
+extraArgs:
+- --bootnodes=""
+- --networkid=1337331
+- --ethstats=$(hostname):PrivateNetwork@ethstats:3000
+- --maxpeers 500
+- --nodekeyhex 97f3834f120545527fe7732d4e1ecfca9eab1c77762b86e57f1b56dc03c29b2a
+- --verbosity=4
+
+initContainers:
+- name: init-genesis
+  image: ethereum/client-go:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ac
+    - >
+      if ! [ -f /data/genesis.json ];
+      then
+        echo $GENESIS > /data/genesis.json;
+        geth init --datadir /data /data/genesis.json;
+        echo "Genesis init done";
+      else
+        echo "Genesis is already initialized";
+      fi
+  env:
+    - name: GENESIS
+      value: >
+        {
+          "config": {
+            "chainId":1337331,
+            "homesteadBlock":0,
+            "eip150Block":0,
+            "eip155Block":0,
+            "eip158Block":0,
+            "byzantiumBlock":0,
+            "constantinopleBlock":0,
+            "petersburgBlock":0,
+            "istanbulBlock":0,
+            "berlinBlock":0,
+            "londonBlock":0,
+            "clique": {
+              "period": 12,
+              "epoch": 30000
+            }
+          },
+          "difficulty": "1",
+          "gasLimit": "8000000",
+          "extradata": "0x000000000000000000000000000000000000000000000000000000000000000036d56343bc308d4ffaac2f793d121aba905fa6cc5e762d4a3847cadaf40a4b0c39574b0ff6698c7815d7acc1019fdf8ab4f0f7bd31ec1487ecb5a2bd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "alloc": {
+            "c41208bdb04cada3439b8daf95efa267eddb8fd1": { "balance": "0x152d02c7e14af6800000" }
+          }
+        }
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+extraContainers:
+  - name: enode-http
+    image: msoap/shell2http:1.13
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - sh
+    - -ace
+    - >
+      apk update && apk add jq -y;
+      exec /app/shell2http -port 8888 /enode
+      "echo '{\"jsonrpc\":\"2.0\",\"method\":\"admin_nodeInfo\",\"params\":[],\"id\":1}' | nc local:/data/geth.ipc | jq -r '.result.enode'"
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly: true
+    ports:
+      - name: enode-http
+        containerPort: 8888
+        protocol: TCP
+    livenessProbe:
+      httpGet:
+        port: 8888
+        path: /enode
+      initialDelaySeconds: 5
+      periodSeconds: 120
+    readinessProbe:
+      httpGet:
+        port: 8888
+        path: /enode
+      initialDelaySeconds: 5
+      periodSeconds: 10
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+resources: {}
