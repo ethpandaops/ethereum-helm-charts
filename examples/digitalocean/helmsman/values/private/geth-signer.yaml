@@ -21,44 +21,16 @@ initContainers:
     runAsUser: 0
   command:
     - sh
-    - -ac
+    - -ace
     - >
       if ! [ -f /data/genesis.json ];
       then
-        echo $GENESIS > /data/genesis.json;
+        wget -O /data/genesis.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json;
         geth init --datadir /data /data/genesis.json;
         echo "Genesis init done";
       else
         echo "Genesis is already initialized";
       fi
-  env:
-    - name: GENESIS
-      value: >
-        {
-          "config": {
-            "chainId":1337331,
-            "homesteadBlock":0,
-            "eip150Block":0,
-            "eip155Block":0,
-            "eip158Block":0,
-            "byzantiumBlock":0,
-            "constantinopleBlock":0,
-            "petersburgBlock":0,
-            "istanbulBlock":0,
-            "berlinBlock":0,
-            "londonBlock":0,
-            "clique": {
-              "period": 12,
-              "epoch": 30000
-            }
-          },
-          "difficulty": "1",
-          "gasLimit": "8000000",
-          "extradata": "0x000000000000000000000000000000000000000000000000000000000000000036d56343bc308d4ffaac2f793d121aba905fa6cc5e762d4a3847cadaf40a4b0c39574b0ff6698c7815d7acc1019fdf8ab4f0f7bd31ec1487ecb5a2bd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-          "alloc": {
-            "c41208bdb04cada3439b8daf95efa267eddb8fd1": { "balance": "0x152d02c7e14af6800000" }
-          }
-        }
   volumeMounts:
     - name: storage
       mountPath: "/data"
