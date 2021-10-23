@@ -1,0 +1,69 @@
+replicas: 1
+
+mode: "bootnode"
+
+extraArgs:
+  - --testnet-dir=/data/testnet_spec
+
+initContainers:
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+extraContainers:
+  - name: enr-http
+    image: msoap/shell2http:1.13
+    imagePullPolicy: IfNotPresent
+    args:
+    - -port
+    - "8888"
+    - /enr
+    - "cat /data/beacon/network/enr.dat"
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly: true
+    ports:
+      - name: enr-http
+        containerPort: 8888
+        protocol: TCP
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+  storageClassName: do-block-storage
+
+livenessProbe: null
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /enr
+    port: 8888
+  initialDelaySeconds: 5
+  periodSeconds: 5
+
+resources: {}

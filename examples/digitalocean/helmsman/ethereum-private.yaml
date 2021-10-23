@@ -5,6 +5,15 @@ namespaces:
     protected: false
 
 apps:
+  # Genesis creator
+  genesis-cl:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/genesis-cl"
+    version: "0.1.0"
+    priority: -100
+    valuesFiles:
+      - "values/private/genesis-cl.yaml"
   # Execution layer
   ethstats:
     namespace: ethereum-private
@@ -38,3 +47,19 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/geth.yaml
+  # Consensus layer
+  lighthouse-bootnode:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    priority: -80
+    valuesFiles:
+      - values/private/lighthouse-bootnode.yaml
+  lighthouse-beacon:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/lighthouse-beacon.yaml

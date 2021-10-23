@@ -1,0 +1,9 @@
+image:
+  tag: latest@sha256:52bcb0a658643f7cef4e41a7c30f4569ce4de756bfcb0d2b0bcb542ddc0b951a
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+  storageClassName: do-block-storage
