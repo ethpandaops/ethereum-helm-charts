@@ -1,0 +1,239 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- genesis-cl container image repository
+  repository: skylenet/ethereum-genesis-cl
+  # -- genesis-cl container image tag
+  tag: latest
+  # -- genesis-cl container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Custom args for the genesis-cl container
+customArgs: []
+  #- -config-file=/somehwere-else.yaml
+  #- -output-dir=public
+
+# -- Command replacement for the genesis-cl container
+customCommand: [] # Only change this if you need to change the default command
+
+# -- Config file
+# @default -- See `values.yaml`
+config:
+  config.yaml: |
+    PRESET_BASE: 'mainnet'
+    MIN_GENESIS_ACTIVE_VALIDATOR_COUNT: 16384
+    MIN_GENESIS_TIME: 0
+    GENESIS_FORK_VERSION: 0x13001020
+    GENESIS_DELAY: 120
+    # Altair
+    ALTAIR_FORK_VERSION: 0x01001020
+    ALTAIR_FORK_EPOCH: 36660
+    # Merge
+    MERGE_FORK_VERSION: 0x02001020
+    MERGE_FORK_EPOCH: 18446744073709551615
+    # Sharding
+    SHARDING_FORK_VERSION: 0x03001020
+    SHARDING_FORK_EPOCH: 18446744073709551615
+    # Time parameters
+    # ---------------------------------------------------------------
+    # 12 seconds
+    SECONDS_PER_SLOT: 12
+    # 14 (estimate from Eth1 mainnet)
+    SECONDS_PER_ETH1_BLOCK: 14
+    # 2**8 (= 256) epochs ~27 hours
+    MIN_VALIDATOR_WITHDRAWABILITY_DELAY: 256
+    # 2**8 (= 256) epochs ~27 hours
+    SHARD_COMMITTEE_PERIOD: 256
+    # 2**11 (= 2,048) Eth1 blocks ~8 hours
+    ETH1_FOLLOW_DISTANCE: 12
+    # Validator cycle
+    # ---------------------------------------------------------------
+    # 2**2 (= 4)
+    INACTIVITY_SCORE_BIAS: 4
+    # 2**4 (= 16)
+    INACTIVITY_SCORE_RECOVERY_RATE: 16
+    # 2**4 * 10**9 (= 16,000,000,000) Gwei
+    EJECTION_BALANCE: 16000000000
+    # 2**2 (= 4)
+    MIN_PER_EPOCH_CHURN_LIMIT: 4
+    # 2**16 (= 65,536)
+    CHURN_LIMIT_QUOTIENT: 65536
+    # Deposit contract
+    # ---------------------------------------------------------------
+    DEPOSIT_CHAIN_ID: 1337331
+    DEPOSIT_NETWORK_ID: 1337331
+    DEPOSIT_CONTRACT_ADDRESS: 0x4242424242424242424242424242424242424242
+  mnemonics.yaml: |
+    - mnemonic: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"  # a 24 word BIP 39 mnemonic
+      count: 20000
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 300
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 1Gi
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 5
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+# - name: TIMESTAMP_DELAY_SECONDS
+# - value: "180"
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+
+initChownData:
+  # -- Init container to set the correct permissions to access data directories
+  enabled: true
+  image:
+    # -- Container repository
+    repository: busybox
+    # -- Container tag
+    tag: "1.34.0"
+    # -- Container pull policy
+    pullPolicy: IfNotPresent
+  # -- Resource requests and limits
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
