@@ -63,3 +63,10 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-beacon.yaml
+  lighthouse-validator:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/lighthouse"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/lighthouse-validator.yaml
