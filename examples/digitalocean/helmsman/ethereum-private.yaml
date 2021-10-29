@@ -70,3 +70,10 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-validator.yaml
+  eth2-fork-mon:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/eth2-fork-mon"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/eth2-fork-mon.yaml
