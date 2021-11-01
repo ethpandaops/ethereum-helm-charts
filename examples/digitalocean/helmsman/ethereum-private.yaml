@@ -70,6 +70,27 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-validator.yaml
+  prysm-beacon:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/prysm"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/prysm-beacon.yaml
+  teku-beacon:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/teku"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/teku-beacon.yaml
+  nimbus:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/nimbus-eth2"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/nimbus.yaml
   eth2-fork-mon:
     namespace: ethereum-private
     enabled: true

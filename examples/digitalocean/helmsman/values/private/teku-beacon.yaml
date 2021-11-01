@@ -1,0 +1,42 @@
+replicas: 1
+
+mode: "beacon"
+
+extraArgs:
+  - --initial-state=/data/testnet_spec/genesis.ssz
+  - --network=/data/testnet_spec/config.yaml
+  - --p2p-discovery-bootnodes="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
+  - --eth1-endpoint=http://geth.ethereum-private.svc.cluster.local:8545
+  - --logging=DEBUG
+initContainers:
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi;
+      wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+#persistence:
+#  enabled: true
+#  size: 2Gi
+
+resources: {}
