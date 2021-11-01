@@ -1,0 +1,232 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- beaconchain-explorer container image repository
+  repository: gobitfly/eth2-beaconchain-explorer
+  # -- beaconchain-explorer container image tag
+  tag: latest
+  # -- beaconchain-explorer container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Custom args for the beaconchain-explorer container
+customArgs: []
+  #- -config-file=/somehwere-else.yaml
+  #- -output-dir=public
+
+# -- Command replacement for the beaconchain-explorer container
+customCommand: [] # Only change this if you need to change the default command
+
+# -- Config file
+# @default -- See `values.yaml`
+config:
+  # Database credentials
+  database:
+    user: "postgres"
+    name: "explorer"
+    host: "beaconchain-explorer-postgresql"
+    port: "5432"
+    password: "postgres"
+
+  # Chain network configuration (example will work for the prysm testnet)
+  chain:
+    slotsPerEpoch: 32
+    secondsPerSlot: 12
+    genesisTimestamp: 1573489682
+    minGenesisActiveValidatorCount: 16384
+  # Note: It is possible to run either the frontend or the indexer or both at the same time
+  # Frontend config
+  frontend:
+    enabled: true # Enable or disable to web frontend
+    phase0path: "./phase0.yml"
+    imprint: "templates/imprint.example.html}**"  # Path to the imprint page content
+    siteName: "Ethereum 2.0 Beacon Chain Block Chain Explorer" # Name of the site, displayed in the title tag
+    siteSubtitle: "Watching all the blocks" # Subtitle shown on the main page
+    csrfAuthKey: '0123456789abcdef000000000000000000000000000000000000000000000000'
+    jwtSigningSecret: "0123456789abcdef000000000000000000000000000000000000000000000000"
+    jwtIssuer: "beaconchain.localhost"
+    jwtValidityInMinutes: 30
+    server:
+      host: "0.0.0.0" # Address to listen on
+      port: "3333" # Port to listen on
+    database:
+      user: "postgres"
+      name: "explorer"
+      host: "beaconchain-explorer-postgresql"
+      port: "5432"
+      password: "postgres"
+    #sessionSecret: "<sessionSecret>"
+    #email:
+    #  smtp:
+    #    server: "<emailserver>"
+    #    host: "<emailhost>"
+    #    user: "<emailuser>"
+    #    password: "<emailpassword>"
+    #flashSecret: "" # Encryption secret for flash cookies
+
+  # Indexer config
+  indexer:
+    enabled: true # Enable or disable the indexing service
+    fullIndexOnStartup: false # Perform a one time full db index on startup
+    indexMissingEpochsOnStartup: false # Check for missing epochs and export them after startup
+    node:
+      host: "prysm-beacon" # Address of the backend node
+      port: "4000" # port of the backend node
+      type: "prysm" # can be either prysm or lighthouse
+      pageSize: 500 # the amount of entries to fetch per paged rpc call
+    eth1Endpoint: 'https://goerli.infura.io/v3/<api-token>'
+    eth1DepositContractAddress: '0x5cA1e00004366Ac85f492887AAab12d0e6418876'
+    eth1DepositContractFirstBlock: 2523557
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+
+postgresql:
+  # -- If enabled a postgres chart will be deployed as a dependency
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 11.13.0-debian-10-r58
+  pullPolicy: IfNotPresent
+  initdbUser: postgres
+  initdbPassword: postgres
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres
+  initdbScripts:
+    init.sql: |
+      CREATE DATABASE explorer;
+    init_db.sh: |
+      #!/bin/sh
+      curl https://raw.githubusercontent.com/gobitfly/eth2-beaconchain-explorer/master/tables.sql -o /tmp/tables.sql
+      PGPASSWORD=postgres psql -U postgres -h 127.0.0.1 -d explorer -f /tmp/tables.sql
+      rm /tmp/tables.sql
