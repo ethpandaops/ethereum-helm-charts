@@ -19,6 +19,7 @@ Consensus layer clients
 - [`teku`](charts/teku)
 
 Tooling
+- [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
