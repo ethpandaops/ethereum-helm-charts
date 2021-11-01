@@ -1,0 +1,33 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Connecting to an external PostgreSQL database
+
+```yaml
+# Disable the postgres deployment
+postgresql:
+  enabled: false
+
+config:
+  database:
+    user: "pguser"
+    name: "explorer"
+    host: "your-postgres-db.somewhere.internal"
+    port: "5432"
+    password: "pgpassword"
+```
