@@ -46,7 +46,6 @@
 - >
   exec lighthouse
   validator
-  --datadir=/data
   --metrics
   --metrics-address=0.0.0.0
   --metrics-port={{ include "lighthouse.metricsPort" . }}
