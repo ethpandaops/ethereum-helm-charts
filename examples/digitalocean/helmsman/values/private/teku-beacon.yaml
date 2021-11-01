@@ -1,4 +1,4 @@
-replicas: 1
+replicas: 2
 
 mode: "beacon"
 
@@ -7,7 +7,7 @@ extraArgs:
   - --network=/data/testnet_spec/config.yaml
   - --p2p-discovery-bootnodes="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
   - --eth1-endpoint=http://geth.ethereum-private.svc.cluster.local:8545
-  - --logging=DEBUG
+  - --logging=INFO
 initContainers:
 - name: init-genesis
   image: alpine:latest
