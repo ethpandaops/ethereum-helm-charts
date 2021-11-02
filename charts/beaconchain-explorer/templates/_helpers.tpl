@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "beaconchain-explorer.httpPort" -}}
-{{- printf "8080" -}}
+{{- printf "3333" -}}
 {{- end -}}
