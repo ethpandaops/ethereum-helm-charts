@@ -84,6 +84,13 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-beacon.yaml
+  lodestar-beacon:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/lodestar"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/lodestar-beacon.yaml
   nimbus:
     namespace: ethereum-private
     enabled: true
