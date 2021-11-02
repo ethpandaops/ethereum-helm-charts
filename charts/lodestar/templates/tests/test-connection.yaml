@@ -1,0 +1,20 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "lodestar.fullname" . }}-test-connection"
+  labels:
+    {{- include "lodestar.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+    {{- if eq .Values.mode "beacon" }}
+      args: ['{{ include "lodestar.fullname" . }}:{{ include "lodestar.httpPort" . }}/eth/v1/node/version']
+    {{- else }}
+      args: ['{{ include "lodestar.fullname" . }}:{{ include "lodestar.metricsPort" . }}/metrics']
+    {{- end }}
+  restartPolicy: Never
