@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "lodestar.fullname" . }}-headless
+  labels:
+    {{- include "lodestar.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+  {{- if eq .Values.mode "beacon" }}
+    - port: {{ include "lodestar.p2pPort" . }}
+      targetPort: p2p-tcp
+      protocol: TCP
+      name: p2p-tcp
+    - port: {{ include "lodestar.p2pPort" . }}
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+    - port: {{ include "lodestar.httpPort" . }}
+      targetPort: http-api
+      protocol: TCP
+      name: http-api
+    - port: {{ include "lodestar.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "lodestar.selectorLabels" . | nindent 4 }}
