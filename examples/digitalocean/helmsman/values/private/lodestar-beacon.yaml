@@ -15,7 +15,7 @@ extraArgs:
   - --eth1.enabled
   - --eth1.providerUrls=http://geth.ethereum-private.svc.cluster.local:8545
   - --logLevel=verbose
-  - --eth1.depositContractDeployBlock=0
+  - --eth1.depositContractDeployBlock=$(cat /data/testnet_spec/deploy_block.txt)
 initContainers:
 - name: init-genesis
   image: alpine:latest
