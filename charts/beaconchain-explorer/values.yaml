@@ -222,10 +222,12 @@ postgresql:
   initdbPassword: postgres
   postgresqlUsername: postgres
   postgresqlPassword: postgres
+  # -- How to init the PSQL DB
+  # @default -- See `values.yaml`
   initdbScripts:
-    init.sql: |
+    init_01.sql: |
       CREATE DATABASE explorer;
-    init_db.sh: |
+    init_02_db.sh: |
       #!/bin/sh
       curl https://raw.githubusercontent.com/gobitfly/eth2-beaconchain-explorer/master/tables.sql -o /tmp/tables.sql
       PGPASSWORD=postgres psql -U postgres -h 127.0.0.1 -d explorer -f /tmp/tables.sql

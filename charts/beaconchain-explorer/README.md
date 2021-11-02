@@ -54,8 +54,7 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
 | postgresql.image.tag | string | `"11.13.0-debian-10-r58"` |  |
 | postgresql.initdbPassword | string | `"postgres"` |  |
-| postgresql.initdbScripts."init.sql" | string | `"CREATE DATABASE explorer;\n"` |  |
-| postgresql.initdbScripts."init_db.sh" | string | `"#!/bin/sh\ncurl https://raw.githubusercontent.com/gobitfly/eth2-beaconchain-explorer/master/tables.sql -o /tmp/tables.sql\nPGPASSWORD=postgres psql -U postgres -h 127.0.0.1 -d explorer -f /tmp/tables.sql\nrm /tmp/tables.sql\n"` |  |
+| postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
 | postgresql.initdbUser | string | `"postgres"` |  |
 | postgresql.postgresqlPassword | string | `"postgres"` |  |
 | postgresql.postgresqlUsername | string | `"postgres"` |  |
