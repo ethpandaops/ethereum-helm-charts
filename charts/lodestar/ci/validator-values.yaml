@@ -23,9 +23,10 @@ initContainers:
         echo "====";
         key="NODE_${INDEX}_KEY_${i}";
         PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
-        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+        mkdir "/data/validator/keys/0x${PUBKEY}";
+        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/voting-keystore.json";
         secret="NODE_${INDEX}_SECRET_${i}";
-        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
         echo "Added 0x${PUBKEY}";
       done
     volumeMounts:
@@ -48,8 +49,6 @@ extraArgs:
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596
 
-livenessProbe:
-  tcpSocket: null
+livenessProbe: null
 
-readinessProbe:
-  tcpSocket: null
+readinessProbe: null

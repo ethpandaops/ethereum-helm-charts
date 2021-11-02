@@ -4,7 +4,7 @@
 {{- define "lodestar.beaconCommand" -}}
 - sh
 - -ac
-- >
+- >-
 {{- if .Values.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}

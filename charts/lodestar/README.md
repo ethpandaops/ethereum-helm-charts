@@ -151,11 +151,13 @@ initContainers:
       KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
       for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
       do
+        echo "====";
         key="NODE_${INDEX}_KEY_${i}";
         PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
-        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+        mkdir "/data/validator/keys/0x${PUBKEY}";
+        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/voting-keystore.json";
         secret="NODE_${INDEX}_SECRET_${i}";
-        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
         echo "Added 0x${PUBKEY}";
       done
     volumeMounts:
@@ -180,15 +182,14 @@ initContainers:
             key: NODE_0_KEY_0
 
 extraArgs:
+  - --network=prater
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596
 
-livenessProbe:
-  tcpSocket: null
+livenessProbe: null
 
-readinessProbe:
-  tcpSocket: null
+readinessProbe: null
 
 secretEnv:
   # Note: Never publish any of your production secrets online. These are just used for testing purposes.
