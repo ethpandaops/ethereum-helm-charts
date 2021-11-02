@@ -22,7 +22,7 @@
   --enr.tcp={{ include "lodestar.p2pPort" . }}
   --enr.udp={{ include "lodestar.p2pPort" . }}
 {{- end }}
-  --api.rest.enabledtrue
+  --api.rest.enabled=true
   --api.rest.host=0.0.0.0
   --api.rest.port={{ include "lodestar.httpPort" . }}
   --metrics.enabled=true
