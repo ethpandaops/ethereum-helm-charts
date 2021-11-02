@@ -1,0 +1,15 @@
+config:
+  chain:
+    slotsPerEpoch: 32
+    secondsPerSlot: 12
+    genesisTimestamp: 1635507000 # This can change. Need to find a way to fetch this from Genesis.
+    minGenesisActiveValidatorCount: 16384
+  indexer:
+    node:
+      host: "lighthouse-beacon-1.lighthouse-beacon-headless.ethereum-private.svc.cluster.local"
+      port: "5052"
+      type: "lighthouse" # can be either prysm or lighthouse
+      pageSize: 500 # the amount of entries to fetch per paged rpc call
+    eth1Endpoint: http://geth.ethereum-private.svc.cluster.local:8545
+    eth1DepositContractAddress: '0x4242424242424242424242424242424242424242' #
+    eth1DepositContractFirstBlock: 0

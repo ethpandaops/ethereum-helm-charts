@@ -91,6 +91,14 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/nimbus.yaml
+  # Tooling
+  beaconchain-explorer:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/beaconchain-explorer"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/beaconchain-explorer.yaml
   eth2-fork-mon:
     namespace: ethereum-private
     enabled: true
