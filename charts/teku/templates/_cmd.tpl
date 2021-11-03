@@ -38,15 +38,17 @@
 # Validator command
 */}}
 {{- define "teku.validatorCommand" -}}
-- /opt/teku/bin/teku
-- validator-client
-- --log-destination=CONSOLE
-- --data-path=/data
-- --metrics-enabled
-- --metrics-interface=0.0.0.0
-- --metrics-host-allowlist=*
-- --metrics-port={{ include "teku.metricsPort" . }}
+- sh
+- -ac
+- >
+  exec /opt/teku/bin/teku validator-client
+  --log-destination=CONSOLE
+  --data-path=/data
+  --metrics-enabled
+  --metrics-interface=0.0.0.0
+  --metrics-host-allowlist=*
+  --metrics-port={{ include "teku.metricsPort" . }}
 {{- range .Values.extraArgs }}
--  {{ . }}
+  {{ . }}
 {{- end }}
 {{- end }}
