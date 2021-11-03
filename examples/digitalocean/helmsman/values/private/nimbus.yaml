@@ -1,4 +1,5 @@
 replicas: 5
+podManagementPolicy: Parallel
 
 extraArgs:
   - --network=/data/testnet_spec/

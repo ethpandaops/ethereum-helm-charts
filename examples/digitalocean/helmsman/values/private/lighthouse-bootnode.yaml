@@ -1,5 +1,7 @@
 replicas: 1
 
+podManagementPolicy: Parallel
+
 mode: "bootnode"
 
 extraArgs:

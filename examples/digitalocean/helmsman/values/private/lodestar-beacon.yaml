@@ -1,5 +1,7 @@
 replicas: 2
 
+podManagementPolicy: Parallel
+
 image:
   repository: chainsafe/lodestar
   tag: next

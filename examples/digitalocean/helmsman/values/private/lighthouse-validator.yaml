@@ -1,5 +1,7 @@
 replicas: 5
 
+podManagementPolicy: Parallel
+
 mode: validator
 
 extraArgs:
@@ -25,13 +27,6 @@ readinessProbe:
   httpGet:
     path: /metrics
     port: 5054
-
-persistence:
-  enabled: true
-  accessModes:
-  - ReadWriteOnce
-  size: 1Gi
-  storageClassName: do-block-storage
 
 serviceMonitor:
   enabled: true
@@ -98,3 +93,10 @@ initContainers:
       value: "0"
     - name: MNEMONIC
       value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+
+#persistence:
+#  enabled: true
+#  accessModes:
+#  - ReadWriteOnce
+#  size: 1Gi
+#  storageClassName: do-block-storage

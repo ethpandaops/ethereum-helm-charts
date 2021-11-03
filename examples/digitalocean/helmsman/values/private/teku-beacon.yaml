@@ -1,4 +1,5 @@
 replicas: 2
+podManagementPolicy: Parallel
 
 mode: "beacon"
 

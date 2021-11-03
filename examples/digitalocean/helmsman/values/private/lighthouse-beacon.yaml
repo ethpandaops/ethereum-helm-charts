@@ -1,5 +1,7 @@
 replicas: 10
 
+podManagementPolicy: Parallel
+
 mode: "beacon"
 
 extraArgs:

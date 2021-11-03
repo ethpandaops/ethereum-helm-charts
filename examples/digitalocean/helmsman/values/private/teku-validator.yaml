@@ -1,4 +1,5 @@
-replicas: 1
+replicas: 2
+podManagementPolicy: Parallel
 
 mode: validator
 
@@ -20,13 +21,6 @@ readinessProbe:
   httpGet:
     path: /metrics
     port: 8008
-
-persistence:
-  enabled: true
-  accessModes:
-  - ReadWriteOnce
-  size: 1Gi
-  storageClassName: do-block-storage
 
 serviceMonitor:
   enabled: true
@@ -67,3 +61,10 @@ initContainers:
       value: "20000:24000"
     - name: NODE_1_KEY_RANGE
       value: "24000:28000"
+
+#persistence:
+#  enabled: true
+#  accessModes:
+#  - ReadWriteOnce
+#  size: 1Gi
+#  storageClassName: do-block-storage
