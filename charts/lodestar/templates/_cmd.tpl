@@ -38,11 +38,13 @@
 # Validator command
 */}}
 {{- define "lodestar.validatorCommand" -}}
-- node
-- /usr/app/node_modules/.bin/lodestar
-- validator
-- --rootDir=/data
+- sh
+- -ac
+- >-
+  node /usr/app/node_modules/.bin/lodestar
+  validator
+  --rootDir=/data
 {{- range .Values.extraArgs }}
--  {{ . }}
+  {{ . }}
 {{- end }}
 {{- end }}
