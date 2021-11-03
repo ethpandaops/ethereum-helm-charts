@@ -5,6 +5,8 @@ extraArgs:
   - --bootstrap-file=/data/testnet_spec/bootstrap_nodes.txt
   - --web3-url=http://geth.ethereum-private.svc.cluster.local:8545
   - --max-peers=30
+  - --validators-dir=/data/validator/keys/
+  - --secrets-dir=/data/validator/secrets/
 initContainers:
 - name: init-genesis
   image: alpine:latest
@@ -31,6 +33,48 @@ initContainers:
   volumeMounts:
     - name: storage
       mountPath: "/data"
+- name: init-keys
+  image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - bash
+    - -ace
+    - >
+      if [ -n "$(ls -A /data/validator/keys 2>/dev/null)" ];
+      then
+        echo "keys already exist. skipping...";
+        exit 0;
+      fi;
+      INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      RANGE="NODE_${INDEX}_KEY_RANGE";
+      S_MIN=$(echo ${!RANGE} | cut -d ':' -f1 );
+      S_MAX=$(echo ${!RANGE} | cut -d ':' -f2 );
+      mkdir -p /data/validator/keys /data/validator/secrets;
+      echo "generating keys for node $INDEX. range $S_MIN to $S_MAX";
+      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass Pass123word --insecure --out-loc assigned_data;
+      mv assigned_data/nimbus-keys/* /data/validator/keys/;
+      mv assigned_data/secrets/* /data/validator/secrets/;
+      chmod -R 0600 /data/validator/keys/*/keystore.json /data/validator/secrets/*;
+      echo "finished generating and importing keys";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+  env:
+    - name: MNEMONIC
+      value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+    - name: NODE_0_KEY_RANGE
+      value: "80000:84000"
+    - name: NODE_1_KEY_RANGE
+      value: "84000:88000"
+    - name: NODE_2_KEY_RANGE
+      value: "88000:92000"
+    - name: NODE_3_KEY_RANGE
+      value: "92000:96000"
+    - name: NODE_4_KEY_RANGE
+      value: "96000:100000"
 
 #persistence:
 #  enabled: true
