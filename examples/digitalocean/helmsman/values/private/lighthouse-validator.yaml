@@ -84,7 +84,7 @@ initContainers:
       mkdir -p /data/validator/keys;
       mkdir -p /data/validator/secrets;
       echo "generating keys for node $INDEX. range $S_MIN to $S_MAX";
-      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass Pass123word --out-loc assigned_data;
+      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass Pass123word --insecure --out-loc assigned_data;
       mv assigned_data/keys/* /data/validator/keys/;
       mv assigned_data/secrets/* /data/validator/secrets/;
       echo "finished generating and importing keys";

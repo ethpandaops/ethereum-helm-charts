@@ -84,6 +84,13 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-beacon.yaml
+  teku-validator:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/teku"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/teku-validator.yaml
   lodestar-beacon:
     namespace: ethereum-private
     enabled: true

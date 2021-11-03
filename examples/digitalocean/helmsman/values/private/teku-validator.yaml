@@ -1,0 +1,69 @@
+replicas: 1
+
+mode: validator
+
+extraArgs:
+  - "--beacon-node-api-endpoint=\"\
+    http://teku-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).teku-beacon-headless.ethereum-private.svc.cluster.local:5051\
+    \""
+  - --network=auto
+  - --validator-keys=/data/validator/keys:/data/validator/secrets
+
+livenessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
+
+persistence:
+  enabled: true
+  accessModes:
+  - ReadWriteOnce
+  size: 1Gi
+  storageClassName: do-block-storage
+
+serviceMonitor:
+  enabled: true
+
+initContainers:
+- name: init-keys
+  image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - bash
+    - -ace
+    - >
+      if [ -n "$(ls -A /data/validator/keys 2>/dev/null)" ];
+      then
+        echo "keys already exist. skipping...";
+        exit 0;
+      fi;
+      INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      RANGE="NODE_${INDEX}_KEY_RANGE";
+      S_MIN=$(echo ${!RANGE} | cut -d ':' -f1 );
+      S_MAX=$(echo ${!RANGE} | cut -d ':' -f2 );
+      mkdir -p /data/validator/keys /data/validator/secrets;
+      echo "generating keys for node $INDEX. range $S_MIN to $S_MAX";
+      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass Pass123word --insecure --out-loc assigned_data;
+      mv assigned_data/teku-keys/* /data/validator/keys/;
+      mv assigned_data/teku-secrets/* /data/validator/secrets/;
+      echo "finished generating and importing keys";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+  env:
+    - name: MNEMONIC
+      value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+    - name: NODE_0_KEY_RANGE
+      value: "20000:24000"
+    - name: NODE_1_KEY_RANGE
+      value: "24000:28000"
