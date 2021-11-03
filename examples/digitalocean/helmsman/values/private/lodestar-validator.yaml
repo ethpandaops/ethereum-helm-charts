@@ -10,7 +10,7 @@ extraArgs:
   - --paramsFile=/data/testnet_spec/config.yaml
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
-  - --logLevel=debug
+  - --logLevel=info
 
 livenessProbe: null
 
