@@ -1,0 +1,87 @@
+replicas: 2
+podManagementPolicy: Parallel
+
+mode: validator
+
+extraArgs:
+  - "--server=\"\
+    http://lodestar-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).lodestar-beacon-headless.ethereum-private.svc.cluster.local:9596\
+    \""
+  - --paramsFile=/data/testnet_spec/config.yaml
+  - --keystoresDir=/data/validator/keys
+  - --secretsDir=/data/validator/secrets
+  - --logLevel=debug
+
+livenessProbe: null
+
+readinessProbe: null
+
+initContainers:
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi;
+      wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+- name: init-keys
+  image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - bash
+    - -ace
+    - >
+      if [ -n "$(ls -A /data/validator/keys 2>/dev/null)" ];
+      then
+        echo "keys already exist. skipping...";
+        exit 0;
+      fi;
+      INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      RANGE="NODE_${INDEX}_KEY_RANGE";
+      S_MIN=$(echo ${!RANGE} | cut -d ':' -f1 );
+      S_MAX=$(echo ${!RANGE} | cut -d ':' -f2 );
+      mkdir -p /data/validator/keys /data/validator/secrets;
+      echo "generating keys for node $INDEX. range $S_MIN to $S_MAX";
+      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass Pass123word --insecure --out-loc assigned_data;
+      mv assigned_data/keys/* /data/validator/keys/;
+      mv assigned_data/secrets/* /data/validator/secrets/;
+      chmod -R 0600 /data/validator/keys/*/voting-keystore.json /data/validator/secrets/*;
+      echo "finished generating and importing keys";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+  env:
+    - name: MNEMONIC
+      value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+    - name: NODE_0_KEY_RANGE
+      value: "60000:64000"
+    - name: NODE_1_KEY_RANGE
+      value: "64000:68000"
+
+#persistence:
+#  enabled: true
+#  accessModes:
+#  - ReadWriteOnce
+#  size: 1Gi
+#  storageClassName: do-block-storage

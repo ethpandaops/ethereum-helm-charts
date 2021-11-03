@@ -98,6 +98,13 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lodestar-beacon.yaml
+  lodestar-validator:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/lodestar"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/lodestar-validator.yaml
   nimbus:
     namespace: ethereum-private
     enabled: true
