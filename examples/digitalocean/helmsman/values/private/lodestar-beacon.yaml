@@ -14,7 +14,7 @@ extraArgs:
   - --network.connectToDiscv5Bootnodes=true
   - --eth1.enabled
   - --eth1.providerUrls=http://geth.ethereum-private.svc.cluster.local:8545
-  - --logLevel=verbose
+  - --logLevel=info
   - --eth1.depositContractDeployBlock=$(cat /data/testnet_spec/deploy_block.txt)
 initContainers:
 - name: init-genesis

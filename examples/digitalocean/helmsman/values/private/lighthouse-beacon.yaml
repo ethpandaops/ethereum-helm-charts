@@ -1,4 +1,4 @@
-replicas: 20
+replicas: 10
 
 mode: "beacon"
 

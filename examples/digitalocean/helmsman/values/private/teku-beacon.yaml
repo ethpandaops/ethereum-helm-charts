@@ -5,8 +5,10 @@ mode: "beacon"
 extraArgs:
   - --initial-state=/data/testnet_spec/genesis.ssz
   - --network=/data/testnet_spec/config.yaml
+  - --p2p-discovery-enabled
   - --p2p-discovery-bootnodes="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
   - --eth1-endpoint=http://geth.ethereum-private.svc.cluster.local:8545
+  - --eth1-deposit-contract-address=$(cat /data/testnet_spec/deposit_contract.txt)
   - --logging=INFO
 initContainers:
 - name: init-genesis

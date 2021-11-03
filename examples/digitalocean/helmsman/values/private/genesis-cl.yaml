@@ -1,5 +1,10 @@
 image:
-  tag: latest@sha256:52bcb0a658643f7cef4e41a7c30f4569ce4de756bfcb0d2b0bcb542ddc0b951a
+  tag: latest@sha256:9f2f740ccefaed64cfa085b5078fc74c098ae28eb149ae3128cf231c3b274c4a
+
+config:
+  mnemonics.yaml: |
+    - mnemonic: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"  # a 24 word BIP 39 mnemonic
+      count: 100000
 
 persistence:
   enabled: true
