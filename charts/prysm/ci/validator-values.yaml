@@ -2,9 +2,6 @@ replicas: 1
 
 mode: validator
 
-image:
-  repository: gcr.io/prysmaticlabs/prysm/validator
-
 initContainers:
   - name: init-keystore
     image: bash:latest
