@@ -77,6 +77,13 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/prysm-beacon.yaml
+  prysm-validator:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/prysm"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/prysm-validator.yaml
   teku-beacon:
     namespace: ethereum-private
     enabled: true

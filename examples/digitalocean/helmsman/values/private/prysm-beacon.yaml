@@ -6,7 +6,7 @@ mode: "beacon"
 
 image:
   repository: skylenet/prysm-beacon-debian
-  tag: latest@sha256:08947ac33be775a429f3347ab86c6e7d2d9e0095ce423a1feae155aceb68b638
+  tag: latest@sha256:952480fcaba831d766ec4c69ff43d62da5c9e1147a2f491807e61cc64aa87628
   pullPolicy: IfNotPresent
 
 extraArgs:

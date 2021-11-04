@@ -1,0 +1,87 @@
+replicas: 1
+
+podManagementPolicy: Parallel
+
+mode: validator
+
+image:
+  repository: skylenet/prysm-beacon-debian
+  tag: latest@sha256:952480fcaba831d766ec4c69ff43d62da5c9e1147a2f491807e61cc64aa87628
+  pullPolicy: IfNotPresent
+
+extraArgs:
+  - "--beacon-rpc-provider=\"\
+    prysm-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).prysm-beacon-headless.ethereum-private.svc.cluster.local:4000\
+    \""
+  - --chain-config-file=/data/testnet_spec/config.yaml
+  - --wallet-dir=/data/wallet
+  - --wallet-password-file=/data/wallet_pass.txt
+initContainers:
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi;
+      wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+- name: init-keys
+  image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - bash
+    - -ace
+    - >
+      if [ -n "$(ls -A /data/wallet 2>/dev/null)" ];
+      then
+        echo "a wallet already exist. skipping...";
+        exit 0;
+      fi;
+      PRYSM_PASS="Pass123word";
+      INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      RANGE="NODE_${INDEX}_KEY_RANGE";
+      S_MIN=$(echo ${!RANGE} | cut -d ':' -f1 );
+      S_MAX=$(echo ${!RANGE} | cut -d ':' -f2 );
+      mkdir -p /data/wallet;
+      echo "generating keys for node $INDEX. range $S_MIN to $S_MAX";
+      eth2-val-tools keystores --source-mnemonic="$MNEMONIC" --source-min=$S_MIN --source-max=$S_MAX --prysm-pass=$PRYSM_PASS --insecure --out-loc assigned_data;
+      mv assigned_data/prysm/* /data/wallet/;
+      echo "$PRYSM_PASS" > /data/wallet_pass.txt;
+      chmod 0600 /data/wallet_pass.txt;
+      find /data/wallet -type d -exec chmod 0700 {} \;;
+      find /data/wallet -type f -exec chmod 0600 {} \;;
+      echo "finished generating and importing keys";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+  env:
+    - name: MNEMONIC
+      value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+    - name: NODE_0_KEY_RANGE
+      value: "40000:44000"
+
+#persistence:
+#  enabled: true
+#  size: 2Gi
+
+resources: {}
