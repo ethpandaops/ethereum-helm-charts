@@ -1,4 +1,4 @@
-replicas: 2
+replicas: 5
 podManagementPolicy: Parallel
 
 mode: "beacon"
@@ -25,6 +25,8 @@ initContainers:
       mkdir -p /data/testnet_spec;
       if ! [ -f /data/testnet_spec/genesis.ssz ];
       then
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
         wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
         wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
         wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
@@ -33,7 +35,12 @@ initContainers:
       else
         echo "genesis exists. skipping...";
       fi;
-      wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+      echo "waiting for bootnode to be available";
+      while ! wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+      do
+        sleep 10;
+      done;
+      echo "bootnode init done"
   volumeMounts:
     - name: storage
       mountPath: "/data"

@@ -2,11 +2,17 @@ config:
   endpoints:
     - addr: http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052
       eth1: ""
-    - addr: http://lighthouse-beacon-1.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052
+    - addr: http://prysm-beacon-0.prysm-beacon-headless.ethereum-private.svc.cluster.local:3500
+      eth1: ""
+    - addr: http://teku-beacon-0.teku-beacon-headless.ethereum-private.svc.cluster.local:5051
+      eth1: ""
+    - addr: http://lodestar-beacon-0.lodestar-beacon-headless.ethereum-private.svc.cluster.local:9596
+      eth1: ""
+    - addr: http://nimbus-nimbus-eth2-0.nimbus-nimbus-eth2-headless.ethereum-private.svc.cluster.local:9190
       eth1: ""
   http_timeout_milliseconds: 0
   eth2:
     network: testnet
     seconds_per_slot: 12
-    genesis_time: 1635507000
+    genesis_time: 1636062444 # needs to be fetched from a node
     slots_per_epoch: 32

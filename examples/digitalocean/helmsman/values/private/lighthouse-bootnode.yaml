@@ -22,6 +22,8 @@ initContainers:
       mkdir -p /data/testnet_spec;
       if ! [ -f /data/testnet_spec/genesis.ssz ];
       then
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
         wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
         wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
         wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
