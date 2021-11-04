@@ -36,12 +36,15 @@
 # Validator command
 */}}
 {{- define "prysm.validatorCommand" -}}
-- /app/cmd/validator/validator
-- --accept-terms-of-use=true
-- --datadir=/data
-- --monitoring-host=0.0.0.0
-- --monitoring-port={{ include "prysm.metricsPort" . }}
+- sh
+- -ac
+- >-
+  exec /app/cmd/validator/validator
+  --accept-terms-of-use=true
+  --datadir=/data
+  --monitoring-host=0.0.0.0
+  --monitoring-port={{ include "prysm.metricsPort" . }}
 {{- range .Values.extraArgs }}
--  {{ . }}
+  {{ . }}
 {{- end }}
 {{- end }}
