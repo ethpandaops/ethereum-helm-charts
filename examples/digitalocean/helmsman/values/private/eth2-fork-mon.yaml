@@ -1,4 +1,5 @@
 config:
+  # ENV vars will be replaced using the 'init-config' init container
   endpoints:
     - addr: http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052
       eth1: ""
@@ -14,5 +15,42 @@ config:
   eth2:
     network: testnet
     seconds_per_slot: 12
-    genesis_time: 1636075714 # needs to be fetched from a node
+    genesis_time: $GENESIS_TIME
     slots_per_epoch: 32
+
+customArgs:
+  - -config-file=/config-update/config.yaml
+
+extraVolumes:
+  - name: config-update
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: config-update
+    mountPath: "/config-update"
+
+initContainers:
+  - name: init-config
+    image: bash:latest
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    - -c
+    - >
+      apk add jq curl gettext;
+      BEACON_API_ENDPOINT=http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052/eth/v1/beacon/genesis;
+      echo "waiting to fetch beacon info from $BEACON_API_ENDPOINT";
+      while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' $BEACON_API_ENDPOINT)" != "200" ]]; do sleep 5; done;
+      export GENESIS_TIME=$(curl -s $BEACON_API_ENDPOINT | jq -r '.data.genesis_time');
+      echo "got genesis time: $GENESIS_TIME";
+      envsubst < /config.yaml > /config-update/config.yaml;
+    volumeMounts:
+      - name: config-update
+        mountPath: /config-update
+      - name: config
+        mountPath: "/config.yaml"
+        subPath: config.yaml
+        readOnly: true
