@@ -1,15 +1,65 @@
 config:
+  # ENV vars will be replaced using the 'init-config' init container
   chain:
-    slotsPerEpoch: 32
-    secondsPerSlot: 12
-    genesisTimestamp: 1636075714 # This can change. Need to find a way to fetch this from genesis info of a node.
-    minGenesisActiveValidatorCount: 16384
+    slotsPerEpoch: $SLOTS_PER_EPOCH
+    secondsPerSlot: $SECONDS_PER_SLOT
+    genesisTimestamp: $GENESIS_TIME
+    minGenesisActiveValidatorCount: $MIN_GENESIS_ACTIVE_VALIDATOR_COUNT
   indexer:
     node:
-      host: "lighthouse-beacon-1.lighthouse-beacon-headless.ethereum-private.svc.cluster.local"
+      host: "lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local"
       port: "5052"
-      type: "lighthouse" # can be either prysm or lighthouse
-      pageSize: 500 # the amount of entries to fetch per paged rpc call
+      type: "lighthouse"
+      pageSize: 500
     eth1Endpoint: http://geth.ethereum-private.svc.cluster.local:8545
-    eth1DepositContractAddress: '0x4242424242424242424242424242424242424242' #
-    eth1DepositContractFirstBlock: 0
+    eth1DepositContractAddress: '$DEPOSIT_CONTRACT_ADDRESS'
+    eth1DepositContractFirstBlock: $ETH1_DEPOSIT_CONTRACT_BLOCK
+
+customCommand:
+  - ./explorer
+  - --config
+  - /config-update/config.yaml
+
+extraVolumes:
+  - name: config-update
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: config-update
+    mountPath: "/config-update"
+
+initContainers:
+  - name: init-config
+    image: bash:latest
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    - -ace
+    - >
+      apk add jq curl gettext;
+      GENESIS_API_ENDPOINT=http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052/eth/v1/beacon/genesis;
+      CONFIG_API_ENDPOINT=http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052/eth/v1/config/spec;
+      GENESIS_CONFIG_URL=http://genesis-cl:8000/;
+      echo "waiting to fetch genesis config from $GENESIS_CONFIG_URL";
+      while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' $GENESIS_CONFIG_URL)" != "200" ]]; do sleep 5; done;
+      export ETH1_DEPOSIT_CONTRACT_BLOCK=$(curl -s $GENESIS_CONFIG_URL/deploy_block.txt);
+      echo "waiting to fetch beacon info from $GENESIS_API_ENDPOINT";
+      while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' $GENESIS_API_ENDPOINT)" != "200" ]]; do sleep 5; done;
+      export GENESIS_TIME=$(curl -s $GENESIS_API_ENDPOINT | jq -r '.data.genesis_time');
+      curl -s $CONFIG_API_ENDPOINT > config_spec.yaml;
+      export DEPOSIT_CONTRACT_ADDRESS=$(cat config_spec.yaml | jq -r '.data.DEPOSIT_CONTRACT_ADDRESS' );
+      export MIN_GENESIS_ACTIVE_VALIDATOR_COUNT=$(cat config_spec.yaml | jq -r '.data.MIN_GENESIS_ACTIVE_VALIDATOR_COUNT' );
+      export SECONDS_PER_SLOT=$(cat config_spec.yaml | jq -r '.data.SECONDS_PER_SLOT' );
+      export SLOTS_PER_EPOCH=$(cat config_spec.yaml | jq -r '.data.SLOTS_PER_EPOCH' );
+      echo "got genesis time: $GENESIS_TIME";
+      envsubst < /config.yaml > /config-update/config.yaml;
+    volumeMounts:
+      - name: config-update
+        mountPath: /config-update
+      - name: config
+        mountPath: "/config.yaml"
+        subPath: config.yaml
+        readOnly: true
