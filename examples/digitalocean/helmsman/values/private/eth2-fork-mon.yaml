@@ -9,7 +9,7 @@ config:
       eth1: ""
     - addr: http://lodestar-beacon-0.lodestar-beacon-headless.ethereum-private.svc.cluster.local:9596
       eth1: ""
-    - addr: http://nimbus-nimbus-eth2-0.nimbus-nimbus-eth2-headless.ethereum-private.svc.cluster.local:9190
+    - addr: http://nimbus-nimbus-eth2-0.nimbus-nimbus-eth2-headless.ethereum-private.svc.cluster.local:5052
       eth1: ""
   http_timeout_milliseconds: 0
   eth2:
