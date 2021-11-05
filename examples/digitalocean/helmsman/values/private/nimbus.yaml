@@ -1,4 +1,4 @@
-replicas: 5
+replicas: 9
 podManagementPolicy: Parallel
 
 extraArgs:
@@ -37,7 +37,7 @@ initContainers:
       do
         sleep 10;
       done;
-      echo "bootnode init done"
+      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
   volumeMounts:
     - name: storage
       mountPath: "/data"
@@ -83,6 +83,14 @@ initContainers:
       value: "72000:76000"
     - name: NODE_4_KEY_RANGE
       value: "76000:80000"
+    - name: NODE_5_KEY_RANGE
+      value: "80000:84000"
+    - name: NODE_6_KEY_RANGE
+      value: "84000:88000"
+    - name: NODE_7_KEY_RANGE
+      value: "88000:92000"
+    - name: NODE_8_KEY_RANGE
+      value: "92000:96000"
 
 #persistence:
 #  enabled: true

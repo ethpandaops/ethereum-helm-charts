@@ -2,11 +2,13 @@ replicas: 1
 
 podManagementPolicy: Parallel
 
-mode: "bootnode"
+mode: "beacon"
 
 extraArgs:
   - --testnet-dir=/data/testnet_spec
-  - --debug-level=trace
+  - --eth1
+  - --eth1-endpoints=http://geth.ethereum-private.svc.cluster.local:8545
+  - --target-peers=500
 
 initContainers:
 - name: init-genesis
@@ -40,11 +42,12 @@ extraContainers:
   - name: enr-http
     image: msoap/shell2http:1.13
     imagePullPolicy: IfNotPresent
-    args:
-    - -port
-    - "8888"
-    - /enr
-    - "cat /data/beacon/network/enr.dat"
+    command:
+    - sh
+    - -ace
+    - >
+      while [ ! -f /data/beacon/network/enr.dat ]; do sleep 2; done;
+      /app/shell2http -port 8888 /enr "cat /data/beacon/network/enr.dat";
     volumeMounts:
       - name: storage
         mountPath: "/data"
@@ -61,14 +64,14 @@ persistence:
   size: 1Gi
   storageClassName: do-block-storage
 
-livenessProbe: null
-
-readinessProbe:
-  tcpSocket: null
-  httpGet:
-    path: /enr
-    port: 8888
-  initialDelaySeconds: 5
-  periodSeconds: 5
+#livenessProbe: null
+#
+#readinessProbe:
+#  tcpSocket: null
+#  httpGet:
+#    path: /enr
+#    port: 8888
+#  initialDelaySeconds: 5
+#  periodSeconds: 5
 
 resources: {}

@@ -46,7 +46,7 @@ initContainers:
       do
         sleep 10;
       done;
-      echo "bootnode init done"
+      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
   volumeMounts:
     - name: storage
       mountPath: "/data"

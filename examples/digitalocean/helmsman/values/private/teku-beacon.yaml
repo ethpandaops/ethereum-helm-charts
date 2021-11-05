@@ -1,4 +1,4 @@
-replicas: 5
+replicas: 1
 podManagementPolicy: Parallel
 
 mode: "beacon"
@@ -40,7 +40,7 @@ initContainers:
       do
         sleep 10;
       done;
-      echo "bootnode init done"
+      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
   volumeMounts:
     - name: storage
       mountPath: "/data"

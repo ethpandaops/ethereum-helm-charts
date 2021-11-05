@@ -2,7 +2,7 @@ config:
   chain:
     slotsPerEpoch: 32
     secondsPerSlot: 12
-    genesisTimestamp: 1636062444 # This can change. Need to find a way to fetch this from genesis info of a node.
+    genesisTimestamp: 1636075714 # This can change. Need to find a way to fetch this from genesis info of a node.
     minGenesisActiveValidatorCount: 16384
   indexer:
     node:
