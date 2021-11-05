@@ -17,33 +17,6 @@ livenessProbe: null
 readinessProbe: null
 
 initContainers:
-- name: init-genesis
-  image: alpine:latest
-  imagePullPolicy: IfNotPresent
-  securityContext:
-    runAsNonRoot: false
-    runAsUser: 0
-  command:
-    - sh
-    - -ace
-    - >
-      mkdir -p /data/testnet_spec;
-      if ! [ -f /data/testnet_spec/genesis.ssz ];
-      then
-        echo "waiting for genesis provider";
-        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
-        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
-        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
-        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
-        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
-        echo "genesis init done";
-      else
-        echo "genesis exists. skipping...";
-      fi;
-      wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
-  volumeMounts:
-    - name: storage
-      mountPath: "/data"
 - name: init-keys
   image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
   imagePullPolicy: IfNotPresent
@@ -80,6 +53,53 @@ initContainers:
       value: "50000:51000"
     - name: NODE_1_KEY_RANGE
       value: "0:0"
+
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi;
+      while ! wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+      do
+        sleep 10;
+      done;
+      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+- name: init-beacon-wait
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      HEALTH_API="http://lodestar-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).lodestar-beacon-headless.ethereum-private.svc.cluster.local:9596/eth/v1/node/health";
+      echo "waiting for beacon node to be available on $HEALTH_API";
+      while ! wget $HEALTH_API; do sleep 10; done;
+      echo "beacon node is available"
 
 #persistence:
 #  enabled: true

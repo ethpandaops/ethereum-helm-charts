@@ -1,5 +1,5 @@
 image:
-  tag: latest@sha256:9f2f740ccefaed64cfa085b5078fc74c098ae28eb149ae3128cf231c3b274c4a
+  tag: latest@sha256:0fa5aa0ae384993ae90a722a368f28c45422716e9e733683de5633328b9b409c
 
 config:
   mnemonics.yaml: |
@@ -8,7 +8,7 @@ config:
 
 extraEnv:
   - name: TIMESTAMP_DELAY_SECONDS
-    value: "900" # 15min * 60
+    value: "600" # 10min * 60
 
 persistence:
   enabled: true
