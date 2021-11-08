@@ -9,7 +9,7 @@ An open-source Ethereum consensus layer client, written in Java
 
 ## Source Code
 
-* <https://github.com/status-im/nimbus>
+* <https://github.com/status-im/nimbus-eth2>
 
 ## Values
 

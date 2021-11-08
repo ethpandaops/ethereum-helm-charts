@@ -8,7 +8,7 @@
 {{- if .Values.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec /home/user/nimbus/build/nimbus_beacon_node
+  exec /home/user/nimbus-eth2/build/nimbus_beacon_node
   --data-dir=/data
   --enr-auto-update=false
 {{- if .Values.p2pNodePort.enabled }}

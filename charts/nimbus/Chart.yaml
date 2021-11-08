@@ -4,7 +4,7 @@ description: An open-source Ethereum consensus layer client, written in Java
 home: https://nimbus.guide/
 icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
 sources:
-  - https://github.com/status-im/nimbus
+  - https://github.com/status-im/nimbus-eth2
 type: application
 version: 0.1.0
 maintainers:
