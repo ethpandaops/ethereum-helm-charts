@@ -14,9 +14,8 @@ extraArgs:
   - --chain-config-file=/data/testnet_spec/config.yaml
   - --bootstrap-node="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
   - --http-web3provider=http://geth.ethereum-private.svc.cluster.local:8545
-  - --contract-deployment-block=$(cat /data/testnet_spec/deploy_block.txt)
-  - --deposit-contract=$(cat /data/testnet_spec/deposit_contract.txt)
-  - --chain-id=$(cat /data/testnet_spec/config.yaml | grep DEPOSIT_NETWORK_ID | cut -d ' ' -f2)
+  - --fallback-web3provider=http://geth.ethereum-private.svc.cluster.local:8545
+  - --verbosity=trace
 initContainers:
 - name: init-genesis
   image: alpine:latest
