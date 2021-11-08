@@ -75,3 +75,6 @@ persistence:
 #  periodSeconds: 5
 
 resources: {}
+
+serviceMonitor:
+  enabled: true

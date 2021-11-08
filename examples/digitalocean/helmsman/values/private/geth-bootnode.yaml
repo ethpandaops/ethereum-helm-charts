@@ -71,3 +71,6 @@ persistence:
   size: 5Gi
 
 resources: {}
+
+serviceMonitor:
+  enabled: true

@@ -36,3 +36,6 @@ initContainers:
 #  size: 2Gi
 
 resources: {}
+
+serviceMonitor:
+  enabled: true

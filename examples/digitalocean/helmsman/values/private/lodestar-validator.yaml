@@ -107,3 +107,6 @@ initContainers:
 #  - ReadWriteOnce
 #  size: 1Gi
 #  storageClassName: do-block-storage
+
+serviceMonitor:
+  enabled: true
