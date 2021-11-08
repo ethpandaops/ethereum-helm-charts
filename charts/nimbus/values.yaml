@@ -9,7 +9,7 @@ replicas: 1
 
 image:
   # -- nimbus container image repository
-  repository: statusim/nimbus
+  repository: statusim/nimbus-eth2
   # -- nimbus container image tag
   tag: amd64-latest
   # -- nimbus container pull policy

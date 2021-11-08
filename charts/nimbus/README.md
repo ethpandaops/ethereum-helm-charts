@@ -26,7 +26,7 @@ An open-source Ethereum consensus layer client, written in Java
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
-| image.repository | string | `"statusim/nimbus"` | nimbus container image repository |
+| image.repository | string | `"statusim/nimbus-eth2"` | nimbus container image repository |
 | image.tag | string | `"amd64-latest"` | nimbus container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
