@@ -12,5 +12,5 @@ spec:
     - name: curl
       image: curlimages/curl
       command: ['curl']
-      args: ['{{ include "nimbus-eth2.fullname" . }}:{{ include "nimbus-eth2.rpcPort" . }}/eth/v1/node/version']
+      args: ['{{ include "nimbus-eth2.fullname" . }}:{{ include "nimbus-eth2.restPort" . }}/eth/v1/node/version']
   restartPolicy: Never

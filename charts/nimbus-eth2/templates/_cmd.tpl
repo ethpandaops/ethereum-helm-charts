@@ -20,9 +20,9 @@
   --udp-port={{ include "nimbus-eth2.p2pPort" . }}
   --tcp-port={{ include "nimbus-eth2.p2pPort" . }}
 {{- end }}
-  --rpc=true
-  --rpc-address=0.0.0.0
-  --rpc-port={{ include "nimbus-eth2.rpcPort" . }}
+  --rest=true
+  --rest-address=0.0.0.0
+  --rest-port={{ include "nimbus-eth2.restPort" . }}
   --metrics=true
   --metrics-address=0.0.0.0
   --metrics-port={{ include "nimbus-eth2.metricsPort" . }}

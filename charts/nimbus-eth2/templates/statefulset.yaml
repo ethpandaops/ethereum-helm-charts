@@ -115,7 +115,7 @@ spec:
               protocol: UDP
           {{- end }}
             - name: http-rpc
-              containerPort: {{ include "nimbus-eth2.rpcPort" . }}
+              containerPort: {{ include "nimbus-eth2.restPort" . }}
               protocol: TCP
             - name: metrics
               containerPort: {{ include "nimbus-eth2.metricsPort" . }}

@@ -15,7 +15,7 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "nimbus-eth2.rpcPort" . }}
+    - port: {{ include "nimbus-eth2.restPort" . }}
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc

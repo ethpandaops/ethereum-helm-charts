@@ -65,8 +65,8 @@ Create the name of the service account to use
 {{- printf "9000" -}}
 {{- end -}}
 
-{{- define "nimbus-eth2.rpcPort" -}}
-{{- printf "9190" -}}
+{{- define "nimbus-eth2.restPort" -}}
+{{- printf "5052" -}}
 {{- end -}}
 
 {{- define "nimbus-eth2.metricsPort" -}}
