@@ -15,7 +15,7 @@ Execution layer clients
 Consensus layer clients
 - [`lighthouse`](charts/lighthouse)
 - [`lodestar`](charts/lodestar)
-- [`nimbus-eth2`](charts/nimbus-eth2)
+- [`nimbus`](charts/nimbus)
 - [`prysm`](charts/prysm)
 - [`teku`](charts/teku)
 
