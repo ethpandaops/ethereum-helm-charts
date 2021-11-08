@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "nimbus-eth2.fullname" . }}
+  name: {{ include "nimbus.fullname" . }}
   labels:
-    {{- include "nimbus-eth2.labels" . | nindent 4 }}
+    {{- include "nimbus.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
@@ -11,14 +11,14 @@ spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      {{- include "nimbus-eth2.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "nimbus-eth2.fullname" . }}-headless
+      {{- include "nimbus.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "nimbus.fullname" . }}-headless
   updateStrategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
-        {{- include "nimbus-eth2.selectorLabels" . | nindent 8 }}
+        {{- include "nimbus.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -28,7 +28,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "nimbus-eth2.serviceAccountName" . }}
+      serviceAccountName: {{ include "nimbus.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
@@ -93,7 +93,7 @@ spec:
           {{- if gt (len .Values.customCommand) 0 }}
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-            {{- include "nimbus-eth2.defaultCommand" . | nindent 12 }}
+            {{- include "nimbus.defaultCommand" . | nindent 12 }}
           {{- end }}
           volumeMounts:
             {{- if .Values.extraVolumeMounts }}
@@ -108,17 +108,17 @@ spec:
           ports:
           {{- if not (.Values.p2pNodePort.enabled) }}
             - name: p2p-tcp
-              containerPort: {{ include "nimbus-eth2.p2pPort" . }}
+              containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ include "nimbus-eth2.p2pPort" . }}
+              containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: UDP
           {{- end }}
             - name: http-rpc
-              containerPort: {{ include "nimbus-eth2.restPort" . }}
+              containerPort: {{ include "nimbus.restPort" . }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "nimbus-eth2.metricsPort" . }}
+              containerPort: {{ include "nimbus.metricsPort" . }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -135,7 +135,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "nimbus-eth2.fullname" $ }}-env
+                  name: {{ include "nimbus.fullname" $ }}-env
                   key: {{ $key }}
           {{- end }}
           {{- if .Values.extraEnv }}
@@ -150,10 +150,10 @@ spec:
             - -ac,
             - >
               . /env/init-nodeport;
-              exec socat udp4-recvfrom:{{ include "nimbus-eth2.p2pPort" . }},fork udp4-sendto:localhost:$EXTERNAL_PORT"
+              exec socat udp4-recvfrom:{{ include "nimbus.p2pPort" . }},fork udp4-sendto:localhost:$EXTERNAL_PORT"
           ports:
             - name: p2p-udp
-              containerPort: {{ include "nimbus-eth2.p2pPort" . }}
+              containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: UDP
           volumeMounts:
             - name: env-nodeport
@@ -167,10 +167,10 @@ spec:
             - -ac,
             - >
               . /env/init-nodeport;
-              exec socat tcp-listen:{{ include "nimbus-eth2.p2pPort" . }},reuseaddr,fork tcp:localhost:$EXTERNAL_PORT"
+              exec socat tcp-listen:{{ include "nimbus.p2pPort" . }},reuseaddr,fork tcp:localhost:$EXTERNAL_PORT"
           ports:
             - name: p2p-tcp
-              containerPort: {{ include "nimbus-eth2.p2pPort" . }}
+              containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: TCP
           volumeMounts:
             - name: env-nodeport

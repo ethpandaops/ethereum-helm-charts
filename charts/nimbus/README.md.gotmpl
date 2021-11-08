@@ -99,13 +99,13 @@ initContainers:
           secretKeyRef:
             # Name of the secret that will be generated for you. This is normally `${RELEASE-name}-env`
             # You might need to change this
-            name: nimbus-eth2-env
+            name: nimbus-env
             key: NODE_0_SECRET_0
       - name: NODE_0_KEY_0
         valueFrom:
           secretKeyRef:
             # See comment on the previous secretKeyRef
-            name: nimbus-eth2-env
+            name: nimbus-env
             key: NODE_0_KEY_0
 
 livenessProbe:
