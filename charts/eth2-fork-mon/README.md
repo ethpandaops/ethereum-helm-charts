@@ -64,7 +64,8 @@ Simple client/server to track the (real-time) status of a (configurable) set of 
 ```yaml
 config:
   endpoints:
-    - http://beacon-node:port
+    - addr: http://beacon-node:4000
+      eth1: ""
   http_timeout_milliseconds: 0
   eth2:
     network: mainnet
