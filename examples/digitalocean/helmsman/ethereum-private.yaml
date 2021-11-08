@@ -115,7 +115,7 @@ apps:
   nimbus:
     namespace: ethereum-private
     enabled: true
-    chart: "../../../charts/nimbus-eth2"
+    chart: "../../../charts/nimbus"
     version: "0.1.0"
     valuesFiles:
       - values/private/nimbus.yaml
