@@ -8,19 +8,19 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- nimbus-eth2 container image repository
+  # -- nimbus container image repository
   repository: statusim/nimbus-eth2
-  # -- nimbus-eth2 container image tag
+  # -- nimbus container image tag
   tag: amd64-latest
-  # -- nimbus-eth2 container pull policy
+  # -- nimbus container pull policy
   pullPolicy: IfNotPresent
 
-# -- Extra args for the nimbus-eth2 container
+# -- Extra args for the nimbus container
 extraArgs: []
   #- --network=prater
   #- --web3-url=http://your-eth1-node:8051
 
-# -- Command replacement for the nimbus-eth2 container
+# -- Command replacement for the nimbus container
 customCommand: [] # Only change this if you need to change the default command
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
