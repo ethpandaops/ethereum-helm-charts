@@ -2,12 +2,12 @@ replicas: 1
 
 podManagementPolicy: Parallel
 
+mode: beacon
+
 image:
   repository: chainsafe/lodestar
-  tag: next
+  tag: next@sha256:588ad821c6a9f32777e237812b63712247074545a0a1e1642ef589b1eea78170
   pullPolicy: IfNotPresent
-
-mode: "beacon"
 
 extraArgs:
   - --genesisStateFile=/data/testnet_spec/genesis.ssz
