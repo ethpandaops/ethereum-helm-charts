@@ -1,4 +1,4 @@
-replicas: 12
+replicas: 24
 
 podManagementPolicy: Parallel
 
@@ -11,7 +11,7 @@ image:
 
 extraArgs:
   - "--beacon-rpc-provider=\"\
-    prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/2)).prysm-beacon-headless.ethereum-private.svc.cluster.local:4000\
+    prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/4)).prysm-beacon-headless.ethereum-private.svc.cluster.local:4000\
     \""
   - --chain-config-file=/data/testnet_spec/config.yaml
   - --wallet-dir=/data/wallet
@@ -77,6 +77,31 @@ initContainers:
       value: "58000:59000"
     - name: NODE_11_KEY_RANGE
       value: "59000:60000"
+    - name: NODE_12_KEY_RANGE
+      value: "60000:61000"
+    - name: NODE_13_KEY_RANGE
+      value: "61000:62000"
+    - name: NODE_14_KEY_RANGE
+      value: "62000:63000"
+    - name: NODE_15_KEY_RANGE
+      value: "63000:64000"
+    - name: NODE_16_KEY_RANGE
+      value: "64000:65000"
+    - name: NODE_17_KEY_RANGE
+      value: "65000:66000"
+    - name: NODE_18_KEY_RANGE
+      value: "66000:67000"
+    - name: NODE_19_KEY_RANGE
+      value: "67000:68000"
+    - name: NODE_20_KEY_RANGE
+      value: "68000:69000"
+    - name: NODE_21_KEY_RANGE
+      value: "69000:70000"
+    - name: NODE_22_KEY_RANGE
+      value: "70000:71000"
+    - name: NODE_23_KEY_RANGE
+      value: "71000:72000"
+
 
 - name: init-genesis
   image: alpine:latest
@@ -120,7 +145,7 @@ initContainers:
     - sh
     - -ace
     - >
-      HEALTH_API="http://prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/2)).prysm-beacon-headless.ethereum-private.svc.cluster.local:3500/eth/v1/node/health";
+      HEALTH_API="http://prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/4)).prysm-beacon-headless.ethereum-private.svc.cluster.local:3500/eth/v1/node/health";
       echo "waiting for beacon node to be available on $HEALTH_API";
       while ! wget $HEALTH_API; do sleep 10; done;
       echo "beacon node is available"
