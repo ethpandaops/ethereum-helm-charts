@@ -6,7 +6,7 @@ mode: "beacon"
 
 image:
   repository: skylenet/prysm-beacon-debian
-  tag: latest@sha256:952480fcaba831d766ec4c69ff43d62da5c9e1147a2f491807e61cc64aa87628
+  tag: latest@sha256:3d4331d1707a4603da9d1a721d800307226baef657589fe4a58c11c8e5f08675
   pullPolicy: IfNotPresent
 
 extraArgs:
@@ -15,7 +15,11 @@ extraArgs:
   - --bootstrap-node="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
   - --http-web3provider=http://geth.ethereum-private.svc.cluster.local:8545
   - --fallback-web3provider=http://geth.ethereum-private.svc.cluster.local:8545
-  - --verbosity=trace
+  - --chain-id=$(grep DEPOSIT_NETWORK_ID /data/testnet_spec/config.yaml | cut -d ' ' -f2)
+  - --contract-deployment-block=$(cat /data/testnet_spec/deploy_block.txt)
+  - --deposit-contract=$(cat /data/testnet_spec/deposit_contract.txt)
+  - --verbosity=info
+  - --enable-debug-rpc-endpoints
 initContainers:
 - name: init-genesis
   image: alpine:latest

@@ -6,7 +6,7 @@ mode: validator
 
 image:
   repository: skylenet/prysm-beacon-debian
-  tag: latest@sha256:952480fcaba831d766ec4c69ff43d62da5c9e1147a2f491807e61cc64aa87628
+  tag: latest@sha256:3d4331d1707a4603da9d1a721d800307226baef657589fe4a58c11c8e5f08675
   pullPolicy: IfNotPresent
 
 extraArgs:
