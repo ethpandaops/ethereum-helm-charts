@@ -1,4 +1,4 @@
-replicas: 9
+replicas: 6
 podManagementPolicy: Parallel
 
 extraArgs:
@@ -8,6 +8,8 @@ extraArgs:
   - --max-peers=30
   - --validators-dir=/data/validator/keys/
   - --secrets-dir=/data/validator/secrets/
+  - --graffiti=$(hostname | cut -c -32)
+  - --doppelganger-detection=false
 initContainers:
 - name: init-genesis
   image: alpine:latest
@@ -74,22 +76,16 @@ initContainers:
     - name: MNEMONIC
       value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
     - name: NODE_0_KEY_RANGE
-      value: "60000:64000"
-    - name: NODE_1_KEY_RANGE
-      value: "64000:68000"
-    - name: NODE_2_KEY_RANGE
-      value: "68000:72000"
-    - name: NODE_3_KEY_RANGE
       value: "72000:76000"
-    - name: NODE_4_KEY_RANGE
+    - name: NODE_1_KEY_RANGE
       value: "76000:80000"
-    - name: NODE_5_KEY_RANGE
+    - name: NODE_2_KEY_RANGE
       value: "80000:84000"
-    - name: NODE_6_KEY_RANGE
+    - name: NODE_3_KEY_RANGE
       value: "84000:88000"
-    - name: NODE_7_KEY_RANGE
+    - name: NODE_4_KEY_RANGE
       value: "88000:92000"
-    - name: NODE_8_KEY_RANGE
+    - name: NODE_5_KEY_RANGE
       value: "92000:96000"
 
 #persistence:

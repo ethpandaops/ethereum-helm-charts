@@ -1,4 +1,4 @@
-replicas: 1
+replicas: 12
 
 podManagementPolicy: Parallel
 
@@ -11,11 +11,12 @@ image:
 
 extraArgs:
   - "--beacon-rpc-provider=\"\
-    prysm-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).prysm-beacon-headless.ethereum-private.svc.cluster.local:4000\
+    prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/2)).prysm-beacon-headless.ethereum-private.svc.cluster.local:4000\
     \""
   - --chain-config-file=/data/testnet_spec/config.yaml
   - --wallet-dir=/data/wallet
   - --wallet-password-file=/data/wallet_pass.txt
+  - --graffiti=$(hostname | cut -c -32)
 initContainers:
 - name: init-keys
   image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
@@ -53,7 +54,29 @@ initContainers:
     - name: MNEMONIC
       value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
     - name: NODE_0_KEY_RANGE
+      value: "48000:49000"
+    - name: NODE_1_KEY_RANGE
+      value: "49000:50000"
+    - name: NODE_2_KEY_RANGE
+      value: "50000:51000"
+    - name: NODE_3_KEY_RANGE
+      value: "51000:52000"
+    - name: NODE_4_KEY_RANGE
       value: "52000:53000"
+    - name: NODE_5_KEY_RANGE
+      value: "53000:54000"
+    - name: NODE_6_KEY_RANGE
+      value: "54000:55000"
+    - name: NODE_7_KEY_RANGE
+      value: "55000:56000"
+    - name: NODE_8_KEY_RANGE
+      value: "56000:57000"
+    - name: NODE_9_KEY_RANGE
+      value: "57000:58000"
+    - name: NODE_10_KEY_RANGE
+      value: "58000:59000"
+    - name: NODE_11_KEY_RANGE
+      value: "59000:60000"
 
 - name: init-genesis
   image: alpine:latest
@@ -97,7 +120,7 @@ initContainers:
     - sh
     - -ace
     - >
-      HEALTH_API="http://prysm-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).prysm-beacon-headless.ethereum-private.svc.cluster.local:3500/eth/v1/node/health";
+      HEALTH_API="http://prysm-beacon-$(($(echo $(hostname)| rev | cut -d'-' -f 1 | rev)/2)).prysm-beacon-headless.ethereum-private.svc.cluster.local:3500/eth/v1/node/health";
       echo "waiting for beacon node to be available on $HEALTH_API";
       while ! wget $HEALTH_API; do sleep 10; done;
       echo "beacon node is available"
@@ -105,6 +128,9 @@ initContainers:
 #persistence:
 #  enabled: true
 #  size: 2Gi
+
+livenessProbe: null
+readinessProbe: null
 
 resources: {}
 

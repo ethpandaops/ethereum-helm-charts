@@ -1,4 +1,4 @@
-replicas: 1
+replicas: 6
 
 podManagementPolicy: Parallel
 
@@ -16,6 +16,7 @@ extraArgs:
   - --paramsFile=/data/testnet_spec/config.yaml
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
+  - --graffiti=$(hostname | cut -c -32)
   - --logLevel=info
 
 livenessProbe: null
@@ -56,9 +57,17 @@ initContainers:
     - name: MNEMONIC
       value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
     - name: NODE_0_KEY_RANGE
-      value: "50000:51000"
+      value: "24000:28000"
     - name: NODE_1_KEY_RANGE
-      value: "0:0"
+      value: "28000:32000"
+    - name: NODE_2_KEY_RANGE
+      value: "32000:36000"
+    - name: NODE_3_KEY_RANGE
+      value: "36000:40000"
+    - name: NODE_4_KEY_RANGE
+      value: "40000:44000"
+    - name: NODE_5_KEY_RANGE
+      value: "44000:48000"
 
 - name: init-genesis
   image: alpine:latest

@@ -8,7 +8,7 @@ config:
 
 extraEnv:
   - name: TIMESTAMP_DELAY_SECONDS
-    value: "600" # 10min * 60
+    value: "300" # 5min * 60
 
 persistence:
   enabled: true

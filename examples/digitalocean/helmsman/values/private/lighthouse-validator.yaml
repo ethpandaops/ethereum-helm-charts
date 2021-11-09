@@ -1,4 +1,4 @@
-replicas: 12
+replicas: 6
 
 podManagementPolicy: Parallel
 
@@ -11,6 +11,7 @@ extraArgs:
     \""
   - --secrets-dir=/data/validator/secrets
   - --validators-dir=/data/validator/keys
+  - --graffiti=$(hostname | cut -c -32)
   - --init-slashing-protection
 
 livenessProbe:

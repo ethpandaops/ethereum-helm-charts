@@ -8,6 +8,7 @@ extraArgs:
     http://teku-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).teku-beacon-headless.ethereum-private.svc.cluster.local:5051\
     \""
   - --network=auto
+  - --validators-graffiti=$(hostname | cut -c -32)
   - --validator-keys=/data/validator/keys:/data/validator/secrets
 
 livenessProbe:

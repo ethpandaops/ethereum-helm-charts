@@ -1,4 +1,4 @@
-replicas: 1
+replicas: 6
 
 podManagementPolicy: Parallel
 
