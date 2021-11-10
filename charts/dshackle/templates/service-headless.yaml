@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dshackle.fullname" . }}-headless
+  labels:
+    {{- include "dshackle.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+    - port: {{ include "dshackle.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ include "dshackle.gRPCPort" . }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "dshackle.selectorLabels" . | nindent 4 }}

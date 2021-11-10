@@ -1,0 +1,38 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Connecting to an external Redis instance
+
+```yaml
+# Disable the redis deployment
+redis:
+  enabled: false
+
+config: |
+  ...
+  cache:
+    redis:
+      enabled: true
+      host: your-external-redis-host.somewhere
+      port: 6379
+      db: 0
+      password: ${REDIS_PASSWORD}
+
+secretEnv:
+  REDIS_PASSWORD: yourRedisSecret
+```

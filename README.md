@@ -21,6 +21,7 @@ Consensus layer clients
 
 Tooling
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer
+- [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer

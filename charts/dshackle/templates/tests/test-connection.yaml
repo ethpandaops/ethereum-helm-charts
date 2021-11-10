@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "dshackle.fullname" . }}-test-connection"
+  labels:
+    {{- include "dshackle.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "dshackle.fullname" . }}:{{ include "dshackle.httpPort" . }}/'
+  restartPolicy: Never
