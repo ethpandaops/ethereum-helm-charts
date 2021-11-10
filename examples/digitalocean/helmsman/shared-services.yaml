@@ -2,8 +2,9 @@ context: shared-services
 
 helmRepos:
   prometheus-community: https://prometheus-community.github.io/helm-charts
-
+  ebrianne: https://ebrianne.github.io/helm-charts
 namespaces:
+  kube-system:
   shared-services:
     protected: false
 
@@ -17,3 +18,9 @@ apps:
     valuesFiles:
       - "values/kube-prometheus-stack.yaml"
     wait: true
+  # Local storage
+  local-path-provisioner:
+    namespace: kube-system
+    enabled: true
+    chart: "ebrianne/local-path-provisioner"
+    version: "0.0.20"
