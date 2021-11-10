@@ -6,4 +6,4 @@ metadata:
     {{- include "dshackle.labels" . | nindent 4 }}
 data:
   dshackle.yaml: |
-    {{- toYaml .Values.config | nindent 4}}
+    {{- .Values.config | nindent 4}}

@@ -57,8 +57,11 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | redis.image.registry | string | `"docker.io"` |  |
 | redis.image.repository | string | `"bitnami/redis"` |  |
 | redis.image.tag | string | `"6.2.6-debian-10-r21"` |  |
-| redis.persistence.enabled | bool | `true` |  |
-| redis.persistence.size | string | `"8Gi"` |  |
+| redis.master.persistence.enabled | bool | `true` |  |
+| redis.master.persistence.size | string | `"8Gi"` |  |
+| redis.replica.persistence.enabled | bool | `false` |  |
+| redis.replica.persistence.size | string | `"8Gi"` |  |
+| redis.replica.replicaCount | int | `0` |  |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{"INFURA_USER":"your-infura-secret","REDIS_PASSWORD":"yourRedisSecret"}` | Additional env variables injected via a created secret |

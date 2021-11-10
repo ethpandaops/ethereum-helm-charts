@@ -108,18 +108,16 @@ annotations: {}
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  httpGet:
-    path: /health
-    port: 8082
+  tcpSocket:
+    port: 8545
   initialDelaySeconds: 60
-  periodSeconds: 120
+  periodSeconds: 30
 
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
-  httpGet:
-    path: /health
-    port: 8082
+  tcpSocket:
+    port: 8545
   initialDelaySeconds: 10
   periodSeconds: 10
 
@@ -202,6 +200,8 @@ extraPorts: []
 
 # -- Additional env variables
 extraEnv: []
+#- name: JAVA_OPTS
+#  value: "-Xmx3000m -Xms3000m"
 
 # -- Additional env variables injected via a created secret
 secretEnv:
@@ -241,6 +241,12 @@ redis:
     pullPolicy: IfNotPresent
   auth:
     password: yourRedisSecret
-  persistence:
-    enabled: true
-    size: 8Gi
+  master:
+    persistence:
+      enabled: true
+      size: 8Gi
+  replica:
+    replicaCount: 0
+    persistence:
+      enabled: false
+      size: 8Gi
