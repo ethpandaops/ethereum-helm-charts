@@ -25,7 +25,7 @@ variable "cluster_name" {
 }
 
 data "digitalocean_kubernetes_versions" "main" {
-  version_prefix = "1.21.3" # list available options with `doctl kubernetes options versions`
+  version_prefix = "1.21.5" # list available options with `doctl kubernetes options versions`
 }
 
 resource "digitalocean_vpc" "main" {
@@ -45,10 +45,47 @@ resource "digitalocean_kubernetes_cluster" "main" {
 
   node_pool {
     name       = "default"
-    size       = "s-8vcpu-16gb" # list available options with `doctl compute size list`
-    auto_scale = false
-    node_count = 2
+    size       = "s-4vcpu-8gb-amd" # list available options with `doctl compute size list`
+    auto_scale = true
+    min_nodes  = 3
+    max_nodes  = 3
     tags       = ["ethereum-kubernetes"]
   }
 
+}
+
+resource "digitalocean_kubernetes_node_pool" "clients" {
+  cluster_id = digitalocean_kubernetes_cluster.main.id
+  name       = "clients"
+  size       = "s-4vcpu-8gb-amd"
+  auto_scale = true
+  min_nodes  = 10
+  max_nodes  = 10
+  tags       = ["ethereum-kubernetes", "ethereum-kubernetes-clients"]
+
+  labels = {
+    dedicated  = "clients"
+  }
+  taint {
+    key    = "dedicated"
+    value  = "clients"
+    effect = "NoSchedule"
+  }
+}
+
+resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
+  cluster_id = digitalocean_kubernetes_cluster.main.id
+  name       = "beaconexplorer"
+  size       = "s-4vcpu-8gb-amd"
+  node_count = 1
+  tags       = ["ethereum-kubernetes", "ethereum-kubernetes-beaconexplorer"]
+
+  labels = {
+    dedicated  = "beaconexplorer"
+  }
+  taint {
+    key    = "dedicated"
+    value  = "beaconexplorer"
+    effect = "NoSchedule"
+  }
 }
