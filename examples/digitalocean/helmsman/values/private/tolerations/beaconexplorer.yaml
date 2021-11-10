@@ -1,0 +1,24 @@
+tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "beaconexplorer"
+    effect: "NoSchedule"
+
+postgresql:
+  primary:
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "beaconexplorer"
+        effect: "NoSchedule"
+    nodeSelector:
+      dedicated: beaconexplorer
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: dedicated
+              operator: In
+              values:
+              - beaconexplorer

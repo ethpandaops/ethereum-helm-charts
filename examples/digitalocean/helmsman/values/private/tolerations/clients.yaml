@@ -1,0 +1,5 @@
+tolerations:
+  - key: "dedicated"
+    operator: "Equal"
+    value: "clients"
+    effect: "NoSchedule"

@@ -67,4 +67,5 @@ initContainers:
 postgresql:
   persistence:
     enabled: true
-    size: 200Gi
+    size: 50Gi
+    storageClass: "local-path"

@@ -13,7 +13,7 @@ apps:
     version: "0.1.0"
     priority: -100
     valuesFiles:
-      - "values/private/genesis-cl.yaml"
+      - values/private/genesis-cl.yaml
   # Execution layer
   ethstats:
     namespace: ethereum-private
@@ -32,6 +32,7 @@ apps:
     wait: true
     valuesFiles:
       - values/private/geth-bootnode.yaml
+      - values/private/tolerations/clients.yaml
   geth-signer:
     namespace: ethereum-private
     enabled: true
@@ -40,6 +41,7 @@ apps:
     priority: -90
     valuesFiles:
       - values/private/geth-signer.yaml
+      - values/private/tolerations/clients.yaml
   geth:
     namespace: ethereum-private
     enabled: true
@@ -47,6 +49,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/geth.yaml
+      - values/private/tolerations/clients.yaml
   # Consensus layer
   lighthouse-bootnode:
     namespace: ethereum-private
@@ -56,6 +59,7 @@ apps:
     priority: -80
     valuesFiles:
       - values/private/lighthouse-bootnode.yaml
+      - values/private/tolerations/clients.yaml
   lighthouse-beacon:
     namespace: ethereum-private
     enabled: true
@@ -63,6 +67,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-beacon.yaml
+      - values/private/tolerations/clients.yaml
   lighthouse-validator:
     namespace: ethereum-private
     enabled: true
@@ -70,6 +75,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-validator.yaml
+      - values/private/tolerations/clients.yaml
   prysm-beacon:
     namespace: ethereum-private
     enabled: true
@@ -77,6 +83,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/prysm-beacon.yaml
+      - values/private/tolerations/clients.yaml
   prysm-validator:
     namespace: ethereum-private
     enabled: true
@@ -84,6 +91,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/prysm-validator.yaml
+      - values/private/tolerations/clients.yaml
   teku-beacon:
     namespace: ethereum-private
     enabled: true
@@ -91,6 +99,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-beacon.yaml
+      - values/private/tolerations/clients.yaml
   teku-validator:
     namespace: ethereum-private
     enabled: true
@@ -98,6 +107,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-validator.yaml
+      - values/private/tolerations/clients.yaml
   lodestar-beacon:
     namespace: ethereum-private
     enabled: true
@@ -105,6 +115,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lodestar-beacon.yaml
+      - values/private/tolerations/clients.yaml
   lodestar-validator:
     namespace: ethereum-private
     enabled: true
@@ -112,6 +123,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/lodestar-validator.yaml
+      - values/private/tolerations/clients.yaml
   nimbus:
     namespace: ethereum-private
     enabled: true
@@ -119,6 +131,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/nimbus.yaml
+      - values/private/tolerations/clients.yaml
   # Tooling
   beaconchain-explorer:
     namespace: ethereum-private
@@ -127,6 +140,7 @@ apps:
     version: "0.1.0"
     valuesFiles:
       - values/private/beaconchain-explorer.yaml
+      - values/private/tolerations/beaconexplorer.yaml
   eth2-fork-mon:
     namespace: ethereum-private
     enabled: true
