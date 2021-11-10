@@ -1,0 +1,45 @@
+config: |
+  version: v1
+  port: 2449
+  tls:
+    enabled: false
+
+  proxy:
+    host: 0.0.0.0
+    port: 8545
+    routes:
+      - id: eth
+        blockchain: ethereum
+
+  cluster:
+    upstreams:
+      - id: infura-eth
+        chain: ethereum
+        connection:
+          ethereum:
+            rpc:
+              url: "https://mainnet.infura.io/v3/${INFURA_USER}"
+            ws:
+              url: "wss://mainnet.infura.io/ws/v3/${INFURA_USER}"
+
+  monitoring:
+    enabled: true
+    jvm: false
+    extended: false
+    prometheus:
+      enabled: true
+      bind: 0.0.0.0
+      port: 8081
+      path: /metrics
+
+  health:
+    port: 8082
+    host: 0.0.0.0
+    path: /health
+    blockchains:
+      - chain: ethereum-mainnet
+        min-available: 1
+
+  cache:
+    redis:
+      enabled: false

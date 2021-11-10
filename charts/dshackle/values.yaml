@@ -70,7 +70,7 @@ config: |
   cache:
     redis:
       enabled: true
-      host: dshackle-redis
+      host: dshackle-redis-master
       port: 6379
       db: 0
       password: ${REDIS_PASSWORD}
