@@ -1,0 +1,126 @@
+replicas: 3
+
+config: |
+  version: v1
+  port: 2449
+  tls:
+    enabled: false
+
+  proxy:
+    host: 0.0.0.0
+    port: 8545
+    routes:
+      - id: eth
+        blockchain: ethereum
+
+  cluster:
+    upstreams:
+      - id: geth-0
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-0.geth-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-0.geth-headless.ethereum-private.svc.cluster.local:8546"
+      - id: geth-1
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-1.geth-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-1.geth-headless.ethereum-private.svc.cluster.local:8546"
+      - id: geth-2
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-2.geth-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-2.geth-headless.ethereum-private.svc.cluster.local:8546"
+      - id: geth-3
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-3.geth-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-3.geth-headless.ethereum-private.svc.cluster.local:8546"
+      - id: geth-4
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-4.geth-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-4.geth-headless.ethereum-private.svc.cluster.local:8546"
+
+  monitoring:
+    enabled: true
+    jvm: false
+    extended: false
+    prometheus:
+      enabled: true
+      bind: 0.0.0.0
+      port: 8081
+      path: /metrics
+
+  health:
+    port: 8082
+    host: 0.0.0.0
+    path: /health
+    blockchains:
+      - chain: ethereum-mainnet
+        min-available: 1
+
+  cache:
+    redis:
+      enabled: true
+      host: dshackle-redis-master
+      port: 6379
+      db: 0
+      password: ${REDIS_PASSWORD}
+
+initContainers:
+- name: init-redis-wait
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      echo "waiting for redis";
+      while ! nc -z dshackle-redis-master 6379; do sleep 5; done;
+      echo "redis is online";
+
+serviceMonitor:
+  enabled: true
+
+redis:
+  enabled: true
+  master:
+    persistence:
+      enabled: false
+  replica:
+    replicaCount: 0
+    persistence:
+      enabled: false

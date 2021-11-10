@@ -15,7 +15,7 @@ extraArgs:
   - --network.discv5.bootEnrs="$(cat /data/testnet_spec/bootstrap_nodes.txt)"
   - --network.connectToDiscv5Bootnodes=true
   - --eth1.enabled
-  - --eth1.providerUrls=http://geth.ethereum-private.svc.cluster.local:8545
+  - --eth1.providerUrls=http://dshackle.ethereum-private.svc.cluster.local:8545/eth
   - --logLevel=silly
   - --eth1.depositContractDeployBlock=$(cat /data/testnet_spec/deploy_block.txt)
 

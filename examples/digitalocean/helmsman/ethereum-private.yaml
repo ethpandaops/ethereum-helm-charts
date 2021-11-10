@@ -50,6 +50,14 @@ apps:
     valuesFiles:
       - values/private/geth.yaml
       - values/private/tolerations/clients.yaml
+  dshackle:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/dshackle"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/dshackle.yaml
+      - values/private/tolerations/clients.yaml
   # Consensus layer
   lighthouse-bootnode:
     namespace: ethereum-private

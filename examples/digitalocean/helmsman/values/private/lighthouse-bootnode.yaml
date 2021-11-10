@@ -7,7 +7,7 @@ mode: "beacon"
 extraArgs:
   - --testnet-dir=/data/testnet_spec
   - --eth1
-  - --eth1-endpoints=http://geth.ethereum-private.svc.cluster.local:8545
+  - --eth1-endpoints=http://dshackle.ethereum-private.svc.cluster.local:8545/eth
   - --target-peers=500
 
 initContainers:

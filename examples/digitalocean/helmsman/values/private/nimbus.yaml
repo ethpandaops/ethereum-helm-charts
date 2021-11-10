@@ -4,7 +4,7 @@ podManagementPolicy: Parallel
 extraArgs:
   - --network=/data/testnet_spec/
   - --bootstrap-file=/data/testnet_spec/bootstrap_nodes.txt
-  - --web3-url=http://geth.ethereum-private.svc.cluster.local:8545
+  - --web3-url=http://dshackle.ethereum-private.svc.cluster.local:8545/eth
   - --max-peers=30
   - --validators-dir=/data/validator/keys/
   - --secrets-dir=/data/validator/secrets/
