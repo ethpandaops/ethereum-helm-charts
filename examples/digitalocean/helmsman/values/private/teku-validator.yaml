@@ -7,7 +7,7 @@ extraArgs:
   - "--beacon-node-api-endpoint=\"\
     http://teku-beacon-$(echo $(hostname)| rev | cut -d'-' -f 1 | rev).teku-beacon-headless.ethereum-private.svc.cluster.local:5051\
     \""
-  - --network=auto
+  - --network=/data/testnet_spec/config.yaml
   - --validators-graffiti=$(hostname | cut -c -32)
   - --validator-keys=/data/validator/keys:/data/validator/secrets
 
@@ -60,6 +60,39 @@ initContainers:
       value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
     - name: NODE_0_KEY_RANGE
       value: "96000:100000"
+
+- name: init-genesis
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      mkdir -p /data/testnet_spec;
+      if ! [ -f /data/testnet_spec/genesis.ssz ];
+      then
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        echo "genesis init done";
+      else
+        echo "genesis exists. skipping...";
+      fi;
+      echo "waiting for bootnode to be available";
+      while ! wget -O /data/testnet_spec/bootstrap_nodes.txt http://lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local:8888/enr;
+      do
+        sleep 10;
+      done;
+      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
 
 - name: init-beacon-wait
   image: alpine:latest
