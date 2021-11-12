@@ -39,14 +39,30 @@ prometheus:
   prometheusSpec:
     podMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
-    retention: 10d
+    retention: 5d
     retentionSize: ""
     resources: {}
+    nodeSelector:
+      dedicated: prometheus
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+          - matchExpressions:
+            - key: dedicated
+              operator: In
+              values:
+              - prometheus
+    tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "prometheus"
+        effect: "NoSchedule"
     storageSpec:
       volumeClaimTemplate:
         spec:
-          storageClassName: do-block-storage
+          storageClassName: local-path
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
-              storage: 100Gi
+              storage: 200Gi
