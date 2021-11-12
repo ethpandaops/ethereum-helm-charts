@@ -1,5 +1,9 @@
 replicas: 3
 
+image:
+  repository: skylenet/dshackle
+  tag: "0.11@sha256:bfbc5e3e1f350c4d874af606b4dbc99f0c3c39ad7981ab7b1e597c6249e0dac8"
+
 config: |
   version: v1
   port: 2449
@@ -20,6 +24,10 @@ config: |
         methods:
           enabled:
             - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
         connection:
           ethereum:
             rpc:
@@ -31,6 +39,10 @@ config: |
         methods:
           enabled:
             - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
         connection:
           ethereum:
             rpc:
@@ -42,6 +54,10 @@ config: |
         methods:
           enabled:
             - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
         connection:
           ethereum:
             rpc:
@@ -53,6 +69,10 @@ config: |
         methods:
           enabled:
             - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
         connection:
           ethereum:
             rpc:
@@ -64,6 +84,10 @@ config: |
         methods:
           enabled:
             - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
         connection:
           ethereum:
             rpc:
