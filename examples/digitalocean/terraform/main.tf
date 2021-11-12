@@ -62,7 +62,7 @@ resource "digitalocean_kubernetes_cluster" "main" {
 resource "digitalocean_kubernetes_node_pool" "clients" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
   name       = "clients"
-  size       = "s-4vcpu-8gb-amd"
+  size       = "s-4vcpu-8gb-amd" # $48/month
   auto_scale = true
   min_nodes  = 10
   max_nodes  = 10
@@ -82,7 +82,7 @@ resource "digitalocean_kubernetes_node_pool" "clients" {
 resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
   name       = "beaconexplorer"
-  size       = "so1_5-2vcpu-16gb"
+  size       = "so1_5-2vcpu-16gb" # $125/month
   node_count = 1
   tags       = ["ethereum-kubernetes", "ethereum-kubernetes-beaconexplorer"]
 
@@ -100,7 +100,7 @@ resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
 resource "digitalocean_kubernetes_node_pool" "prometheus" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
   name       = "prometheus"
-  size       = "s-8vcpu-16gb-amd"
+  size       = "m3-4vcpu-32gb" # $195/month
   node_count = 1
   tags       = ["ethereum-kubernetes", "ethereum-kubernetes-prometheus"]
 
