@@ -9,6 +9,7 @@ extraArgs:
   - --eth1
   - --eth1-endpoints=http://dshackle.ethereum-private.svc.cluster.local:8545/eth
   - --target-peers=500
+  #- --debug-level=trace
 
 initContainers:
 - name: init-genesis
