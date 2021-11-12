@@ -46,14 +46,19 @@ resource "digitalocean_kubernetes_cluster" "main" {
   node_pool {
     name       = "default"
     size       = "s-4vcpu-8gb-amd" # list available options with `doctl compute size list`
+    labels = {
+      priority  = "high"
+      service   = "default"
+    }
     auto_scale = true
-    min_nodes  = 3
-    max_nodes  = 3
+    min_nodes  = 2
+    max_nodes  = 2
     tags       = ["ethereum-kubernetes"]
   }
 
 }
 
+# Dedicated pool of nodes for ethereum clients
 resource "digitalocean_kubernetes_node_pool" "clients" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
   name       = "clients"
@@ -73,10 +78,11 @@ resource "digitalocean_kubernetes_node_pool" "clients" {
   }
 }
 
+# Dedicated pool of nodes for the beacon explorer
 resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
   name       = "beaconexplorer"
-  size       = "s-4vcpu-8gb-amd"
+  size       = "so1_5-2vcpu-16gb"
   node_count = 1
   tags       = ["ethereum-kubernetes", "ethereum-kubernetes-beaconexplorer"]
 
@@ -86,6 +92,24 @@ resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
   taint {
     key    = "dedicated"
     value  = "beaconexplorer"
+    effect = "NoSchedule"
+  }
+}
+
+# Dedicated pool of nodes for prometheus
+resource "digitalocean_kubernetes_node_pool" "prometheus" {
+  cluster_id = digitalocean_kubernetes_cluster.main.id
+  name       = "prometheus"
+  size       = "s-8vcpu-16gb-amd"
+  node_count = 1
+  tags       = ["ethereum-kubernetes", "ethereum-kubernetes-prometheus"]
+
+  labels = {
+    dedicated  = "prometheus"
+  }
+  taint {
+    key    = "dedicated"
+    value  = "prometheus"
     effect = "NoSchedule"
   }
 }
