@@ -9,6 +9,14 @@ namespaces:
     protected: false
 
 apps:
+  # Local storage
+  local-path-provisioner:
+    namespace: kube-system
+    enabled: true
+    chart: "ebrianne/local-path-provisioner"
+    version: "0.0.20"
+    wait: true
+    priority: -100
   # Metrics collection
   kube-prometheus-stack:
     namespace: shared-services
@@ -18,9 +26,3 @@ apps:
     valuesFiles:
       - "values/kube-prometheus-stack.yaml"
     wait: true
-  # Local storage
-  local-path-provisioner:
-    namespace: kube-system
-    enabled: true
-    chart: "ebrianne/local-path-provisioner"
-    version: "0.0.20"
