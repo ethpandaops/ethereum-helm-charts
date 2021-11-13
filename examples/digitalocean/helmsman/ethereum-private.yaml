@@ -58,6 +58,14 @@ apps:
     valuesFiles:
       - values/private/nethermind.yaml
       - values/private/tolerations/clients.yaml
+  besu:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/besu"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/besu.yaml
+      - values/private/tolerations/clients.yaml
   dshackle:
     namespace: ethereum-private
     enabled: true
