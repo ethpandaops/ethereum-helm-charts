@@ -28,6 +28,9 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      # Needs to be set to false, otherwise it will inject "LODESTAR_PORT_*" env vars which the client uses as config args.
+      # See: https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/#accessing-the-service
+      enableServiceLinks: false
       serviceAccountName: {{ include "nethermind.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
