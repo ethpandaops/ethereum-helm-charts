@@ -50,6 +50,14 @@ apps:
     valuesFiles:
       - values/private/geth.yaml
       - values/private/tolerations/clients.yaml
+  nethermind:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/nethermind"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/nethermind.yaml
+      - values/private/tolerations/clients.yaml
   dshackle:
     namespace: ethereum-private
     enabled: true
