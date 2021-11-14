@@ -58,6 +58,16 @@ prometheus:
         operator: "Equal"
         value: "prometheus"
         effect: "NoSchedule"
+    initContainers:
+      # Workaround for edge cases where prometheus goes into an OOM loop when booting
+      # up and reading the WAL: https://github.com/prometheus/prometheus/issues/6934
+      - name: delete-wal
+        image: busybox
+        command: ['sh', '-c', "rm -rf /prometheus/wal;"]
+        volumeMounts:
+          - mountPath: /prometheus
+            name: prometheus-kube-prometheus-stack-prometheus-db
+            subPath: prometheus-db
     storageSpec:
       volumeClaimTemplate:
         spec:
