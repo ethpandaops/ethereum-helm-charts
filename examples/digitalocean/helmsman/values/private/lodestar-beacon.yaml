@@ -6,7 +6,7 @@ mode: beacon
 
 image:
   repository: chainsafe/lodestar
-  tag: next@sha256:588ad821c6a9f32777e237812b63712247074545a0a1e1642ef589b1eea78170
+  tag: next@sha256:cf435e669efdcf69fbf1f69d687d490ccc7e1de791ce6daab876886f09658430
   pullPolicy: IfNotPresent
 
 extraArgs:
