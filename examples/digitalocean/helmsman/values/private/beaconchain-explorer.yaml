@@ -65,6 +65,10 @@ initContainers:
         readOnly: true
 
 postgresql:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
   persistence:
     enabled: true
     size: 50Gi
