@@ -1,18 +1,26 @@
 replicas: 1
 
+image:
+  repository: nethermind/nethermind
+  tag: latest
+  pullPolicy: IfNotPresent
+
 podManagementPolicy: Parallel
 
 extraArgs:
-- --Discovery.Bootnodes="$(wget -qO- http://geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode )"
-- --Init.ChainSpecPath=/data/genesis.json
+- --Discovery.Bootnodes="$(cat /data/bootnodes.txt)"
+- --Init.ChainSpecPath=/data/chainspec.json
 - --EthStats.Enabled=true
 - --EthStats.Name=$(hostname)
 - --EthStats.Secret=PrivateNetwork
 - --EthStats.Server=ws://ethstats:3000/api/
+- --Init.GenesisHash=""
+- --config=baseline
 #- --log=TRACE
 
+
 initContainers:
-- name: init-genesis
+- name: init-chainspec
   image: ethereum/client-go:latest
   imagePullPolicy: IfNotPresent
   securityContext:
@@ -22,14 +30,20 @@ initContainers:
     - sh
     - -ace
     - >
-      if ! [ -f /data/genesis.json ];
+      if ! [ -f /data/chainspec.json ];
       then
-        wget -O /data/genesis.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json;
-        geth init --datadir /data /data/genesis.json;
-        echo "Genesis init done";
+        wget -O /data/chainspec.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/chainspec.json;
+        geth init --datadir /data /data/chainspec.json;
+        echo "Chainspec init done";
       else
-        echo "Genesis is already initialized";
-      fi
+        echo "Chainspec is already there";
+      fi;
+      echo "waiting for bootnode to be available";
+      while ! wget -O /data/bootnodes.txt http://geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode;
+      do
+        sleep 10;
+      done;
+      echo "bootnode init done: $(cat /data/bootnodes.txt)";
   volumeMounts:
     - name: storage
       mountPath: "/data"
