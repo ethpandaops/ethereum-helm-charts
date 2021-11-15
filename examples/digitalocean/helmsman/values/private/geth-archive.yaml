@@ -1,0 +1,45 @@
+replicas: 1
+
+podManagementPolicy: Parallel
+
+extraArgs:
+- --bootnodes="$(wget -qO- http://geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode )"
+- --networkid=1337331
+- --ethstats=$(hostname):PrivateNetwork@ethstats:3000
+- --syncmode=full
+- --gcmode=archive
+- --ws.api="eth,net,web3,network,debug,txpool"
+- --http.api="debug,net,eth,shh,web3,txpool"
+#- --verbosity=4
+
+initContainers:
+- name: init-genesis
+  image: ethereum/client-go:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  command:
+    - sh
+    - -ace
+    - >
+      if ! [ -f /data/genesis.json ];
+      then
+        wget -O /data/genesis.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json;
+        geth init --datadir /data /data/genesis.json;
+        echo "Genesis init done";
+      else
+        echo "Genesis is already initialized";
+      fi
+  volumeMounts:
+    - name: storage
+      mountPath: "/data"
+
+persistence:
+  enabled: true
+  size: 10Gi
+
+resources: {}
+
+serviceMonitor:
+  enabled: true

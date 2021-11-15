@@ -50,6 +50,14 @@ apps:
     valuesFiles:
       - values/private/geth.yaml
       - values/private/tolerations/clients.yaml
+  geth-archive:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/geth"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/geth-archive.yaml
+      - values/private/tolerations/clients.yaml
   nethermind:
     namespace: ethereum-private
     enabled: true
@@ -165,6 +173,14 @@ apps:
     valuesFiles:
       - values/private/beaconchain-explorer.yaml
       - values/private/tolerations/beaconexplorer.yaml
+  blockscout:
+    namespace: ethereum-private
+    enabled: true
+    chart: "../../../charts/blockscout"
+    version: "0.1.0"
+    valuesFiles:
+      - values/private/blockscout.yaml
+      - values/private/tolerations/blockscout.yaml
   eth2-fork-mon:
     namespace: ethereum-private
     enabled: true

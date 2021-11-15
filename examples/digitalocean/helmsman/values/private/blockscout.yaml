@@ -1,0 +1,60 @@
+config:
+  MIX_ENV: prod
+  COIN: ETH
+  LOGO: /images/ethereum_logo.svg
+  LOGO_FOOTER: /images/ethereum_logo.svg
+  DISABLE_EXCHANGE_RATES: "true"
+  DISABLE_KNOWN_TOKENS: "true"
+  SHOW_PRICE_CHART: "false"
+  ENABLE_1559_SUPPORT: "true"
+  DISABLE_READ_API: "true"
+  DISABLE_WRITE_API: "true"
+  ENABLE_TXS_STATS: "true"
+  SHOW_TXS_CHART: "true"
+  DATABASE_URL: postgresql://postgres:postgres@blockscout-postgresql:5432/explorer?ssl=false
+  SECRET_KEY_BASE: RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5
+  ETHEREUM_JSONRPC_VARIANT: geth
+  ETHEREUM_JSONRPC_HTTP_URL: http://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8545
+  ETHEREUM_JSONRPC_WS_URL: ws://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8546
+  NETWORK: Ethereum
+  SUBNETWORK: Testnet
+  BLOCK_TRANSFORMER: clique
+  POOL_SIZE: "15"
+  CHAIN_SPEC_PATH: https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json
+
+extraVolumes:
+  - name: config-update
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: config-update
+    mountPath: "/config-update"
+
+initContainers:
+  - name: init-config
+    image: bash:latest
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    - -ace
+    - >
+      echo "TODO: wait for all dependencies and download chain spec here instead of using the URL directly on CHAIN_SPEC_PATH"
+    volumeMounts:
+      - name: config-update
+        mountPath: /config-update
+
+serviceMonitor:
+  enabled: true
+
+postgresql:
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  persistence:
+    enabled: true
+    size: 50Gi
+    storageClass: "local-path"

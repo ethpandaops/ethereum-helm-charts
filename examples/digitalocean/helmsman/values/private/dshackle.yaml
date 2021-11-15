@@ -19,6 +19,23 @@ config: |
 
   cluster:
     upstreams:
+      - id: geth-archive-0
+        chain: ethereum
+        labels:
+          archive: true
+        methods:
+          enabled:
+            - name: eth_getLogs
+            - name: eth_chainId
+              static: "0x1467f3"
+            - name: net_version
+              static: "\"1337331\""
+        connection:
+          ethereum:
+            rpc:
+              url: "http://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8545"
+            ws:
+              url: "ws://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8546"
       - id: geth-0
         chain: ethereum
         methods:

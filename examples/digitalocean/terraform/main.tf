@@ -96,6 +96,24 @@ resource "digitalocean_kubernetes_node_pool" "beaconexplorer" {
   }
 }
 
+# Dedicated pool of nodes for the blockscout explorer
+resource "digitalocean_kubernetes_node_pool" "blockscout" {
+  cluster_id = digitalocean_kubernetes_cluster.main.id
+  name       = "blockscout"
+  size       = "so1_5-2vcpu-16gb" # $125/month
+  node_count = 1
+  tags       = ["ethereum-kubernetes", "ethereum-kubernetes-blockscout"]
+
+  labels = {
+    dedicated  = "blockscout"
+  }
+  taint {
+    key    = "dedicated"
+    value  = "blockscout"
+    effect = "NoSchedule"
+  }
+}
+
 # Dedicated pool of nodes for prometheus
 resource "digitalocean_kubernetes_node_pool" "prometheus" {
   cluster_id = digitalocean_kubernetes_cluster.main.id
