@@ -47,7 +47,7 @@ initContainers:
       apk add jq curl gettext;
       GENESIS_API_ENDPOINT=http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052/eth/v1/beacon/genesis;
       CONFIG_API_ENDPOINT=http://lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local:5052/eth/v1/config/spec;
-      GENESIS_CONFIG_URL=http://genesis-cl:8000/;
+      GENESIS_CONFIG_URL=http://genesis-generator:8001/cl/;
       echo "waiting to fetch genesis config from $GENESIS_CONFIG_URL";
       while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' $GENESIS_CONFIG_URL)" != "200" ]]; do sleep 5; done;
       export ETH1_DEPOSIT_CONTRACT_BLOCK=$(curl -s $GENESIS_CONFIG_URL/deploy_block.txt);

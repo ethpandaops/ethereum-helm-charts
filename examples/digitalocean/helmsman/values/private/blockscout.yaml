@@ -20,7 +20,7 @@ config:
   SUBNETWORK: Testnet
   BLOCK_TRANSFORMER: clique
   POOL_SIZE: "15"
-  CHAIN_SPEC_PATH: https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json
+  CHAIN_SPEC_PATH: /config-update/genesis.json
 
 extraVolumes:
   - name: config-update
@@ -32,16 +32,19 @@ extraVolumeMounts:
 
 initContainers:
   - name: init-config
-    image: bash:latest
+    image: alpine:latest
     imagePullPolicy: IfNotPresent
     securityContext:
       runAsNonRoot: false
       runAsUser: 0
     command:
-    - bash
+    - sh
     - -ace
     - >
-      echo "TODO: wait for all dependencies and download chain spec here instead of using the URL directly on CHAIN_SPEC_PATH"
+      echo "waiting for genesis provider";
+      while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
+      wget -O /config-update/genesis.json http://genesis-generator:8000/el/geth.json;
+      echo "got genesis";
     volumeMounts:
       - name: config-update
         mountPath: /config-update

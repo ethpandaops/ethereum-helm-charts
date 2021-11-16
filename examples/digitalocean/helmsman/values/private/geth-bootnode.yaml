@@ -21,11 +21,13 @@ initContainers:
     - >
       if ! [ -f /data/genesis.json ];
       then
-        wget -O /data/genesis.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/geth.json;
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
+        wget -O /data/genesis.json http://genesis-generator:8000/el/geth.json;
         geth init --datadir /data /data/genesis.json;
-        echo "Genesis init done";
+        echo "genesis init done";
       else
-        echo "Genesis is already initialized";
+        echo "genesis is already initialized";
       fi
   volumeMounts:
     - name: storage

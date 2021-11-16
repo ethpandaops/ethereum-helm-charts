@@ -6,21 +6,21 @@ namespaces:
 
 apps:
   # Genesis creator
-  genesis-cl:
+  genesis-generator:
     namespace: ethereum-private
     enabled: true
-    chart: "../../../charts/genesis-cl"
+    chart: "../../../charts/genesis-generator"
     version: "0.1.0"
-    priority: -100
+    priority: -110
     valuesFiles:
-      - values/private/genesis-cl.yaml
+      - values/private/genesis-generator.yaml
   # Execution layer
   ethstats:
     namespace: ethereum-private
     enabled: true
     chart: "../../../charts/ethstats"
     version: "0.1.0"
-    priority: -100
+    priority: -110
     valuesFiles:
       - values/private/ethstats.yaml
   geth-bootnode:
@@ -29,7 +29,6 @@ apps:
     chart: "../../../charts/geth"
     version: "0.1.0"
     priority: -100
-    wait: true
     valuesFiles:
       - values/private/geth-bootnode.yaml
       - values/private/tolerations/clients.yaml

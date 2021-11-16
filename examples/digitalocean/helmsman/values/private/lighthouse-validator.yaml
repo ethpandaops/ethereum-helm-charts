@@ -31,7 +31,7 @@ serviceMonitor:
 
 initContainers:
 - name: init-keys
-  image: skylenet/ethereum-genesis-cl:latest@sha256:de1304dd34366bfb825713f9cacb66bf83c7a08914612984e29faac0a8376ba8
+  image: skylenet/ethereum-genesis-generator:latest@sha256:b9e330d38c4132d3ec460d85b9da429e5549b2260112ea95384cc91feb06d076
   imagePullPolicy: IfNotPresent
   securityContext:
     runAsNonRoot: false
@@ -80,11 +80,11 @@ initContainers:
       if ! [ -f /data/testnet_spec/genesis.ssz ];
       then
         echo "waiting for genesis provider";
-        while ! wget -T 5 -c http://genesis-cl:8000/; do sleep 10; done;
-        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-cl:8000/deposit_contract.txt;
-        wget -O /data/testnet_spec/deploy_block.txt http://genesis-cl:8000/deploy_block.txt;
-        wget -O /data/testnet_spec/config.yaml http://genesis-cl:8000/config.yaml;
-        wget -O /data/testnet_spec/genesis.ssz http://genesis-cl:8000/genesis.ssz;
+        while ! wget -T 5 -c http://genesis-generator:8001/cl/; do sleep 10; done;
+        wget -O /data/testnet_spec/deposit_contract.txt http://genesis-generator:8001/cl/deposit_contract.txt;
+        wget -O /data/testnet_spec/deploy_block.txt http://genesis-generator:8001/cl/deploy_block.txt;
+        wget -O /data/testnet_spec/config.yaml http://genesis-generator:8001/cl/config.yaml;
+        wget -O /data/testnet_spec/genesis.ssz http://genesis-generator:8001/cl/genesis.ssz;
         echo "genesis init done";
       else
         echo "genesis exists. skipping...";
@@ -93,7 +93,7 @@ initContainers:
       do
         sleep 10;
       done;
-      echo "bootnode init done: $(cat data/testnet_spec/bootstrap_nodes.txt)";
+      echo "bootnode init done: $(cat /data/testnet_spec/bootstrap_nodes.txt)";
   volumeMounts:
     - name: storage
       mountPath: "/data"

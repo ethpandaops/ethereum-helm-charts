@@ -23,7 +23,7 @@ extraArgs:
 
 initContainers:
 - name: init-chainspec
-  image: ethereum/client-go:latest
+  image: alpine:latest
   imagePullPolicy: IfNotPresent
   securityContext:
     runAsNonRoot: false
@@ -34,11 +34,12 @@ initContainers:
     - >
       if ! [ -f /data/chainspec.json ];
       then
-        wget -O /data/chainspec.json https://raw.githubusercontent.com/skylenet/ethereum-private-testnet-data/master/genesis/execution/chainspec.json;
-        geth init --datadir /data /data/chainspec.json;
-        echo "Chainspec init done";
+        echo "waiting for genesis provider";
+        while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
+        wget -O /data/chainspec.json http://genesis-generator:8000/el/chainspec.json;
+        echo "chainspec init done";
       else
-        echo "Chainspec is already there";
+        echo "chainspec is already there";
       fi;
       echo "waiting for bootnode to be available";
       while ! wget -O /data/bootnodes.txt http://geth-bootnode-0.geth-bootnode-headless.ethereum-private.svc.cluster.local:8888/enode;
