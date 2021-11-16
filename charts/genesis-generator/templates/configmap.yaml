@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "genesis-generator.fullname" . }}-cl
+  labels:
+    {{- include "genesis-generator.labels" . | nindent 4 }}
+data:
+{{- range $key, $value := .Values.config.cl }}
+  {{ $key }}: |
+    {{- $value | nindent 4 }}
+{{- end }}
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "genesis-generator.fullname" . }}-el
+  labels:
+    {{- include "genesis-generator.labels" . | nindent 4 }}
+data:
+{{- range $key, $value := .Values.config.el }}
+  {{ $key }}: |
+    {{- $value | nindent 4 }}
+{{- end }}

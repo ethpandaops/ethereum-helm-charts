@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "genesis-cl.name" -}}
+{{- define "genesis-generator.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "genesis-cl.fullname" -}}
+{{- define "genesis-generator.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "genesis-cl.chart" -}}
+{{- define "genesis-generator.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "genesis-cl.labels" -}}
-helm.sh/chart: {{ include "genesis-cl.chart" . }}
-{{ include "genesis-cl.selectorLabels" . }}
+{{- define "genesis-generator.labels" -}}
+helm.sh/chart: {{ include "genesis-generator.chart" . }}
+{{ include "genesis-generator.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,22 +45,25 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "genesis-cl.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "genesis-cl.name" . }}
+{{- define "genesis-generator.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "genesis-generator.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "genesis-cl.serviceAccountName" -}}
+{{- define "genesis-generator.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "genesis-cl.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "genesis-generator.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "genesis-cl.httpPort" -}}
+{{- define "genesis-generator.httpPortEL" -}}
 {{- printf "8000" -}}
+{{- end -}}
+{{- define "genesis-generator.httpPortCL" -}}
+{{- printf "8001" -}}
 {{- end -}}

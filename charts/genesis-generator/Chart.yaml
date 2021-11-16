@@ -1,0 +1,12 @@
+apiVersion: v2
+name: genesis-generator
+description: Generate testnet genesis files for the execution and consensus layer clients
+home: https://github.com/skylenet/ethereum-genesis-generator
+sources:
+  - https://github.com/skylenet/ethereum-genesis-generator
+  - https://github.com/protolambda/eth2-testnet-genesis
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net

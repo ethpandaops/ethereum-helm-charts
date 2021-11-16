@@ -1,15 +1,15 @@
 
-# genesis-cl
+# genesis-generator
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Generate a consensus layer testnet genesis and expose it via a webserver for testing purposes.
+Generate testnet genesis files for the execution and consensus layer clients
 
-**Homepage:** <https://github.com/skylenet/ethereum-genesis-cl>
+**Homepage:** <https://github.com/skylenet/ethereum-genesis-generator>
 
 ## Source Code
 
-* <https://github.com/skylenet/ethereum-genesis-cl>
+* <https://github.com/skylenet/ethereum-genesis-generator>
 * <https://github.com/protolambda/eth2-testnet-genesis>
 
 ## Values
@@ -19,17 +19,17 @@ Generate a consensus layer testnet genesis and expose it via a webserver for tes
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | object | See `values.yaml` | Config file |
-| customArgs | list | `[]` | Custom args for the genesis-cl container |
-| customCommand | list | `[]` | Command replacement for the genesis-cl container |
+| customArgs | object | `{"cl":[],"el":[]}` | Custom args for the genesis-generator container |
+| customCommand | object | `{"cl":[],"el":[]}` | Command replacement for the genesis-generator container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | object | `{"cl":[],"el":[]}` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | list | `[]` | Additional volume mounts |
+| extraVolumeMounts | object | `{"cl":[],"el":[]}` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| image.pullPolicy | string | `"IfNotPresent"` | genesis-cl container pull policy |
-| image.repository | string | `"skylenet/ethereum-genesis-cl"` | genesis-cl container image repository |
-| image.tag | string | `"latest"` | genesis-cl container image tag |
+| image.pullPolicy | string | `"IfNotPresent"` | genesis-generator container pull policy |
+| image.repository | string | `"skylenet/ethereum-genesis-generator"` | genesis-generator container image repository |
+| image.tag | string | `"latest"` | genesis-generator container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
