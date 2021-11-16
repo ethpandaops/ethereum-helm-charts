@@ -14,8 +14,8 @@ image:
 
 # -- Custom args for the genesis-generator container
 customArgs:
- el: []
- cl: []
+  el: []
+  cl: []
 
 # -- Command replacement for the genesis-generator container
 customCommand: # Only change this if you need to change the default command
