@@ -56,6 +56,9 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 | postgresql.initdbPassword | string | `"postgres"` |  |
 | postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
 | postgresql.initdbUser | string | `"postgres"` |  |
+| postgresql.persistence.enabled | bool | `true` |  |
+| postgresql.persistence.size | string | `"8Gi"` |  |
+| postgresql.postgresqlDatabase | string | `"explorer"` |  |
 | postgresql.postgresqlPassword | string | `"postgres"` |  |
 | postgresql.postgresqlUsername | string | `"postgres"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
