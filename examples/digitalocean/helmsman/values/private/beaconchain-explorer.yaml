@@ -1,3 +1,8 @@
+image:
+  repository: gobitfly/eth2-beaconchain-explorer
+  tag: staging@sha256:fb9a908543570be2fafd706fdffc8e93519d612df333f9ca4b4c5ba04db163e4
+  pullPolicy: IfNotPresent
+
 config:
   # ENV vars will be replaced using the 'init-config' init container
   chain:
@@ -7,7 +12,7 @@ config:
     minGenesisActiveValidatorCount: $MIN_GENESIS_ACTIVE_VALIDATOR_COUNT
   indexer:
     node:
-      host: "lighthouse-beacon-0.lighthouse-beacon-headless.ethereum-private.svc.cluster.local"
+      host: "lighthouse-bootnode-0.lighthouse-bootnode-headless.ethereum-private.svc.cluster.local"
       port: "5052"
       type: "lighthouse"
       pageSize: 500
