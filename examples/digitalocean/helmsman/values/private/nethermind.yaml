@@ -9,13 +9,15 @@ podManagementPolicy: Parallel
 
 extraArgs:
 - --Discovery.Bootnodes="$(cat /data/bootnodes.txt)"
+- --config=mainnet
 - --Init.ChainSpecPath=/data/chainspec.json
+- --Init.GenesisHash=""
+- --Init.IsMining=false
+- --Sync.FastSync=false
 - --EthStats.Enabled=true
 - --EthStats.Name=$(hostname)
 - --EthStats.Secret=PrivateNetwork
 - --EthStats.Server=ws://ethstats:3000/api/
-- --Init.GenesisHash=""
-- --config=baseline
 #- --log=TRACE
 
 
