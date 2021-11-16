@@ -3,7 +3,7 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Generate a consensus layer testnet genesis and expose it via a webserver for testing purposes.
+Generate testnet genesis files for the execution and consensus layer clients
 
 **Homepage:** <https://github.com/skylenet/ethereum-genesis-generator>
 

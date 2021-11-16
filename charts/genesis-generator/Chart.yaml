@@ -1,6 +1,6 @@
 apiVersion: v2
 name: genesis-generator
-description: Generate a consensus layer testnet genesis and expose it via a webserver for testing purposes.
+description: Generate testnet genesis files for the execution and consensus layer clients
 home: https://github.com/skylenet/ethereum-genesis-generator
 sources:
   - https://github.com/skylenet/ethereum-genesis-generator
