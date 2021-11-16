@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "genesis-generator.fullname" . }}-headless
+  labels:
+    {{- include "genesis-generator.labels" . | nindent 4 }}
+spec:
+  clusterIP: None
+  ports:
+    - port: {{ include "genesis-generator.httpPortEL" . }}
+      targetPort: http-el
+      protocol: TCP
+      name: http-el
+    - port: {{ include "genesis-generator.httpPortCL" . }}
+      targetPort: http-cl
+      protocol: TCP
+      name: http-cl
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "genesis-generator.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "genesis-generator.fullname" . }}-test-connection-el"
+  labels:
+    {{- include "genesis-generator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPortEL" . }}/'
+  restartPolicy: Never
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "genesis-generator.fullname" . }}-test-connection-cl"
+  labels:
+    {{- include "genesis-generator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPortCL" . }}/'
+  restartPolicy: Never

@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "genesis-cl.fullname" . }}
+  name: {{ include "genesis-generator.fullname" . }}
   labels:
-    {{- include "genesis-cl.labels" . | nindent 4 }}
+    {{- include "genesis-generator.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
@@ -11,14 +11,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "genesis-cl.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "genesis-cl.fullname" . }}-headless
+      {{- include "genesis-generator.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "genesis-generator.fullname" . }}-headless
   updateStrategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
-        {{- include "genesis-cl.selectorLabels" . | nindent 8 }}
+        {{- include "genesis-generator.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -29,7 +29,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "genesis-cl.serviceAccountName" . }}
+      serviceAccountName: {{ include "genesis-generator.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
@@ -58,46 +58,95 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Chart.Name }}-el
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- if gt (len .Values.customCommand) 0 }}
+          {{- if gt (len .Values.customCommand.el) 0 }}
           command:
-            {{- toYaml .Values.customCommand | nindent 12}}
+            {{- toYaml .Values.customCommand.el | nindent 12}}
           {{- end }}
-          {{- if gt (len .Values.customArgs) 0 }}
+          {{- if gt (len .Values.customArgs.el) 0 }}
           args:
-            {{- toYaml .Values.customArgs | nindent 12}}
+            {{- toYaml .Values.customArgs.el | nindent 12}}
+          {{- else }}
+          args: ["el"]
           {{- end }}
           volumeMounts:
-            {{- if .Values.extraVolumeMounts }}
-              {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{- if .Values.extraVolumeMounts.el }}
+              {{ toYaml .Values.extraVolumeMounts.el | nindent 12}}
             {{- end }}
             - name: storage
               mountPath: "/data"
-            - name: config
-              mountPath: "/config"
+            - name: config-el
+              mountPath: "/config/el"
               readOnly: true
           ports:
-            - name: http
-              containerPort: {{ include "genesis-cl.httpPort" . }}
+            - name: http-el
+              containerPort: {{ include "genesis-generator.httpPortEL" . }}
               protocol: TCP
           livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
+            {{- toYaml .Values.livenessProbe.el | nindent 12 }}
           readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
+            {{- toYaml .Values.readinessProbe.el | nindent 12 }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml .Values.resources.el | nindent 12 }}
           env:
+            - name: SERVER_PORT
+              value: "{{ include "genesis-generator.httpPortEL" . }}"
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "genesis-cl.fullname" $ }}-env
+                  name: {{ include "genesis-generator.fullname" $ }}-env
                   key: {{ $key }}
           {{- end }}
-          {{- if .Values.extraEnv }}
-            {{- toYaml .Values.extraEnv | nindent 12 }}
+          {{- if .Values.extraEnv.el }}
+            {{- toYaml .Values.extraEnv.el | nindent 12 }}
+          {{- end }}
+        - name: {{ .Chart.Name }}-cl
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if gt (len .Values.customCommand.cl) 0 }}
+          command:
+            {{- toYaml .Values.customCommand.cl | nindent 12}}
+          {{- end }}
+          {{- if gt (len .Values.customArgs.cl) 0 }}
+          args:
+            {{- toYaml .Values.customArgs.cl | nindent 12}}
+          {{- else }}
+          args: ["cl"]
+          {{- end }}
+          volumeMounts:
+            {{- if .Values.extraVolumeMounts.cl }}
+              {{ toYaml .Values.extraVolumeMounts.cl | nindent 12}}
+            {{- end }}
+            - name: storage
+              mountPath: "/data"
+            - name: config-cl
+              mountPath: "/config/cl"
+              readOnly: true
+          ports:
+            - name: http-cl
+              containerPort: {{ include "genesis-generator.httpPortCL" . }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe.cl | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.readinessProbe.cl | nindent 12 }}
+          resources:
+            {{- toYaml .Values.resources.cl | nindent 12 }}
+          env:
+            - name: SERVER_PORT
+              value: "{{ include "genesis-generator.httpPortCL" . }}"
+          {{- range $key, $value := .Values.secretEnv }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "genesis-generator.fullname" $ }}-env
+                  key: {{ $key }}
+          {{- end }}
+          {{- if .Values.extraEnv.cl }}
+            {{- toYaml .Values.extraEnv.cl | nindent 12 }}
           {{- end }}
       {{- if .Values.extraContainers }}
         {{ toYaml .Values.extraContainers | nindent 8}}
@@ -113,9 +162,12 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
-        - name: config
+        - name: config-el
           configMap:
-            name: {{ include "genesis-cl.fullname" . }}
+            name: {{ include "genesis-generator.fullname" . }}-el
+        - name: config-cl
+          configMap:
+            name: {{ include "genesis-generator.fullname" . }}-cl
   {{- if not .Values.persistence.enabled }}
         - name: storage
           emptyDir: {}

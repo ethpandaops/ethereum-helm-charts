@@ -26,7 +26,7 @@ Tooling
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
-- [`genesis-cl`](charts/genesis-cl) - A tool to generate and expose genesis files for the consensus layer clients. Useful for testnets
+- [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients
 
 ## Development
 
