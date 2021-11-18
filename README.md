@@ -1,25 +1,33 @@
-# Ethereum Helm Charts
-
 A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
 
-## How to use
+## Usage
 
-Add the repository to helm:
+[Helm](https://helm.sh) must be installed to use the charts.  Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
+
+Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
 helm repo add ethereum-helm-charts https://skylenet.github.io/ethereum-helm-charts
 ```
 
-Check the available charts:
+If you had already added this repo earlier, run `helm repo update` to retrieve
+the latest versions of the packages.  You can then run the following command to see the charts.
 
 ```sh
 helm search repo ethereum-helm-charts
 ```
 
-Fetch the most recent version via:
+To install the ethstats chart:
 
 ```sh
-helm repo update ethereum-helm-charts
+helm install ethstats ethereum-helm-charts/ethstats
+```
+
+To uninstall the chart:
+
+```sh
+helm delete ethstats
 ```
 
 ## More infos
