@@ -26,10 +26,11 @@ initContainers:
       if ! [ -f /data/genesis_init_done ];
       then
         echo "waiting for genesis provider";
-        while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
-        wget -O /data/genesis.json http://genesis-generator:8000/el/geth.json;
-        geth init --datadir /data /data/genesis.json;
+        while ! wget -T 5 -c http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/; do sleep 10; done;
+        wget -O /data/genesis.json http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/geth.json;
+        apk update && apk add jq;
         cat /data/genesis.json | jq -r '.config.chainId' > /data/chainid.txt;
+        geth init --datadir /data /data/genesis.json;
         touch /data/genesis_init_done;
         echo "genesis init done";
       else
