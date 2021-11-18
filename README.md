@@ -7,19 +7,19 @@ A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethe
 Add the repository to helm:
 
 ```sh
-helm repo add skylenet https://skylenet.github.io/ethereum-helm-charts
+helm repo add ethereum-helm-charts https://skylenet.github.io/ethereum-helm-charts
 ```
 
 Check the available charts:
 
 ```sh
-helm search repo skylenet
+helm search repo ethereum-helm-charts
 ```
 
 Fetch the most recent version via:
 
 ```sh
-helm repo update skylenet
+helm repo update ethereum-helm-charts
 ```
 
 ## List of charts
