@@ -24,6 +24,9 @@ jobs:
         with:
           version: v3.7.0
 
+      - name: Add repo dependencies
+        run: helm repo add bitnami https://charts.bitnami.com/bitnami
+
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.1
         with:
