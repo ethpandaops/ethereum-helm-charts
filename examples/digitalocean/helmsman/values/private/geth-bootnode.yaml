@@ -2,7 +2,7 @@ replicas: 1
 
 extraArgs:
 - --bootnodes=""
-- --networkid=1337331
+- --networkid=$(cat /data/chainid.txt)
 - --ethstats=$(hostname):PrivateNetwork@ethstats:3000
 - --maxpeers 500
 - --nodekeyhex 97f3834f120545527fe7732d4e1ecfca9eab1c77762b86e57f1b56dc03c29b2a
@@ -19,12 +19,14 @@ initContainers:
     - sh
     - -ace
     - >
-      if ! [ -f /data/genesis.json ];
+      if ! [ -f /data/genesis_init_done ];
       then
         echo "waiting for genesis provider";
         while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
         wget -O /data/genesis.json http://genesis-generator:8000/el/geth.json;
         geth init --datadir /data /data/genesis.json;
+        cat /data/genesis.json | jq -r '.config.chainId' > /data/chainid.txt;
+        touch /data/genesis_init_done;
         echo "genesis init done";
       else
         echo "genesis is already initialized";
