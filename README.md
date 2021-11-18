@@ -2,7 +2,25 @@
 
 A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
 
-> **Important**: These charts are currently still under heavy development and the chart versions won't be increased during this initial phase.
+## How to use
+
+Add the repository to helm:
+
+```sh
+helm repo add skylenet https://skylenet.github.io/ethereum-helm-charts
+```
+
+Check the available charts:
+
+```sh
+helm search repo skylenet
+```
+
+Fetch the most recent version via:
+
+```sh
+helm repo update skylenet
+```
 
 ## List of charts
 
