@@ -4,8 +4,7 @@ remote: origin
 target-branch: master
 chart-dirs:
   - charts
-# Temporarily remove version increment check while the charts are under heavy development
-check-version-increment: false
+check-version-increment: true
 lint-conf: lintconf.yaml
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
