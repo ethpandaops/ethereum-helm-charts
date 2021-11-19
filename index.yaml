@@ -1,0 +1,311 @@
+apiVersion: v1
+entries:
+  beaconchain-explorer:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:13.392635144Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.12.3
+    description: 'Beacon chain explorer built using golang and using a PostgreSQL
+      database for storing and indexing data. '
+    digest: 7ce7d71580e296728b501b5f33d8185adb70f408e64dd0c680e151fe81e52891
+    home: https://beaconcha.in/
+    icon: https://pbs.twimg.com/profile_images/1274442538057961474/-cZGkGhP_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: beaconchain-explorer
+    sources:
+    - https://github.com/gobitfly/eth2-beaconchain-explorer
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.0/beaconchain-explorer-0.1.0.tgz
+    version: 0.1.0
+  besu:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:13.589771686Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 2b95c9ff44362c8f6c8ea334d1473ac7fdc9577fbe46513aab558aa161549b57
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.1.0/besu-0.1.0.tgz
+    version: 0.1.0
+  blockscout:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:13.783333257Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.12.3
+    description: 'BlockScout provides a comprehensive, easy-to-use interface for users
+      to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine)
+      blockchains '
+    digest: b4ce42189f463caf4112ae90e93afffabedcbef9965ef52fa255a0564842717c
+    home: https://docs.blockscout.com/
+    icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/assets/static/apple-touch-icon.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: blockscout
+    sources:
+    - https://github.com/blockscout/blockscout/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
+    version: 0.1.0
+  dshackle:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:13.990009319Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.5.4
+    description: 'Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain
+      API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket. '
+    digest: 5f0a5611b2e0dc9ca3178e3f82f64137db74564cbef72e33df6ff9769d24145b
+    home: https://github.com/emeraldpay/dshackle
+    icon: https://avatars.githubusercontent.com/u/49622339?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: dshackle
+    sources:
+    - https://github.com/emeraldpay/dshackle
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
+    version: 0.1.0
+  erigon:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:14.171069766Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: bb3431641194cbb8a0c509dcb252f4cd4655858769d85cd38619d405f1991960
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.1.0/erigon-0.1.0.tgz
+    version: 0.1.0
+  eth2-fork-mon:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:14.341035839Z"
+    description: 'Simple client/server to track the (real-time) status of a (configurable)
+      set of eth2 beacon nodes. '
+    digest: e9080ecee6f406e91aa52fdf29adf5f63e5eec333d4d0ada7920dcd9dfe1c08a
+    home: https://github.com/ralexstokes/eth2-fork-mon
+    icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: eth2-fork-mon
+    sources:
+    - https://github.com/ralexstokes/eth2-fork-mon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.0/eth2-fork-mon-0.1.0.tgz
+    version: 0.1.0
+  ethstats:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:14.518939849Z"
+    description: 'Visual interface for tracking ethereum network status. It uses WebSockets
+      to receive stats from running nodes and output them through a web interface. '
+    digest: e9c88f714a84ae477c8e3a874add75f0b82736226185591d745a9088e97b8abb
+    home: https://ethstats.net/
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethstats
+    sources:
+    - https://github.com/puppeth/eth-netstats
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethstats-0.1.0/ethstats-0.1.0.tgz
+    version: 0.1.0
+  ganache:
+  - apiVersion: v2
+    appVersion: 6.12.2
+    created: "2021-11-18T09:14:14.703504508Z"
+    description: 'Ganache is an Ethereum simulator that makes developing Ethereum
+      applications faster, easier, and safer. It includes all popular RPC functions
+      and features (like events) and can be run deterministically to make development
+      a breeze. '
+    digest: 04bcb19ee45adc31260169669924c1b4c4e50596872dd5c2d3bf698b65e0066a
+    home: https://www.trufflesuite.com/ganache
+    icon: https://www.trufflesuite.com/img/ganache-logomark.svg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ganache
+    sources:
+    - https://github.com/trufflesuite/ganache
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ganache-0.1.0/ganache-0.1.0.tgz
+    version: 0.1.0
+  genesis-generator:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:14.88507889Z"
+    description: Generate testnet genesis files for the execution and consensus layer
+      clients
+    digest: 7da2f3ce235d9402bedebaa98513ee6c65f1292c604ead9aafdb9f6b096f557c
+    home: https://github.com/skylenet/ethereum-genesis-generator
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: genesis-generator
+    sources:
+    - https://github.com/skylenet/ethereum-genesis-generator
+    - https://github.com/protolambda/eth2-testnet-genesis
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
+    version: 0.1.0
+  geth:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:15.076588494Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 0de28f893b1d457a7c8f054c2ba57df7b8bd6bab3b940bcde3746c3a16b2779c
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.1.0/geth-0.1.0.tgz
+    version: 0.1.0
+  lighthouse:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:15.25893297Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 02b47df04007c1c012869bf0d8a5085c3e1d89d1569c8b2a9db710b18c7e9deb
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
+    version: 0.1.0
+  lodestar:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:15.463667171Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: e754743419fcc4e4f8a16d8ebd4e02e968655b6bf599c85b516e4b634d2128f3
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
+    version: 0.1.0
+  nethermind:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:15.652468796Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 2bb47e047daa44d3b53f33940181adf1159c6ef32efb05f743f6e1ae849b042e
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
+    version: 0.1.0
+  nimbus:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:15.827809527Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: 6eaeef7ab6971ad7a4f9f078f3d00ae840879837b147c88a7e202a7dd4ed3c5d
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
+    version: 0.1.0
+  prysm:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:16.006841829Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 6b59753f3087483971193d7a41fe1d8193af203b425e566ec0ab82e78282951a
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
+    version: 0.1.0
+  teku:
+  - apiVersion: v2
+    created: "2021-11-18T09:14:16.178720186Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 4f573d956153dba6b1ca9eddf6d7466a4fa04ad515a2285676ab5d3711d00319
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-11-18T09:14:16.178733886Z"
