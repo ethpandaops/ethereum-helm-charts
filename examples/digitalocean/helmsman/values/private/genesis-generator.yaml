@@ -1,10 +1,10 @@
 image:
-  tag: latest@sha256:b9e330d38c4132d3ec460d85b9da429e5549b2260112ea95384cc91feb06d076
+  tag: latest@sha256:18b60cf47bdf682d53c724614423c143ef2c91a4befee6c62e59e571d22f14f0
 
 config:
   el:
     genesis-config.yaml: |
-      mnemonic: "stumble horn valley travel milk void screen bulk wink hood cup item glove setup wrong toward erase invite saddle this poverty basket index lab"
+      mnemonic: "$EXECUTION_GENESIS_MNEMONIC"
       eth1_premine:
         "m/44'/60'/0'/0/0": 10000000ETH
         "m/44'/60'/0'/0/1": 10000000ETH
@@ -25,7 +25,7 @@ config:
           - 15d7acc1019fdf8ab4f0f7bd31ec1487ecb5a2bd
   cl:
     mnemonics.yaml: |
-      - mnemonic: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"  # a 24 word BIP 39 mnemonic
+      - mnemonic: "$CONSENSUS_GENESIS_MNEMONIC"
         count: 100000
     config.yaml: |
       PRESET_BASE: 'mainnet'

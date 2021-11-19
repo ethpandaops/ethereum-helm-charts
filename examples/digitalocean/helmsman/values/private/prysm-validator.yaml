@@ -18,6 +18,8 @@ extraArgs:
   - --wallet-password-file=/data/wallet_pass.txt
   - --graffiti=$(hostname | cut -c -32)
 initContainers:
+# Important: Keep the init-keys container as the first element of the list
+#            due to the usage of -set initContainers[0].env[0].value=...
 - name: init-keys
   image: skylenet/ethereum-genesis-generator:latest@sha256:b9e330d38c4132d3ec460d85b9da429e5549b2260112ea95384cc91feb06d076
   imagePullPolicy: IfNotPresent
@@ -51,8 +53,10 @@ initContainers:
     - name: storage
       mountPath: "/data"
   env:
+    # Important: Keep "MNEMONIC" as the first env var.
+    #            due to the usage of -set initContainers[0].env[0].value=...
     - name: MNEMONIC
-      value: "giant issue aisle success illegal bike spike question tent bar rely arctic volcano long crawl hungry vocal artwork sniff fantasy very lucky have athlete"
+      value: ""
     - name: NODE_0_KEY_RANGE
       value: "48000:49000"
     - name: NODE_1_KEY_RANGE

@@ -8,29 +8,35 @@ namespaces:
     protected: false
 
 appsTemplates:
-  default: &template
+  common: &common
     namespace: ethereum-private
     enabled: true
+  validators: &validators
+    set:
+      initContainers[0].env[0].value: "$CONSENSUS_GENESIS_MNEMONIC"
 
 apps:
   # Genesis creator
   genesis-generator:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/genesis-generator"
     version: "0.1.0"
     priority: -110
     valuesFiles:
       - values/private/genesis-generator.yaml
+    set:
+      secretEnv.EXECUTION_GENESIS_MNEMONIC: "$EXECUTION_GENESIS_MNEMONIC"
+      secretEnv.CONSENSUS_GENESIS_MNEMONIC: "$CONSENSUS_GENESIS_MNEMONIC"
   # Execution layer
   ethstats:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/ethstats"
     version: "0.1.0"
     priority: -110
     valuesFiles:
       - values/private/ethstats.yaml
   geth-bootnode:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/geth"
     version: "0.1.0"
     priority: -100
@@ -38,7 +44,7 @@ apps:
       - values/private/geth-bootnode.yaml
       - values/private/tolerations/clients.yaml
   geth-signer:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/geth"
     version: "0.1.0"
     priority: -90
@@ -46,35 +52,35 @@ apps:
       - values/private/geth-signer.yaml
       - values/private/tolerations/clients.yaml
   geth:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/geth"
     version: "0.1.0"
     valuesFiles:
       - values/private/geth.yaml
       - values/private/tolerations/clients.yaml
   geth-archive:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/geth"
     version: "0.1.0"
     valuesFiles:
       - values/private/geth-archive.yaml
       - values/private/tolerations/clients.yaml
   nethermind:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/nethermind"
     version: "0.1.0"
     valuesFiles:
       - values/private/nethermind.yaml
       - values/private/tolerations/clients.yaml
   besu:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/besu"
     version: "0.1.0"
     valuesFiles:
       - values/private/besu.yaml
       - values/private/tolerations/clients.yaml
   dshackle:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/dshackle"
     version: "0.1.0"
     valuesFiles:
@@ -82,7 +88,7 @@ apps:
       - values/private/tolerations/clients.yaml
   # Consensus layer
   lighthouse-bootnode:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/lighthouse"
     version: "0.1.0"
     priority: -80
@@ -90,63 +96,68 @@ apps:
       - values/private/lighthouse-bootnode.yaml
       - values/private/tolerations/clients.yaml
   lighthouse-beacon:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/lighthouse"
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-beacon.yaml
       - values/private/tolerations/clients.yaml
   lighthouse-validator:
-    <<: *template
+    <<: *common
+    <<: *validators
     chart: "ethereum-helm-charts/lighthouse"
     version: "0.1.0"
     valuesFiles:
       - values/private/lighthouse-validator.yaml
       - values/private/tolerations/clients.yaml
   prysm-beacon:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/prysm"
     version: "0.1.0"
     valuesFiles:
       - values/private/prysm-beacon.yaml
       - values/private/tolerations/clients.yaml
   prysm-validator:
-    <<: *template
+    <<: *common
+    <<: *validators
     chart: "ethereum-helm-charts/prysm"
     version: "0.1.0"
     valuesFiles:
       - values/private/prysm-validator.yaml
       - values/private/tolerations/clients.yaml
   teku-beacon:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/teku"
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-beacon.yaml
       - values/private/tolerations/clients.yaml
   teku-validator:
-    <<: *template
+    <<: *common
+    <<: *validators
     chart: "ethereum-helm-charts/teku"
     version: "0.1.0"
     valuesFiles:
       - values/private/teku-validator.yaml
       - values/private/tolerations/clients.yaml
   lodestar-beacon:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/lodestar"
     version: "0.1.0"
     valuesFiles:
       - values/private/lodestar-beacon.yaml
       - values/private/tolerations/clients.yaml
   lodestar-validator:
-    <<: *template
+    <<: *common
+    <<: *validators
     chart: "ethereum-helm-charts/lodestar"
     version: "0.1.0"
     valuesFiles:
       - values/private/lodestar-validator.yaml
       - values/private/tolerations/clients.yaml
   nimbus:
-    <<: *template
+    <<: *common
+    <<: *validators
     chart: "ethereum-helm-charts/nimbus"
     version: "0.1.0"
     valuesFiles:
@@ -154,21 +165,21 @@ apps:
       - values/private/tolerations/clients.yaml
   # Tooling
   beaconchain-explorer:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/beaconchain-explorer"
     version: "0.1.0"
     valuesFiles:
       - values/private/beaconchain-explorer.yaml
       - values/private/tolerations/beaconexplorer.yaml
   blockscout:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/blockscout"
     version: "0.1.0"
     valuesFiles:
       - values/private/blockscout.yaml
       - values/private/tolerations/blockscout.yaml
   eth2-fork-mon:
-    <<: *template
+    <<: *common
     chart: "ethereum-helm-charts/eth2-fork-mon"
     version: "0.1.0"
     valuesFiles:
