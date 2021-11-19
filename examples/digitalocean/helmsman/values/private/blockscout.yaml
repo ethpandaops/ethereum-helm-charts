@@ -42,8 +42,8 @@ initContainers:
     - -ace
     - >
       echo "waiting for genesis provider";
-      while ! wget -T 5 -c http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/; do sleep 10; done;
-      wget -O /config-update/genesis.json http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/geth.json;
+      while ! wget -T 5 -c http://genesis-generator:8000/el/; do sleep 10; done;
+      wget -O /config-update/genesis.json http://genesis-generator:8000/el/geth.json;
       echo "got genesis";
     volumeMounts:
       - name: config-update

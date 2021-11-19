@@ -67,6 +67,11 @@ extraEnv:
     - name: CL_TIMESTAMP_DELAY_SECONDS
       value: "300" # 5min * 60
 
+# Disable readiness probes so that we can target the pod earlier
+readinessProbe:
+  el: null
+  cl: null
+
 persistence:
   enabled: true
   accessModes:
