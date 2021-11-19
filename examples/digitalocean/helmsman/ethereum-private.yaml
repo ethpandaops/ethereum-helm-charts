@@ -24,6 +24,8 @@ apps:
     priority: -110
     valuesFiles:
       - values/private/genesis-generator.yaml
+    setString:
+      secretEnv.EXECUTION_CHAIN_ID: "$EXECUTION_CHAIN_ID"
     set:
       secretEnv.EXECUTION_GENESIS_MNEMONIC: "$EXECUTION_GENESIS_MNEMONIC"
       secretEnv.CONSENSUS_GENESIS_MNEMONIC: "$CONSENSUS_GENESIS_MNEMONIC"

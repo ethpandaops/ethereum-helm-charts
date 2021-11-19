@@ -4,6 +4,10 @@ image:
   repository: skylenet/dshackle
   tag: "0.11@sha256:bfbc5e3e1f350c4d874af606b4dbc99f0c3c39ad7981ab7b1e597c6249e0dac8"
 
+extraEnvs:
+  - name: configPath
+    value: /config-update/upstreams.yaml
+
 config: |
   version: v1
   port: 2449
@@ -18,99 +22,8 @@ config: |
         blockchain: ethereum
 
   cluster:
-    upstreams:
-      - id: geth-archive-0
-        chain: ethereum
-        labels:
-          archive: true
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-archive-0.geth-archive-headless.ethereum-private.svc.cluster.local:8546"
-      - id: geth-0
-        chain: ethereum
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-0.geth-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-0.geth-headless.ethereum-private.svc.cluster.local:8546"
-      - id: geth-1
-        chain: ethereum
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-1.geth-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-1.geth-headless.ethereum-private.svc.cluster.local:8546"
-      - id: geth-2
-        chain: ethereum
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-2.geth-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-2.geth-headless.ethereum-private.svc.cluster.local:8546"
-      - id: geth-3
-        chain: ethereum
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-3.geth-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-3.geth-headless.ethereum-private.svc.cluster.local:8546"
-      - id: geth-4
-        chain: ethereum
-        methods:
-          enabled:
-            - name: eth_getLogs
-            - name: eth_chainId
-              static: "0x1467f3"
-            - name: net_version
-              static: "\"1337331\""
-        connection:
-          ethereum:
-            rpc:
-              url: "http://geth-4.geth-headless.ethereum-private.svc.cluster.local:8545"
-            ws:
-              url: "ws://geth-4.geth-headless.ethereum-private.svc.cluster.local:8546"
+    include:
+      - "/config-update/upstreams.yaml"
 
   monitoring:
     enabled: true
@@ -127,7 +40,7 @@ config: |
     host: 0.0.0.0
     path: /health
     blockchains:
-      - chain: ethereum-mainnet
+      - chain: ethereum
         min-available: 1
 
   cache:
@@ -138,7 +51,58 @@ config: |
       db: 0
       password: ${REDIS_PASSWORD}
 
+extraVolumes:
+  - name: config-update
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: config-update
+    mountPath: "/config-update"
+
 initContainers:
+- name: init-config
+  image: alpine:latest
+  imagePullPolicy: IfNotPresent
+  securityContext:
+    runAsNonRoot: false
+    runAsUser: 0
+  env:
+  command:
+  - sh
+  - -ace
+  - >
+    echo "waiting for genesis provider";
+    while ! wget -T 5 -c http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/; do sleep 10; done;
+    wget -O genesis.json http://genesis-generator-0.genesis-generator-headless.ethereum-private.svc.cluster.local:8000/el/geth.json;
+    apk update && apk add jq;
+    CHAIN_ID=$(cat genesis.json | jq -r '.config.chainId');
+    echo "got CHAIN_ID=$CHAIN_ID";
+    echo "upstreams:" > /config-update/upstreams.yaml;
+    for i in $(seq 0 4); do
+      echo "
+      - id: geth-$i
+        chain: ethereum
+        methods:
+          enabled:
+            - name: eth_getLogs
+            - name: eth_chainId
+              static: '$(printf "0x%x\n" ${CHAIN_ID})'
+            - name: net_version
+              static: "\"\\\"${CHAIN_ID}\\\"\""
+        connection:
+          ethereum:
+            rpc:
+              url: http://geth-$i.geth-headless.ethereum-private.svc.cluster.local:8545
+            ws:
+              url: ws://geth-$i.geth-headless.ethereum-private.svc.cluster.local:8546
+      " >> /config-update/upstreams.yaml;
+    done;
+    echo "generated upstreams.yaml:";
+    cat /config-update/upstreams.yaml;
+  volumeMounts:
+    - name: config-update
+      mountPath: /config-update
+
 - name: init-redis-wait
   image: alpine:latest
   imagePullPolicy: IfNotPresent
