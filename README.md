@@ -5,7 +5,7 @@
 
 A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
 
-A set of deployment examples that use these helm charts can be found under [skylenet/ethereum-k8s-testnets](https://github.com/skylenet/ethereum-k8s-testnets).
+Deployment examples that use these helm charts can be found under [skylenet/ethereum-k8s-testnets](https://github.com/skylenet/ethereum-k8s-testnets).
 
 ## Usage
 
