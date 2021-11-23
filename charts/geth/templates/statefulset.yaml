@@ -154,10 +154,10 @@ spec:
           imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
           command:
             - sh
-            - -ac,
+            - -ac
             - >
               . /env/init-nodeport;
-              exec socat udp4-recvfrom:{{ include "geth.p2pPort" . }},fork udp4-sendto:localhost:$EXTERNAL_PORT"
+              exec socat udp4-recvfrom:{{ include "geth.p2pPort" . }},fork "udp4-sendto:localhost:$EXTERNAL_PORT"
           ports:
             - name: p2p-udp
               containerPort: {{ include "geth.p2pPort" . }}
@@ -171,10 +171,10 @@ spec:
           imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
           command:
             - sh
-            - -ac,
+            - -ac
             - >
               . /env/init-nodeport;
-              exec socat tcp-listen:{{ include "geth.p2pPort" . }},reuseaddr,fork tcp:localhost:$EXTERNAL_PORT"
+              exec socat tcp-listen:{{ include "geth.p2pPort" . }},reuseaddr,fork "tcp:localhost:$EXTERNAL_PORT"
           ports:
             - name: p2p-tcp
               containerPort: {{ include "geth.p2pPort" . }}
