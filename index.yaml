@@ -186,6 +186,25 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    created: "2021-11-23T20:09:36.050722601Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 377de69a87697e7cbe303553484f1552bc93db8f21c074253d43173db7373ce4
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.1.1/geth-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2021-11-18T09:14:15.076588494Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
       of the Ethereum protocol. Currently, it is the most widespread client with the
@@ -308,4 +327,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-18T09:14:16.178733886Z"
+generated: "2021-11-23T20:09:36.050729701Z"
