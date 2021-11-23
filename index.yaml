@@ -91,6 +91,26 @@ entries:
     version: 0.1.0
   erigon:
   - apiVersion: v2
+    created: "2021-11-23T20:11:09.674922076Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: 87c9d1cb7fcb535960307061a8e6521ca6ee16cb0bac7c43c9085752cf1ebb0c
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.1.1/erigon-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2021-11-18T09:14:14.171069766Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
       oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
@@ -327,4 +347,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-23T20:09:36.050729701Z"
+generated: "2021-11-23T20:11:09.674947176Z"
