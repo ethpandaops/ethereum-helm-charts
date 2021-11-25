@@ -1,19 +1,14 @@
 {{- if .Values.p2pNodePort.enabled -}}
 
-{{- range $i, $e := until (int $.Values.replicas) }}
-
-{{- $port := add $.Values.p2pNodePort.startAt $i -}}
-{{- if hasKey $.Values.p2pNodePort.portsOverwrite ($i | toString) -}}
-  {{ $port = index $.Values.p2pNodePort.portsOverwrite ($i | toString) }}
-{{- end }}
+{{- $port := $.Values.p2pNodePort.port -}}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "besu.fullname" $ }}-p2p-{{ $i }}
+  name: {{ include "besu.fullname" $ }}-p2p-0
   labels:
     {{- include "besu.labels" $ | nindent 4 }}
-    pod: {{ include "besu.fullname" $ }}-{{ $i }}
+    pod: {{ include "besu.fullname" $ }}-0
     type: p2p
 spec:
   type: NodePort
@@ -31,8 +26,5 @@ spec:
       nodePort: {{ $port }}
   selector:
     {{- include "besu.selectorLabels" $ | nindent 4 }}
-    statefulset.kubernetes.io/pod-name: {{ include "besu.fullname" $ }}-{{ $i }}
-
-{{- end }}
-
+    statefulset.kubernetes.io/pod-name: "{{ include "besu.fullname" $ }}-0"
 {{- end }}

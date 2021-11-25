@@ -8,7 +8,7 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: {{ .Values.replicas }}
+  replicas: {{ include "besu.replicas" . }}
   selector:
     matchLabels:
       {{- include "besu.selectorLabels" . | nindent 6 }}
@@ -106,14 +106,12 @@ spec:
             - name: storage
               mountPath: "/data"
           ports:
-          {{- if not (.Values.p2pNodePort.enabled) }}
             - name: p2p-tcp
               containerPort: {{ include "besu.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
               containerPort: {{ include "besu.p2pPort" . }}
               protocol: UDP
-          {{- end }}
             - name: http-rpc
               containerPort: {{ include "besu.httpPort" . }}
               protocol: TCP
@@ -144,42 +142,6 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
-      {{- if .Values.p2pNodePort.enabled }}
-        - name: port-forward-p2p-udp
-          image: "{{ .Values.p2pNodePort.portForwardContainer.image.repository }}:{{ .Values.p2pNodePort.portForwardContainer.image.tag }}"
-          imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
-          command:
-            - sh
-            - -ac
-            - >
-              . /env/init-nodeport;
-              exec socat udp4-recvfrom:{{ include "besu.p2pPort" . }},fork "udp4-sendto:localhost:$EXTERNAL_PORT"
-          ports:
-            - name: p2p-udp
-              containerPort: {{ include "besu.p2pPort" . }}
-              protocol: UDP
-          volumeMounts:
-            - name: env-nodeport
-              mountPath: /env
-              readOnly: true
-        - name: port-forward-p2p-tcp
-          image: "{{ .Values.p2pNodePort.portForwardContainer.image.repository }}:{{ .Values.p2pNodePort.portForwardContainer.image.tag }}"
-          imagePullPolicy: "{{ .Values.p2pNodePort.portForwardContainer.image.pullPolicy }}"
-          command:
-            - sh
-            - -ac
-            - >
-              . /env/init-nodeport;
-              exec socat tcp-listen:{{ include "besu.p2pPort" . }},reuseaddr,fork "tcp:localhost:$EXTERNAL_PORT"
-          ports:
-            - name: p2p-tcp
-              containerPort: {{ include "besu.p2pPort" . }}
-              protocol: TCP
-          volumeMounts:
-            - name: env-nodeport
-              mountPath: /env
-              readOnly: true
-      {{- end }}
       {{- if .Values.extraContainers }}
         {{ toYaml .Values.extraContainers | nindent 8}}
       {{- end }}
