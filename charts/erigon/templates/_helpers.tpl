@@ -62,7 +62,11 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "erigon.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "30303" -}}
+{{- end }}
 {{- end -}}
 
 {{- define "erigon.httpPort" -}}
@@ -75,4 +79,12 @@ Create the name of the service account to use
 
 {{- define "erigon.metricsPortRPCDaemon" -}}
 {{- printf "6061" -}}
+{{- end -}}
+
+{{- define "erigon.replicas" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end}}
 {{- end -}}
