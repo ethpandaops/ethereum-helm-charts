@@ -62,7 +62,11 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "geth.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "30303" -}}
+{{- end }}
 {{- end -}}
 
 {{- define "geth.httpPort" -}}
@@ -75,4 +79,12 @@ Create the name of the service account to use
 
 {{- define "geth.metricsPort" -}}
 {{- printf "6060" -}}
+{{- end -}}
+
+{{- define "geth.replicas" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end}}
 {{- end -}}
