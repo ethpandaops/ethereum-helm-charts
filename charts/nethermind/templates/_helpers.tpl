@@ -62,7 +62,11 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "nethermind.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "30303" -}}
+{{- end }}
 {{- end -}}
 
 {{- define "nethermind.httpPort" -}}
@@ -71,4 +75,12 @@ Create the name of the service account to use
 
 {{- define "nethermind.metricsPort" -}}
 {{- printf "9545" -}}
+{{- end -}}
+
+{{- define "nethermind.replicas" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end}}
 {{- end -}}
