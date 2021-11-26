@@ -31,18 +31,14 @@ customCommand: [] # Only change this if you need to change the default command
 customCommandRPCDaemon: [] # Only change this if you need to change the default command
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
-# This will generate a service for each replica, with a port binding via NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
+# Limitation: You can only one have one replica when exposing via NodePort.
+#             Check the chart README.md for more details
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information
