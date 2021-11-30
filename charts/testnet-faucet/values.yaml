@@ -1,0 +1,167 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- testnet-faucet container image repository
+  repository: parithoshj/testnet-faucet
+  # -- testnet-faucet container image tag
+  tag: 9859e0d
+  # -- testnet-faucet container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+
+config:
+  # -- Web UI configuration
+  # @default -- See `values.yaml`
+  webui:
+    title: "Testnet faucet"
+    buttonText: "Request ETH"
+    logoUrl: "https://launchpad.ethereum.org/static/media/eth2-leslie-rhino.243747b9.png"
+    footer: "Forked from <b>Slock.it</b> by Pari - Send feedback to https://github.com/parithosh/testnet-faucet"
+    recaptchaKey: "" # Recaptcha SITE KEY
+  # -- Server configuration
+  # @default -- See `values.yaml`
+  server:
+    environment: live
+    debug: false
+    Captcha:
+      secret: "" # Recaptcha SECRET KEY
+    Ethereum:
+      chainId: 5
+      milliEtherToTransfer: 50
+      gasLimit: "30000"
+      live:
+        rpc: "http://geth:8545"
+        account: "0x00000000000"
+        privateKey: "" # hex format
+
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Custom args for the testnet-faucet container
+customArgs: []
+
+# -- Command replacement for the testnet-faucet container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []

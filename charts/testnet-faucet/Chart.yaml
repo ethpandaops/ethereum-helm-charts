@@ -1,0 +1,9 @@
+apiVersion: v2
+name: testnet-faucet
+description: Ethereum faucet used for testnets
+home: https://github.com/parithosh/testnet-faucet
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
