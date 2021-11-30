@@ -488,4 +488,18 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-26T07:59:44.112399276Z"
+  testnet-faucet:
+  - apiVersion: v2
+    created: "2021-11-30T18:24:29.302949852Z"
+    description: Ethereum faucet used for testnets
+    digest: 0f3328c229e7c8202f6febb0a381a681bd3a1122a5f770b458415b97f4adaf4c
+    home: https://github.com/parithosh/testnet-faucet
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: testnet-faucet
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-faucet-0.1.0/testnet-faucet-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-11-30T18:24:29.303005653Z"
