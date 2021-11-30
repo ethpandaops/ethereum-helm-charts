@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "testnet-faucet.fullname" . }}-test-connection"
+  labels:
+    {{- include "testnet-faucet.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - '{{ include "testnet-faucet.fullname" . }}:{{ include "testnet-faucet.httpPort" . }}/'
+  restartPolicy: Never

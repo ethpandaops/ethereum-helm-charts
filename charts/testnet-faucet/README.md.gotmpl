@@ -1,0 +1,46 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Configuring the faucet
+
+To create the recaptcha keys you can go to http://www.google.com/recaptcha/admin
+
+```yaml
+config:
+  # -- Web UI configuration
+  webui:
+    title: "My Testnet faucet"
+    buttonText: "Request 5 ETH"
+    logoUrl: "https://launchpad.ethereum.org/static/media/eth2-leslie-rhino.243747b9.png"
+    footer: "My custom footer"
+    recaptchaKey: "<Insert Recaptcha Site Key >"
+  # -- Server configuration
+  server:
+    environment: live
+    debug: true
+    Captcha:
+      secret: "<Insert Recaptcha Secret Key>"
+    Ethereum:
+      chainId: 56665
+      milliEtherToTransfer: 5000
+      gasLimit: "30000"
+      live:
+        rpc: "http://geth-server:8545"
+        account: "<Insert faucet address : 0x....>"
+        privateKey: "<Insert private key in hex format>"
+```
