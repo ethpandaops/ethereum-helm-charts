@@ -60,7 +60,7 @@ Tooling
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients
-- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute Eth to users.
+- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users
 
 ## Development
 
