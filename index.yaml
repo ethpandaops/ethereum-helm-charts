@@ -502,4 +502,19 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-faucet-0.1.0/testnet-faucet-0.1.0.tgz
     version: 0.1.0
-generated: "2021-11-30T18:24:29.303005653Z"
+  testnet-homepage:
+  - apiVersion: v2
+    created: "2021-12-02T13:06:21.83550381Z"
+    description: Ethereum testnet homepage that is used to display testnet relevant
+      information
+    digest: 90a1fc361b99454e56e157ea6a56d60f6ed369e24651594cf9b6b7ebe22fcf96
+    home: https://github.com/skylenet/ethereum-testnet-homepage
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: testnet-homepage
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-12-02T13:06:21.83553441Z"
