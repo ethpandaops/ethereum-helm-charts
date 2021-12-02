@@ -61,6 +61,7 @@ Tooling
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users
+- [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
 
 ## Development
 

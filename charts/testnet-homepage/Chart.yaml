@@ -1,0 +1,9 @@
+apiVersion: v2
+name: testnet-homepage
+description: Ethereum testnet homepage that is used to display testnet relevant information
+home: https://github.com/skylenet/ethereum-testnet-homepage
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
