@@ -15,6 +15,10 @@ image:
   # -- nimbus container pull policy
   pullPolicy: IfNotPresent
 
+
+# -- Path within the container to the beacon node binary
+defaultBinaryPath: /home/user/nimbus-eth2/build/nimbus_beacon_node
+
 # -- Extra args for the nimbus container
 extraArgs: []
   #- --network=prater
