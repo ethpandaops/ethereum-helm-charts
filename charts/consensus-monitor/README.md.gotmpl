@@ -1,0 +1,47 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Setting the configuration file
+
+```yaml
+config: |
+  [network]
+  name = "pithos"
+  etherscan_api_key = "some-etherscan-api-key"
+
+  [consensus_chain]
+  seconds_per_slot = 12
+  slots_per_epoch = 32
+  genesis_time = 1634213100
+
+  [weak_subjectivity]
+  provider_endpoint = "http://eth2-ws-provider_eth2_ws_server_1:80"
+
+  [monitor]
+  output_dir = "public"
+  port = 8080
+
+  [[monitor.endpoints]]
+  consensus = "http://beacon-node:4000"
+  execution = "Geth"
+
+  [[monitor.endpoints]]
+  consensus = "http://beacon-node2:4000"
+  execution = "Nethermind"
+
+```

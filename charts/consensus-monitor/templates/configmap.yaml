@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "consensus-monitor.fullname" . }}
+  labels:
+    {{- include "consensus-monitor.labels" . | nindent 4 }}
+data:
+  config.toml:
+    {{- toYaml .Values.config | nindent 4}}
