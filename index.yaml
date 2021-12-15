@@ -102,6 +102,24 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
     version: 0.1.0
+  consensus-monitor:
+  - apiVersion: v2
+    created: "2021-12-15T13:38:42.171098002Z"
+    description: 'Web UI to monitor the ethereum consensus nodes via their beaconchain
+      APIs. '
+    digest: 9269a75d1f20f83d351d5afff0c286c0312ebd96891cc0920d76c433c659661a
+    home: https://github.com/ralexstokes/ethereum_consensus_monitor/
+    icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: consensus-monitor
+    sources:
+    - https://github.com/ralexstokes/ethereum_consensus_monitor/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
+    version: 0.1.0
   dshackle:
   - apiVersion: v2
     created: "2021-11-18T09:14:13.990009319Z"
@@ -533,4 +551,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-13T19:24:07.098468702Z"
+generated: "2021-12-15T13:38:42.171124902Z"
