@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "consensus-monitor.labels" . | nindent 4 }}
 data:
-  config.toml:
-    {{- toYaml .Values.config | nindent 4}}
+  config.toml: |
+    {{- .Values.config | nindent 4}}
