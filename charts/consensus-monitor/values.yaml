@@ -22,7 +22,7 @@ customCommand: [] # Only change this if you need to change the default command
 
 # -- Config file
 # @default -- See `values.yaml`
-config: |
+config: |-
   [network]
   name = "pithos"
   etherscan_api_key = "some-etherscan-api-key"
@@ -46,7 +46,6 @@ config: |
   [[monitor.endpoints]]
   consensus = "http://$ANOTHER_BEACON_HTTP_API:$PORT"
   execution = "Nethermind"
-
 
 ingress:
   # -- Ingress resource for the HTTP API
