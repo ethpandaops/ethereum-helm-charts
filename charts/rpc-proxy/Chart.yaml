@@ -1,0 +1,9 @@
+apiVersion: v2
+name: rpc-proxy
+description: A proxy for web3 JSONRPC
+home: https://github.com/gochain/rpc-proxy
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
