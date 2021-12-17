@@ -505,6 +505,20 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
     version: 0.1.0
+  rpc-proxy:
+  - apiVersion: v2
+    created: "2021-12-17T22:08:18.868006841Z"
+    description: A proxy for web3 JSONRPC
+    digest: 649dc6f1c083169fd6790493d4693e327168b16bd7250bfd7b469cfd94d4dfc8
+    home: https://github.com/gochain/rpc-proxy
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: rpc-proxy
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
+    version: 0.1.0
   teku:
   - apiVersion: v2
     created: "2021-11-18T09:14:16.178720186Z"
@@ -551,4 +565,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-15T13:38:42.171124902Z"
+generated: "2021-12-17T22:08:18.868032241Z"
