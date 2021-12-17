@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "rpc-proxy.fullname" . }}
+  labels:
+    {{- include "rpc-proxy.labels" . | nindent 4 }}
+data:
+  config.toml: |
+    {{- .Values.config | nindent 4}}
