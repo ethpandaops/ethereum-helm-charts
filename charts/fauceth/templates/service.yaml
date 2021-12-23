@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fauceth.fullname" . }}
+  labels:
+    {{- include "fauceth.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "fauceth.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "fauceth.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,12 @@
+apiVersion: v2
+name: fauceth
+description: >
+  Faucet for EVM chains
+home: https://github.com/skylenet/FaucETH
+sources:
+  - https://github.com/skylenet/FaucETH
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
