@@ -43,3 +43,4 @@ jobs:
           ct install --config ct.yaml
           --excluded-charts beaconchain-explorer
           --excluded-charts blockscout
+          --excluded-charts fauceth

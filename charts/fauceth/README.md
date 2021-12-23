@@ -45,7 +45,7 @@ Faucet for EVM chains
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"APP_AMOUNT":"1000000000000000000","CHAIN_EXPLORER":"http://explorer","CHAIN_ID":"1234567","CHAIN_RPC":"http://somewhere:8545","HCAPTCHA_SECRET":"your_hcaptcha_secret","HCAPTCHA_SITEKEY":"your_hcaptcha_site_key"}` | Env variables injected via a created secret |
+| secretEnv | object | `{"APP_AMOUNT":"1000000000000000000","APP_ETHKEY":"key in hex format","CHAIN_EXPLORER":"http://explorer","CHAIN_ID":"1234567","CHAIN_RPC":"http://somewhere:8545","HCAPTCHA_SECRET":"your_hcaptcha_secret","HCAPTCHA_SITEKEY":"your_hcaptcha_site_key"}` | Env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

@@ -24,7 +24,7 @@ customCommand: [] # Only change this if you need to change the default command
 secretEnv:
   HCAPTCHA_SECRET: "your_hcaptcha_secret"
   HCAPTCHA_SITEKEY: "your_hcaptcha_site_key"
-  #APP_ETHKEY: "key in hex format"
+  APP_ETHKEY: "key in hex format"
   APP_AMOUNT: "1000000000000000000" # 1 ETH
   #APP_IMAGEURL:
   #APP_TITLE: "Fauceth"
