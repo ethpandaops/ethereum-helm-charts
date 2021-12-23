@@ -55,10 +55,11 @@ Consensus layer clients
 Tooling
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer
 - [`blockscout`](charts/blockscout) - Execution layer block explorer
-- [`consensus-monitor`] - Web UI to check your ethereum consensus layer nodes via their beacon APIs
+- [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
+- [`fauceth`](charts/fauceth) - EIP1559 compatible web faucet using Hcaptcha.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
