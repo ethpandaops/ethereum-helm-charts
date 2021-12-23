@@ -239,6 +239,23 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethstats-0.1.0/ethstats-0.1.0.tgz
     version: 0.1.0
+  fauceth:
+  - apiVersion: v2
+    created: "2021-12-23T13:13:32.444831612Z"
+    description: 'Faucet for EVM chains '
+    digest: e8737c5cd65b0215c4cbe95d4255575f594fb02a3e5ab80dbbf3704232da27e8
+    home: https://github.com/skylenet/FaucETH
+    icon: https://avatars.githubusercontent.com/u/48826811?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: fauceth
+    sources:
+    - https://github.com/skylenet/FaucETH
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.1.0/fauceth-0.1.0.tgz
+    version: 0.1.0
   ganache:
   - apiVersion: v2
     appVersion: 6.12.2
@@ -565,4 +582,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-17T22:08:18.868032241Z"
+generated: "2021-12-23T13:13:32.444868812Z"
