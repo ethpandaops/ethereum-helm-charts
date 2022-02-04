@@ -241,6 +241,22 @@ entries:
     version: 0.1.0
   fauceth:
   - apiVersion: v2
+    created: "2022-02-04T11:11:42.930326104Z"
+    description: 'Faucet for EVM chains '
+    digest: 2c02acb9d43c1b4ed4d4bfbec37cda0a5c75f00ba40f6f6d3661424cdfdc39d9
+    home: https://github.com/komputing/fauceth
+    icon: https://avatars.githubusercontent.com/u/48826811?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: fauceth
+    sources:
+    - https://github.com/komputing/fauceth
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.2.0/fauceth-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2021-12-23T13:13:32.444831612Z"
     description: 'Faucet for EVM chains '
     digest: e8737c5cd65b0215c4cbe95d4255575f594fb02a3e5ab80dbbf3704232da27e8
@@ -582,4 +598,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2021-12-23T13:13:32.444868812Z"
+generated: "2022-02-04T11:11:42.930504512Z"
