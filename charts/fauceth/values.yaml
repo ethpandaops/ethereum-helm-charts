@@ -6,7 +6,7 @@ fullnameOverride: ""
 
 image:
   # -- fauceth container image repository
-  repository:  ghcr.io/komputing/fauceth
+  repository: ghcr.io/komputing/fauceth
   # -- fauceth container image tag
   tag: "release"
   # -- fauceth container pull policy
