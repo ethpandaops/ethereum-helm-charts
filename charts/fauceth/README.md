@@ -1,15 +1,15 @@
 
 # fauceth
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Faucet for EVM chains
 
-**Homepage:** <https://github.com/skylenet/FaucETH>
+**Homepage:** <https://github.com/komputing/fauceth>
 
 ## Source Code
 
-* <https://github.com/skylenet/FaucETH>
+* <https://github.com/komputing/fauceth>
 
 ## Values
 
@@ -26,8 +26,8 @@ Faucet for EVM chains
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | fauceth container pull policy |
-| image.repository | string | `"skylenet/fauceth"` | fauceth container image repository |
-| image.tag | string | `"1.2"` | fauceth container image tag |
+| image.repository | string | `"ghcr.io/komputing/fauceth"` | fauceth container image repository |
+| image.tag | string | `"release"` | fauceth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -45,7 +45,7 @@ Faucet for EVM chains
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"APP_AMOUNT":"1000000000000000000","APP_ETHKEY":"key in hex format","CHAIN_EXPLORER":"http://explorer","CHAIN_ID":"1234567","CHAIN_RPC":"http://somewhere:8545","HCAPTCHA_SECRET":"your_hcaptcha_secret","HCAPTCHA_SITEKEY":"your_hcaptcha_site_key"}` | Env variables injected via a created secret |
+| secretEnv | object | `{"APP_AMOUNT":"1000000000000000000","APP_CHAINS":"5","APP_ETHKEY":"key in hex format","APP_TITLE":"%CHAINNAME FaucETH","HCAPTCHA_SECRET":"your_hcaptcha_secret","HCAPTCHA_SITEKEY":"your_hcaptcha_site_key"}` | Env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
@@ -66,9 +66,7 @@ secretEnv:
   HCAPTCHA_SITEKEY: "your_hcaptcha_site_key"
   APP_ETHKEY: "key in hex format"
   APP_AMOUNT: "1000000000000000000" # 1 ETH
+  APP_CHAINS: "5" # Comma separated chain IDs that you support
+  APP_TITLE: "%CHAINNAME FaucETH"
   #APP_IMAGEURL:
-  #APP_TITLE: "Fauceth"
-  CHAIN_ID: "1234567"
-  CHAIN_RPC: "http://somewhere:8545"
-  CHAIN_EXPLORER: "http://explorer"
 ```

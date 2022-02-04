@@ -3,8 +3,6 @@ secretEnv:
   HCAPTCHA_SITEKEY: "your_hcaptcha_site_key"
   APP_ETHKEY: "6c9bd4919736ead6bdeb0441cd8124c16e45a881aef5d11de24be12ee9ecafe3"
   APP_AMOUNT: "1000000000000000000" # 1 ETH
+  APP_CHAINS: "5"
   #APP_IMAGEURL:
-  APP_TITLE: "Goerli FaucETH"
-  CHAIN_ID: "5"
-  CHAIN_RPC: "https://rpc.slock.it/goerli"
-  CHAIN_EXPLORER: "https://goerli.etherscan.io"
+  APP_TITLE: "%CHAINNAME FaucETH"
