@@ -55,6 +55,8 @@ spec:
             {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
           volumeMounts:
+            - name: config
+              mountPath: "/config"
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
@@ -90,6 +92,8 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: config
+          emptyDir: {}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
