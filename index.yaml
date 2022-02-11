@@ -311,6 +311,23 @@ entries:
     version: 0.1.0
   genesis-generator:
   - apiVersion: v2
+    created: "2022-02-11T11:13:42.560626765Z"
+    description: Generate testnet genesis files for the execution and consensus layer
+      clients
+    digest: 47c9194ed923ec2738bb86b516d8452970fb994a0cb26d1946ad04218f97551a
+    home: https://github.com/skylenet/ethereum-genesis-generator
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: genesis-generator
+    sources:
+    - https://github.com/skylenet/ethereum-genesis-generator
+    - https://github.com/protolambda/eth2-testnet-genesis
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/genesis-generator-0.2.0/genesis-generator-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2021-11-18T09:14:14.88507889Z"
     description: Generate testnet genesis files for the execution and consensus layer
       clients
@@ -614,4 +631,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-04T14:03:15.706884505Z"
+generated: "2022-02-11T11:13:42.560664465Z"
