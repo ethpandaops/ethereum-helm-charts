@@ -7,14 +7,10 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ include "genesis-generator.httpPortEL" . }}
-      targetPort: http-el
+    - port: {{ include "genesis-generator.httpPort" . }}
+      targetPort: http
       protocol: TCP
-      name: http-el
-    - port: {{ include "genesis-generator.httpPortCL" . }}
-      targetPort: http-cl
-      protocol: TCP
-      name: http-cl
+      name: http
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

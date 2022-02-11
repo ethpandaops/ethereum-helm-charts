@@ -1,7 +1,7 @@
 
 # genesis-generator
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Generate testnet genesis files for the execution and consensus layer clients
 
@@ -19,12 +19,12 @@ Generate testnet genesis files for the execution and consensus layer clients
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | object | See `values.yaml` | Config file |
-| customArgs | object | `{"cl":[],"el":[]}` | Custom args for the genesis-generator container |
-| customCommand | object | `{"cl":[],"el":[]}` | Command replacement for the genesis-generator container |
+| customArgs | list | `[]` | Custom args for the genesis-generator container |
+| customCommand | list | `[]` | Command replacement for the genesis-generator container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | object | `{"cl":[],"el":[]}` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
-| extraVolumeMounts | object | `{"cl":[],"el":[]}` | Additional volume mounts |
+| extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | genesis-generator container pull policy |

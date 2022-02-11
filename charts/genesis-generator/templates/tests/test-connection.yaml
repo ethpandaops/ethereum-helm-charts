@@ -15,7 +15,7 @@ spec:
        - --location
        - --request
        - GET
-       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPortEL" . }}/'
+       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPort" . }}/'
   restartPolicy: Never
 
 ---
@@ -36,5 +36,5 @@ spec:
        - --location
        - --request
        - GET
-       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPortCL" . }}/'
+       - '{{ include "genesis-generator.fullname" . }}:{{ include "genesis-generator.httpPort" . }}/'
   restartPolicy: Never

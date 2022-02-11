@@ -13,14 +13,10 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Custom args for the genesis-generator container
-customArgs:
-  el: []
-  cl: []
+customArgs: []
 
 # -- Command replacement for the genesis-generator container
-customCommand: # Only change this if you need to change the default command
-  el: []
-  cl: []
+customCommand: [] # Only change this if you need to change the default command
 # -- Config file
 # @default -- See `values.yaml`
 config:
@@ -129,31 +125,19 @@ annotations: {}
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  el:
-    tcpSocket:
-      port: http-el
-    initialDelaySeconds: 10
-    periodSeconds: 120
-    failureThreshold: 3
-  cl:
-    tcpSocket:
-      port: http-cl
-    initialDelaySeconds: 300
-    periodSeconds: 120
-    failureThreshold: 10
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 120
+  failureThreshold: 3
+
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
-  el:
-    tcpSocket:
-      port: http-el
-    initialDelaySeconds: 5
-    periodSeconds: 5
-  cl:
-    tcpSocket:
-      port: http-cl
-    initialDelaySeconds: 10
-    periodSeconds: 10
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 5
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -244,17 +228,13 @@ extraContainers: []
 extraVolumes: []
 
 # -- Additional volume mounts
-extraVolumeMounts:
-  el: []
-  cl: []
+extraVolumeMounts: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
 
 # -- Additional env variables
-extraEnv:
-  el: []
-  cl: []
+extraEnv: []
 # - name: CL_TIMESTAMP_DELAY_SECONDS
 # - value: "180"
 

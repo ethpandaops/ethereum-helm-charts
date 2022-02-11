@@ -61,9 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "genesis-generator.httpPortEL" -}}
+{{- define "genesis-generator.httpPort" -}}
 {{- printf "8000" -}}
-{{- end -}}
-{{- define "genesis-generator.httpPortCL" -}}
-{{- printf "8001" -}}
 {{- end -}}
