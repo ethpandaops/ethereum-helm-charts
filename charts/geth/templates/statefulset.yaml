@@ -110,6 +110,9 @@ spec:
               mountPath: "/config"
               readOnly: true
           ports:
+            {{- if .Values.extraContainerPorts }}
+              {{ toYaml .Values.extraContainerPorts | nindent 12}}
+            {{- end }}
             - name: p2p-tcp
               containerPort: {{ include "geth.p2pPort" . }}
               protocol: TCP

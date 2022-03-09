@@ -213,8 +213,11 @@ extraVolumes: []
 # -- Additional volume mounts
 extraVolumeMounts: []
 
-# -- Additional ports. Useful when using extraContainers
+# -- Additional ports. Useful when using extraContainers or extraContainerPorts
 extraPorts: []
+
+# -- Additional ports for the main container
+extraContainerPorts: []
 
 # -- Additional env variables
 extraEnv: []
