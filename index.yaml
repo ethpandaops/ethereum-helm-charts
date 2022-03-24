@@ -637,6 +637,20 @@ entries:
     version: 0.1.0
   testnet-homepage:
   - apiVersion: v2
+    created: "2022-03-24T03:01:29.382799467Z"
+    description: Ethereum testnet homepage that is used to display testnet relevant
+      information
+    digest: ca66ba0b8d7ea2b4cae5aa377e7e96a60fe8d8bd589073f8128b5aa3443b628c
+    home: https://github.com/skylenet/ethereum-testnet-homepage
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: testnet-homepage
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.2.0/testnet-homepage-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2021-12-02T13:06:21.83550381Z"
     description: Ethereum testnet homepage that is used to display testnet relevant
       information
@@ -650,4 +664,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-09T18:43:05.280658286Z"
+generated: "2022-03-24T03:01:29.382937169Z"
