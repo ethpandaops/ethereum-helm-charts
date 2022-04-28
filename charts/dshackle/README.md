@@ -1,7 +1,7 @@
 
 # dshackle
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket.
 
@@ -15,7 +15,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | 15.5.4 |
+| https://charts.bitnami.com/bitnami | redis | 16.8.9 |
 
 ## Values
 
@@ -34,7 +34,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | dshackle container pull policy |
 | image.repository | string | `"emeraldpay/dshackle"` | dshackle container image repository |
-| image.tag | string | `"0.10"` | dshackle container image tag |
+| image.tag | string | `"0.12"` | dshackle container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

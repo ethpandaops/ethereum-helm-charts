@@ -11,7 +11,7 @@ image:
   # -- dshackle container image repository
   repository: emeraldpay/dshackle
   # -- dshackle container image tag
-  tag: "0.10"
+  tag: "0.12"
   # -- dshackle container pull policy
   pullPolicy: IfNotPresent
 
