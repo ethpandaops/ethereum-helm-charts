@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "ethereum-metrics-exporter.httpPort" -}}
-{{- printf "8545" -}}
+{{- printf "9090" -}}
 {{- end -}}
