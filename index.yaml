@@ -222,6 +222,21 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.0/eth2-fork-mon-0.1.0.tgz
     version: 0.1.0
+  ethereum-metrics-exporter:
+  - apiVersion: v2
+    created: "2022-07-13T05:32:39.696704975Z"
+    description: A Prometheus metrics exporter for Ethereum consensus & execution
+      nodes
+    digest: 65aac86a48a3d031ff2ec0c72300c7c183683910994f805c13b0a709ac86ffb5
+    home: https://github.com/samcm/ethereum-metrics-exporter
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.0/ethereum-metrics-exporter-0.1.0.tgz
+    version: 0.1.0
   ethstats:
   - apiVersion: v2
     created: "2021-11-18T09:14:14.518939849Z"
@@ -664,4 +679,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-24T03:01:29.382937169Z"
+generated: "2022-07-13T05:32:39.696740774Z"
