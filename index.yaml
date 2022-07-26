@@ -525,6 +525,22 @@ entries:
     version: 0.1.0
   nimbus:
   - apiVersion: v2
+    created: "2022-07-26T07:06:09.505478009Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: 9d7c5b2e7639ebaa7110f426f655fc92bc3ae4d5e3e2904539cf4db43d1d71f6
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.3.0/nimbus-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     created: "2021-12-13T19:24:07.0984325Z"
     description: An open-source Ethereum consensus layer client, written in Java
     digest: e442397fcc40c5753b21458aaed3cbd751b54e32e537a950c8b6edc6884cd941
@@ -679,4 +695,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-13T05:32:39.696740774Z"
+generated: "2022-07-26T07:06:09.505723412Z"
