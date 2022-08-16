@@ -4,7 +4,7 @@ remote: origin
 target-branch: master
 chart-dirs:
   - charts
-check-version-increment: true
+check-version-increment: false
 lint-conf: lintconf.yaml
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
