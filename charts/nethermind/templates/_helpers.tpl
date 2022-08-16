@@ -73,6 +73,10 @@ Create the name of the service account to use
 {{- printf "8545" -}}
 {{- end -}}
 
+{{- define "nethermind.authPort" -}}
+{{- printf "8551" -}}
+{{- end -}}
+
 {{- define "nethermind.metricsPort" -}}
 {{- printf "9545" -}}
 {{- end -}}

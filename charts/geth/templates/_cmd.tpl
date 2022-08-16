@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec geth
-  --datadir=/data
+  --datadir=/data/geth/
   --config=/config/geth.toml
 {{- if .Values.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
@@ -27,6 +27,10 @@
   --ws.addr=0.0.0.0
   --ws.port={{ include "geth.wsPort" . }}
   --ws.origins=*
+  --authrpc.jwtsecret=/data/geth/geth/jwtsecret
+  --authrpc.addr=0.0.0.0
+  --authrpc.port={{ include "geth.authPort" . }}
+  --authrpc.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ include "geth.metricsPort" . }}

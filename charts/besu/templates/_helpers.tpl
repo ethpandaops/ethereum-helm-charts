@@ -77,6 +77,10 @@ Create the name of the service account to use
 {{- printf "8546" -}}
 {{- end -}}
 
+{{- define "besu.authPort" -}}
+{{- printf "8551" -}}
+{{- end -}}
+
 {{- define "besu.metricsPort" -}}
 {{- printf "9545" -}}
 {{- end -}}

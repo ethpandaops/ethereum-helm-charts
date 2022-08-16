@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec erigon
-  --datadir=/data
+  --datadir=/data/erigon
 {{- if .Values.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP
   --port=$EXTERNAL_PORT
@@ -18,6 +18,10 @@
   --port={{ include "erigon.p2pPort" . }}
 {{- end }}
   --private.api.addr=127.0.0.1:9090
+  --authrpc.jwtsecret=/data/erigon/jwt.hex
+  --authrpc.addr=0.0.0.0
+  --authrpc.port={{ include "erigon.authPort" . }}
+  --authrpc.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ include "erigon.metricsPort" . }}
@@ -36,10 +40,12 @@
 - >
   while ! nc -z 127.0.0.1 9090; do sleep 1; done;
   exec rpcdaemon
+  --datadir=/data/erigon/
   --private.api.addr=127.0.0.1:9090
   --http.addr=0.0.0.0
   --http.port={{ include "erigon.httpPort" . }}
   --http.vhosts=*
+  --http.api=eth,erigon,web3,net,debug,trace,txpool
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ include "erigon.metricsPortRPCDaemon" . }}

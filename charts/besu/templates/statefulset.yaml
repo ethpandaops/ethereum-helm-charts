@@ -118,6 +118,9 @@ spec:
             - name: ws-rpc
               containerPort: {{ include "besu.wsPort" . }}
               protocol: TCP
+            - name: auth-rpc
+              containerPort: {{ include "besu.authPort" . }}
+              protocol: TCP    
             - name: metrics
               containerPort: {{ include "besu.metricsPort" . }}
               protocol: TCP

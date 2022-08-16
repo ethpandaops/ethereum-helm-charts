@@ -120,6 +120,9 @@ spec:
             - name: http-rpc
               containerPort: {{ include "nethermind.httpPort" . }}
               protocol: TCP
+            - name: auth-rpc
+              containerPort: {{ include "nethermind.authPort" . }}
+              protocol: TCP  
             - name: metrics
               containerPort: {{ include "nethermind.metricsPort" . }}
               protocol: TCP

@@ -10,7 +10,7 @@
 {{- end }}
   exec lighthouse
   beacon_node
-  --datadir=/data
+  --datadir=/data/lighthouse
   --disable-upnp
   --disable-enr-auto-update
 {{- if .Values.p2pNodePort.enabled }}
@@ -67,7 +67,7 @@
 {{- end }}
   exec lighthouse
   boot_node
-  --datadir=/data
+  --datadir=/data/lighthouse
   --listen-address=0.0.0.0
   --port={{ include "lighthouse.p2pPort" . }}
 {{- range .Values.extraArgs }}

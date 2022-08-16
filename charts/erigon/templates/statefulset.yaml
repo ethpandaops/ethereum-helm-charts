@@ -153,6 +153,9 @@ spec:
             - name: http-rpc
               containerPort: {{ include "erigon.httpPort" . }}
               protocol: TCP
+            - name: auth-rpc
+              containerPort: {{ include "erigon.authPort" . }}
+              protocol: TCP   
             - name: metrics-rpcd
               containerPort: {{ include "erigon.metricsPortRPCDaemon" . }}
               protocol: TCP

@@ -23,6 +23,10 @@ spec:
       targetPort: ws-rpc
       protocol: TCP
       name: ws-rpc
+    - port: {{ include "besu.authPort" . }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc    
     - port: {{ include "besu.metricsPort" . }}
       targetPort: metrics
       protocol: TCP

@@ -10,7 +10,7 @@
 {{- end }}
   exec /opt/teku/bin/teku
   --log-destination=CONSOLE
-  --data-path=/data
+  --data-path=/data/teku/
   --p2p-enabled=true
   --p2p-port={{ include "teku.p2pPort" . }}
 {{- if .Values.p2pNodePort.enabled }}
@@ -43,7 +43,7 @@
 - >
   exec /opt/teku/bin/teku validator-client
   --log-destination=CONSOLE
-  --data-path=/data
+  --data-path=/data/teku
   --metrics-enabled
   --metrics-interface=0.0.0.0
   --metrics-host-allowlist=*

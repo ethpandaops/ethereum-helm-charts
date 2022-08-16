@@ -77,6 +77,10 @@ Create the name of the service account to use
 {{- printf "8546" -}}
 {{- end -}}
 
+{{- define "geth.authPort" -}}
+{{- printf "8551" -}}
+{{- end -}}
+
 {{- define "geth.metricsPort" -}}
 {{- printf "6060" -}}
 {{- end -}}

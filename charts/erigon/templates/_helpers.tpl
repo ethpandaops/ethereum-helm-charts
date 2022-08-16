@@ -73,6 +73,10 @@ Create the name of the service account to use
 {{- printf "8545" -}}
 {{- end -}}
 
+{{- define "erigon.authPort" -}}
+{{- printf "8551" -}}
+{{- end -}}
+
 {{- define "erigon.metricsPort" -}}
 {{- printf "6060" -}}
 {{- end -}}

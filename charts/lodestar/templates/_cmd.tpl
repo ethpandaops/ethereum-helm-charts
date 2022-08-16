@@ -10,7 +10,7 @@
 {{- end }}
   node /usr/app/node_modules/.bin/lodestar
   beacon
-  --rootDir=/data
+  --rootDir=/data/lodestar
   --network.discv5.bindAddr=/ip4/0.0.0.0/udp/{{ include "lodestar.p2pPort" . }}
   --network.localMultiaddrs=/ip4/0.0.0.0/tcp/{{ include "lodestar.p2pPort" . }}
 {{- if .Values.p2pNodePort.enabled }}
@@ -43,7 +43,7 @@
 - >-
   node /usr/app/node_modules/.bin/lodestar
   validator
-  --rootDir=/data
+  --rootDir=/data/lodestar
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec {{ .Values.defaultBinaryPath }}
-  --data-dir=/data
+  --data-dir=/data/nimbus
   --enr-auto-update=false
 {{- if .Values.p2pNodePort.enabled }}
   --nat=extip:$EXTERNAL_IP

@@ -19,6 +19,10 @@ spec:
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
+    - port: {{ include "erigon.authPort" . }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc    
     - port: {{ include "erigon.metricsPort" . }}
       targetPort: metrics
       protocol: TCP

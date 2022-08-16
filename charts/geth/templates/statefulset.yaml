@@ -125,6 +125,9 @@ spec:
             - name: ws-rpc
               containerPort: {{ include "geth.wsPort" . }}
               protocol: TCP
+            - name: auth-rpc
+              containerPort: {{ include "geth.authPort" . }}
+              protocol: TCP
             - name: metrics
               containerPort: {{ include "geth.metricsPort" . }}
               protocol: TCP

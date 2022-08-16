@@ -23,6 +23,10 @@ spec:
       targetPort: ws-rpc
       protocol: TCP
       name: ws-rpc
+    - port: {{ include "geth.authPort" . }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc
     - port: {{ include "geth.metricsPort" . }}
       targetPort: metrics
       protocol: TCP

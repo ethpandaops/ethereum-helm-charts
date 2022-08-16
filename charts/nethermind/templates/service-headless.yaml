@@ -19,6 +19,10 @@ spec:
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
+    - port: {{ include "nethermind.authPort" . }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc  
     - port: {{ include "nethermind.metricsPort" . }}
       targetPort: metrics
       protocol: TCP
