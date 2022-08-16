@@ -93,7 +93,6 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 # Disable the redis deployment
 redis:
   enabled: false
-
 config: |
   ...
   cache:
