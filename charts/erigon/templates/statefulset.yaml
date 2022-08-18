@@ -115,6 +115,9 @@ spec:
             - name: p2p-udp
               containerPort: {{ include "erigon.p2pPort" . }}
               protocol: UDP
+            - name: auth-rpc
+              containerPort: {{ include "erigon.authPort" . }}
+              protocol: TCP   
             - name: metrics
               containerPort: {{ include "erigon.metricsPort" . }}
               protocol: TCP
@@ -157,10 +160,7 @@ spec:
           ports:
             - name: http-rpc
               containerPort: {{ include "erigon.httpPort" . }}
-              protocol: TCP
-            - name: auth-rpc
-              containerPort: {{ include "erigon.authPort" . }}
-              protocol: TCP   
+              protocol: TCP  
             - name: metrics-rpcd
               containerPort: {{ include "erigon.metricsPortRPCDaemon" . }}
               protocol: TCP
