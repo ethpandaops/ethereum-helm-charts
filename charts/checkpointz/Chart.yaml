@@ -1,0 +1,9 @@
+apiVersion: v2
+name: checkpointz
+description: A beacon chain Checkpoint Sync provider
+home: https://github.com/samcm/checkpointz
+type: application
+version: 0.1.0
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
