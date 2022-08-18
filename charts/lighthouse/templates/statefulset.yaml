@@ -109,6 +109,9 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex   
           ports:
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
@@ -157,6 +160,9 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: jwt
+          configMap:
+            name: {{ include "lighthouse.fullname" . }}-jwt 
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

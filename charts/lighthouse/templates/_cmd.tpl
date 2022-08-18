@@ -10,7 +10,7 @@
 {{- end }}
   exec lighthouse
   beacon_node
-  --datadir=/data/lighthouse
+  --datadir=/data
   --disable-upnp
   --disable-enr-auto-update
 {{- if .Values.p2pNodePort.enabled }}
@@ -28,6 +28,7 @@
   --http
   --http-address=0.0.0.0
   --http-port={{ include "lighthouse.httpPort" . }}
+  --execution-jwt=/data/jwt.hex
   --metrics
   --metrics-address=0.0.0.0
   --metrics-port={{ include "lighthouse.metricsPort" . }}
@@ -67,7 +68,7 @@
 {{- end }}
   exec lighthouse
   boot_node
-  --datadir=/data/lighthouse
+  --datadir=/data
   --listen-address=0.0.0.0
   --port={{ include "lighthouse.p2pPort" . }}
 {{- range .Values.extraArgs }}

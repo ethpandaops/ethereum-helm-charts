@@ -25,6 +25,10 @@ config: |
   [Node.P2P]
   DialRatio = 3
 
+# -- JWT secret used by client as a configMap. Change this value.
+jwt: |
+  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
 # -- Command replacement for the geth container
 customCommand: [] # Only change this if you need to change the default command
 
@@ -109,6 +113,8 @@ persistence:
   - ReadWriteOnce
   # -- Requested size for volume claim template
   size: 20Gi
+  # -- Use a specific storage class 'local-path' for local storage
+  storageClassName: null
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template

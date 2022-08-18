@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec besu
-  --data-path=/data/besu/
+  --data-path=/data
   --nat-method=NONE
 {{- if .Values.p2pNodePort.enabled }}
   --p2p-host=$EXTERNAL_IP
@@ -26,7 +26,7 @@
   --rpc-ws-host=0.0.0.0
   --rpc-ws-port={{ include "besu.wsPort" . }}
   --host-allowlist=*
-  --engine-jwt-secret=/data/besu/jwt.hex
+  --engine-jwt-secret=/data/jwt.hex
   --engine-rpc-port={{ include "besu.authPort" . }}
   --engine-host-allowlist=*
   --metrics-enabled

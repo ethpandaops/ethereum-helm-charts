@@ -29,6 +29,10 @@ extraArgs: []
   #- --enable-doppelganger-protection
   #- --beacon-nodes=http://lighthouse-beacon:5052
 
+# -- JWT secret used by client as a configMap. Change this value.
+jwt: |
+  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
 # -- Command replacement for the lighthouse container
 customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|bootnode|validator)
 

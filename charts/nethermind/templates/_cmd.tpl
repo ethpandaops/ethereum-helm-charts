@@ -9,7 +9,7 @@
   . /env/init-nodeport;
 {{- end }}
   exec /nethermind/Nethermind.Runner
-  --datadir=/data/nethermind/
+  --datadir=/data
   --KeyStore.KeyStoreDirectory=/data/nethermind/keystore
   --Network.LocalIp=$(POD_IP)
 {{- if .Values.p2pNodePort.enabled }}
@@ -26,7 +26,7 @@
   --JsonRpc.Port={{ include "nethermind.httpPort" . }}
   --Init.WebSocketsEnabled=true
   --JsonRpc.WebSocketsPort={{ include "nethermind.httpPort" . }}
-  --JsonRpc.JwtSecretFile=/data/nethermind/jwt.hex
+  --JsonRpc.JwtSecretFile=/data/jwt.hex
   --JsonRpc.AdditionalRpcUrls="http://127.0.0.1:{{ include "nethermind.authPort" . }}|http;ws|net;eth;subscribe;engine;web3;client"
   --Metrics.Enabled=true
   --Metrics.NodeName=$(POD_NAME)

@@ -10,7 +10,7 @@
 {{- end }}
   exec /app/cmd/beacon-chain/beacon-chain
   --accept-terms-of-use=true
-  --datadir=/data/prysm
+  --datadir=/data
 {{- if .Values.p2pNodePort.enabled }}
   --p2p-host-ip=$EXTERNAL_IP
   --p2p-tcp-port=$EXTERNAL_PORT
@@ -22,6 +22,7 @@
 {{- end }}
   --rpc-host=0.0.0.0
   --rpc-port={{ include "prysm.rpcPort" . }}
+  --jwt-secret=/data/jwt.hex
   --grpc-gateway-host=0.0.0.0
   --grpc-gateway-port={{ include "prysm.httpPort" . }}
   --monitoring-host=0.0.0.0
@@ -41,7 +42,7 @@
 - >-
   exec /app/cmd/validator/validator
   --accept-terms-of-use=true
-  --datadir=/data/prysm
+  --datadir=/data
   --monitoring-host=0.0.0.0
   --monitoring-port={{ include "prysm.metricsPort" . }}
 {{- range .Values.extraArgs }}

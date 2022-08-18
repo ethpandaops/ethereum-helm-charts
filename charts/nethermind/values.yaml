@@ -19,6 +19,10 @@ image:
 extraArgs: []
   #- --config=goerli
 
+# -- JWT secret used by client as a configMap. Change this value.
+jwt: |
+  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
 # -- Command replacement for the nethermind container
 customCommand: [] # Only change this if you need to change the default command
 

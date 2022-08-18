@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -40,6 +40,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | initChownData.image.tag | string | `"1.34.0"` | Container tag |
 | initChownData.resources | object | `{}` | Resource requests and limits |
 | initContainers | list | `[]` | Additional init containers |
+| jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a\n"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
 | nameOverride | string | `""` | Overrides the chart's name |
