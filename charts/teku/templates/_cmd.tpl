@@ -29,6 +29,7 @@
   --metrics-interface=0.0.0.0
   --metrics-host-allowlist=*
   --metrics-port={{ include "teku.metricsPort" . }}
+  --validators-proposer-default-fee-recipient="0x0000000000000000000000000000000000000000"
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -49,6 +50,7 @@
   --metrics-interface=0.0.0.0
   --metrics-host-allowlist=*
   --metrics-port={{ include "teku.metricsPort" . }}
+  --validators-proposer-default-fee-recipient="0x0000000000000000000000000000000000000000"
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
