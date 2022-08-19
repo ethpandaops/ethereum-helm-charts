@@ -21,11 +21,13 @@ mode: "beacon"
 # -- Extra args for the lodestar container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=prater
-  #- --eth1.providerUrls=http://your-eth1-node:8051
+  #- --network=goerli
+  #- --eth1.providerUrls=http://your-eth1-node:8551
+  #- --weakSubjectivitySyncLatest=true
+  #- --weakSubjectivityServerUrl=https://goerli.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
-  #- --network=prater
+  #- --network=goerli
   #- --server=http://lodestar-beacon:9596
 
 # -- JWT secret used by client as a configMap. Change this value.
@@ -112,6 +114,10 @@ persistence:
   - ReadWriteOnce
   # -- Requested size for volume claim template
   size: 20Gi
+  # -- Use a specific storage class 
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template

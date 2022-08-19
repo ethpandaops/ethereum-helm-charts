@@ -27,11 +27,14 @@ mode: "beacon"
 # -- Extra args for the prysm container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=prater
-  #- --eth1-endpoints=http://your-eth1-node:8051
+  #- --goerli 
+  #- --execution-endpoint=http://your-eth1-node:8551
+  #- --checkpoint-sync-url=https://goerli.checkpoint-sync.ethdevops.io
+  #- --genesis-beacon-api-url=https://goerli.checkpoint-sync.ethdevops.io
+  #
   ##
   ## Example for validator mode
-  #- --network=prater
+  #- --goerli
   #- --enable-doppelganger-protection
   #- --beacon-nodes=http://prysm-beacon:5052
 
@@ -119,6 +122,10 @@ persistence:
   - ReadWriteOnce
   # -- Requested size for volume claim template
   size: 20Gi
+  # -- Use a specific storage class 
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template
