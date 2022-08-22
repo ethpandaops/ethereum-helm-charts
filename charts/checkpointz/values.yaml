@@ -99,6 +99,9 @@ podLabels: {}
 # -- Pod annotations
 podAnnotations: {}
 
+# -- Extra Pod ports
+extraPodPorts: []
+
 # -- Pod priority class
 priorityClassName: null
 

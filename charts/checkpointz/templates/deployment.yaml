@@ -63,7 +63,7 @@ spec:
             subPath: config.yaml
             readOnly: true
           {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- end }}
         ports:
           - name: http
@@ -72,6 +72,9 @@ spec:
           - name: metrics
             containerPort: {{ include "checkpointz.metricsPort" . }}
             protocol: TCP
+          {{- if .Values.extraPodPorts }}
+            {{ toYaml .Values.extraPodPorts | nindent 10 }}
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:

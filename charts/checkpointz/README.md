@@ -25,6 +25,7 @@ A beacon chain Checkpoint Sync provider
 | customCommand | list | `[]` | Command replacement for the checkpointz container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
+| extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |

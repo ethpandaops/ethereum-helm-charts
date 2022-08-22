@@ -62,9 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "checkpointz.httpPort" -}}
-{{- printf "5555" -}}
-{{- end -}}
+{{ (split ":" .Values.config.global.listenAddr)._1 | default ":5555" }}
+{{- end }}
 
 {{- define "checkpointz.metricsPort" -}}
-{{- printf "9090" -}}
+{{ (split ":" .Values.config.global.metricsAddr)._1 | default ":9090" }}
 {{- end -}}
