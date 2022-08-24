@@ -109,6 +109,15 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- HTTP Port
+httpPort: null
+
+# -- Metrics Port
+metricsPort: null
+
+# -- RPC Port
+rpcPort: null
+
 # -- Node selector for pods
 nodeSelector: {}
 

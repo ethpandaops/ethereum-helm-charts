@@ -100,6 +100,18 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- HTTP Port
+httpPort: null
+
+# -- WS Port
+wsPort: null
+
+# -- Engine Port (Auth Port)
+authPort: null
+
+# -- Metrics Port
+metricsPort: null
+
 # -- Node selector for pods
 nodeSelector: {}
 

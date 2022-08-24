@@ -34,6 +34,7 @@
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ include "geth.metricsPort" . }}
+  --syncmode snap
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

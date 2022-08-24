@@ -25,6 +25,7 @@
   --metrics
   --metrics.addr=0.0.0.0
   --metrics.port={{ include "erigon.metricsPort" . }}
+  --prune htc
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

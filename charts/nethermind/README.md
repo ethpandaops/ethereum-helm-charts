@@ -17,6 +17,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| authPort | string | `nil` | Engine Port (Auth Port) |
 | customCommand | list | `[]` | Command replacement for the nethermind container |
 | extraArgs | list | `[]` | Extra args for the nethermind container |
 | extraContainers | list | `[]` | Additional containers |
@@ -25,6 +26,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | string | `nil` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nethermind container pull policy |
 | image.repository | string | `"nethermind/nethermind"` | nethermind container image repository |
 | image.tag | string | `"latest"` | nethermind container image tag |
@@ -42,6 +44,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a\n"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| metricsPort | string | `nil` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
@@ -58,7 +61,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"20Gi"` | Requested size for volume claim template |
-| persistence.storageClassName | string | `nil` | Use a specific storage class  E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
+| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |

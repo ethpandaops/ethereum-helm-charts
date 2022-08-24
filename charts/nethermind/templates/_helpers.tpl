@@ -70,15 +70,27 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "nethermind.httpPort" -}}
+{{- if .Values.httpPort }}
+{{- print .Values.httpPort }}
+{{- else }}
 {{- printf "8545" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "nethermind.authPort" -}}
+{{- if .Values.authPort }}
+{{- print .Values.authPort }}
+{{- else }}
 {{- printf "8551" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "nethermind.metricsPort" -}}
+{{- if .Values.metricsPort }}
+{{- print .Values.metricsPort }}
+{{- else }}
 {{- printf "9545" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "nethermind.replicas" -}}

@@ -70,19 +70,35 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "erigon.httpPort" -}}
+{{- if .Values.httpPort }}
+{{- print .Values.httpPort }}
+{{- else }}
 {{- printf "8545" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "erigon.authPort" -}}
+{{- if .Values.authPort }}
+{{- print .Values.authPort }}
+{{- else }}
 {{- printf "8551" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "erigon.metricsPort" -}}
+{{- if .Values.metricsPort }}
+{{- print .Values.metricsPort }}
+{{- else }}
 {{- printf "6060" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "erigon.metricsPortRPCDaemon" -}}
+{{- if .Values.metricsPortRPCDaemon }}
+{{- print .Values.metricsPortRPCDaemon }}
+{{- else }}
 {{- printf "6061" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "erigon.replicas" -}}

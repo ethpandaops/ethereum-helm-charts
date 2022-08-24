@@ -17,6 +17,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| authPort | string | `nil` | Engine Port (Auth Port) |
 | customCommand | list | `[]` | Command replacement for the erigon container |
 | customCommandRPCDaemon | list | `[]` | Command replacement for the rpcdaemon container |
 | extraArgs | list | `[]` | Extra args for the erigon container |
@@ -27,6 +28,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | string | `nil` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | erigon container pull policy |
 | image.repository | string | `"thorax/erigon"` | erigon container image repository |
 | image.tag | string | `"stable"` | erigon container image tag |
@@ -45,6 +47,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a\n"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | livenessProbeRPCDaemon | object | See `values.yaml` | Liveness probe |
+| metricsPort | string | `nil` | Metrics Port |
+| metricsPortRPCDaemon | string | `nil` | RPC Daemon Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
@@ -61,7 +65,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"20Gi"` | Requested size for volume claim template |
-| persistence.storageClassName | string | `nil` | Use a specific storage class  E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
+| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |

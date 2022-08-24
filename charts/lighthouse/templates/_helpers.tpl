@@ -62,13 +62,26 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "lighthouse.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "9000" -}}
+{{- end }}
 {{- end -}}
 
 {{- define "lighthouse.httpPort" -}}
+{{- if .Values.httpPort }}
+{{- print .Values.httpPort }}
+{{- else }}
 {{- printf "5052" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "lighthouse.metricsPort" -}}
+{{- if .Values.metricsPort }}
+{{- print .Values.metricsPort }}
+{{- else }}
 {{- printf "5054" -}}
 {{- end -}}
+{{- end -}}
+

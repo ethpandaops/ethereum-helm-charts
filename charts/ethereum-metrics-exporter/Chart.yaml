@@ -3,7 +3,7 @@ name: ethereum-metrics-exporter
 description: A Prometheus metrics exporter for Ethereum consensus & execution nodes
 home: https://github.com/samcm/ethereum-metrics-exporter
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

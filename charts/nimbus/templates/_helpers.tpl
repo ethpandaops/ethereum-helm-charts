@@ -70,11 +70,19 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "nimbus.restPort" -}}
+{{- if .Values.restPort }}
+{{- print .Values.restPort }}
+{{- else }}
 {{- printf "5052" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "nimbus.metricsPort" -}}
+{{- if .Values.metricsPort }}
+{{- print .Values.metricsPort }}
+{{- else }}
 {{- printf "8008" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "nimbus.replicas" -}}

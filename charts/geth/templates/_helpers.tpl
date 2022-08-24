@@ -70,19 +70,35 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "geth.httpPort" -}}
+{{- if .Values.httpPort }}
+{{- print .Values.httpPort }}
+{{- else }}
 {{- printf "8545" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "geth.wsPort" -}}
+{{- if .Values.wsPort }}
+{{- print .Values.wsPort }}
+{{- else }}
 {{- printf "8546" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "geth.authPort" -}}
+{{- if .Values.authPort }}
+{{- print .Values.authPort }}
+{{- else }}
 {{- printf "8551" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "geth.metricsPort" -}}
+{{- if .Values.metricsPort }}
+{{- print .Values.metricsPort }}
+{{- else }}
 {{- printf "6060" -}}
+{{- end -}}
 {{- end -}}
 
 {{- define "geth.replicas" -}}

@@ -25,6 +25,7 @@ An open-source Ethereum 2.0 client, written in Go
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | string | `nil` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
 | image.repository | string | `"samcm/prysm-debian"` | Prysm container image repository |
 | image.tag | string | `"latest"` |  |
@@ -42,6 +43,7 @@ An open-source Ethereum 2.0 client, written in Go
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a\n"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| metricsPort | string | `nil` | Metrics Port |
 | mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -57,7 +59,7 @@ An open-source Ethereum 2.0 client, written in Go
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"20Gi"` | Requested size for volume claim template |
-| persistence.storageClassName | string | `nil` | Use a specific storage class  E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
+| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
@@ -69,6 +71,7 @@ An open-source Ethereum 2.0 client, written in Go
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
+| rpcPort | string | `nil` | RPC Port |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
