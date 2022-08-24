@@ -22,9 +22,8 @@ mode: "beacon"
 extraArgs: []
   ## Example for beacon mode
   #- --network=goerli
-  #- --eth1.providerUrls=http://your-eth1-node:8551
-  #- --weakSubjectivitySyncLatest=true
-  #- --weakSubjectivityServerUrl=https://goerli.checkpoint-sync.ethdevops.io
+  #- --execution.urls=http://your-eth1-node:8551
+  #- --checkpointSyncUrl=https://goerli.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
   #- --network=goerli
