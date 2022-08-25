@@ -116,7 +116,7 @@ spec:
               containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: UDP
             - name: http-api
-              containerPort: {{ include "nimbus.restPort" . }}
+              containerPort: {{ include "nimbus.httpPort" . }}
               protocol: TCP
             - name: metrics
               containerPort: {{ include "nimbus.metricsPort" . }}

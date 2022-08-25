@@ -22,7 +22,7 @@
 {{- end }}
   --rest=true
   --rest-address=0.0.0.0
-  --rest-port={{ include "nimbus.restPort" . }}
+  --rest-port={{ include "nimbus.httpPort" . }}
   --jwt-secret=/data/jwt.hex
   --metrics=true
   --metrics-address=0.0.0.0

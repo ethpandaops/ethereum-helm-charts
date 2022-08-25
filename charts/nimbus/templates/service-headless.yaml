@@ -15,7 +15,7 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "nimbus.restPort" . }}
+    - port: {{ include "nimbus.httpPort" . }}
       targetPort: http-api
       protocol: TCP
       name: http-api

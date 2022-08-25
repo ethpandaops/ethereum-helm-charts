@@ -69,9 +69,9 @@ Create the name of the service account to use
 {{- end }}
 {{- end -}}
 
-{{- define "nimbus.restPort" -}}
-{{- if .Values.restPort }}
-{{- print .Values.restPort }}
+{{- define "nimbus.httpPort" -}}
+{{- if .Values.httpPort }}
+{{- print .Values.httpPort }}
 {{- else }}
 {{- printf "5052" -}}
 {{- end -}}
