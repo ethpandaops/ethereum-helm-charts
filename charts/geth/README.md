@@ -1,7 +1,7 @@
 
 # geth
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Go Ethereum (Geth for short) is one of the original implementations of the Ethereum protocol. Currently, it is the most widespread client with the biggest user base and variety of tooling for users and developers. It is written in Go, fully open source and licensed under the GNU LGPL v3
 
@@ -17,7 +17,7 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| authPort | string | `nil` | Engine Port (Auth Port) |
+| authPort | int | `8551` | Engine Port (Auth Port) |
 | config | string | See `values.yaml` for example | TOML config file |
 | customCommand | list | `[]` | Command replacement for the geth container |
 | extraArgs | list | `[]` | Extra args for the geth container |
@@ -28,10 +28,10 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | string | `nil` | HTTP Port |
+| httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | geth container pull policy |
 | image.repository | string | `"ethereum/client-go"` | geth container image repository |
-| image.tag | string | `"latest"` | geth container image tag |
+| image.tag | string | `"v1.10.23"` | geth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -44,9 +44,9 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | initChownData.image.tag | string | `"1.34.0"` | Container tag |
 | initChownData.resources | object | `{}` | Resource requests and limits |
 | initContainers | list | `[]` | Additional init containers |
-| jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a\n"` | JWT secret used by client as a configMap. Change this value. |
+| jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| metricsPort | string | `nil` | Metrics Port |
+| metricsPort | int | `6060` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
@@ -90,11 +90,11 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsPort | string | `nil` | WS Port |
+| wsPort | int | `8546` | WS Port |
 
 # Examples
 
