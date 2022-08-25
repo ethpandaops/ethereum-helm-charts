@@ -102,7 +102,7 @@ readinessProbe:
   periodSeconds: 10
 
 # -- HTTP Port
-httpPort: null
+restPort: null
 
 # -- Metrics Port
 metricsPort: null
