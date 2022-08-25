@@ -107,7 +107,8 @@ spec:
               mountPath: "/data"
             - name: jwt
               mountPath: "/data/jwt.hex"
-              subPath: jwt.hex    
+              subPath: jwt.hex
+              readOnly: true  
           ports:
             - name: p2p-tcp
               containerPort: {{ include "erigon.p2pPort" . }}
@@ -116,10 +117,10 @@ spec:
               containerPort: {{ include "erigon.p2pPort" . }}
               protocol: UDP
             - name: auth-rpc
-              containerPort: {{ include "erigon.authPort" . }}
+              containerPort: {{ .Values.authPort }}
               protocol: TCP   
             - name: metrics
-              containerPort: {{ include "erigon.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -159,10 +160,10 @@ spec:
             {{- end }}
           ports:
             - name: http-rpc
-              containerPort: {{ include "erigon.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP  
             - name: metrics-rpcd
-              containerPort: {{ include "erigon.metricsPortRPCDaemon" . }}
+              containerPort: {{ .Values.metricsPortRPCDaemon }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbeRPCDaemon | nindent 12 }}
@@ -197,8 +198,8 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
-          configMap:
-            name: {{ include "erigon.fullname" . }}-jwt
+          secret:
+            secretName: {{ include "erigon.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

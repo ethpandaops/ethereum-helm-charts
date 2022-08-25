@@ -68,27 +68,3 @@ Create the name of the service account to use
 {{- printf "13000" -}}
 {{- end }}
 {{- end -}}
-
-{{- define "prysm.httpPort" -}}
-{{- if .Values.httpPort }}
-{{- print .Values.httpPort }}
-{{- else }}
-{{- printf "3500" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "prysm.metricsPort" -}}
-{{- if .Values.metricsPort }}
-{{- print .Values.metricsPort }}
-{{- else }}
-{{- printf "8080" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "prysm.rpcPort" -}}
-{{- if .Values.rpcPort }}
-{{- print .Values.rpcPort }}
-{{- else }}
-{{- printf "4000" -}}
-{{- end -}}
-{{- end -}}

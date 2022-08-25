@@ -68,19 +68,3 @@ Create the name of the service account to use
 {{- printf "9000" -}}
 {{- end }}
 {{- end -}}
-
-{{- define "lodestar.httpPort" -}}
-{{- if .Values.httpPort }}
-{{- print .Values.httpPort }}
-{{- else }}
-{{- printf "9596" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "lodestar.metricsPort" -}}
-{{- if .Values.metricsPort }}
-{{- print .Values.metricsPort }}
-{{- else }}
-{{- printf "8008" -}}
-{{- end -}}
-{{- end -}}

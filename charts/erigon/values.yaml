@@ -11,7 +11,7 @@ image:
   # -- erigon container image repository
   repository: thorax/erigon
   # -- erigon container image tag
-  tag: stable
+  tag: v2022.08.02
   # -- erigon container pull policy
   pullPolicy: IfNotPresent
 
@@ -20,8 +20,7 @@ extraArgs: []
   #- --goerli
 
 # -- JWT secret used by client as a configMap. Change this value.
-jwt: |
-  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Extra args for the rpcdaemon container
 extraArgsRPCDaemon: []
@@ -90,7 +89,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: metrics
+    port: auth-rpc
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -98,7 +97,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: metrics
+    port: auth-rpc
   initialDelaySeconds: 10
   periodSeconds: 10
 
@@ -119,16 +118,16 @@ readinessProbeRPCDaemon:
   periodSeconds: 10
 
 # -- HTTP Port
-httpPort: null
+httpPort: 8545
 
 # -- Engine Port (Auth Port)
-authPort: null
+authPort: 8551
 
 # -- Metrics Port
-metricsPort: null
+metricsPort: 6060
 
 # -- RPC Daemon Port
-metricsPortRPCDaemon: null
+metricsPortRPCDaemon: 6061
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -219,7 +218,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 300
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/

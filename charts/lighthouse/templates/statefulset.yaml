@@ -111,7 +111,8 @@ spec:
               mountPath: "/data"
             - name: jwt
               mountPath: "/data/jwt.hex"
-              subPath: jwt.hex   
+              subPath: jwt.hex
+              readOnly: true
           ports:
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
@@ -123,10 +124,10 @@ spec:
           {{- end }}
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
             - name: http-api
-              containerPort: {{ include "lighthouse.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "lighthouse.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
           {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -161,8 +162,8 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
-          configMap:
-            name: {{ include "lighthouse.fullname" . }}-jwt 
+          secret:
+            secretName: {{ include "lighthouse.fullname" . }}-jwt 
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

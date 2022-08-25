@@ -20,18 +20,18 @@
 {{- end }}
   --rpc-http-enabled
   --rpc-http-host=0.0.0.0
-  --rpc-http-port={{ include "besu.httpPort" . }}
+  --rpc-http-port={{ .Values.httpPort }}
   --rpc-http-cors-origins=*
   --rpc-ws-enabled
   --rpc-ws-host=0.0.0.0
-  --rpc-ws-port={{ include "besu.wsPort" . }}
+  --rpc-ws-port={{ .Values.wsPort }}
   --host-allowlist=*
   --engine-jwt-secret=/data/jwt.hex
-  --engine-rpc-port={{ include "besu.authPort" . }}
+  --engine-rpc-port={{ .Values.authPort }}
   --engine-host-allowlist=*
   --metrics-enabled
   --metrics-host=0.0.0.0
-  --metrics-port={{ include "besu.metricsPort" . }}
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

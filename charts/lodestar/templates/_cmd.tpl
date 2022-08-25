@@ -25,11 +25,11 @@
 {{- end }}
   --rest
   --rest.address=0.0.0.0
-  --rest.port={{ include "lodestar.httpPort" . }}
+  --rest.port={{ .Values.httpPort }}
   --jwt-secret=/data/jwt.hex
   --metrics
   --metrics.address=0.0.0.0
-  --metrics.port={{ include "lodestar.metricsPort" . }}
+  --metrics.port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

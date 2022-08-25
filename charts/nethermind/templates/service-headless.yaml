@@ -15,15 +15,15 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "nethermind.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ include "nethermind.authPort" . }}
+    - port: {{ .Values.authPort }}
       targetPort: auth-rpc
       protocol: TCP
       name: auth-rpc  
-    - port: {{ include "nethermind.metricsPort" . }}
+    - port: {{ .Values.metricsPort }}
       targetPort: metrics
       protocol: TCP
       name: metrics

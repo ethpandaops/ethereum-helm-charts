@@ -11,7 +11,7 @@ image:
   # -- geth container image repository
   repository: ethereum/client-go
   # -- geth container image tag
-  tag: latest
+  tag: v1.10.23
   # -- geth container pull policy
   pullPolicy: IfNotPresent
 
@@ -26,8 +26,7 @@ config: |
   DialRatio = 3
 
 # -- JWT secret used by client as a configMap. Change this value.
-jwt: |
-  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Command replacement for the geth container
 customCommand: [] # Only change this if you need to change the default command
@@ -101,16 +100,16 @@ readinessProbe:
   periodSeconds: 10
 
 # -- HTTP Port
-httpPort: null
+httpPort: 8545
 
 # -- WS Port
-wsPort: null
+wsPort: 8546
 
 # -- Engine Port (Auth Port)
-authPort: null
+authPort: 8551
 
 # -- Metrics Port
-metricsPort: null
+metricsPort: 6060
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -201,7 +200,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 300
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/

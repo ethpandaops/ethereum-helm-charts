@@ -23,12 +23,12 @@
   --rest-api-enabled=true
   --rest-api-interface=0.0.0.0
   --rest-api-host-allowlist=*
-  --rest-api-port={{ include "teku.httpPort" . }}
+  --rest-api-port={{ .Values.httpPort }}
   --ee-jwt-secret-file=/data/jwt.hex
   --metrics-enabled=true
   --metrics-interface=0.0.0.0
   --metrics-host-allowlist=*
-  --metrics-port={{ include "teku.metricsPort" . }}
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -48,8 +48,7 @@
   --metrics-enabled
   --metrics-interface=0.0.0.0
   --metrics-host-allowlist=*
-  --metrics-port={{ include "teku.metricsPort" . }}
-  --validators-proposer-default-fee-recipient="0x0000000000000000000000000000000000000000"
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

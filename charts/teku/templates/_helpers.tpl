@@ -68,19 +68,3 @@ Create the name of the service account to use
 {{- printf "9000" -}}
 {{- end }}
 {{- end -}}
-
-{{- define "teku.httpPort" -}}
-{{- if .Values.httpPort }}
-{{- print .Values.httpPort }}
-{{- else }}
-{{- printf "5051" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "teku.metricsPort" -}}
-{{- if .Values.metricsPort }}
-{{- print .Values.metricsPort }}
-{{- else }}
-{{- printf "8008" -}}
-{{- end -}}
-{{- end -}}

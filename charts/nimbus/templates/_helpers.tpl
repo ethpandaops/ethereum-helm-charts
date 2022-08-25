@@ -69,22 +69,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end -}}
 
-{{- define "nimbus.httpPort" -}}
-{{- if .Values.httpPort }}
-{{- print .Values.httpPort }}
-{{- else }}
-{{- printf "5052" -}}
-{{- end -}}
-{{- end -}}
-
-{{- define "nimbus.metricsPort" -}}
-{{- if .Values.metricsPort }}
-{{- print .Values.metricsPort }}
-{{- else }}
-{{- printf "8008" -}}
-{{- end -}}
-{{- end -}}
-
 {{- define "nimbus.replicas" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print 1 }}

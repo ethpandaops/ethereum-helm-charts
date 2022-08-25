@@ -21,12 +21,12 @@
   --p2p-udp-port={{ include "prysm.p2pPort" . }}
 {{- end }}
   --rpc-host=0.0.0.0
-  --rpc-port={{ include "prysm.rpcPort" . }}
+  --rpc-port={{ .Values.rpcPort }}
   --jwt-secret=/data/jwt.hex
   --grpc-gateway-host=0.0.0.0
-  --grpc-gateway-port={{ include "prysm.httpPort" . }}
+  --grpc-gateway-port={{ .Values.httpPort }}
   --monitoring-host=0.0.0.0
-  --monitoring-port={{ include "prysm.metricsPort" . }}
+  --monitoring-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -44,7 +44,7 @@
   --accept-terms-of-use=true
   --datadir=/data
   --monitoring-host=0.0.0.0
-  --monitoring-port={{ include "prysm.metricsPort" . }}
+  --monitoring-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

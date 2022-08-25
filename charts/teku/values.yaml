@@ -11,7 +11,7 @@ image:
   # -- teku container image repository
   repository: consensys/teku
   # -- teku container image tag
-  tag: latest
+  tag: 22.8.1
   # -- teku container pull policy
   pullPolicy: IfNotPresent
 
@@ -28,9 +28,8 @@ extraArgs: []
   #- --network=prater
   #- --beacon-node-api-endpoint=http://teku-beacon:5052
 
-# -- JWT secret used by client as a configMap. Change this value.
-jwt: |
-  ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+# -- JWT secret used by client as a secret. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Command replacement for the teku container
 customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|validator)
@@ -100,10 +99,10 @@ readinessProbe:
   periodSeconds: 10
 
 # -- HTTP Port
-httpPort: null
+httpPort: 5051
 
 # -- Metrics Port
-metricsPort: null
+metricsPort: 8008
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -194,7 +193,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 300
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/

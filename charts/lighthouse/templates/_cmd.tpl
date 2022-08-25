@@ -27,11 +27,11 @@
   --discovery-port={{ include "lighthouse.p2pPort" . }}
   --http
   --http-address=0.0.0.0
-  --http-port={{ include "lighthouse.httpPort" . }}
+  --http-port={{ .Values.httpPort }}
   --execution-jwt=/data/jwt.hex
   --metrics
   --metrics-address=0.0.0.0
-  --metrics-port={{ include "lighthouse.metricsPort" . }}
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -49,7 +49,7 @@
   validator
   --metrics
   --metrics-address=0.0.0.0
-  --metrics-port={{ include "lighthouse.metricsPort" . }}
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

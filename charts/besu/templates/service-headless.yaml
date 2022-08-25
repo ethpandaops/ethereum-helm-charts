@@ -15,19 +15,19 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "besu.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ include "besu.wsPort" . }}
+    - port: {{ .Values.wsPort }}
       targetPort: ws-rpc
       protocol: TCP
       name: ws-rpc
-    - port: {{ include "besu.authPort" . }}
+    - port: {{ .Values.authPort }}
       targetPort: auth-rpc
       protocol: TCP
       name: auth-rpc    
-    - port: {{ include "besu.metricsPort" . }}
+    - port: {{ .Values.metricsPort }}
       targetPort: metrics
       protocol: TCP
       name: metrics

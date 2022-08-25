@@ -22,11 +22,11 @@
 {{- end }}
   --rest=true
   --rest-address=0.0.0.0
-  --rest-port={{ include "nimbus.httpPort" . }}
+  --rest-port={{ .Values.httpPort }}
   --jwt-secret=/data/jwt.hex
   --metrics=true
   --metrics-address=0.0.0.0
-  --metrics-port={{ include "nimbus.metricsPort" . }}
+  --metrics-port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

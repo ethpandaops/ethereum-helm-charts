@@ -109,7 +109,8 @@ spec:
               mountPath: "/data"
             - name: jwt
               mountPath: "/data/jwt.hex"
-              subPath: jwt.hex    
+              subPath: jwt.hex
+              readOnly: true 
           ports:
           {{- if eq .Values.mode "beacon" }}
             - name: p2p-tcp
@@ -121,13 +122,13 @@ spec:
           {{- end }}
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
             - name: http-api
-              containerPort: {{ include "prysm.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: rpc
-              containerPort: {{ include "prysm.rpcPort" . }}
+              containerPort: {{ .Values.rpcPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "prysm.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
           {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -162,8 +163,8 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
-          configMap:
-            name: {{ include "prysm.fullname" . }}-jwt 
+          secret:
+            secretName: {{ include "prysm.fullname" . }}-jwt 
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

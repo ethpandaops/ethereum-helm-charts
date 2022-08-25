@@ -13,8 +13,8 @@ spec:
       image: curlimages/curl
       command: ['curl']
     {{- if eq .Values.mode "beacon" }}
-      args: ['{{ include "teku.fullname" . }}:{{ include "teku.httpPort" . }}/eth/v1/node/version']
+      args: ['{{ include "teku.fullname" . }}:{{ .Values.httpPort }}/eth/v1/node/version']
     {{- else }}
-      args: ['{{ include "teku.fullname" . }}:{{ include "teku.metricsPort" . }}/metrics']
+      args: ['{{ include "teku.fullname" . }}:{{ .Values.metricsPort }}/metrics']
     {{- end }}
   restartPolicy: Never

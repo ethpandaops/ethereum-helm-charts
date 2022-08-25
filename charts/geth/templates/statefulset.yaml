@@ -108,7 +108,8 @@ spec:
               mountPath: "/data"
             - name: jwt
               mountPath: "/data/jwt.hex"
-              subPath: jwt.hex   
+              subPath: jwt.hex
+              readOnly: true
             - name: config
               mountPath: "/config"
               readOnly: true
@@ -123,16 +124,16 @@ spec:
               containerPort: {{ include "geth.p2pPort" . }}
               protocol: UDP
             - name: http-rpc
-              containerPort: {{ include "geth.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: ws-rpc
-              containerPort: {{ include "geth.wsPort" . }}
+              containerPort: {{ .Values.wsPort }}
               protocol: TCP
             - name: auth-rpc
-              containerPort: {{ include "geth.authPort" . }}
+              containerPort: {{ .Values.authPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "geth.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -167,8 +168,8 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
-          configMap:
-            name: {{ include "geth.fullname" . }}-jwt
+          secret:
+            secretName: {{ include "geth.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}
