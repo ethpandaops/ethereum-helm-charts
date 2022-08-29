@@ -17,7 +17,9 @@ A beacon chain Checkpoint Sync provider
 | config.beacon.upstreams[0].address | string | `"http://192.168.0.100:5052"` |  |
 | config.beacon.upstreams[0].dataProvider | bool | `true` |  |
 | config.beacon.upstreams[0].name | string | `"upstream1"` |  |
-| config.beacon.upstreams[0].timeoutSeconds | int | `30` |  |
+| config.checkpointz.caches.blocks.max_items | int | `100` |  |
+| config.checkpointz.caches.states.max_items | int | `5` |  |
+| config.checkpointz.historical_epoch_count | int | `20` |  |
 | config.global.listenAddr | string | `":5555"` |  |
 | config.global.logging | string | `"info"` |  |
 | config.global.metricsAddr | string | `":9090"` |  |

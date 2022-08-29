@@ -27,16 +27,19 @@ config:
     logging: "info" # panic,fatal,warm,info,debug,trace
     metricsAddr: ":9090"
 
+  checkpointz:
+    caches:
+      blocks:
+        max_items: 100
+      states:
+        max_items: 5
+    historical_epoch_count: 20
+
   beacon:
     upstreams:
     - name: upstream1
       address: http://192.168.0.100:5052 # Replace me with your beacon node's address
-      timeoutSeconds: 30
       dataProvider: true
-    # - name: local
-    #   address: http://192.168.0.101:5052 # Replace me with your beacon node's address
-    #   timeoutSeconds: 30
-    #   dataProvider: true
 
 ingress:
   # -- Ingress resource for the HTTP API
