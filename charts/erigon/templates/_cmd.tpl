@@ -17,6 +17,7 @@
   --nat=extip:$(POD_IP)
   --port={{ include "erigon.p2pPort" . }}
 {{- end }}
+  --http=false
   --private.api.addr=127.0.0.1:9090
   --authrpc.jwtsecret=/data/jwt.hex
   --authrpc.addr=0.0.0.0
@@ -42,6 +43,7 @@
   exec rpcdaemon
   --datadir=/data
   --private.api.addr=127.0.0.1:9090
+  --txpool.api.addr=127.0.0.1:9090
   --http.addr=0.0.0.0
   --http.port={{ .Values.httpPort }}
   --http.vhosts=*
