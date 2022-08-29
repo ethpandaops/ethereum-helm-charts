@@ -122,6 +122,28 @@ entries:
     version: 0.1.0
   dshackle:
   - apiVersion: v2
+    created: "2022-08-29T06:43:54.98219674Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.8.9
+    description: 'Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain
+      API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket. '
+    digest: cf9bb1eb7ba11d0e10b6b06dabf67c91bc5c07372587863b5c81a8c7c59d43d5
+    home: https://github.com/emeraldpay/dshackle
+    icon: https://avatars.githubusercontent.com/u/49622339?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: dshackle
+    sources:
+    - https://github.com/emeraldpay/dshackle
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.2/dshackle-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-08-16T15:41:42.885561159Z"
     dependencies:
     - condition: redis.enabled
@@ -717,4 +739,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-16T15:41:42.885624059Z"
+generated: "2022-08-29T06:43:54.982246341Z"
