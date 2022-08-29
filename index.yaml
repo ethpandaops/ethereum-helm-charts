@@ -102,6 +102,20 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
     version: 0.1.0
+  checkpointz:
+  - apiVersion: v2
+    created: "2022-08-29T06:52:59.841430226Z"
+    description: A beacon chain Checkpoint Sync provider
+    digest: 01af2bdebb55687d5d0c33832b312c7cd5a49a1b4d9e4edab3780277daf47749
+    home: https://github.com/samcm/checkpointz
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: checkpointz
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/checkpointz-0.1.1/checkpointz-0.1.1.tgz
+    version: 0.1.1
   consensus-monitor:
   - apiVersion: v2
     created: "2021-12-15T13:38:42.171098002Z"
@@ -739,4 +753,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-29T06:43:54.982246341Z"
+generated: "2022-08-29T06:52:59.841580931Z"
