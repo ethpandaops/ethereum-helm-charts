@@ -38,7 +38,7 @@ config:
   beacon:
     upstreams:
     - name: upstream1
-      address: http://192.168.0.100:5052 # Replace me with your beacon node's address
+      address: http://192.168.0.100:5052 # Replace me with your beacon node address
       dataProvider: true
 
 ingress:

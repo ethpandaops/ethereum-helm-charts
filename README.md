@@ -66,6 +66,7 @@ Tooling
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users
 - [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
 - [`ethereum-metrics-exporter`](charts/ethereum-metrics-exporter) - A prometheus exporter for Ethereum execution and consensus clients.
+- [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 
 ## Development
 
