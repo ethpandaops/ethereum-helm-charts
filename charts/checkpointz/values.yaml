@@ -1,0 +1,192 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- checkpointz container image repository
+  repository: samcm/checkpointz
+  # -- checkpointz container image tag
+  tag: latest
+  # -- checkpointz container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+# -- Command arguments
+args: []
+
+config:
+  global:
+    listenAddr: ":5555"
+    logging: "info" # panic,fatal,warm,info,debug,trace
+    metricsAddr: ":9090"
+
+  checkpointz:
+    caches:
+      blocks:
+        max_items: 100
+      states:
+        max_items: 5
+    historical_epoch_count: 20
+
+  beacon:
+    upstreams:
+    - name: upstream1
+      address: http://192.168.0.100:5052 # Replace me with your beacon node's address
+      dataProvider: true
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Custom args for the checkpointz container
+customArgs: []
+
+# -- Command replacement for the checkpointz container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Extra Pod ports
+extraPodPorts: []
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 15s
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

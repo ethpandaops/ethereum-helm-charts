@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "checkpointz.fullname" . }}
+  labels:
+    {{- include "checkpointz.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{ toYaml .Values.config | nindent 4 }}
