@@ -6,9 +6,9 @@ fullnameOverride: ""
 
 image:
   # -- ethstats container image repository
-  repository: puppeth/ethstats
+  repository: skylenet/ethstats-server
   # -- ethstats container image tag
-  tag: latest
+  tag: pow-latest
   # -- ethstats container pull policy
   pullPolicy: IfNotPresent
 
