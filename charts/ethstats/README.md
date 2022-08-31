@@ -1,7 +1,7 @@
 
 # ethstats
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Visual interface for tracking ethereum network status. It uses WebSockets to receive stats from running nodes and output them through a web interface.
 
@@ -9,7 +9,7 @@ Visual interface for tracking ethereum network status. It uses WebSockets to rec
 
 ## Source Code
 
-* <https://github.com/puppeth/eth-netstats>
+* <https://github.com/goerli/ethstats-server>
 
 ## Values
 
@@ -26,8 +26,8 @@ Visual interface for tracking ethereum network status. It uses WebSockets to rec
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | ethstats container pull policy |
-| image.repository | string | `"puppeth/ethstats"` | ethstats container image repository |
-| image.tag | string | `"latest"` | ethstats container image tag |
+| image.repository | string | `"skylenet/ethstats-server"` | ethstats container image repository |
+| image.tag | string | `"pow-latest"` | ethstats container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
