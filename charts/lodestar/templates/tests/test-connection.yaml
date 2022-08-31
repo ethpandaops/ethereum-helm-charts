@@ -13,6 +13,6 @@ spec:
     - name: curl
       image: curlimages/curl
       command: ['curl']
-      args: ['{{ include "lodestar.fullname" . }}:{{ include "lodestar.httpPort" . }}/eth/v1/node/version']
+      args: ['{{ include "lodestar.fullname" . }}:{{ .Values.httpPort }}/eth/v1/node/version']
   restartPolicy: Never
 {{- end }}

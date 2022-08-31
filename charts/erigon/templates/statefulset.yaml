@@ -28,6 +28,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
+      shareProcessNamespace: true
       serviceAccountName: {{ include "erigon.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
@@ -105,6 +106,10 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex
+              readOnly: true  
           ports:
             - name: p2p-tcp
               containerPort: {{ include "erigon.p2pPort" . }}
@@ -112,8 +117,11 @@ spec:
             - name: p2p-udp
               containerPort: {{ include "erigon.p2pPort" . }}
               protocol: UDP
+            - name: auth-rpc
+              containerPort: {{ .Values.authPort }}
+              protocol: TCP   
             - name: metrics
-              containerPort: {{ include "erigon.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -146,15 +154,17 @@ spec:
             {{- include "erigon.defaultCommandRPCDaemon" . | nindent 12 }}
           {{- end }}
           volumeMounts:
+            - name: storage
+              mountPath: "/data"
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
           ports:
             - name: http-rpc
-              containerPort: {{ include "erigon.httpPort" . }}
-              protocol: TCP
+              containerPort: {{ .Values.httpPort }}
+              protocol: TCP  
             - name: metrics-rpcd
-              containerPort: {{ include "erigon.metricsPortRPCDaemon" . }}
+              containerPort: {{ .Values.metricsPortRPCDaemon }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbeRPCDaemon | nindent 12 }}
@@ -188,6 +198,9 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: jwt
+          secret:
+            secretName: {{ include "erigon.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

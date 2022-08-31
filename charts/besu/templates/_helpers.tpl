@@ -69,18 +69,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end -}}
 
-{{- define "besu.httpPort" -}}
-{{- printf "8545" -}}
-{{- end -}}
-
-{{- define "besu.wsPort" -}}
-{{- printf "8546" -}}
-{{- end -}}
-
-{{- define "besu.metricsPort" -}}
-{{- printf "9545" -}}
-{{- end -}}
-
 {{- define "besu.replicas" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print 1 }}

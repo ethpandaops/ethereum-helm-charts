@@ -15,11 +15,15 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "erigon.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ include "erigon.metricsPort" . }}
+    - port: {{ .Values.authPort }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc     
+    - port: {{ .Values.metricsPort }}
       targetPort: metrics
       protocol: TCP
       name: metrics

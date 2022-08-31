@@ -10,9 +10,10 @@
 {{- end }}
   node /usr/app/node_modules/.bin/lodestar
   beacon
-  --rootDir=/data
-  --network.discv5.bindAddr=/ip4/0.0.0.0/udp/{{ include "lodestar.p2pPort" . }}
-  --network.localMultiaddrs=/ip4/0.0.0.0/tcp/{{ include "lodestar.p2pPort" . }}
+  --dataDir=/data
+  --discv5
+  --listenAddress=0.0.0.0
+  --port={{ include "lodestar.p2pPort" . }}
 {{- if .Values.p2pNodePort.enabled }}
   --enr.ip=$EXTERNAL_IP
   --enr.tcp=$EXTERNAL_PORT
@@ -22,12 +23,13 @@
   --enr.tcp={{ include "lodestar.p2pPort" . }}
   --enr.udp={{ include "lodestar.p2pPort" . }}
 {{- end }}
-  --api.rest.enabled=true
-  --api.rest.host=0.0.0.0
-  --api.rest.port={{ include "lodestar.httpPort" . }}
-  --metrics.enabled=true
-  --metrics.listenAddr=0.0.0.0
-  --metrics.serverPort={{ include "lodestar.metricsPort" . }}
+  --rest
+  --rest.address=0.0.0.0
+  --rest.port={{ .Values.httpPort }}
+  --jwt-secret=/data/jwt.hex
+  --metrics
+  --metrics.address=0.0.0.0
+  --metrics.port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -43,7 +45,7 @@
 - >-
   node /usr/app/node_modules/.bin/lodestar
   validator
-  --rootDir=/data
+  --dataDir=/data
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

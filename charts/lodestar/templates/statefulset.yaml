@@ -110,6 +110,10 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex
+              readOnly: true
           ports:
           {{- if eq .Values.mode "beacon" }}
             - name: p2p-tcp
@@ -119,10 +123,10 @@ spec:
               containerPort: {{ include "lodestar.p2pPort" . }}
               protocol: UDP
             - name: http-api
-              containerPort: {{ include "lodestar.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "lodestar.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
           {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -156,6 +160,9 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: jwt
+          secret:
+            secretName: {{ include "lodestar.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

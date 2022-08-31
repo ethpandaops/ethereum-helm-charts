@@ -20,16 +20,20 @@
 {{- end }}
   --http
   --http.addr=0.0.0.0
-  --http.port={{ include "geth.httpPort" . }}
+  --http.port={{ .Values.httpPort }}
   --http.vhosts=*
   --http.corsdomain=*
   --ws
   --ws.addr=0.0.0.0
-  --ws.port={{ include "geth.wsPort" . }}
+  --ws.port={{ .Values.wsPort }}
   --ws.origins=*
+  --authrpc.jwtsecret=/data/jwt.hex
+  --authrpc.addr=0.0.0.0
+  --authrpc.port={{ .Values.authPort }}
+  --authrpc.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
-  --metrics.port={{ include "geth.metricsPort" . }}
+  --metrics.port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

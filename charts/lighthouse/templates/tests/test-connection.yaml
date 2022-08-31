@@ -13,9 +13,9 @@ spec:
       image: busybox
       command: ['wget']
       {{- if eq .Values.mode "beacon" }}
-      args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.httpPort" . }}/eth/v1/node/version']
+      args: ['{{ include "lighthouse.fullname" . }}:{{ .Values.httpPort }}/eth/v1/node/version']
       {{- else if eq .Values.mode "validator" }}
-      args: ['{{ include "lighthouse.fullname" . }}:{{ include "lighthouse.metricsPort" . }}/metrics']
+      args: ['{{ include "lighthouse.fullname" . }}:{{ .Values.metricsPort }}/metrics']
       {{- end }}
   restartPolicy: Never
 {{- end }}

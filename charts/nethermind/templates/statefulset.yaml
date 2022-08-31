@@ -110,6 +110,10 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex
+              readOnly: true 
           ports:
             - name: p2p-tcp
               containerPort: {{ include "nethermind.p2pPort" . }}
@@ -118,10 +122,13 @@ spec:
               containerPort: {{ include "nethermind.p2pPort" . }}
               protocol: UDP
             - name: http-rpc
-              containerPort: {{ include "nethermind.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
+            - name: auth-rpc
+              containerPort: {{ .Values.authPort }}
+              protocol: TCP  
             - name: metrics
-              containerPort: {{ include "nethermind.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -159,6 +166,9 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: jwt
+          secret:
+            secretName: {{ include "nethermind.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

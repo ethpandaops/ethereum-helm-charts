@@ -17,10 +17,15 @@
   --nat=extip:$(POD_IP)
   --port={{ include "erigon.p2pPort" . }}
 {{- end }}
+  --http=false
   --private.api.addr=127.0.0.1:9090
+  --authrpc.jwtsecret=/data/jwt.hex
+  --authrpc.addr=0.0.0.0
+  --authrpc.port={{ .Values.authPort }}
+  --authrpc.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
-  --metrics.port={{ include "erigon.metricsPort" . }}
+  --metrics.port={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -36,13 +41,15 @@
 - >
   while ! nc -z 127.0.0.1 9090; do sleep 1; done;
   exec rpcdaemon
+  --datadir=/data
   --private.api.addr=127.0.0.1:9090
+  --txpool.api.addr=127.0.0.1:9090
   --http.addr=0.0.0.0
-  --http.port={{ include "erigon.httpPort" . }}
+  --http.port={{ .Values.httpPort }}
   --http.vhosts=*
   --metrics
   --metrics.addr=0.0.0.0
-  --metrics.port={{ include "erigon.metricsPortRPCDaemon" . }}
+  --metrics.port={{ .Values.metricsPortRPCDaemon }}
 {{- range .Values.extraArgsRPCDaemon }}
   {{ . }}
 {{- end }}

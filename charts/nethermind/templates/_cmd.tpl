@@ -23,12 +23,15 @@
 {{- end }}
   --JsonRpc.Enabled=true
   --JsonRpc.Host=0.0.0.0
-  --JsonRpc.Port={{ include "nethermind.httpPort" . }}
+  --JsonRpc.Port={{ .Values.httpPort }}
   --Init.WebSocketsEnabled=true
-  --JsonRpc.WebSocketsPort={{ include "nethermind.httpPort" . }}
+  --JsonRpc.WebSocketsPort={{ .Values.httpPort }}
+  --JsonRpc.JwtSecretFile=/data/jwt.hex
+  --JsonRpc.EngineHost=0.0.0.0
+  --JsonRpc.EnginePort={{ .Values.authPort }}
   --Metrics.Enabled=true
   --Metrics.NodeName=$(POD_NAME)
-  --Metrics.ExposePort={{ include "nethermind.metricsPort" . }}
+  --Metrics.ExposePort={{ .Values.metricsPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}

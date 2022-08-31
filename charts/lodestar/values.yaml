@@ -11,7 +11,7 @@ image:
   # -- lodestar container image repository
   repository: chainsafe/lodestar
   # -- lodestar container image tag
-  tag: latest
+  tag: v1.0.0
   # -- lodestar container pull policy
   pullPolicy: IfNotPresent
 
@@ -21,12 +21,16 @@ mode: "beacon"
 # -- Extra args for the lodestar container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=prater
-  #- --eth1.providerUrls=http://your-eth1-node:8051
+  #- --network=goerli
+  #- --execution.urls=http://your-eth1-node:8551
+  #- --checkpointSyncUrl=https://goerli.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
-  #- --network=prater
+  #- --network=goerli
   #- --server=http://lodestar-beacon:9596
+
+# -- JWT secret used by client as a configMap. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Command replacement for the lodestar container
 customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|validator)
@@ -95,6 +99,12 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- HTTP Port
+httpPort: 9596
+
+# -- Metrics Port
+metricsPort: 8008
+
 # -- Node selector for pods
 nodeSelector: {}
 
@@ -108,6 +118,10 @@ persistence:
   - ReadWriteOnce
   # -- Requested size for volume claim template
   size: 20Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template
@@ -180,7 +194,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 300
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/

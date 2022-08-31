@@ -105,6 +105,10 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex
+              readOnly: true
           ports:
             - name: p2p-tcp
               containerPort: {{ include "nimbus.p2pPort" . }}
@@ -113,10 +117,10 @@ spec:
               containerPort: {{ include "nimbus.p2pPort" . }}
               protocol: UDP
             - name: http-api
-              containerPort: {{ include "nimbus.restPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "nimbus.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -150,6 +154,9 @@ spec:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: jwt
+          secret:
+            secretName: {{ include "nimbus.fullname" . }}-jwt
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

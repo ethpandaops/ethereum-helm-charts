@@ -62,17 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "prysm.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "13000" -}}
-{{- end -}}
-
-{{- define "prysm.httpPort" -}}
-{{- printf "3500" -}}
-{{- end -}}
-
-{{- define "prysm.metricsPort" -}}
-{{- printf "8080" -}}
-{{- end -}}
-
-{{- define "prysm.rpcPort" -}}
-{{- printf "4000" -}}
+{{- end }}
 {{- end -}}

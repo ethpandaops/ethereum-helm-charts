@@ -11,7 +11,7 @@ image:
   # -- Lighthouse container image repository
   repository: sigp/lighthouse
   # -- Lighthouse container image tag
-  tag: v1.5.2
+  tag: v3.0.0
   # -- Lighthouse container pull policy
   pullPolicy: IfNotPresent
 
@@ -21,13 +21,17 @@ mode: "beacon"
 # -- Extra args for the lighthouse container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=prater
-  #- --eth1-endpoints=http://your-eth1-node:8051
+  #- --network=goerli
+  #- --eth1-endpoints=http://your-eth1-node:8551
+  #- --checkpoint-sync-url=https://goerli.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
-  #- --network=prater
+  #- --network=goerli
   #- --enable-doppelganger-protection
   #- --beacon-nodes=http://lighthouse-beacon:5052
+
+# -- JWT secret used by client as a secret. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Command replacement for the lighthouse container
 customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|bootnode|validator)
@@ -96,6 +100,12 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- HTTP Port
+httpPort: 5052
+
+# -- Metrics Port
+metricsPort: 5054
+
 # -- Node selector for pods
 nodeSelector: {}
 
@@ -109,6 +119,10 @@ persistence:
   - ReadWriteOnce
   # -- Requested size for volume claim template
   size: 20Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template
@@ -181,7 +195,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 300
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/

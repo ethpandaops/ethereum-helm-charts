@@ -69,14 +69,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end -}}
 
-{{- define "nimbus.restPort" -}}
-{{- printf "5052" -}}
-{{- end -}}
-
-{{- define "nimbus.metricsPort" -}}
-{{- printf "8008" -}}
-{{- end -}}
-
 {{- define "nimbus.replicas" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print 1 }}

@@ -16,11 +16,11 @@ spec:
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp
-    - port: {{ include "lodestar.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http-api
       protocol: TCP
       name: http-api
-    - port: {{ include "lodestar.metricsPort" . }}
+    - port: {{ .Values.metricsPort }}
       targetPort: metrics
       protocol: TCP
       name: metrics

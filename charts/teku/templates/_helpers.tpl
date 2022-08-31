@@ -62,13 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "teku.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
 {{- printf "9000" -}}
-{{- end -}}
-
-{{- define "teku.httpPort" -}}
-{{- printf "5051" -}}
-{{- end -}}
-
-{{- define "teku.metricsPort" -}}
-{{- printf "8008" -}}
+{{- end }}
 {{- end -}}

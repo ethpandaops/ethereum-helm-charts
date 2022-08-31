@@ -16,7 +16,7 @@ spec:
         - --location
         - --request
         - POST
-        - '{{ include "besu.fullname" . }}:{{ include "besu.httpPort" . }}/'
+        - '{{ include "besu.fullname" . }}:{{ .Values.httpPort }}/'
         - --header
         - 'Content-Type: application/json'
         - --data-raw
