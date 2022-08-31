@@ -349,6 +349,22 @@ entries:
     version: 0.1.0
   ethstats:
   - apiVersion: v2
+    created: "2022-08-31T11:10:34.769352444Z"
+    description: 'Visual interface for tracking ethereum network status. It uses WebSockets
+      to receive stats from running nodes and output them through a web interface. '
+    digest: 6b1c4e5afc75205a9ccd0d69169e2765bce728ac1643130287ffa8f813618338
+    home: https://ethstats.net/
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethstats
+    sources:
+    - https://github.com/goerli/ethstats-server
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethstats-0.1.1/ethstats-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2021-11-18T09:14:14.518939849Z"
     description: 'Visual interface for tracking ethereum network status. It uses WebSockets
       to receive stats from running nodes and output them through a web interface. '
@@ -922,4 +938,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-31T10:55:06.674010274Z"
+generated: "2022-08-31T11:10:34.769521346Z"
