@@ -1,7 +1,7 @@
 
 # beaconchain-explorer
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Beacon chain explorer built using golang and using a PostgreSQL database for storing and indexing data.
 
@@ -15,7 +15,7 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.12.3 |
+| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
 
 ## Values
 
