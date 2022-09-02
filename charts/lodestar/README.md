@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -93,14 +93,14 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=prater
-  - --eth1.providerUrls=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=goerli
+  - --execution.urls=<EXECUTION-ENDPOINT>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -128,7 +128,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the prater network that targets a pre-existing `lodestar-beacon`
+This example runs a validator on the goerli network that targets a pre-existing `lodestar-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
@@ -186,7 +186,7 @@ initContainers:
             key: NODE_0_KEY_0
 
 extraArgs:
-  - --network=prater
+  - --network=goerli
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596

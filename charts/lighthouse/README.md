@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -28,7 +28,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Lighthouse container pull policy |
 | image.repository | string | `"sigp/lighthouse"` | Lighthouse container image repository |
-| image.tag | string | `"v3.0.0"` | Lighthouse container image tag |
+| image.tag | string | `"v3.1.0"` | Lighthouse container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -93,14 +93,14 @@ An open-source Ethereum 2.0 client, written in Rust
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=prater
-  - --eth1-endpoints=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=goerli
+  - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -128,7 +128,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the prater network that targets a pre-existing `lighthouse-beacon` service:
+This example runs a validator on the goerli network that targets a pre-existing `lighthouse-beacon` service:
 
 ```yaml
 replicas: 1
@@ -136,7 +136,7 @@ replicas: 1
 mode: validator
 
 extraArgs:
-  - --network=prater
+  - --network=goerli
   - --enable-doppelganger-protection
   - --beacon-nodes=http://lighthouse-beacon:5052
 ```

@@ -11,7 +11,7 @@ image:
   # -- Lighthouse container image repository
   repository: sigp/lighthouse
   # -- Lighthouse container image tag
-  tag: v3.0.0
+  tag: v3.1.0
   # -- Lighthouse container pull policy
   pullPolicy: IfNotPresent
 
@@ -22,7 +22,7 @@ mode: "beacon"
 extraArgs: []
   ## Example for beacon mode
   #- --network=goerli
-  #- --eth1-endpoints=http://your-eth1-node:8551
+  #- --execution.urls=http://your-eth1-node:8551
   #- --checkpoint-sync-url=https://goerli.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode

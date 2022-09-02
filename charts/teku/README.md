@@ -1,7 +1,7 @@
 
 # teku
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Java
 
@@ -28,7 +28,7 @@ An open-source Ethereum 2.0 client, written in Java
 | httpPort | int | `5051` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | teku container pull policy |
 | image.repository | string | `"consensys/teku"` | teku container image repository |
-| image.tag | string | `"22.8.1"` | teku container image tag |
+| image.tag | string | `"22.9.0"` | teku container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -93,14 +93,14 @@ An open-source Ethereum 2.0 client, written in Java
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=prater
-  - --eth1-endpoints=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=goerli
+  - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -128,7 +128,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the prater network that targets a pre-existing `teku-beacon`
+This example runs a validator on the goerli network that targets a pre-existing `teku-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 

@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Java
 
@@ -29,7 +29,7 @@ An open-source Ethereum consensus layer client, written in Java
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
 | image.repository | string | `"statusim/nimbus-eth2"` | nimbus container image repository |
-| image.tag | string | `"amd64-v22.8.0"` | nimbus container image tag |
+| image.tag | string | `"amd64-v22.8.2"` | nimbus container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -95,12 +95,12 @@ An open-source Ethereum consensus layer client, written in Java
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 extraArgs:
-  - --network=prater
-  - --web3-url=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=goerli
+  - --web3-url=<EXECUTION-ENDPOINT>
 ```
 
 ## Exposing the P2P service via NodePort
@@ -121,14 +121,14 @@ p2pNodePort:
 
 ## Validator node
 
-This example runs a validator on the prater network and injects the keystores via a secret ENV var. You could use a similar
+This example runs a validator on the goerli network and injects the keystores via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
 ```yaml
 replicas: 1
 
 extraArgs:
-  - --network=prater
+  - --network=goerli
   - --web3-url=https://goerli.infura.io/v3/<YOUR_API_SECRET>
   - --validators-dir=/data/validator/keys
   - --secrets-dir=/data/validator/secrets

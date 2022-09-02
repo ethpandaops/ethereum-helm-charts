@@ -11,7 +11,7 @@ image:
   # -- teku container image repository
   repository: consensys/teku
   # -- teku container image tag
-  tag: 22.8.1
+  tag: 22.9.0
   # -- teku container pull policy
   pullPolicy: IfNotPresent
 
@@ -21,11 +21,11 @@ mode: "beacon"
 # -- Extra args for the teku container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=prater
-  #- --eth1-endpoints=http://your-eth1-node:8051
+  #- --network=goerli
+  #- --ee-endpoint=http://your-eth1-node:8051
   ##
   ## Example for validator mode
-  #- --network=prater
+  #- --network=goerli
   #- --beacon-node-api-endpoint=http://teku-beacon:5052
 
 # -- JWT secret used by client as a secret. Change this value.
