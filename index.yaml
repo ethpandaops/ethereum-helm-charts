@@ -2,6 +2,28 @@ apiVersion: v1
 entries:
   beaconchain-explorer:
   - apiVersion: v2
+    created: "2022-09-02T07:35:55.260274298Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.x.x
+    description: 'Beacon chain explorer built using golang and using a PostgreSQL
+      database for storing and indexing data. '
+    digest: 50570dc700aa8f54b2b3c4d4ac7d5cd2d4738585f1b7be799ee1420da63f5b50
+    home: https://beaconcha.in/
+    icon: https://pbs.twimg.com/profile_images/1274442538057961474/-cZGkGhP_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: beaconchain-explorer
+    sources:
+    - https://github.com/gobitfly/eth2-beaconchain-explorer
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.2/beaconchain-explorer-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-08-31T11:53:48.245190155Z"
     dependencies:
     - condition: postgresql.enabled
@@ -119,6 +141,29 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.1.0/besu-0.1.0.tgz
     version: 0.1.0
   blockscout:
+  - apiVersion: v2
+    created: "2022-09-02T07:35:55.550966239Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.x.x
+    description: 'BlockScout provides a comprehensive, easy-to-use interface for users
+      to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine)
+      blockchains '
+    digest: 54de39d5e1871909f0d18452f31001f0db507d2abd1cfe822699d3f12ca63261
+    home: https://docs.blockscout.com/
+    icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/assets/static/apple-touch-icon.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: blockscout
+    sources:
+    - https://github.com/blockscout/blockscout/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.2/blockscout-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     created: "2022-08-31T11:53:48.521936245Z"
     dependencies:
@@ -983,4 +1028,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-08-31T11:53:48.522046351Z"
+generated: "2022-09-02T07:35:55.551069442Z"
