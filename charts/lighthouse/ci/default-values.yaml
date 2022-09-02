@@ -1,1 +1,3 @@
 # Leave empty so that CT tests with default values
+extraArgs:
+  - --execution-endpoint=http://localhost:8551

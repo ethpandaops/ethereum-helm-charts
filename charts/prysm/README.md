@@ -94,14 +94,14 @@ An open-source Ethereum 2.0 client, written in Go
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --prater
-  - --http-web3provider=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --goerli
+  - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -129,7 +129,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the prater network that targets a pre-existing `prysm-beacon`
+This example runs a validator on the goerli network that targets a pre-existing `prysm-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 

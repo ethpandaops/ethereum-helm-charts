@@ -93,14 +93,14 @@ An open-source Ethereum 2.0 client, written in Rust
 
 # Examples
 
-## Beacon node on the Prater testnet connected to Goerli via Infura
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=prater
-  - --eth1-endpoints=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=goerli
+  - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
 ## Beacon nodes exposing the P2P service via NodePort
@@ -128,7 +128,7 @@ This would create 5 beacon nodes, exposed via Node Port services with the follow
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the prater network that targets a pre-existing `lighthouse-beacon` service:
+This example runs a validator on the goerli network that targets a pre-existing `lighthouse-beacon` service:
 
 ```yaml
 replicas: 1
@@ -136,7 +136,7 @@ replicas: 1
 mode: validator
 
 extraArgs:
-  - --network=prater
+  - --network=goerli
   - --enable-doppelganger-protection
   - --beacon-nodes=http://lighthouse-beacon:5052
 ```
