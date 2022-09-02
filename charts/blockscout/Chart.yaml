@@ -8,7 +8,7 @@ icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/a
 sources:
   - https://github.com/blockscout/blockscout/
 type: application
-version: 0.1.1
+version: 0.1.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
