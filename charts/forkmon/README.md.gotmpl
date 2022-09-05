@@ -1,0 +1,39 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Setting the configuration file
+
+```toml
+config.toml:
+# How often to reload data from the nodes
+reload_interval = "10s"
+# If specified, a http server will serve static content here
+server_address = "0.0.0.0:8080"
+
+# Shown in the document title, if specified
+chain_name="<network-name>"
+
+[[clients]]
+  kind="rpc"
+  url = "http://<execution-client>:<execution-client-port>"
+  name = "<execution-client-name>"
+
+
+[Metrics]
+enabled = false
+```

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "forkmon.fullname" . }}
+  labels:
+    {{- include "forkmon.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "forkmon.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "forkmon.selectorLabels" . | nindent 4 }}
