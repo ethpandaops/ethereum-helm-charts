@@ -15,7 +15,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | list | See `values.yaml` | Config file |
 | customCommand | list | `[]` | Command replacement for the forkmon container |
-| extraArgs | list | `[]` | Extra args for the forkmon container   |
+| extraArgs | list | `[]` | Extra args for the forkmon container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
