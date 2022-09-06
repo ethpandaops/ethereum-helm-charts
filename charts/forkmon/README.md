@@ -22,6 +22,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | int | `8080` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | forkmon container pull policy |
 | image.repository | string | `"holiman/nodemonitor"` | forkmon container image repository |
 | image.tag | string | `"latest"` | forkmon container image tag |

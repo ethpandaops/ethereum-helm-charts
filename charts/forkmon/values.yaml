@@ -44,6 +44,9 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# - HTTP port for forkmon interface
+httpPort: 8080
+
 service:
   # -- Service type
   type: ClusterIP

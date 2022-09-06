@@ -9,7 +9,7 @@ data:
     # How often to reload data from the nodes
     reload_interval = "10s"
     # If specified, a http server will serve static content here
-    server_address = "0.0.0.0:{{ include "forkmon.httpPort" .}}"
+    server_address = "0.0.0.0:{{ .Values.httpPort}}"
 
     # Shown in the document title, if specified
     chain_name="{{ .Values.network }}"

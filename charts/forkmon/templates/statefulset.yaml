@@ -65,7 +65,7 @@ spec:
               readOnly: true
           ports:
             - name: http
-              containerPort: {{ include "forkmon.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}

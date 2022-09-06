@@ -7,7 +7,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ include "forkmon.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http
       protocol: TCP
       name: http
