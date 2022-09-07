@@ -311,6 +311,26 @@ entries:
     version: 0.1.0
   erigon:
   - apiVersion: v2
+    created: "2022-09-07T07:34:32.499902774Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: bb75da699e3288104c8b6d1d3ed4c1b606bec3e005272fff42fa076127834408
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.3.1/erigon-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2022-08-31T10:55:05.595151191Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
       oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
@@ -956,6 +976,22 @@ entries:
     version: 0.1.0
   prysm:
   - apiVersion: v2
+    created: "2022-09-07T07:34:32.643798539Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 956a925b08c3f0640908bacb1d8909ec42aa7a3407c7f04222006cac7b449cf0
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.2/prysm-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2022-09-02T09:35:51.380018011Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 55d0f241fe4e73e2cc69266ebb6a41758daa0f6d101f10b270f6e6e9c7c0888c
@@ -1109,4 +1145,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-02T09:35:51.68084247Z"
+generated: "2022-09-07T07:34:32.644020052Z"
