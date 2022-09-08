@@ -51,7 +51,7 @@ config: |
     database  = "<INFLUX_DB_NAME>"
     password  = "<INFLUX_PASSWORD>"
 
-    # Local or non third party connection require rpc kind 
+    # Local or non third party connection require rpc kind
     {{- range .Values.endpoints }}
     [[clients]]
       url = {{ .addr | quote }}
@@ -60,7 +60,7 @@ config: |
     {{- end }}
 
     # Third party client configuration doesn't require url
-    # Kind can vary between infura, alchemy or etherscan 
+    # Kind can vary between infura, alchemy or etherscan
     # Recommended to enable rate limit for third party services
     {{- range .Values.thirdparty_endpoints }}
     [[clients]]
