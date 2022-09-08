@@ -539,6 +539,21 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.1.0/fauceth-0.1.0.tgz
     version: 0.1.0
+  forkmon:
+  - apiVersion: v2
+    created: "2022-09-08T12:43:28.147323283Z"
+    description: This is a little tool to keep track on a set of nodes, and see if
+      they keep in step or if they go out of consensus.
+    digest: 1443f29f29cef19816290c338433f8bc2abb93d19db98240caa29795a3c86b65
+    home: https://github.com/ethereum/nodemonitor
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: forkmon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/forkmon-0.1.0/forkmon-0.1.0.tgz
+    version: 0.1.0
   ganache:
   - apiVersion: v2
     appVersion: 6.12.2
@@ -1145,4 +1160,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-07T07:34:32.644020052Z"
+generated: "2022-09-08T12:43:28.147638498Z"
