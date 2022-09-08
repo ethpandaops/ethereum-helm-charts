@@ -6,21 +6,6 @@ metadata:
     {{- include "forkmon.labels" . | nindent 4 }}
 data:
   config.toml: |
-    # How often to reload data from the nodes
-    reload_interval = "10s"
-    # If specified, a http server will serve static content here
-    server_address = "0.0.0.0:{{ .Values.httpPort}}"
+      {{- tpl .Values.config . | nindent 4 }}
 
-    # Shown in the document title, if specified
-    chain_name="{{ .Values.network }}"
-
-    [Metrics]
-    enabled = false
-
-    {{- range .Values.config }}
-    [[clients]]
-      kind="rpc"
-      url = {{ .addr | quote }}
-      name = {{ .name | quote}}
-    {{- end }}
 

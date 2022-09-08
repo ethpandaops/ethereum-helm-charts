@@ -23,7 +23,27 @@ network: ""
 
 # -- Config file
 # @default -- See `values.yaml`
-config:
+config: |
+    # How often to reload data from the nodes
+    reload_interval = "10s"
+    # If specified, a http server will serve static content here
+    server_address = "0.0.0.0:{{ .Values.httpPort}}"
+
+    # Shown in the document title, if specified
+    chain_name="{{ .Values.network }}"
+
+    [Metrics]
+    enabled = false
+
+    {{- range .Values.endpoints }}
+    [[clients]]
+      kind="rpc"
+      url = {{ .addr | quote }}
+      name = {{ .name | quote}}
+    {{- end }}
+
+# -- Endpoints that you would like to monitor
+endpoints:
   - addr: http://execution-client:8545
     name: "execution-client-name"
 

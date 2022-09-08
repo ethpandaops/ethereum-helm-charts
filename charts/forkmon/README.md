@@ -13,8 +13,9 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | list | See `values.yaml` | Config file |
+| config | string | See `values.yaml` | Config file |
 | customCommand | list | `[]` | Command replacement for the forkmon container |
+| endpoints | list | `[{"addr":"http://execution-client:8545","name":"execution-client-name"}]` | Endpoints that you would like to monitor |
 | extraArgs | list | `[]` | Extra args for the forkmon container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
