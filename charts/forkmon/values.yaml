@@ -4,6 +4,9 @@ nameOverride: ""
 # -- Overrides the chart's computed fullname
 fullnameOverride: ""
 
+# -- Number of replicas
+replicas: 1
+
 image:
   # -- forkmon container image repository
   repository: holiman/nodemonitor
@@ -32,20 +35,57 @@ config: |
     # Shown in the document title, if specified
     chain_name="{{ .Values.network }}"
 
-    [Metrics]
-    enabled = false
+    # Third party providers
+    infura_key          = "<INFURA_API_KEY>"
+    infura_endpoint     = "https://mainnet.infura.io/v3/"
+    alchemy_key         = "<ALCHEMY_API_KEY>"
+    alchemy_endpoint    = "https://eth-mainnet.g.alchemy.com/v2/"
+    etherscan_key       = "<ETHERSCAN_API_KEY>"
+    etherscan_endpoint  = "https://api.etherscan.io/api"
 
+    [Metrics]
+
+    enabled = true
+    endpoint = "<INFLUX_ENDPOINT>"
+    username = "<INFLUX_USERNAME>"
+    database  = "<INFLUX_DB_NAME>"
+    password  = "<INFLUX_PASSWORD>"
+
+    # Local or non third party connection require rpc kind 
     {{- range .Values.endpoints }}
     [[clients]]
-      kind="rpc"
       url = {{ .addr | quote }}
-      name = {{ .name | quote}}
+      name = {{ .name | quote }}
+      kind = {{ .kind | quote }}
     {{- end }}
+
+    # Third party client configuration doesn't require url
+    # Kind can vary between infura, alchemy or etherscan 
+    # Recommended to enable rate limit for third party services
+    {{- range .Values.thirdparty_endpoints }}
+    [[clients]]
+      name = {{ .name | quote }}
+      kind = {{ .kind | quote }}
+      rate_limit = {{ .rate_limit }}
+    {{- end }}
+
+# -- Third party endpoints that you would like to monitor
+thirdparty_endpoints:
+  - name: "mainnet-infura"
+    kind: "infura"
+    rate_limit: 5
+  - name: "mainnet-alchemy"
+    kind: "alchemy"
+    rate_limit: 5
+  - name: "mainnet-etherscan"
+    kind: "etherscan"
+    rate_limit: 5
 
 # -- Endpoints that you would like to monitor
 endpoints:
   - addr: http://execution-client:8545
     name: "execution-client-name"
+    kind: "rpc"
 
 ingress:
   # -- Ingress resource for the HTTP API
