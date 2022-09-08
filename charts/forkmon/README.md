@@ -71,19 +71,41 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 
 ```toml
 config.toml:
-# How often to reload data from the nodes
-reload_interval = "10s"
-# If specified, a http server will serve static content here
-server_address = "0.0.0.0:8080"
+    # How often to reload data from the nodes
+    reload_interval = "10s"
+    # If specified, a http server will serve static content here
+    server_address = "0.0.0.0:8080"
 
-# Shown in the document title, if specified
-chain_name="<network-name>"
+    # Shown in the document title, if specified
+    chain_name="<NETWORK_NAME>"
 
-[[clients]]
-  kind="rpc"
-  url = "http://<execution-client>:<execution-client-port>"
-  name = "<execution-client-name>"
+    # Third party providers
+    infura_key          = "<INFURA_API_KEY>"
+    infura_endpoint     = "https://mainnet.infura.io/v3/"
+    alchemy_key         = "<ALCHEMY_API_KEY>"
+    alchemy_endpoint    = "https://eth-mainnet.g.alchemy.com/v2/"
+    etherscan_key       = "<ETHERSCAN_API_KEY>"
+    etherscan_endpoint  = "https://api.etherscan.io/api"
 
-[Metrics]
-enabled = false
+    [Metrics]
+
+    enabled = true
+    endpoint = "<INFLUX_ENDPOINT>"
+    username = "<INFLUX_USERNAME>"
+    database  = "<INFLUX_DB_NAME>"
+    password  = "<INFLUX_PASSWORD>"
+
+    # Local or non third party connection require rpc kind
+    [[clients]]
+      name = "<execution-client-name>"
+      kind ="rpc"
+      url  = "http://<execution-client>:<execution-client-port>"
+
+    # Third party client configuration doesn't require url
+    # Kind can vary between infura, alchemy or etherscan
+    # Recommended to enable rate limit for third party services
+    [[clients]]
+      name = infura|alchemy|etcherscan
+      kind = infura|alchemy|etherscan
+      rate_limit = 5
 ```
