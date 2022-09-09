@@ -1,7 +1,7 @@
 
 # forkmon
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This is a little tool to keep track on a set of nodes, and see if they keep in step or if they go out of consensus.
 
@@ -15,7 +15,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | string | See `values.yaml` | Config file |
 | customCommand | list | `[]` | Command replacement for the forkmon container |
-| endpoints | list | `[{"addr":"http://execution-client:8545","name":"execution-client-name"}]` | Endpoints that you would like to monitor |
+| endpoints | list | `[{"addr":"http://execution-client:8545","kind":"rpc","name":"execution-client-name"}]` | Endpoints that you would like to monitor |
 | extraArgs | list | `[]` | Extra args for the forkmon container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -51,6 +51,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
+| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
@@ -59,6 +60,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| thirdparty_endpoints | list | `[{"kind":"infura","name":"mainnet-infura","rate_limit":5},{"kind":"alchemy","name":"mainnet-alchemy","rate_limit":5},{"kind":"etherscan","name":"mainnet-etherscan","rate_limit":5}]` | Third party endpoints that you would like to monitor |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
@@ -69,19 +71,41 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 
 ```toml
 config.toml:
-# How often to reload data from the nodes
-reload_interval = "10s"
-# If specified, a http server will serve static content here
-server_address = "0.0.0.0:8080"
+    # How often to reload data from the nodes
+    reload_interval = "10s"
+    # If specified, a http server will serve static content here
+    server_address = "0.0.0.0:8080"
 
-# Shown in the document title, if specified
-chain_name="<network-name>"
+    # Shown in the document title, if specified
+    chain_name="<NETWORK_NAME>"
 
-[[clients]]
-  kind="rpc"
-  url = "http://<execution-client>:<execution-client-port>"
-  name = "<execution-client-name>"
+    # Third party providers
+    infura_key          = "<INFURA_API_KEY>"
+    infura_endpoint     = "https://mainnet.infura.io/v3/"
+    alchemy_key         = "<ALCHEMY_API_KEY>"
+    alchemy_endpoint    = "https://eth-mainnet.g.alchemy.com/v2/"
+    etherscan_key       = "<ETHERSCAN_API_KEY>"
+    etherscan_endpoint  = "https://api.etherscan.io/api"
 
-[Metrics]
-enabled = false
+    [Metrics]
+
+    enabled = true
+    endpoint = "<INFLUX_ENDPOINT>"
+    username = "<INFLUX_USERNAME>"
+    database  = "<INFLUX_DB_NAME>"
+    password  = "<INFLUX_PASSWORD>"
+
+    # Local or non third party connection require rpc kind
+    [[clients]]
+      name = "<execution-client-name>"
+      kind ="rpc"
+      url  = "http://<execution-client>:<execution-client-port>"
+
+    # Third party client configuration doesn't require url
+    # Kind can vary between infura, alchemy or etherscan
+    # Recommended to enable rate limit for third party services
+    [[clients]]
+      name = infura|alchemy|etcherscan
+      kind = infura|alchemy|etherscan
+      rate_limit = 5
 ```
