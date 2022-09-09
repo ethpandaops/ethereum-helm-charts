@@ -541,6 +541,20 @@ entries:
     version: 0.1.0
   forkmon:
   - apiVersion: v2
+    created: "2022-09-09T06:31:03.552303764Z"
+    description: This is a little tool to keep track on a set of nodes, and see if
+      they keep in step or if they go out of consensus.
+    digest: 035e39606d2418d5f9c906c67a956aa1a436f9767550ebb5980b1bf65eacdd1a
+    home: https://github.com/ethereum/nodemonitor
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: forkmon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/forkmon-0.1.1/forkmon-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2022-09-08T12:43:28.147323283Z"
     description: This is a little tool to keep track on a set of nodes, and see if
       they keep in step or if they go out of consensus.
@@ -1193,4 +1207,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-09T06:05:23.665582122Z"
+generated: "2022-09-09T06:31:03.552449469Z"
