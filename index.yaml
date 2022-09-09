@@ -809,6 +809,23 @@ entries:
     version: 0.1.0
   nethermind:
   - apiVersion: v2
+    created: "2022-09-09T06:05:23.558440761Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 4921eaacb8e26fc7a9f2f48db62708dd1e8c48085e7686599bc55a690a273c20
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.3.1/nethermind-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2022-08-31T10:55:06.268677697Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
       with the C# .NET tech stack, running on all major platforms including ARM. '
@@ -877,6 +894,22 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2022-09-09T06:05:23.665457321Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: a9a7d5eafa217fea69310f2e36029fcdd7ca66e4d839732fdef8daf98d991597
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.2/nimbus-0.4.2.tgz
+    version: 0.4.2
   - apiVersion: v2
     created: "2022-09-02T09:35:51.105764548Z"
     description: An open-source Ethereum consensus layer client, written in Java
@@ -1160,4 +1193,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-08T12:43:28.147638498Z"
+generated: "2022-09-09T06:05:23.665582122Z"
