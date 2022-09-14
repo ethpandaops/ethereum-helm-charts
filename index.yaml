@@ -446,6 +446,21 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.0/eth2-fork-mon-0.1.0.tgz
     version: 0.1.0
+  ethereum-address-metrics-exporter:
+  - apiVersion: v2
+    created: "2022-09-14T12:51:53.291002419Z"
+    description: A prometheus exporter for Ethereum externally owned account and contract
+      addresses
+    digest: d45ee0ffbb7a1a9ababe40d42f41957dd84efa834e2cc4f78cb1abfcf8ca30e8
+    home: https://github.com/savid/ethereum-address-metrics-exporter
+    maintainers:
+    - email: ansrew.davis@ethereum.org
+      name: savid
+    name: ethereum-address-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.0.1/ethereum-address-metrics-exporter-0.0.1.tgz
+    version: 0.0.1
   ethereum-metrics-exporter:
   - apiVersion: v2
     created: "2022-08-31T10:55:05.72459549Z"
@@ -1225,4 +1240,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-12T12:35:02.663907732Z"
+generated: "2022-09-14T12:51:53.291224718Z"
