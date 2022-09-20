@@ -9,7 +9,7 @@ icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3
 sources:
   - https://github.com/ethereum/go-ethereum
 type: application
-version: 0.3.0
+version: 0.3.1
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
