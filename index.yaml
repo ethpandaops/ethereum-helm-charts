@@ -673,6 +673,25 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    created: "2022-09-21T15:47:23.014048778Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 020323927e7d3c623b99aa4e6c42e8c4b832626a609d9f285e8b6ecf2ebb8ffc
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.3.1/geth-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
     created: "2022-08-31T10:55:05.846542385Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
       of the Ethereum protocol. Currently, it is the most widespread client with the
@@ -956,6 +975,22 @@ entries:
     version: 0.1.0
   nimbus:
   - apiVersion: v2
+    created: "2022-09-21T15:47:23.207170293Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: a3e493ec69f4abb3ab05b56cbd49ea88d68cacaf52ba6848958d0a17b12f699f
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.3/nimbus-0.4.3.tgz
+    version: 0.4.3
+  - apiVersion: v2
     created: "2022-09-09T06:05:23.665457321Z"
     description: An open-source Ethereum consensus layer client, written in Java
     digest: a9a7d5eafa217fea69310f2e36029fcdd7ca66e4d839732fdef8daf98d991597
@@ -1085,6 +1120,22 @@ entries:
     version: 0.1.0
   prysm:
   - apiVersion: v2
+    created: "2022-09-21T15:47:23.377223231Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 597c9f64c37ec3f8be1e17a275034b20cbad2a13e68b97292606f332e9abf051
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.3/prysm-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
     created: "2022-09-07T07:34:32.643798539Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 956a925b08c3f0640908bacb1d8909ec42aa7a3407c7f04222006cac7b449cf0
@@ -1163,6 +1214,22 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
   teku:
+  - apiVersion: v2
+    created: "2022-09-21T15:47:23.528398386Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 695ccda6c507b6164dfdf4179186d4a9a84c5e88a2be0b3afb4f6402b10b811e
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.3/teku-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     created: "2022-09-02T09:35:51.680705669Z"
     description: An open-source Ethereum 2.0 client, written in Java
@@ -1254,4 +1321,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-14T16:26:51.846641978Z"
+generated: "2022-09-21T15:47:23.528618286Z"
