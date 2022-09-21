@@ -1,7 +1,7 @@
 
 # teku
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Java
 
@@ -28,7 +28,7 @@ An open-source Ethereum 2.0 client, written in Java
 | httpPort | int | `5051` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | teku container pull policy |
 | image.repository | string | `"consensys/teku"` | teku container image repository |
-| image.tag | string | `"22.9.0"` | teku container image tag |
+| image.tag | string | `"22.9.1"` | teku container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
