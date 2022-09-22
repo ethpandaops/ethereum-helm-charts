@@ -19,12 +19,12 @@
   --enr-udp-port=$EXTERNAL_PORT
 {{- else }}
   --enr-address=$(POD_IP)
-  --enr-tcp-port={{ include "lighthouse.p2pPort" . }}
-  --enr-udp-port={{ include "lighthouse.p2pPort" . }}
+  --enr-tcp-port={{ .Values.p2pPort }}
+  --enr-udp-port={{ .Values.p2pPort }}
 {{- end }}
   --listen-address=0.0.0.0
-  --port={{ include "lighthouse.p2pPort" . }}
-  --discovery-port={{ include "lighthouse.p2pPort" . }}
+  --port={{ .Values.p2pPort }}
+  --discovery-port={{ .Values.p2pPort }}
   --http
   --http-address=0.0.0.0
   --http-port={{ .Values.httpPort }}
@@ -70,7 +70,7 @@
   boot_node
   --datadir=/data
   --listen-address=0.0.0.0
-  --port={{ include "lighthouse.p2pPort" . }}
+  --port={{ .Values.p2pPort }}
 {{- range .Values.extraArgs }}
   {{ . }}
 {{- end }}
@@ -78,7 +78,7 @@
   --enr-port=$EXTERNAL_PORT
   $EXTERNAL_IP
 {{- else }}
-  --enr-port={{ include "lighthouse.p2pPort" . }}
+  --enr-port={{ .Values.p2pPort }}
   $(POD_IP)
 {{- end }}
 {{- end }}

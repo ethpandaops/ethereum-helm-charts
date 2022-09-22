@@ -17,8 +17,8 @@
   --p2p-udp-port=$EXTERNAL_PORT
 {{- else }}
   --p2p-host-ip=$(POD_IP)
-  --p2p-tcp-port={{ include "prysm.p2pPort" . }}
-  --p2p-udp-port={{ include "prysm.p2pPort" . }}
+  --p2p-tcp-port={{ .Values.p2pPort }}
+  --p2p-udp-port={{ .Values.p2pPort }}
 {{- end }}
   --rpc-host=0.0.0.0
   --rpc-port={{ .Values.rpcPort }}

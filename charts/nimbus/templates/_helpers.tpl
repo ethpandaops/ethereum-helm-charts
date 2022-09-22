@@ -61,14 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "nimbus.p2pPort" -}}
-{{- if .Values.p2pNodePort.enabled }}
-{{- print .Values.p2pNodePort.port }}
-{{- else }}
-{{- printf "9000" -}}
-{{- end }}
-{{- end -}}
-
 {{- define "nimbus.replicas" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print 1 }}
