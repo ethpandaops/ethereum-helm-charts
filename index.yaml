@@ -788,6 +788,22 @@ entries:
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
+    created: "2022-09-22T11:02:03.235675586Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 62aff6ec39cf2d9840b4132bbff496879380c58b8be75f0b87396084be1e1721
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.2/lighthouse-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2022-09-02T09:35:50.5021841Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: b35bb16f838f6e78ca90ef3684b9c6ffc9090e03f6dd0e0c1ada1b3068daa31f
@@ -836,6 +852,23 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2022-09-22T11:02:03.415149286Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: e259cfee0bda2e0161027892692669ec58366bcfdad948bf3524b66a425d2999
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.2/lodestar-0.2.2.tgz
+    version: 0.2.2
   - apiVersion: v2
     created: "2022-09-02T09:35:50.819269301Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -974,6 +1007,22 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2022-09-22T11:02:03.614128281Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: ec72ca4d587f530db508731bc4c3452aa9eab94536671723701ca0a3b48e605a
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.4/nimbus-0.4.4.tgz
+    version: 0.4.4
   - apiVersion: v2
     created: "2022-09-21T15:47:23.207170293Z"
     description: An open-source Ethereum consensus layer client, written in Java
@@ -1120,6 +1169,22 @@ entries:
     version: 0.1.0
   prysm:
   - apiVersion: v2
+    created: "2022-09-22T11:02:03.781727462Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: ad8d436a9dc17b0eddf381eff08a9dba3e7225aefa46c9d4e484f92d89c62886
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.4/prysm-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     created: "2022-09-21T15:47:23.377223231Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 597c9f64c37ec3f8be1e17a275034b20cbad2a13e68b97292606f332e9abf051
@@ -1214,6 +1279,22 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
   teku:
+  - apiVersion: v2
+    created: "2022-09-22T11:02:03.951672566Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 48ac243e084435c191b53a77cdf393a426bd9103e6f4341dc33f9f0d5be22849
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.4/teku-0.2.4.tgz
+    version: 0.2.4
   - apiVersion: v2
     created: "2022-09-21T15:47:23.528398386Z"
     description: An open-source Ethereum 2.0 client, written in Java
@@ -1321,4 +1402,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-21T15:47:23.528618286Z"
+generated: "2022-09-22T11:02:03.951897468Z"
