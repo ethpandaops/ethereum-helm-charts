@@ -25,6 +25,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | string | See `values.yaml` | Config file |
 | customArgs | list | `[]` | Custom args for the dshackle container |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the dshackle container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
