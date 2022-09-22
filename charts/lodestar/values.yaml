@@ -99,6 +99,9 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- P2P Port
+p2pPort: 9000
+
 # -- HTTP Port
 httpPort: 9596
 

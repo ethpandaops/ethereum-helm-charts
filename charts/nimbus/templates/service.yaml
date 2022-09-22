@@ -7,11 +7,11 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: {{ include "nimbus.p2pPort" . }}
+    - port: {{ .Values.p2pPort }}
       targetPort: p2p-tcp
       protocol: TCP
       name: p2p-tcp
-    - port: {{ include "nimbus.p2pPort" . }}
+    - port: {{ .Values.p2pPort }}
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp

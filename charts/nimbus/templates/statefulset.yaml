@@ -111,10 +111,10 @@ spec:
               readOnly: true
           ports:
             - name: p2p-tcp
-              containerPort: {{ include "nimbus.p2pPort" . }}
+              containerPort: {{ .Values.p2pPort }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ include "nimbus.p2pPort" . }}
+              containerPort: {{ .Values.p2pPort }}
               protocol: UDP
             - name: http-api
               containerPort: {{ .Values.httpPort }}

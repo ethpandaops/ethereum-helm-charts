@@ -116,10 +116,10 @@ spec:
           ports:
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
-              containerPort: {{ include "lighthouse.p2pPort" . }}
+              containerPort: {{ .Values.p2pPort }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ include "lighthouse.p2pPort" . }}
+              containerPort: {{ .Values.p2pPort }}
               protocol: UDP
           {{- end }}
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}

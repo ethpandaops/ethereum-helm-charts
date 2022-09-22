@@ -13,15 +13,15 @@
   --dataDir=/data
   --discv5
   --listenAddress=0.0.0.0
-  --port={{ include "lodestar.p2pPort" . }}
+  --port={{ .Values.p2pPort }}
 {{- if .Values.p2pNodePort.enabled }}
   --enr.ip=$EXTERNAL_IP
   --enr.tcp=$EXTERNAL_PORT
   --enr.udp=$EXTERNAL_PORT
 {{- else }}
   --enr.ip=$(POD_IP)
-  --enr.tcp={{ include "lodestar.p2pPort" . }}
-  --enr.udp={{ include "lodestar.p2pPort" . }}
+  --enr.tcp={{ .Values.p2pPort }}
+  --enr.udp={{ .Values.p2pPort }}
 {{- end }}
   --rest
   --rest.address=0.0.0.0
