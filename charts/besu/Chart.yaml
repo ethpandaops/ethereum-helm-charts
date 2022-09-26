@@ -8,7 +8,7 @@ icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368
 sources:
   - https://github.com/hyperledger/besu
 type: application
-version: 0.3.1
+version: 0.3.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
