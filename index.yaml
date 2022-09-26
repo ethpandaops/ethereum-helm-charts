@@ -69,6 +69,24 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2022-09-26T11:04:14.19306044Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: c61131953af499e163f26cc07b86c172aeb45ba95d6b642eff9ca5ebc8e39259
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.3.2/besu-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     created: "2022-09-12T12:35:02.66378793Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -350,6 +368,26 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2022-09-26T11:04:14.344531271Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: 571d181389c0ae7b2e5658db6b732abc874e96d59174f1038877212243284139
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.3.2/erigon-0.3.2.tgz
+    version: 0.3.2
   - apiVersion: v2
     created: "2022-09-07T07:34:32.499902774Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -810,6 +848,22 @@ entries:
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
+    created: "2022-09-26T11:04:14.498157522Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 1a79500cf6f7f3671fb15bbfc855adad45b522606dabc8923e96655cd31f9cbc
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.3/lighthouse-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
     created: "2022-09-22T11:02:03.235675586Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: 62aff6ec39cf2d9840b4132bbff496879380c58b8be75f0b87396084be1e1721
@@ -874,6 +928,23 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2022-09-26T11:04:14.638169945Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: 78bdcf8403b2d5cb5982f43515575f0a18b73a753d7c1c1c6c074f2a932f0e62
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.3/lodestar-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     created: "2022-09-22T11:02:03.415149286Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -943,6 +1014,23 @@ entries:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
+  - apiVersion: v2
+    created: "2022-09-26T11:04:14.780795092Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: fbac50b4a11bdb3c3515de436d7e9855e4b3a9176c6d168512ae14d907eafe9c
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.3.2/nethermind-0.3.2.tgz
+    version: 0.3.2
   - apiVersion: v2
     created: "2022-09-09T06:05:23.558440761Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
@@ -1424,4 +1512,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-09-24T14:27:46.349183575Z"
+generated: "2022-09-26T11:04:14.781116996Z"
