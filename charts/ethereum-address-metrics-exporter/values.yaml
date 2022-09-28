@@ -9,7 +9,7 @@ replicas: 1
 
 image:
   # -- ethereum-address-metrics-exporter container image repository
-  repository: savid/ethereum-address-metrics-exporter
+  repository: ethpandaops/ethereum-address-metrics-exporter
   # -- ethereum-address-metrics-exporter container image tag
   tag: latest
   # -- ethereum-address-metrics-exporter container pull policy
