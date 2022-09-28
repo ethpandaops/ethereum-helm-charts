@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 0.4.2](https://img.shields.io/badge/Version-0.4.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Java
 
@@ -29,7 +29,7 @@ An open-source Ethereum consensus layer client, written in Java
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
 | image.repository | string | `"statusim/nimbus-eth2"` | nimbus container image repository |
-| image.tag | string | `"amd64-v22.9.0"` | nimbus container image tag |
+| image.tag | string | `"amd64-v22.9.1"` | nimbus container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -55,6 +55,7 @@ An open-source Ethereum consensus layer client, written in Java
 | p2pNodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
 | p2pNodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
+| p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
 | persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |

@@ -17,7 +17,7 @@ image:
   # When using a validator:
   # repository: gcr.io/prysmaticlabs/prysm/validator
   # -- Prysm container image tag
-  tag: v3.1.0
+  tag: v3.1.1
   # -- Prysm container pull policy
   pullPolicy: IfNotPresent
 
@@ -107,6 +107,9 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 13000
 
 # -- HTTP Port
 httpPort: 3500

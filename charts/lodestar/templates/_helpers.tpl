@@ -60,11 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "lodestar.p2pPort" -}}
-{{- if .Values.p2pNodePort.enabled }}
-{{- print .Values.p2pNodePort.port }}
-{{- else }}
-{{- printf "9000" -}}
-{{- end }}
-{{- end -}}

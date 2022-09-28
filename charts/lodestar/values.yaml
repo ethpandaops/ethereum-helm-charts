@@ -11,7 +11,7 @@ image:
   # -- lodestar container image repository
   repository: chainsafe/lodestar
   # -- lodestar container image tag
-  tag: v1.0.0
+  tag: v1.1.0
   # -- lodestar container pull policy
   pullPolicy: IfNotPresent
 
@@ -98,6 +98,9 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 9000
 
 # -- HTTP Port
 httpPort: 9596

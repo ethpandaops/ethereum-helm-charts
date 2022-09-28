@@ -11,7 +11,7 @@ image:
   # -- nethermind container image repository
   repository: nethermind/nethermind
   # -- nethermind container image tag
-  tag: 1.14.1
+  tag: 1.14.2
   # -- nethermind container pull policy
   pullPolicy: IfNotPresent
 

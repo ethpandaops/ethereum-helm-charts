@@ -11,7 +11,7 @@ image:
   # -- Lighthouse container image repository
   repository: sigp/lighthouse
   # -- Lighthouse container image tag
-  tag: v3.1.0
+  tag: v3.1.2
   # -- Lighthouse container pull policy
   pullPolicy: IfNotPresent
 
@@ -99,6 +99,9 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 9000
 
 # -- HTTP Port
 httpPort: 5052

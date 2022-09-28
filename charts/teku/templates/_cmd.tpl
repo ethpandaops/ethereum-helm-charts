@@ -12,13 +12,13 @@
   --log-destination=CONSOLE
   --data-path=/data
   --p2p-enabled=true
-  --p2p-port={{ include "teku.p2pPort" . }}
+  --p2p-port={{ .Values.p2pPort }}
 {{- if .Values.p2pNodePort.enabled }}
   --p2p-advertised-ip=$EXTERNAL_IP
   --p2p-advertised-port=$EXTERNAL_PORT
 {{- else }}
   --p2p-advertised-ip=$(POD_IP)
-  --p2p-advertised-port={{ include "teku.p2pPort" . }}
+  --p2p-advertised-port={{ .Values.p2pPort }}
 {{- end }}
   --rest-api-enabled=true
   --rest-api-interface=0.0.0.0

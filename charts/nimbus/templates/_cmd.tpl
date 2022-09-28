@@ -17,8 +17,8 @@
   --tcp-port=$EXTERNAL_PORT
 {{- else }}
   --nat=extip:$(POD_IP)
-  --udp-port={{ include "nimbus.p2pPort" . }}
-  --tcp-port={{ include "nimbus.p2pPort" . }}
+  --udp-port={{ .Values.p2pPort }}
+  --tcp-port={{ .Values.p2pPort }}
 {{- end }}
   --rest=true
   --rest-address=0.0.0.0

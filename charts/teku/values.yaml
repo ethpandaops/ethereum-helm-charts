@@ -11,7 +11,7 @@ image:
   # -- teku container image repository
   repository: consensys/teku
   # -- teku container image tag
-  tag: 22.9.0
+  tag: 22.9.1
   # -- teku container pull policy
   pullPolicy: IfNotPresent
 
@@ -97,6 +97,9 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 9000
 
 # -- HTTP Port
 httpPort: 5051

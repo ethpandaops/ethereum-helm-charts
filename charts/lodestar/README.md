@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -28,7 +28,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | httpPort | int | `9596` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | lodestar container pull policy |
 | image.repository | string | `"chainsafe/lodestar"` | lodestar container image repository |
-| image.tag | string | `"v1.0.0"` | lodestar container image tag |
+| image.tag | string | `"v1.1.0"` | lodestar container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -53,6 +53,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
 | p2pNodePort.portsOverwrite | object | See `values.yaml` for example | Overwrite a port for specific replicas |
 | p2pNodePort.startAt | int | `31000` | Port used to start |
+| p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
 | persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |

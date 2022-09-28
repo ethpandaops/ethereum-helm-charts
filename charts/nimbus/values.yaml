@@ -11,7 +11,7 @@ image:
   # -- nimbus container image repository
   repository: statusim/nimbus-eth2
   # -- nimbus container image tag
-  tag: amd64-v22.9.0
+  tag: amd64-v22.9.1
   # -- nimbus container pull policy
   pullPolicy: IfNotPresent
 
@@ -99,6 +99,9 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 9000
 
 # -- HTTP Port
 httpPort: 5052
