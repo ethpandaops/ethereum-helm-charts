@@ -1,11 +1,11 @@
 
 # ethereum-address-metrics-exporter
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A prometheus exporter for Ethereum externally owned account and contract addresses
 
-**Homepage:** <https://github.com/savid/ethereum-address-metrics-exporter>
+**Homepage:** <https://github.com/ethpandaops/ethereum-address-metrics-exporter>
 
 ## Values
 
@@ -27,7 +27,7 @@ A prometheus exporter for Ethereum externally owned account and contract address
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | ethereum-address-metrics-exporter container pull policy |
-| image.repository | string | `"savid/ethereum-address-metrics-exporter"` | ethereum-address-metrics-exporter container image repository |
+| image.repository | string | `"ethpandaops/ethereum-address-metrics-exporter"` | ethereum-address-metrics-exporter container image repository |
 | image.tag | string | `"latest"` | ethereum-address-metrics-exporter container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |

@@ -1,9 +1,9 @@
 apiVersion: v2
 name: ethereum-address-metrics-exporter
 description: A prometheus exporter for Ethereum externally owned account and contract addresses
-home: https://github.com/savid/ethereum-address-metrics-exporter
+home: https://github.com/ethpandaops/ethereum-address-metrics-exporter
 type: application
-version: 0.0.1
+version: 0.1.0
 maintainers:
   - name: savid
-    email: ansrew.davis@ethereum.org
+    email: andrew.davis@ethereum.org
