@@ -1,7 +1,7 @@
 
 # ethereum-address-metrics-exporter
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A prometheus exporter for Ethereum externally owned account and contract addresses
 
@@ -28,7 +28,7 @@ A prometheus exporter for Ethereum externally owned account and contract address
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | ethereum-address-metrics-exporter container pull policy |
 | image.repository | string | `"ethpandaops/ethereum-address-metrics-exporter"` | ethereum-address-metrics-exporter container image repository |
-| image.tag | string | `"0.0.6"` | ethereum-address-metrics-exporter container image tag |
+| image.tag | string | `"latest"` | ethereum-address-metrics-exporter container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
