@@ -526,6 +526,20 @@ entries:
     version: 0.1.0
   ethereum-address-metrics-exporter:
   - apiVersion: v2
+    created: "2022-10-04T16:06:30.686548695Z"
+    description: A prometheus exporter for Ethereum externally owned account and contract
+      addresses
+    digest: 8d3c2fbeef5e293c671b8bd928db52368354afc9a40e7f37553533bc2c94c8cd
+    home: https://github.com/ethpandaops/ethereum-address-metrics-exporter
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: ethereum-address-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.2/ethereum-address-metrics-exporter-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-10-04T15:24:31.891545425Z"
     description: A prometheus exporter for Ethereum externally owned account and contract
       addresses
@@ -1558,4 +1572,4 @@ entries:
     urls:
     - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-04T15:24:31.891864229Z"
+generated: "2022-10-04T16:06:30.686720995Z"
