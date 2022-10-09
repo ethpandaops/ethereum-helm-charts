@@ -21,7 +21,7 @@ entries:
     - https://github.com/gobitfly/eth2-beaconchain-explorer
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.2/beaconchain-explorer-0.1.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.2/beaconchain-explorer-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
     created: "2022-08-31T11:53:48.245190155Z"
@@ -43,7 +43,7 @@ entries:
     - https://github.com/gobitfly/eth2-beaconchain-explorer
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.1/beaconchain-explorer-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.1/beaconchain-explorer-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:13.392635144Z"
@@ -65,7 +65,7 @@ entries:
     - https://github.com/gobitfly/eth2-beaconchain-explorer
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.0/beaconchain-explorer-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.0/beaconchain-explorer-0.1.0.tgz
     version: 0.1.0
   besu:
   - apiVersion: v2
@@ -102,7 +102,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.3.3/besu-0.3.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.3/besu-0.3.3.tgz
     version: 0.3.3
   - apiVersion: v2
     created: "2022-09-26T11:04:14.19306044Z"
@@ -120,7 +120,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.3.2/besu-0.3.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.2/besu-0.3.2.tgz
     version: 0.3.2
   - apiVersion: v2
     created: "2022-09-12T12:35:02.66378793Z"
@@ -138,7 +138,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.3.1/besu-0.3.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.1/besu-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v2
     created: "2022-08-31T10:55:05.454940091Z"
@@ -156,7 +156,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.3.0/besu-0.3.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.0/besu-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     created: "2021-11-26T07:47:06.64880031Z"
@@ -174,7 +174,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.2.0/besu-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.2.0/besu-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-23T20:19:52.067328231Z"
@@ -192,7 +192,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.1.1/besu-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.1.1/besu-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:13.589771686Z"
@@ -210,7 +210,7 @@ entries:
     - https://github.com/hyperledger/besu
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/besu-0.1.0/besu-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.1.0/besu-0.1.0.tgz
     version: 0.1.0
   blockscout:
   - apiVersion: v2
@@ -234,7 +234,7 @@ entries:
     - https://github.com/blockscout/blockscout/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.2/blockscout-0.1.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.1.2/blockscout-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
     created: "2022-08-31T11:53:48.521936245Z"
@@ -257,7 +257,7 @@ entries:
     - https://github.com/blockscout/blockscout/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.1/blockscout-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.1.1/blockscout-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:13.783333257Z"
@@ -280,7 +280,7 @@ entries:
     - https://github.com/blockscout/blockscout/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
     version: 0.1.0
   checkpointz:
   - apiVersion: v2
@@ -294,7 +294,7 @@ entries:
     name: checkpointz
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/checkpointz-0.1.1/checkpointz-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/checkpointz-0.1.1/checkpointz-0.1.1.tgz
     version: 0.1.1
   consensus-monitor:
   - apiVersion: v2
@@ -312,7 +312,7 @@ entries:
     - https://github.com/ralexstokes/ethereum_consensus_monitor/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
     version: 0.1.0
   dshackle:
   - apiVersion: v2
@@ -335,7 +335,7 @@ entries:
     - https://github.com/emeraldpay/dshackle
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.3/dshackle-0.1.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.3/dshackle-0.1.3.tgz
     version: 0.1.3
   - apiVersion: v2
     created: "2022-08-29T06:43:54.98219674Z"
@@ -357,7 +357,7 @@ entries:
     - https://github.com/emeraldpay/dshackle
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.2/dshackle-0.1.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.2/dshackle-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
     created: "2022-08-16T15:41:42.885561159Z"
@@ -379,7 +379,7 @@ entries:
     - https://github.com/emeraldpay/dshackle
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.1/dshackle-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.1/dshackle-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:13.990009319Z"
@@ -401,7 +401,7 @@ entries:
     - https://github.com/emeraldpay/dshackle
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
   erigon:
   - apiVersion: v2
@@ -422,7 +422,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.3.2/erigon-0.3.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.3.2/erigon-0.3.2.tgz
     version: 0.3.2
   - apiVersion: v2
     created: "2022-09-07T07:34:32.499902774Z"
@@ -442,7 +442,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.3.1/erigon-0.3.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.3.1/erigon-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v2
     created: "2022-08-31T10:55:05.595151191Z"
@@ -462,7 +462,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.3.0/erigon-0.3.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.3.0/erigon-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     created: "2021-11-26T07:46:48.217967273Z"
@@ -482,7 +482,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.2.0/erigon-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.2.0/erigon-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-23T20:11:09.674922076Z"
@@ -502,7 +502,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.1.1/erigon-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.1.1/erigon-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:14.171069766Z"
@@ -522,7 +522,7 @@ entries:
     - https://github.com/ledgerwatch/erigon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/erigon-0.1.0/erigon-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.1.0/erigon-0.1.0.tgz
     version: 0.1.0
   eth2-fork-mon:
   - apiVersion: v2
@@ -540,7 +540,7 @@ entries:
     - https://github.com/ralexstokes/eth2-fork-mon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.0/eth2-fork-mon-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.0/eth2-fork-mon-0.1.0.tgz
     version: 0.1.0
   ethereum-address-metrics-exporter:
   - apiVersion: v2
@@ -555,7 +555,7 @@ entries:
     name: ethereum-address-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.2/ethereum-address-metrics-exporter-0.1.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.2/ethereum-address-metrics-exporter-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
     created: "2022-10-04T15:24:31.891545425Z"
@@ -569,7 +569,7 @@ entries:
     name: ethereum-address-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.1/ethereum-address-metrics-exporter-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.1/ethereum-address-metrics-exporter-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2022-09-28T14:05:12.616348995Z"
@@ -583,7 +583,7 @@ entries:
     name: ethereum-address-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.0/ethereum-address-metrics-exporter-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.1.0/ethereum-address-metrics-exporter-0.1.0.tgz
     version: 0.1.0
   - apiVersion: v2
     created: "2022-09-14T16:26:51.846501504Z"
@@ -597,7 +597,7 @@ entries:
     name: ethereum-address-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.0.2/ethereum-address-metrics-exporter-0.0.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.0.2/ethereum-address-metrics-exporter-0.0.2.tgz
     version: 0.0.2
   - apiVersion: v2
     created: "2022-09-14T12:51:53.291002419Z"
@@ -611,7 +611,7 @@ entries:
     name: ethereum-address-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.0.1/ethereum-address-metrics-exporter-0.0.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.0.1/ethereum-address-metrics-exporter-0.0.1.tgz
     version: 0.0.1
   ethereum-metrics-exporter:
   - apiVersion: v2
@@ -626,7 +626,7 @@ entries:
     name: ethereum-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.1/ethereum-metrics-exporter-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.1/ethereum-metrics-exporter-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2022-07-13T05:32:39.696704975Z"
@@ -640,7 +640,7 @@ entries:
     name: ethereum-metrics-exporter
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.0/ethereum-metrics-exporter-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.0/ethereum-metrics-exporter-0.1.0.tgz
     version: 0.1.0
   ethstats:
   - apiVersion: v2
@@ -657,7 +657,7 @@ entries:
     - https://github.com/goerli/ethstats-server
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethstats-0.1.1/ethstats-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethstats-0.1.1/ethstats-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:14.518939849Z"
@@ -673,7 +673,7 @@ entries:
     - https://github.com/puppeth/eth-netstats
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ethstats-0.1.0/ethstats-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethstats-0.1.0/ethstats-0.1.0.tgz
     version: 0.1.0
   fauceth:
   - apiVersion: v2
@@ -690,7 +690,7 @@ entries:
     - https://github.com/komputing/fauceth
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.2.1/fauceth-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/fauceth-0.2.1/fauceth-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2022-02-04T11:11:42.930326104Z"
@@ -706,7 +706,7 @@ entries:
     - https://github.com/komputing/fauceth
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.2.0/fauceth-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/fauceth-0.2.0/fauceth-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-12-23T13:13:32.444831612Z"
@@ -722,7 +722,7 @@ entries:
     - https://github.com/skylenet/FaucETH
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/fauceth-0.1.0/fauceth-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/fauceth-0.1.0/fauceth-0.1.0.tgz
     version: 0.1.0
   forkmon:
   - apiVersion: v2
@@ -737,7 +737,7 @@ entries:
     name: forkmon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/forkmon-0.1.1/forkmon-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forkmon-0.1.1/forkmon-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2022-09-08T12:43:28.147323283Z"
@@ -751,7 +751,7 @@ entries:
     name: forkmon
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/forkmon-0.1.0/forkmon-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forkmon-0.1.0/forkmon-0.1.0.tgz
     version: 0.1.0
   ganache:
   - apiVersion: v2
@@ -772,7 +772,7 @@ entries:
     - https://github.com/trufflesuite/ganache
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/ganache-0.1.0/ganache-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ganache-0.1.0/ganache-0.1.0.tgz
     version: 0.1.0
   genesis-generator:
   - apiVersion: v2
@@ -790,7 +790,7 @@ entries:
     - https://github.com/protolambda/eth2-testnet-genesis
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/genesis-generator-0.2.0/genesis-generator-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.2.0/genesis-generator-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-18T09:14:14.88507889Z"
@@ -807,7 +807,7 @@ entries:
     - https://github.com/protolambda/eth2-testnet-genesis
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
     version: 0.1.0
   geth:
   - apiVersion: v2
@@ -827,7 +827,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.3.1/geth-0.3.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.3.1/geth-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v2
     created: "2022-08-31T10:55:05.846542385Z"
@@ -846,7 +846,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.3.0/geth-0.3.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.3.0/geth-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     created: "2022-03-09T18:43:05.280610086Z"
@@ -865,7 +865,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.2.1/geth-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.2.1/geth-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2021-11-25T19:53:44.95689589Z"
@@ -884,7 +884,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.2.0/geth-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.2.0/geth-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-23T20:09:36.050722601Z"
@@ -903,7 +903,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.1.1/geth-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.1.1/geth-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:15.076588494Z"
@@ -922,7 +922,7 @@ entries:
     - https://github.com/ethereum/go-ethereum
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/geth-0.1.0/geth-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.1.0/geth-0.1.0.tgz
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
@@ -939,7 +939,7 @@ entries:
     - https://github.com/sigp/lighthouse
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.3/lighthouse-0.2.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.3/lighthouse-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v2
     created: "2022-09-22T11:02:03.235675586Z"
@@ -955,7 +955,7 @@ entries:
     - https://github.com/sigp/lighthouse
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.2/lighthouse-0.2.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.2/lighthouse-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v2
     created: "2022-09-02T09:35:50.5021841Z"
@@ -971,7 +971,7 @@ entries:
     - https://github.com/sigp/lighthouse
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.1/lighthouse-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.1/lighthouse-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2022-08-31T10:55:06.005867632Z"
@@ -987,7 +987,7 @@ entries:
     - https://github.com/sigp/lighthouse
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.2.0/lighthouse-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.0/lighthouse-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-18T09:14:15.25893297Z"
@@ -1003,7 +1003,7 @@ entries:
     - https://github.com/sigp/lighthouse
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
   - apiVersion: v2
@@ -1021,7 +1021,7 @@ entries:
     - https://github.com/ChainSafe/lodestar
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.3/lodestar-0.2.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.3/lodestar-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v2
     created: "2022-09-22T11:02:03.415149286Z"
@@ -1038,7 +1038,7 @@ entries:
     - https://github.com/ChainSafe/lodestar
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.2/lodestar-0.2.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.2/lodestar-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v2
     created: "2022-09-02T09:35:50.819269301Z"
@@ -1055,7 +1055,7 @@ entries:
     - https://github.com/ChainSafe/lodestar
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.1/lodestar-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.1/lodestar-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2022-08-31T10:55:06.134915593Z"
@@ -1072,7 +1072,7 @@ entries:
     - https://github.com/ChainSafe/lodestar
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.2.0/lodestar-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.0/lodestar-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-18T09:14:15.463667171Z"
@@ -1089,7 +1089,7 @@ entries:
     - https://github.com/ChainSafe/lodestar
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
   - apiVersion: v2
@@ -1107,7 +1107,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.3.2/nethermind-0.3.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.2/nethermind-0.3.2.tgz
     version: 0.3.2
   - apiVersion: v2
     created: "2022-09-09T06:05:23.558440761Z"
@@ -1124,7 +1124,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.3.1/nethermind-0.3.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.1/nethermind-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v2
     created: "2022-08-31T10:55:06.268677697Z"
@@ -1141,7 +1141,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.3.0/nethermind-0.3.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.0/nethermind-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     created: "2021-11-25T19:54:48.689418454Z"
@@ -1158,7 +1158,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.2.0/nethermind-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.2.0/nethermind-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-23T20:21:47.076250145Z"
@@ -1175,7 +1175,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.1.1/nethermind-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.1/nethermind-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:15.652468796Z"
@@ -1192,7 +1192,7 @@ entries:
     - https://github.com/NethermindEth/nethermind
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
   - apiVersion: v2
@@ -1209,7 +1209,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.4/nimbus-0.4.4.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.4/nimbus-0.4.4.tgz
     version: 0.4.4
   - apiVersion: v2
     created: "2022-09-21T15:47:23.207170293Z"
@@ -1225,7 +1225,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.3/nimbus-0.4.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.3/nimbus-0.4.3.tgz
     version: 0.4.3
   - apiVersion: v2
     created: "2022-09-09T06:05:23.665457321Z"
@@ -1241,7 +1241,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.2/nimbus-0.4.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.2/nimbus-0.4.2.tgz
     version: 0.4.2
   - apiVersion: v2
     created: "2022-09-02T09:35:51.105764548Z"
@@ -1257,7 +1257,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.1/nimbus-0.4.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.1/nimbus-0.4.1.tgz
     version: 0.4.1
   - apiVersion: v2
     created: "2022-08-31T10:55:06.40390717Z"
@@ -1273,7 +1273,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.4.0/nimbus-0.4.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.0/nimbus-0.4.0.tgz
     version: 0.4.0
   - apiVersion: v2
     created: "2022-07-26T07:06:09.505478009Z"
@@ -1289,7 +1289,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.3.0/nimbus-0.3.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.3.0/nimbus-0.3.0.tgz
     version: 0.3.0
   - apiVersion: v2
     created: "2021-12-13T19:24:07.0984325Z"
@@ -1305,7 +1305,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.2.1/nimbus-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.2.1/nimbus-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2021-11-26T07:59:44.112360476Z"
@@ -1321,7 +1321,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.2.0/nimbus-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.2.0/nimbus-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-23T20:20:56.31954654Z"
@@ -1337,7 +1337,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.1.1/nimbus-0.1.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.1.1/nimbus-0.1.1.tgz
     version: 0.1.1
   - apiVersion: v2
     created: "2021-11-18T09:14:15.827809527Z"
@@ -1353,7 +1353,7 @@ entries:
     - https://github.com/status-im/nimbus-eth2
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
     version: 0.1.0
   prysm:
   - apiVersion: v2
@@ -1370,7 +1370,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.4/prysm-0.2.4.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.4/prysm-0.2.4.tgz
     version: 0.2.4
   - apiVersion: v2
     created: "2022-09-21T15:47:23.377223231Z"
@@ -1386,7 +1386,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.3/prysm-0.2.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.3/prysm-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v2
     created: "2022-09-07T07:34:32.643798539Z"
@@ -1402,7 +1402,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.2/prysm-0.2.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.2/prysm-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v2
     created: "2022-09-02T09:35:51.380018011Z"
@@ -1418,7 +1418,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.1/prysm-0.2.1.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.1/prysm-0.2.1.tgz
     version: 0.2.1
   - apiVersion: v2
     created: "2022-08-31T10:55:06.526339669Z"
@@ -1434,7 +1434,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.2.0/prysm-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.0/prysm-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-18T09:14:16.006841829Z"
@@ -1450,7 +1450,7 @@ entries:
     - https://github.com/prysmaticlabs/prysm
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
     version: 0.1.0
   rpc-proxy:
   - apiVersion: v2
@@ -1464,7 +1464,7 @@ entries:
     name: rpc-proxy
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
   teku:
   - apiVersion: v2
@@ -1481,7 +1481,7 @@ entries:
     - https://github.com/Consensys/teku/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.4/teku-0.2.4.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.4/teku-0.2.4.tgz
     version: 0.2.4
   - apiVersion: v2
     created: "2022-09-21T15:47:23.528398386Z"
@@ -1497,7 +1497,7 @@ entries:
     - https://github.com/Consensys/teku/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.3/teku-0.2.3.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.3/teku-0.2.3.tgz
     version: 0.2.3
   - apiVersion: v2
     created: "2022-09-02T09:35:51.680705669Z"
@@ -1513,7 +1513,7 @@ entries:
     - https://github.com/Consensys/teku/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.2/teku-0.2.2.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.2/teku-0.2.2.tgz
     version: 0.2.2
   - apiVersion: v2
     created: "2022-08-31T10:55:06.673782148Z"
@@ -1529,7 +1529,7 @@ entries:
     - https://github.com/Consensys/teku/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.2.0/teku-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.0/teku-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-11-18T09:14:16.178720186Z"
@@ -1545,7 +1545,7 @@ entries:
     - https://github.com/Consensys/teku/
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.1.0/teku-0.1.0.tgz
     version: 0.1.0
   testnet-faucet:
   - apiVersion: v2
@@ -1559,7 +1559,7 @@ entries:
     name: testnet-faucet
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-faucet-0.1.0/testnet-faucet-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-faucet-0.1.0/testnet-faucet-0.1.0.tgz
     version: 0.1.0
   testnet-homepage:
   - apiVersion: v2
@@ -1574,7 +1574,7 @@ entries:
     name: testnet-homepage
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.2.0/testnet-homepage-0.2.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.2.0/testnet-homepage-0.2.0.tgz
     version: 0.2.0
   - apiVersion: v2
     created: "2021-12-02T13:06:21.83550381Z"
@@ -1588,6 +1588,6 @@ entries:
     name: testnet-homepage
     type: application
     urls:
-    - https://github.com/skylenet/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
 generated: "2022-10-09T15:26:05.141329801Z"
