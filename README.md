@@ -1,11 +1,11 @@
 # Ethereum Helm Charts
 
-[![Release Helm Charts](https://github.com/skylenet/ethereum-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/skylenet/ethereum-helm-charts/actions/workflows/release.yaml)
+[![Release Helm Charts](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml/badge.svg)](https://github.com/ethpandaops/ethereum-helm-charts/actions/workflows/release.yaml)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/ethereum-helm-charts)](https://artifacthub.io/packages/search?repo=ethereum-helm-charts)
 
 A set of [Helm](https://helm.sh/) charts to run multiple components of the [Ethereum](https://ethereum.org/) blockchain on [Kubernetes](https://kubernetes.io/).
 
-Deployment examples that use these helm charts can be found under [skylenet/ethereum-k8s-testnets](https://github.com/skylenet/ethereum-k8s-testnets).
+Deployment examples that use these helm charts can be found under [ethpandaops/ethereum-k8s-testnets](https://github.com/ethpandaops/ethereum-k8s-testnets).
 
 ## Usage
 
@@ -15,7 +15,7 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
-helm repo add ethereum-helm-charts https://skylenet.github.io/ethereum-helm-charts
+helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
