@@ -69,6 +69,7 @@ Tooling
 - [`ethereum-metrics-exporter`](charts/ethereum-metrics-exporter) - A prometheus exporter for Ethereum execution and consensus clients.
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
+- [smart-contract-verifier-http](charts/smart-contract-verifier-http) - Smart contract verification service.
 
 ## Development
 
