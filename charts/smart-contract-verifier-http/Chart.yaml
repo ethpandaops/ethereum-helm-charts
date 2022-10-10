@@ -1,0 +1,12 @@
+apiVersion: v2
+name: smart-contract-verifier-http
+description: >
+  Smart-contract verification service. Runs as an HTTP server and allows making verification requests through REST API.
+home: https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+sources:
+  - https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
