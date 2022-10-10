@@ -52,6 +52,7 @@ Smart-contract verification service. Runs as an HTTP server and allows making ve
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
+| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | string | `nil` | Env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
