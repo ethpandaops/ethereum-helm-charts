@@ -1466,6 +1466,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
+  smart-contract-verifier-http:
+  - apiVersion: v2
+    created: "2022-10-10T20:07:57.874346192Z"
+    description: 'Smart-contract verification service. Runs as an HTTP server and
+      allows making verification requests through REST API. '
+    digest: 0627dc2ae9b42770729b22e06352c8b980d525597fa3dd51aacf9e1ee149c2af
+    home: https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: smart-contract-verifier-http
+    sources:
+    - https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/smart-contract-verifier-http-0.1.0/smart-contract-verifier-http-0.1.0.tgz
+    version: 0.1.0
   teku:
   - apiVersion: v2
     created: "2022-09-22T11:02:03.951672566Z"
@@ -1590,4 +1607,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-09T15:26:05.141329801Z"
+generated: "2022-10-10T20:07:57.874688107Z"
