@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "smart-contract-verifier-http.fullname" . }}
+  labels:
+    {{- include "smart-contract-verifier-http.labels" . | nindent 4 }}
+data:
+  config.toml: |
+    {{- tpl .Values.config . | nindent 4 }}

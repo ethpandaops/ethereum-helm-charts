@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "smart-contract-verifier-http.fullname" . }}-test-connection"
+  labels:
+    {{- include "smart-contract-verifier-http.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "smart-contract-verifier-http.fullname" . }}:{{ include "smart-contract-verifier-http.httpPort" . }}/'
+  restartPolicy: Never
