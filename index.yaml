@@ -1196,6 +1196,22 @@ entries:
     version: 0.1.0
   nimbus:
   - apiVersion: v2
+    created: "2022-10-19T12:22:01.876701234Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: 401bb2640a6bb43558b02f8a5fefcb62ed0c1c2e88dfa85b45ff541bf96d50ed
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.5/nimbus-0.4.5.tgz
+    version: 0.4.5
+  - apiVersion: v2
     created: "2022-09-22T11:02:03.614128281Z"
     description: An open-source Ethereum consensus layer client, written in Java
     digest: ec72ca4d587f530db508731bc4c3452aa9eab94536671723701ca0a3b48e605a
@@ -1485,6 +1501,22 @@ entries:
     version: 0.1.0
   teku:
   - apiVersion: v2
+    created: "2022-10-19T12:22:02.046321541Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: e93f575553379add2ea9f0a8aa50cc0900053e6c26eae61e20431d0eb46e199b
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.5/teku-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2022-09-22T11:02:03.951672566Z"
     description: An open-source Ethereum 2.0 client, written in Java
     digest: 48ac243e084435c191b53a77cdf393a426bd9103e6f4341dc33f9f0d5be22849
@@ -1607,4 +1639,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-10T20:07:57.874688107Z"
+generated: "2022-10-19T12:22:02.046629145Z"
