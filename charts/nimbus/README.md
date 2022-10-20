@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 0.4.5](https://img.shields.io/badge/Version-0.4.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.6](https://img.shields.io/badge/Version-0.4.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Java
 
@@ -17,6 +17,7 @@ An open-source Ethereum consensus layer client, written in Java
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the nimbus container |
 | defaultBinaryPath | string | `"/home/user/nimbus-eth2/build/nimbus_beacon_node"` | Path within the container to the beacon node binary |
 | extraArgs | list | `[]` | Extra args for the nimbus container |

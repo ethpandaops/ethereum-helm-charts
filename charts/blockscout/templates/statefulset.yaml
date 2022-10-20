@@ -62,6 +62,8 @@ spec:
           args:
             {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}

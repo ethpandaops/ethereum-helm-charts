@@ -1,7 +1,7 @@
 
 # ethereum-metrics-exporter
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Prometheus metrics exporter for Ethereum consensus & execution nodes
 
@@ -24,6 +24,7 @@ A Prometheus metrics exporter for Ethereum consensus & execution nodes
 | config.execution.modules[3] | string | `"txpool"` |  |
 | config.execution.name | string | `"execution-client"` |  |
 | config.execution.url | string | `"http://localhost:8545"` |  |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the ethereum-metrics-exporter container |
 | customCommand | list | `[]` | Command replacement for the ethereum-metrics-exporter container |
 | extraContainers | list | `[]` | Additional containers |

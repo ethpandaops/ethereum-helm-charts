@@ -50,6 +50,8 @@ spec:
           args:
             {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: config-server
               mountPath: "/app/config.json"

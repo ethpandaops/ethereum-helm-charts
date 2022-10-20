@@ -7,7 +7,7 @@ home: https://ethstats.net/
 sources:
   - https://github.com/goerli/ethstats-server
 type: application
-version: 0.1.1
+version: 0.1.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

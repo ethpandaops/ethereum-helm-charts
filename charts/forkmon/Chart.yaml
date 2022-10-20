@@ -3,7 +3,7 @@ name: forkmon
 description: This is a little tool to keep track on a set of nodes, and see if they keep in step or if they go out of consensus.
 home: https://github.com/ethereum/nodemonitor
 type: application
-version: 0.1.1
+version: 0.1.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

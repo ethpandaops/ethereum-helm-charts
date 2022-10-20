@@ -1,7 +1,7 @@
 
 # ethstats
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Visual interface for tracking ethereum network status. It uses WebSockets to receive stats from running nodes and output them through a web interface.
 
@@ -17,6 +17,7 @@ Visual interface for tracking ethereum network status. It uses WebSockets to rec
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the ethstats container |
 | customCommand | list | `[]` | Command replacement for the ethstats container |
 | extraContainers | list | `[]` | Additional containers |

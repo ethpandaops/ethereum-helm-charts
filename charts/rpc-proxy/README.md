@@ -1,7 +1,7 @@
 
 # rpc-proxy
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A proxy for web3 JSONRPC
 
@@ -15,6 +15,7 @@ A proxy for web3 JSONRPC
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `["--url=http://upstream-node:8545","--wsurl=http://upstream-node:8546","--rpm=1000"]` | Command arguments |
 | config | string | `"Allow = [\n  \"clique_getSigners\",\n  \"clique_getSignersAtHash\",\n  \"clique_getSnapshot\",\n  \"clique_getSnapshotAtHash\",\n  \"clique_getVoters\",\n  \"clique_getVotersAtHash\",\n  \"eth_blockNumber\",\n  \"eth_call\",\n  \"eth_chainId\",\n  \"eth_estimateGas\",\n  \"eth_gasPrice\",\n  \"eth_genesisAlloc\",\n  \"eth_getBalance\",\n  \"eth_getBlockByHash\",\n  \"eth_getBlockByNumber\",\n  \"eth_getBlockTransactionCountByHash\",\n  \"eth_getBlockTransactionCountByNumber\",\n  \"eth_getCode\",\n  \"eth_getFilterChanges\",\n  \"eth_getLogs\",\n  \"eth_getStorageAt\",\n  \"eth_getTransactionByBlockHashAndIndex\",\n  \"eth_getTransactionByBlockNumberAndIndex\",\n  \"eth_getTransactionByHash\",\n  \"eth_getTransactionCount\",\n  \"eth_getTransactionReceipt\",\n  \"eth_newBlockFilter\",\n  \"eth_newPendingTransactionFilter\",\n  \"eth_sendRawTransaction\",\n  \"eth_subscribe\",\n  \"eth_totalSupply\",\n  \"eth_uninstallFilter\",\n  \"eth_unsubscribe\",\n  \"net_listening\",\n  \"net_version\",\n  \"rpc_modules\",\n  \"web3_clientVersion\",\n]\n"` |  |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the rpc-proxy container |
 | customCommand | list | `[]` | Command replacement for the rpc-proxy container |
 | extraContainers | list | `[]` | Additional containers |

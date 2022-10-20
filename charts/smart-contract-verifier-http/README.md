@@ -1,7 +1,7 @@
 
 # smart-contract-verifier-http
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Smart-contract verification service. Runs as an HTTP server and allows making verification requests through REST API.
 
@@ -18,6 +18,7 @@ Smart-contract verification service. Runs as an HTTP server and allows making ve
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | string | See `values.yaml` | Config file |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the smart-contract-verifier-http container |
 | customCommand | list | `[]` | Command replacement for the smart-contract-verifier-http container |
 | extraContainers | list | `[]` | Additional containers |

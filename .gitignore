@@ -7,3 +7,6 @@
 
 # Helmsman
 .helmsman-tmp
+
+# Ignore archives
+*.tgz

@@ -1,7 +1,7 @@
 
 # dshackle
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket.
 
@@ -24,7 +24,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | string | See `values.yaml` | Config file |
-| containerSecurityContext | object | `{}` |  |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the dshackle container |
 | customCommand | list | `[]` | Command replacement for the dshackle container |
 | extraContainers | list | `[]` | Additional containers |

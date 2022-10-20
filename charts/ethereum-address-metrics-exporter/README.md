@@ -1,7 +1,7 @@
 
 # ethereum-address-metrics-exporter
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A prometheus exporter for Ethereum externally owned account and contract addresses
 
@@ -18,6 +18,7 @@ A prometheus exporter for Ethereum externally owned account and contract address
 | config.global.logging | string | `"info"` |  |
 | config.global.metricsAddr | string | `":9090"` |  |
 | config.global.namespace | string | `"eth_address"` |  |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the ethereum-address-metrics-exporter container |
 | customCommand | list | `[]` | Command replacement for the ethereum-address-metrics-exporter container |
 | extraContainers | list | `[]` | Additional containers |
