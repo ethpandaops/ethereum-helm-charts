@@ -1,7 +1,7 @@
 
 # checkpointz
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A beacon chain Checkpoint Sync provider
 
@@ -23,6 +23,7 @@ A beacon chain Checkpoint Sync provider
 | config.global.listenAddr | string | `":5555"` |  |
 | config.global.logging | string | `"info"` |  |
 | config.global.metricsAddr | string | `":9090"` |  |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the checkpointz container |
 | customCommand | list | `[]` | Command replacement for the checkpointz container |
 | extraContainers | list | `[]` | Additional containers |

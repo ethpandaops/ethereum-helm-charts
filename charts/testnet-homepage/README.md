@@ -1,7 +1,7 @@
 
 # testnet-homepage
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum testnet homepage that is used to display testnet relevant information
 
@@ -14,6 +14,7 @@ Ethereum testnet homepage that is used to display testnet relevant information
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | config | object | See `values.yaml` | Configuration |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the testnet-homepage container |
 | customCommand | list | `[]` | Command replacement for the testnet-homepage container |
 | customMarkdown | string | `"# Hello world\nThis is a paragraph"` |  |

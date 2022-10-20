@@ -1,7 +1,7 @@
 
 # eth2-fork-mon
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Simple client/server to track the (real-time) status of a (configurable) set of eth2 beacon nodes.
 
@@ -18,6 +18,7 @@ Simple client/server to track the (real-time) status of a (configurable) set of 
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | object | See `values.yaml` | Config file |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the eth2-fork-mon container |
 | customCommand | list | `[]` | Command replacement for the eth2-fork-mon container |
 | extraContainers | list | `[]` | Additional containers |

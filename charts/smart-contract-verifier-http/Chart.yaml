@@ -6,7 +6,7 @@ home: https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verif
 sources:
   - https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

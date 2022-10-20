@@ -148,6 +148,16 @@ securityContext:
   runAsNonRoot: false
   runAsUser: 0
 
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
 serviceAccount:
   # -- Specifies whether a service account should be created
   create: true

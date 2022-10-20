@@ -97,6 +97,8 @@ spec:
           {{- else if eq .Values.mode "validator" }}
             {{- include "teku.validatorCommand" . | nindent 12 }}
           {{- end }}
+          securityContext:
+            {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}

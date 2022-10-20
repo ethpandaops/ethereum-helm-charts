@@ -1,7 +1,7 @@
 
 # besu
 
-![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.6](https://img.shields.io/badge/Version-0.3.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An Ethereum execution layer client designed to be enterprise-friendly for both public and private, permissioned network use cases. Besu is written in Java and released under the Apache 2.0 Licence.
 
@@ -18,6 +18,7 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | authPort | int | `8551` | Engine Port (Auth Port) |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the besu container |
 | extraArgs | list | `[]` | Extra args for the besu container |
 | extraContainers | list | `[]` | Additional containers |

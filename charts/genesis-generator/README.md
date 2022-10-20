@@ -1,7 +1,7 @@
 
 # genesis-generator
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Generate testnet genesis files for the execution and consensus layer clients
 
@@ -19,6 +19,7 @@ Generate testnet genesis files for the execution and consensus layer clients
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | object | See `values.yaml` | Config file |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the genesis-generator container |
 | customCommand | list | `[]` | Command replacement for the genesis-generator container |
 | extraContainers | list | `[]` | Additional containers |

@@ -1,7 +1,7 @@
 
 # testnet-faucet
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum faucet used for testnets
 
@@ -15,6 +15,7 @@ Ethereum faucet used for testnets
 | annotations | object | `{}` | Annotations for the Deployment |
 | config.server | object | See `values.yaml` | Server configuration |
 | config.webui | object | See `values.yaml` | Web UI configuration |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the testnet-faucet container |
 | customCommand | list | `[]` | Command replacement for the testnet-faucet container |
 | extraContainers | list | `[]` | Additional containers |
