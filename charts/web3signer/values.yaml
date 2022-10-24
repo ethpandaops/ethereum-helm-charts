@@ -31,15 +31,12 @@ individualKeys:
 # @default -- See `config.yaml`
 config: |
   data-path: "/data"
-  
   {{- if .Values.individualKeys.enabled }}
   key-store-path: "/data/files"
   {{- end }}
-  
   http-listen-port: {{ .Values.httpPort }}
   http-listen-host: 0.0.0.0
   http-host-allowlist: "*"
-  
   metrics-enabled: true
   metrics-port: {{ .Values.metricsPort }}
   metrics-host: 0.0.0.0
