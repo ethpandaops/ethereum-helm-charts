@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "web3signer.fullname" . }}:{{ .Values.httpPort }}']
+      args: ['{{ include "web3signer.fullname" . }}:{{ .Values.httpPort }}/upcheck']
   restartPolicy: Never
