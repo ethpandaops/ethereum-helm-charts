@@ -98,4 +98,4 @@ In both cases the keystore files will be loaded into a secret object within kube
 
 ## Configure Slashing DB Protection
 Slashing DB protection is out of the scope of this helm chart. It is disabled by default (which is not recommended for mainnet!)
-You can find further information about how to configure the slashing DB protection [here](https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/)
+You can find further information about how to configure the slashing DB protection [here](https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/).
