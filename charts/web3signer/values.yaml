@@ -8,84 +8,42 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- forkmon container image repository
-  repository: holiman/nodemonitor
-  # -- forkmon container image tag
+  # -- web3signer container image repository
+  repository: consensys/web3signer
+  # -- web3signer container image tag
   tag: latest
-  # -- forkmon container pull policy
+  # -- web3signer container pull policy
   pullPolicy: IfNotPresent
 
-# -- Extra args for the forkmon container
+# -- Extra args for the web3signer container
 extraArgs: []
 
-# -- Command replacement for the forkmon container
+# -- Command replacement for the web3signer container
 customCommand: [] # Only change this if you need to change the default command
 
 # -- Set a network name such as mainnet, goerli, sepolia
-network: ""
+network: "prater"
+
+individualKeys:
+  enabled: true
 
 # -- Config file
-# @default -- See `values.toml`
+# @default -- See `config.yaml`
 config: |
-    # How often to reload data from the nodes
-    reload_interval = "10s"
-    # If specified, a http server will serve static content here
-    server_address = "0.0.0.0:{{ .Values.httpPort}}"
-
-    # Shown in the document title, if specified
-    chain_name="{{ .Values.network }}"
-
-    # Third party providers
-    infura_key          = "<INFURA_API_KEY>"
-    infura_endpoint     = "https://mainnet.infura.io/v3/"
-    alchemy_key         = "<ALCHEMY_API_KEY>"
-    alchemy_endpoint    = "https://eth-mainnet.g.alchemy.com/v2/"
-    etherscan_key       = "<ETHERSCAN_API_KEY>"
-    etherscan_endpoint  = "https://api.etherscan.io/api"
-
-    [Metrics]
-
-    enabled = true
-    endpoint = "<INFLUX_ENDPOINT>"
-    username = "<INFLUX_USERNAME>"
-    database  = "<INFLUX_DB_NAME>"
-    password  = "<INFLUX_PASSWORD>"
-
-    # Local or non third party connection require rpc kind
-    {{- range .Values.endpoints }}
-    [[clients]]
-      url = {{ .addr | quote }}
-      name = {{ .name | quote }}
-      kind = {{ .kind | quote }}
-    {{- end }}
-
-    # Third party client configuration doesn't require url
-    # Kind can vary between infura, alchemy or etherscan
-    # Recommended to enable rate limit for third party services
-    {{- range .Values.thirdparty_endpoints }}
-    [[clients]]
-      name = {{ .name | quote }}
-      kind = {{ .kind | quote }}
-      rate_limit = {{ .rate_limit }}
-    {{- end }}
-
-# -- Third party endpoints that you would like to monitor
-thirdparty_endpoints:
-  - name: "mainnet-infura"
-    kind: "infura"
-    rate_limit: 5
-  - name: "mainnet-alchemy"
-    kind: "alchemy"
-    rate_limit: 5
-  - name: "mainnet-etherscan"
-    kind: "etherscan"
-    rate_limit: 5
-
-# -- Endpoints that you would like to monitor
-endpoints:
-  - addr: http://execution-client:8545
-    name: "execution-client-name"
-    kind: "rpc"
+  data-path: "/data"
+  
+  {{- if .Values.individualKeys.enabled }}
+  key-store-path: "/data/files"
+  {{- end }}
+  
+  http-listen-port: {{ .Values.httpPort }}
+  http-listen-host: 0.0.0.0
+  http-host-allowlist: "*"
+  
+  metrics-enabled: true
+  metrics-port: {{ .Values.metricsPort }}
+  metrics-host: 0.0.0.0
+  metrics-host-allowlist: "*"
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -104,8 +62,16 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# - HTTP port for forkmon interface
-httpPort: 8080
+# -- Enable slashing protection
+# See https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/ for configuration of slashing DB
+slashingProtectionDB:
+  enabled: false
+
+# - HTTP port for web3signer interface
+httpPort: 9000
+
+# - Metrics port for web3signer interface
+metricsPort: 9001
 
 service:
   # -- Service type
@@ -238,7 +204,7 @@ persistence:
   accessModes:
   - ReadWriteOnce
   # -- Requested size for volume claim template
-  size: 1Gi
+  size: 50Mi
   # -- Use a specific storage class
   # E.g 'local-path' for local storage to achieve best performance
   # Read more (https://github.com/rancher/local-path-provisioner)

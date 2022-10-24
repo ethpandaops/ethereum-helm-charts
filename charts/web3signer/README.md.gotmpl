@@ -1,0 +1,48 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Setting up validator keys individually
+
+By default each validator key should have its own independent file e.g `keys/keystore-m_12381_3600_0_0_0-1666611825.json` with its corresponding password `keys/keystore1.pass` and its configuration file `keys/validator1.yaml`. 
+By default, each configuration file will point to the corresponding `keystore` file and `password` file to be able to make the signatures. In order to have the different password file enabled for different keystores files, you must make sure to have the individualKeys enabledwithin values.
+
+## Setting up validator keys in bulk
+It is also possible to have one password for multiple keystore files. In this case set the keystores.pass to your common password and disable individualKeys flag within values.
+
+In both cases the keystore files will be loaded into a secret object within kubernetes. Make sure that you put your keystore files in keys/<keystore-m_12381...timestamp>.json format. All json files from this directory will be loaded into the secret object. Once the chart is running the file structures will be the following:
+```
+/data
+├── files
+│   ├── keystore1.yaml
+│   ├── keystore2.yaml
+│   └── ...
+├── keys
+│   ├── keystore-m_12381_3600_0_0_0-1666611825.json
+│   ├── keystore-m_12381_3600_1_0_0-1666611998.json
+│   └── ...
+├── passwords
+│   ├── keystore1.pass
+│   ├── keystore2.pass
+│   ├── .../OR
+│   └── keystores.pass
+└── config.yaml
+```
+
+## Configure Slashing DB Protection 
+Slashing DB protection is out of the scope of this helm chart. It is disabled by default (which is not recommended for mainnet!)
+You can find further information about how to configure the slashing DB protection [here](https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/). 

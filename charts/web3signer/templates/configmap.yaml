@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "web3signer.fullname" . }}
+  labels:
+    {{- include "web3signer.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    {{- tpl .Values.config . | nindent 4 }}
+
+

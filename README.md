@@ -53,23 +53,24 @@ Consensus layer clients
 - [`teku`](charts/teku)
 
 Tooling
-- [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer
-- [`blockscout`](charts/blockscout) - Execution layer block explorer
-- [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs
-- [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC
-- [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes
-- [`ethstats`](charts/ethstats) - Web UI to track execution layer node status
+- [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
+- [`blockscout`](charts/blockscout) - Execution layer block explorer.
+- [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
+- [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
+- [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
+- [`ethstats`](charts/ethstats) - Web UI to track execution layer node status.
 - [`fauceth`](charts/fauceth) - EIP1559 compatible web faucet using Hcaptcha.
-- [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes
-- [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer
-- [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients
+- [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
+- [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
+- [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
-- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users
+- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
 - [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
 - [`ethereum-metrics-exporter`](charts/ethereum-metrics-exporter) - A prometheus exporter for Ethereum execution and consensus clients.
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
+- [`web3signer`](charts/web3signer) - An open-source remote signing service.
 
 ## Development
 
