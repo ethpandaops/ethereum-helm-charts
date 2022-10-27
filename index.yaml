@@ -2179,4 +2179,27 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-27T12:21:38.749558738Z"
+  web3signer:
+  - apiVersion: v2
+    created: "2022-10-27T13:56:44.34315698Z"
+    dependencies:
+    - alias: slashingprotectiondb
+      condition: slashingprotectiondb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: Web3Signer is capable of signing on multiple platforms using private
+      keys stored in an external vault, or encrypted on a disk.
+    digest: e1d0a7558163e3eca69cf5c6723e73e1fd3bf64847a0eddb1dddb5e289cc8cd0
+    home: https://github.com/Consensys/web3signer/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: rafael@skyle.net
+      name: skylenet
+    name: web3signer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-0.1.0/web3signer-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-10-27T13:56:44.343408382Z"
