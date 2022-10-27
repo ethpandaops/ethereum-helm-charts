@@ -21,9 +21,6 @@ extraArgs: []
 # -- Command replacement for the web3signer container
 customCommand: [] # Only change this if you need to change the default command
 
-# -- Set a network name such as mainnet, goerli, sepolia
-network: "prater"
-
 individualKeys:
   enabled: true
 
@@ -31,12 +28,22 @@ individualKeys:
 # @default -- See `values.yaml`
 config: |
   data-path: "/data"
+  eth2.network: prater
   {{- if .Values.individualKeys.enabled }}
   key-store-path: "/data/files"
+  {{- else }}
+  keystores-path: "/data/keys"
+  keystores-password-file: "/data/passwords/keystores.pass"
   {{- end }}
   http-listen-port: {{ .Values.httpPort }}
   http-listen-host: 0.0.0.0
   http-host-allowlist: "*"
+  {{- if .Values.slashingprotectiondb.enabled }}
+  eth2.slashing-protection-db-url: "jdbc:postgresql://web3signer-slashingprotectiondb/{{ .Values.slashingprotectiondb.primary.name }}"
+  eth2.slashing-protection-db-username: {{ .Values.slashingprotectiondb.primary.initdb.user }}
+  eth2.slashing-protection-db-password: {{ .Values.slashingprotectiondb.primary.initdb.password }}
+  eth2.slashing-protection-pruning-enabled: true
+  {{- end }}
   {{- if .Values.serviceMonitor.enabled }}
   metrics-enabled: true
   metrics-port: {{ .Values.metricsPort }}
@@ -60,11 +67,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-# -- Enable slashing protection
-# See https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/ for configuration of slashing DB
-slashingProtectionDB:
-  enabled: false
 
 # - HTTP port for web3signer interface
 httpPort: 9000
@@ -203,7 +205,7 @@ persistence:
   accessModes:
   - ReadWriteOnce
   # -- Requested size for volume claim template
-  size: 50Mi
+  size: 1Gi
   # -- Use a specific storage class
   # E.g 'local-path' for local storage to achieve best performance
   # Read more (https://github.com/rancher/local-path-provisioner)
@@ -237,3 +239,60 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+slashingprotectiondb:
+  # -- If enabled a postgres chart will be deployed as a dependency to be used as a slashing protection database
+  enabled: true
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+  primary:
+    name: web3signer
+    extraVolumes:
+      - name: sql-scripts
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: sql-scripts
+        mountPath: "/sql-scripts"
+    initContainers:
+      - name: init-sql-migration-scripts
+        image: bash:latest
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0
+        command:
+          - bash
+          - -acex
+          - >
+            cd /sql-scripts;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00001__initial.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00002__removeUniqueConstraints.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00003__addLowWatermark.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00004__addGenesisValidatorsRoot.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00005__xnor_source_target_low_watermark.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00006__signed_data_indexes.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00007__add_db_version.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00008__signed_data_unique_constraints.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00009__upsert_validators.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00010__validator_enabled_status.sql;
+        volumeMounts:
+          - name: sql-scripts
+            mountPath: "/sql-scripts"
+    initdb:
+      user: postgres
+      password: postgres
+      scripts:
+        init_00.sql: |
+          CREATE DATABASE web3signer;
+        init_02_db.sh: |
+          #!/bin/sh
+          export PGPASSWORD=postgres
+          cd /sql-scripts
+          for FILE in *.sql; do
+            psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE
+          done
+    persistence:
+      # -- Uses an EmptyDir when not enabled
+      enabled: false
+      size: 8Gi

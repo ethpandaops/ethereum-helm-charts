@@ -7,6 +7,12 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 
 **Homepage:** <https://github.com/Consensys/web3signer/>
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.bitnami.com/bitnami | slashingprotectiondb(postgresql) | 11.x.x |
+
 ## Values
 
 | Key | Type | Default | Description |
@@ -38,14 +44,13 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | metricsPort | int | `9001` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
-| network | string | `"prater"` | Set a network name such as mainnet, goerli, sepolia |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
 | persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
-| persistence.size | string | `"50Mi"` | Requested size for volume claim template |
+| persistence.size | string | `"1Gi"` | Requested size for volume claim template |
 | persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
@@ -71,7 +76,30 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| slashingProtectionDB | object | `{"enabled":false}` | Enable slashing protection See https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/ for configuration of slashing DB |
+| slashingprotectiondb.auth.enablePostgresUser | bool | `true` |  |
+| slashingprotectiondb.auth.postgresPassword | string | `"postgres"` |  |
+| slashingprotectiondb.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency to be used as a slashing protection database |
+| slashingprotectiondb.primary.extraVolumeMounts[0].mountPath | string | `"/sql-scripts"` |  |
+| slashingprotectiondb.primary.extraVolumeMounts[0].name | string | `"sql-scripts"` |  |
+| slashingprotectiondb.primary.extraVolumes[0].emptyDir | object | `{}` |  |
+| slashingprotectiondb.primary.extraVolumes[0].name | string | `"sql-scripts"` |  |
+| slashingprotectiondb.primary.initContainers[0].command[0] | string | `"bash"` |  |
+| slashingprotectiondb.primary.initContainers[0].command[1] | string | `"-acex"` |  |
+| slashingprotectiondb.primary.initContainers[0].command[2] | string | `"cd /sql-scripts; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00001__initial.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00002__removeUniqueConstraints.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00003__addLowWatermark.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00004__addGenesisValidatorsRoot.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00005__xnor_source_target_low_watermark.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00006__signed_data_indexes.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00007__add_db_version.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00008__signed_data_unique_constraints.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00009__upsert_validators.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00010__validator_enabled_status.sql;\n"` |  |
+| slashingprotectiondb.primary.initContainers[0].image | string | `"bash:latest"` |  |
+| slashingprotectiondb.primary.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
+| slashingprotectiondb.primary.initContainers[0].name | string | `"init-sql-migration-scripts"` |  |
+| slashingprotectiondb.primary.initContainers[0].securityContext.runAsNonRoot | bool | `false` |  |
+| slashingprotectiondb.primary.initContainers[0].securityContext.runAsUser | int | `0` |  |
+| slashingprotectiondb.primary.initContainers[0].volumeMounts[0].mountPath | string | `"/sql-scripts"` |  |
+| slashingprotectiondb.primary.initContainers[0].volumeMounts[0].name | string | `"sql-scripts"` |  |
+| slashingprotectiondb.primary.initdb.password | string | `"postgres"` |  |
+| slashingprotectiondb.primary.initdb.scripts."init_00.sql" | string | `"CREATE DATABASE web3signer;\n"` |  |
+| slashingprotectiondb.primary.initdb.scripts."init_02_db.sh" | string | `"#!/bin/sh\nexport PGPASSWORD=postgres\ncd /sql-scripts\nfor FILE in *.sql; do\n  psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE\ndone\n"` |  |
+| slashingprotectiondb.primary.initdb.user | string | `"postgres"` |  |
+| slashingprotectiondb.primary.name | string | `"web3signer"` |  |
+| slashingprotectiondb.primary.persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
+| slashingprotectiondb.primary.persistence.size | string | `"8Gi"` |  |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
