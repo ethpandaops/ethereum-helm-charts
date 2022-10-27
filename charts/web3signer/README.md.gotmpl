@@ -18,7 +18,7 @@
 
 ## Setting up validator keys individually
 
-By default each validator key should have its own independent file e.g `keys/keystore-m_12381_3600_0_0_0-1666611825.json` with its corresponding password `keys/keystore1.pass` and its configuration file `keys/validator1.yaml`. 
+By default each validator key should have its own independent file e.g `keys/keystore-m_12381_3600_0_0_0-1666611825.json` with its corresponding password `keys/keystore1.pass` and its configuration file `keys/validator1.yaml`.
 By default, each configuration file will point to the corresponding `keystore` file and `password` file to be able to make the signatures. In order to have the different password file enabled for different keystores files, you must make sure to have the individualKeys enabledwithin values.
 
 ## Setting up validator keys in bulk
@@ -43,6 +43,13 @@ In both cases the keystore files will be loaded into a secret object within kube
 └── config.yaml
 ```
 
-## Configure Slashing DB Protection 
-Slashing DB protection is out of the scope of this helm chart. It is disabled by default (which is not recommended for mainnet!)
-You can find further information about how to configure the slashing DB protection [here](https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/).
+## Configure Slashing Protection Database
+
+The chart supports a PostgreSQL Database that will be used for slashing protection by default.
+
+```yaml
+slashingprotectiondb:
+  enabled: true
+```
+
+If you would like to disable this feature, you could disable it by setting `slashingprotectiondb.enable=false`. Only do this if you know what you're doing.

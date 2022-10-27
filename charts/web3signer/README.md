@@ -134,6 +134,13 @@ In both cases the keystore files will be loaded into a secret object within kube
 └── config.yaml
 ```
 
-## Configure Slashing DB Protection
-Slashing DB protection is out of the scope of this helm chart. It is disabled by default (which is not recommended for mainnet!)
-You can find further information about how to configure the slashing DB protection [here](https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/).
+## Configure Slashing Protection Database
+
+The chart supports a PostgreSQL Database that will be used for slashing protection by default.
+
+```yaml
+slashingprotectiondb:
+  enabled: true
+```
+
+If you would like to disable this feature, you could disable it by setting `slashingprotectiondb.enable=false`. Only do this if you know what you're doing.
