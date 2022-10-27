@@ -1,0 +1,28 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Configure Slashing Protection Database
+
+The chart supports a PostgreSQL Database that will be used for slashing protection by default.
+
+```yaml
+slashingprotectiondb:
+  enabled: true
+```
+
+If you would like to disable this feature, you could disable it by setting `slashingprotectiondb.enable=false`. Only do this if you know what you're doing.

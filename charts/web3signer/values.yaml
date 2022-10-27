@@ -1,0 +1,309 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- web3signer container image repository
+  repository: consensys/web3signer
+  # -- web3signer container image tag
+  tag: "22.10.0"
+  # -- web3signer container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Extra args for the web3signer container
+extraArgs: []
+  ## Example for web3signer network selection
+  # - --network=mainnet
+
+# -- Command replacement for the web3signer container
+customCommand: [] # Only change this if you need to change the default command
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+  data-path: "/data"
+  http-listen-port: {{ .Values.httpPort }}
+  http-listen-host: 0.0.0.0
+  http-host-allowlist: "*"
+  {{- if .Values.slashingprotectiondb.enabled }}
+  eth2.slashing-protection-db-url: "jdbc:postgresql://{{ .Release.Name }}-slashingprotectiondb/{{ .Values.slashingprotectiondb.primary.name }}"
+  eth2.slashing-protection-db-username: {{ .Values.slashingprotectiondb.primary.initdb.user }}
+  eth2.slashing-protection-db-password: {{ .Values.slashingprotectiondb.primary.initdb.password }}
+  eth2.slashing-protection-pruning-enabled: true
+  {{- end }}
+  {{- if .Values.serviceMonitor.enabled }}
+  metrics-enabled: true
+  metrics-port: {{ .Values.metricsPort }}
+  metrics-host: 0.0.0.0
+  metrics-host-allowlist: "*"
+  {{- end }}
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# - HTTP port for web3signer interface
+httpPort: 9000
+
+# - Metrics port for web3signer interface
+metricsPort: 9001
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 300
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+
+initChownData:
+  # -- Init container to set the correct permissions to access data directories
+  enabled: true
+  image:
+    # -- Container repository
+    repository: busybox
+    # -- Container tag
+    tag: "1.34.1"
+    # -- Container pull policy
+    pullPolicy: IfNotPresent
+  # -- Resource requests and limits
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: true
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 1Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
+
+slashingprotectiondb:
+  # -- If enabled a postgres chart will be deployed as a dependency to be used as a slashing protection database
+  enabled: true
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+  primary:
+    name: web3signer
+    extraVolumes:
+      - name: sql-scripts
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: sql-scripts
+        mountPath: "/sql-scripts"
+    initContainers:
+      - name: init-sql-migration-scripts
+        image: bash:latest
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0
+        command:
+          - bash
+          - -acex
+          - >
+            cd /sql-scripts;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00001__initial.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00002__removeUniqueConstraints.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00003__addLowWatermark.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00004__addGenesisValidatorsRoot.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00005__xnor_source_target_low_watermark.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00006__signed_data_indexes.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00007__add_db_version.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00008__signed_data_unique_constraints.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00009__upsert_validators.sql;
+            wget https://raw.githubusercontent.com/ConsenSys/web3signer/22.10.0/slashing-protection/src/main/resources/migrations/postgresql/V00010__validator_enabled_status.sql;
+        volumeMounts:
+          - name: sql-scripts
+            mountPath: "/sql-scripts"
+    initdb:
+      user: postgres
+      password: postgres
+      scripts:
+        init_00.sql: |
+          CREATE DATABASE web3signer;
+        init_02_db.sh: |
+          #!/bin/sh
+          export PGPASSWORD=postgres
+          cd /sql-scripts
+          for FILE in *.sql; do
+            psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE
+          done
+    persistence:
+      # -- Uses an EmptyDir when not enabled
+      enabled: true
+      size: 1Gi

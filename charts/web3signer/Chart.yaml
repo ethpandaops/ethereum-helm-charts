@@ -1,0 +1,17 @@
+apiVersion: v2
+name: web3signer
+description: Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.
+home: https://github.com/Consensys/web3signer/
+type: application
+version: 0.1.0
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com
+  - name: skylenet
+    email: rafael@skyle.net
+dependencies:
+- name: postgresql
+  version: "11.x.x"
+  repository: "https://charts.bitnami.com/bitnami"
+  condition: slashingprotectiondb.enabled
+  alias: slashingprotectiondb
