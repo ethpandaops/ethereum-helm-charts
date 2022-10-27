@@ -113,29 +113,15 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 
 ## Setting up validator keys individually
 
-By default each validator key should have its own independent file e.g `keys/keystore-m_12381_3600_0_0_0-1666611825.json` with its corresponding password `keys/keystore1.pass` and its configuration file `keys/validator1.yaml`.
-By default, each configuration file will point to the corresponding `keystore` file and `password` file to be able to make the signatures. In order to have the different password file enabled for different keystores files, you must make sure to have the individualKeys enabledwithin values.
+By default web3signer will import all validator keys that are under `/data/keystore`
 
-## Setting up validator keys in bulk
-It is also possible to have one password for multiple keystore files. In this case set the keystores.pass to your common password and disable individualKeys flag within values.
+One way of importing a key manually could be like:
 
-In both cases the keystore files will be loaded into a secret object within kubernetes. Make sure that you put your keystore files in keys/<keystore-m_12381...timestamp>.json format. All json files from this directory will be loaded into the secret object. Once the chart is running the file structures will be the following:
-```
-/data
-├── files
-│   ├── keystore1.yaml
-│   ├── keystore2.yaml
-│   └── ...
-├── keys
-│   ├── keystore-m_12381_3600_0_0_0-1666611825.json
-│   ├── keystore-m_12381_3600_1_0_0-1666611998.json
-│   └── ...
-├── passwords
-│   ├── keystore1.pass
-│   ├── keystore2.pass
-│   ├── .../OR
-│   └── keystores.pass
-└── config.yaml
+```bash
+# Copy a signing key configuration file. File format can be checked on https://docs.web3signer.consensys.net/en/latest/Reference/Key-Configuration-Files/
+kubectl cp validator1.yaml web3signer-0:/data/keystore/validator1.yaml
+# Reload, so that web3signer detects the new keys
+kubectl exec -it web3signer-0 -- curl -X POST localhost:9000/reload
 ```
 
 ## Configure Slashing Protection Database
