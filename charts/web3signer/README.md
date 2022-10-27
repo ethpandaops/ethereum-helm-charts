@@ -32,7 +32,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | httpPort | int | `9000` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | web3signer container pull policy |
 | image.repository | string | `"consensys/web3signer"` | web3signer container image repository |
-| image.tag | string | `"latest"` | web3signer container image tag |
+| image.tag | string | `"22.10.0"` | web3signer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | individualKeys.enabled | bool | `true` |  |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
