@@ -976,6 +976,22 @@ entries:
     version: 0.1.0
   forkmon:
   - apiVersion: v2
+    created: "2022-10-27T14:18:32.997689715Z"
+    description: This is a little tool to keep track on a set of nodes, and see if
+      they keep in step or if they go out of consensus.
+    digest: 841b4afdc99f87e92c186168d1db98a65c54c582ef4a9653915f71d4e6aa4fc5
+    home: https://github.com/ethereum/nodemonitor
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: forkmon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forkmon-0.1.3/forkmon-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2022-10-20T18:30:00.880737766Z"
     description: This is a little tool to keep track on a set of nodes, and see if
       they keep in step or if they go out of consensus.
@@ -2202,4 +2218,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-0.1.0/web3signer-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-27T13:56:44.343408382Z"
+generated: "2022-10-27T14:18:32.998805762Z"
