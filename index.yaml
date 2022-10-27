@@ -538,6 +538,26 @@ entries:
     version: 0.1.0
   erigon:
   - apiVersion: v2
+    created: "2022-10-27T12:21:38.122643826Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: db52b68c6e35b2a2530f991fee3140e026c7a7ca5eadc513736adf0d42ac123a
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.3.4/erigon-0.3.4.tgz
+    version: 0.3.4
+  - apiVersion: v2
     created: "2022-10-20T18:29:59.844570677Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
       oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
@@ -1226,6 +1246,22 @@ entries:
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
+    created: "2022-10-27T12:21:38.353474024Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: c5677df9dbc13cef9bc43d67863c98607bc6a8a04b6da65ef31376b5996a6f30
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.5/lighthouse-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2022-10-20T18:30:01.70951026Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: 56a6ff1b82bb26ad74f2cd007d6a2b87f0e9f50dd4af2698f652f537e08ffb1e
@@ -1322,6 +1358,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2022-10-27T12:21:38.480537659Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: 698b056ff855ef6ef77e681f9a0ddd540e88d46cebdd32b93a9cd710a92987ae
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.5/lodestar-0.2.5.tgz
+    version: 0.2.5
   - apiVersion: v2
     created: "2022-10-20T18:30:02.122524072Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -1425,6 +1478,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
+  - apiVersion: v2
+    created: "2022-10-27T12:21:38.612139727Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 0f2a03c492196a0d00aa265d40907459bcb9f64003a887cd45226090da32bf92
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.4/nethermind-0.3.4.tgz
+    version: 0.3.4
   - apiVersion: v2
     created: "2022-10-20T18:30:02.365329158Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
@@ -1912,6 +1982,22 @@ entries:
     version: 0.1.0
   teku:
   - apiVersion: v2
+    created: "2022-10-27T12:21:38.749255836Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 47ed712353ecb812ba162461385ddad43588a77c9f984558f1537968c33ac765
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.7/teku-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
     created: "2022-10-20T18:30:03.487485606Z"
     description: An open-source Ethereum 2.0 client, written in Java
     digest: 7fe8c1132fee9d5fdad5a9f19c97f21fb7952cd93b7cfa7c4f47847ed3d926fb
@@ -2093,4 +2179,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-20T18:30:03.932644081Z"
+generated: "2022-10-27T12:21:38.749558738Z"
