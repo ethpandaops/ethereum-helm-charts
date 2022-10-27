@@ -28,7 +28,7 @@ individualKeys:
   enabled: true
 
 # -- Config file
-# @default -- See `config.yaml`
+# @default -- See `values.yaml`
 config: |
   data-path: "/data"
   {{- if .Values.individualKeys.enabled }}
@@ -37,10 +37,12 @@ config: |
   http-listen-port: {{ .Values.httpPort }}
   http-listen-host: 0.0.0.0
   http-host-allowlist: "*"
+  {{- if .Values.serviceMonitor.enabled }}
   metrics-enabled: true
   metrics-port: {{ .Values.metricsPort }}
   metrics-host: 0.0.0.0
   metrics-host-allowlist: "*"
+  {{- end }}
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -212,3 +214,26 @@ persistence:
   selector: {}
   #   matchLabels:
   #     app.kubernetes.io/name: something
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

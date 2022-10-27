@@ -13,7 +13,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | string | See `config.yaml` | Config file |
+| config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the web3signer container |
 | extraArgs | list | `[]` | Extra args for the web3signer container |
@@ -61,6 +61,16 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
+| serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator https://github.com/coreos/prometheus-operator |
+| serviceMonitor.interval | string | `"1m"` | ServiceMonitor scrape interval |
+| serviceMonitor.labels | object | `{}` | Additional ServiceMonitor labels |
+| serviceMonitor.namespace | string | `nil` | Alternative namespace for ServiceMonitor |
+| serviceMonitor.path | string | `"/metrics"` | Path to scrape |
+| serviceMonitor.relabelings | list | `[]` | ServiceMonitor relabelings |
+| serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
+| serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
+| serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | slashingProtectionDB | object | `{"enabled":false}` | Enable slashing protection See https://docs.web3signer.consensys.net/en/latest/HowTo/Configure-Slashing-Protection/ for configuration of slashing DB |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
