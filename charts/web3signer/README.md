@@ -104,7 +104,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.name | string | `"web3signer"` |  |
 | slashingprotectiondb.primary.persistence.enabled | bool | `true` | Uses an EmptyDir when not enabled |
 | slashingprotectiondb.primary.persistence.size | string | `"1Gi"` |  |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
