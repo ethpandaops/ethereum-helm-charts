@@ -47,7 +47,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
-| persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
+| persistence.enabled | bool | `true` | Uses an EmptyDir when not enabled |
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"1Gi"` | Requested size for volume claim template |
@@ -98,7 +98,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.initdb.scripts."init_02_db.sh" | string | `"#!/bin/sh\nexport PGPASSWORD=postgres\ncd /sql-scripts\nfor FILE in *.sql; do\n  psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE\ndone\n"` |  |
 | slashingprotectiondb.primary.initdb.user | string | `"postgres"` |  |
 | slashingprotectiondb.primary.name | string | `"web3signer"` |  |
-| slashingprotectiondb.primary.persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
+| slashingprotectiondb.primary.persistence.enabled | bool | `true` | Uses an EmptyDir when not enabled |
 | slashingprotectiondb.primary.persistence.size | string | `"8Gi"` |  |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
