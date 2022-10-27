@@ -31,7 +31,7 @@ config: |
   http-listen-host: 0.0.0.0
   http-host-allowlist: "*"
   {{- if .Values.slashingprotectiondb.enabled }}
-  eth2.slashing-protection-db-url: "jdbc:postgresql://web3signer-slashingprotectiondb/{{ .Values.slashingprotectiondb.primary.name }}"
+  eth2.slashing-protection-db-url: "jdbc:postgresql://{{ .Release.Name }}-slashingprotectiondb/{{ .Values.slashingprotectiondb.primary.name }}"
   eth2.slashing-protection-db-username: {{ .Values.slashingprotectiondb.primary.initdb.user }}
   eth2.slashing-protection-db-password: {{ .Values.slashingprotectiondb.primary.initdb.password }}
   eth2.slashing-protection-pruning-enabled: true
