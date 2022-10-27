@@ -111,19 +111,6 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 
 # Examples
 
-## Setting up validator keys individually
-
-By default web3signer will import all validator keys that are under `/data/keystore`
-
-One way of importing a key manually could be like:
-
-```bash
-# Copy a signing key configuration file. File format can be checked on https://docs.web3signer.consensys.net/en/latest/Reference/Key-Configuration-Files/
-kubectl cp validator1.yaml web3signer-0:/data/keystore/validator1.yaml
-# Reload, so that web3signer detects the new keys
-kubectl exec -it web3signer-0 -- curl -X POST localhost:9000/reload
-```
-
 ## Configure Slashing Protection Database
 
 The chart supports a PostgreSQL Database that will be used for slashing protection by default.
