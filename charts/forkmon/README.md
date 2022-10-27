@@ -13,7 +13,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| config | string | See `values.toml` | Config file |
+| config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the forkmon container |
 | endpoints | list | `[{"addr":"http://execution-client:8545","kind":"rpc","name":"execution-client-name"}]` | Endpoints that you would like to monitor |
