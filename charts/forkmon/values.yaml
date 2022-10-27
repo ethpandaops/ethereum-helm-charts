@@ -25,7 +25,7 @@ customCommand: [] # Only change this if you need to change the default command
 network: ""
 
 # -- Config file
-# @default -- See `values.yaml`
+# @default -- See `values.toml`
 config: |
     # How often to reload data from the nodes
     reload_interval = "10s"
