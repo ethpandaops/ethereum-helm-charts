@@ -39,6 +39,11 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
+| initChownData.enabled | bool | `true` | Init container to set the correct permissions to access data directories |
+| initChownData.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| initChownData.image.repository | string | `"busybox"` | Container repository |
+| initChownData.image.tag | string | `"1.34.1"` | Container tag |
+| initChownData.resources | object | `{}` | Resource requests and limits |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | metricsPort | int | `9001` |  |
