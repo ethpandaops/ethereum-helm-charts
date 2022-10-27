@@ -7,5 +7,3 @@ metadata:
 data:
   config.yaml: |
     {{- tpl .Values.config . | nindent 4 }}
-
-

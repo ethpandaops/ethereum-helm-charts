@@ -21,20 +21,12 @@ extraArgs: []
 # -- Command replacement for the web3signer container
 customCommand: [] # Only change this if you need to change the default command
 
-individualKeys:
-  enabled: true
-
 # -- Config file
 # @default -- See `values.yaml`
 config: |
-  data-path: "/data"
   eth2.network: prater
-  {{- if .Values.individualKeys.enabled }}
-  key-store-path: "/data/files"
-  {{- else }}
-  keystores-path: "/data/keys"
-  keystores-password-file: "/data/passwords/keystores.pass"
-  {{- end }}
+  data-path: "/data"
+  key-store-path: "/data/keystore"
   http-listen-port: {{ .Values.httpPort }}
   http-listen-host: 0.0.0.0
   http-host-allowlist: "*"
@@ -295,4 +287,4 @@ slashingprotectiondb:
     persistence:
       # -- Uses an EmptyDir when not enabled
       enabled: true
-      size: 8Gi
+      size: 1Gi

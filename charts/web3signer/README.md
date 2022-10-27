@@ -34,7 +34,6 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | image.repository | string | `"consensys/web3signer"` | web3signer container image repository |
 | image.tag | string | `"22.10.0"` | web3signer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
-| individualKeys.enabled | bool | `true` |  |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
@@ -99,7 +98,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.initdb.user | string | `"postgres"` |  |
 | slashingprotectiondb.primary.name | string | `"web3signer"` |  |
 | slashingprotectiondb.primary.persistence.enabled | bool | `true` | Uses an EmptyDir when not enabled |
-| slashingprotectiondb.primary.persistence.size | string | `"8Gi"` |  |
+| slashingprotectiondb.primary.persistence.size | string | `"1Gi"` |  |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
