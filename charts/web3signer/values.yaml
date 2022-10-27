@@ -17,6 +17,8 @@ image:
 
 # -- Extra args for the web3signer container
 extraArgs: []
+  ## Example for web3signer network selection
+  # - --network=mainnet
 
 # -- Command replacement for the web3signer container
 customCommand: [] # Only change this if you need to change the default command
@@ -24,7 +26,6 @@ customCommand: [] # Only change this if you need to change the default command
 # -- Config file
 # @default -- See `values.yaml`
 config: |
-  eth2.network: prater
   data-path: "/data"
   http-listen-port: {{ .Values.httpPort }}
   http-listen-host: 0.0.0.0
