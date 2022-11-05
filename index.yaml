@@ -91,6 +91,24 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2022-11-05T20:30:34.394599888Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 1d3789134e2aba99c7a3e0214bc25dd8ca0fec16c5fbcecafe3670506ab18064
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.7/besu-0.3.7.tgz
+    version: 0.3.7
+  - apiVersion: v2
     created: "2022-10-20T18:29:59.079257079Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -1127,6 +1145,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
     version: 0.1.0
   geth:
+  - apiVersion: v2
+    created: "2022-11-05T20:30:34.514609305Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: e4811419aa8d8ae1950c16db393bd48959fdebbe087dc723bd85de54d88e28d8
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-0.3.3/geth-0.3.3.tgz
+    version: 0.3.3
   - apiVersion: v2
     created: "2022-10-20T18:30:01.517961188Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
@@ -2218,4 +2255,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-0.1.0/web3signer-0.1.0.tgz
     version: 0.1.0
-generated: "2022-10-27T14:18:32.998805762Z"
+generated: "2022-11-05T20:30:34.515226919Z"
