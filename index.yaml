@@ -2275,4 +2275,20 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-0.1.0/web3signer-0.1.0.tgz
     version: 0.1.0
-generated: "2022-11-07T12:24:35.364219096Z"
+  xatu:
+  - apiVersion: v2
+    created: "2022-11-14T06:41:47.665050185Z"
+    description: Ethereum p2p monitoring tool
+    digest: 957041b6adce5304f5a64e4bd38253312b6592e9b5764ff109476fc75ed6a583
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-0.0.1/xatu-0.0.1.tgz
+    version: 0.0.1
+generated: "2022-11-14T06:41:47.66531949Z"
