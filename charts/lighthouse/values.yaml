@@ -11,7 +11,7 @@ image:
   # -- Lighthouse container image repository
   repository: sigp/lighthouse
   # -- Lighthouse container image tag
-  tag: v3.2.1
+  tag: v3.3.0
   # -- Lighthouse container pull policy
   pullPolicy: IfNotPresent
 
