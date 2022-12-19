@@ -8,7 +8,7 @@ Helm's [documentation](https://helm.sh/docs) to get started.
 Once Helm has been set up correctly, add the repo as follows:
 
 ```sh
-helm repo add ethereum-helm-charts https://skylenet.github.io/ethereum-helm-charts
+helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
 ```
 
 If you had already added this repo earlier, run `helm repo update` to retrieve
@@ -32,4 +32,4 @@ helm delete ethstats
 
 ## More infos
 
-You can find the source code for all charts under [github.com/skylenet/ethereum-helm-charts](https://github.com/skylenet/ethereum-helm-charts/).
+You can find the source code for all charts under [github.com/ethpandaops/ethereum-helm-charts](https://github.com/ethpandaops/ethereum-helm-charts/).
