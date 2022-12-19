@@ -17,7 +17,7 @@ image:
   # When using a validator:
   # repository: gcr.io/prysmaticlabs/prysm/validator
   # -- Prysm container image tag
-  tag: v3.2.0
+  tag: v3.1.1
   # -- Prysm container pull policy
   pullPolicy: IfNotPresent
 

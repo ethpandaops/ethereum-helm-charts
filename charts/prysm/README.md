@@ -1,7 +1,7 @@
 
 # prysm
 
-![Version: 0.2.6](https://img.shields.io/badge/Version-0.2.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Go
 
@@ -29,7 +29,7 @@ An open-source Ethereum 2.0 client, written in Go
 | httpPort | int | `3500` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
 | image.repository | string | `"skylenet/prysm-beacon-debian"` | Prysm container image repository |
-| image.tag | string | `"v3.2.0"` |  |
+| image.tag | string | `"v3.1.1"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
