@@ -11,7 +11,7 @@ image:
   # -- web3signer container image repository
   repository: consensys/web3signer
   # -- web3signer container image tag
-  tag: "22.10.0"
+  tag: "22.11.0"
   # -- web3signer container pull policy
   pullPolicy: IfNotPresent
 
