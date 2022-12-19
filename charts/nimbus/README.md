@@ -30,7 +30,7 @@ An open-source Ethereum consensus layer client, written in Java
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
 | image.repository | string | `"statusim/nimbus-eth2"` | nimbus container image repository |
-| image.tag | string | `"amd64-v22.10.1"` | nimbus container image tag |
+| image.tag | string | `"amd64-v22.11.1"` | nimbus container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

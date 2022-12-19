@@ -30,7 +30,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nethermind container pull policy |
 | image.repository | string | `"nethermind/nethermind"` | nethermind container image repository |
-| image.tag | string | `"1.14.3"` | nethermind container image tag |
+| image.tag | string | `"1.14.7"` | nethermind container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

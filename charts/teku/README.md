@@ -29,7 +29,7 @@ An open-source Ethereum 2.0 client, written in Java
 | httpPort | int | `5051` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | teku container pull policy |
 | image.repository | string | `"consensys/teku"` | teku container image repository |
-| image.tag | string | `"22.10.2"` | teku container image tag |
+| image.tag | string | `"22.12.0"` | teku container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

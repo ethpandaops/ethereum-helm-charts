@@ -29,7 +29,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Lighthouse container pull policy |
 | image.repository | string | `"sigp/lighthouse"` | Lighthouse container image repository |
-| image.tag | string | `"v3.2.1"` | Lighthouse container image tag |
+| image.tag | string | `"v3.3.0"` | Lighthouse container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
