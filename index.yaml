@@ -91,6 +91,24 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2022-12-19T13:31:18.437528827Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 4f99e819d7600a921b31740f2b78eaffec5160faa41fd880a067031f65f81b1a
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.3.8/besu-0.3.8.tgz
+    version: 0.3.8
+  - apiVersion: v2
     created: "2022-11-05T20:30:34.394599888Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -555,6 +573,26 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2022-12-19T13:31:18.630582014Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: c5db226274aef23bb1f9dd1369fc7297cd3327698cd6f8f388f3c007f2765617
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.3.6/erigon-0.3.6.tgz
+    version: 0.3.6
   - apiVersion: v2
     created: "2022-11-07T12:24:35.363814586Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -1319,6 +1357,22 @@ entries:
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
+    created: "2022-12-19T13:31:18.815103876Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: bc2e7ba83b38f1f136428241caea4c6f873664e37dd20030f75ea56fa66f5e20
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.2.6/lighthouse-0.2.6.tgz
+    version: 0.2.6
+  - apiVersion: v2
     created: "2022-10-27T12:21:38.353474024Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: c5677df9dbc13cef9bc43d67863c98607bc6a8a04b6da65ef31376b5996a6f30
@@ -1431,6 +1485,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2022-12-19T13:31:18.992280645Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: 1bf533572bb2583fc31c9bfecdd6625818d02a5582cc883bf2604534c86281a4
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.2.7/lodestar-0.2.7.tgz
+    version: 0.2.7
   - apiVersion: v2
     created: "2022-11-15T10:42:38.810954767Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -1569,6 +1640,23 @@ entries:
     version: 0.1.0
   nethermind:
   - apiVersion: v2
+    created: "2022-12-19T13:31:19.166011723Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 61d94394d1efba3b42a8302e95ab57e11a8b03cc085b39df8291a4a504c9beb7
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.5/nethermind-0.3.5.tgz
+    version: 0.3.5
+  - apiVersion: v2
     created: "2022-10-27T12:21:38.612139727Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
       with the C# .NET tech stack, running on all major platforms including ARM. '
@@ -1705,6 +1793,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2022-12-19T13:31:19.339446493Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: 2b7f7ce216c94438eb5141c89c6dcb9fb1f7389e5522c74f231e19e78808e473
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.7/nimbus-0.4.7.tgz
+    version: 0.4.7
   - apiVersion: v2
     created: "2022-10-20T18:30:02.622955098Z"
     description: An open-source Ethereum consensus layer client, written in Java
@@ -2072,6 +2176,22 @@ entries:
     version: 0.1.0
   teku:
   - apiVersion: v2
+    created: "2022-12-19T13:31:19.514622409Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 9dfb4190534ca6b3d5daef2cde74587b0c768ed01933436fb8df149c565ced21
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-0.2.8/teku-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
     created: "2022-10-27T12:21:38.749255836Z"
     description: An open-source Ethereum 2.0 client, written in Java
     digest: 47ed712353ecb812ba162461385ddad43588a77c9f984558f1537968c33ac765
@@ -2271,6 +2391,28 @@ entries:
     version: 0.1.0
   web3signer:
   - apiVersion: v2
+    created: "2022-12-19T13:31:20.791269754Z"
+    dependencies:
+    - alias: slashingprotectiondb
+      condition: slashingprotectiondb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: Web3Signer is capable of signing on multiple platforms using private
+      keys stored in an external vault, or encrypted on a disk.
+    digest: aedbcabc38532bd9dbfbf57f65676851adfb4ca08586614c6ed85981eea754c6
+    home: https://github.com/Consensys/web3signer/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: rafael@skyle.net
+      name: skylenet
+    name: web3signer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-0.1.1/web3signer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2022-10-27T13:56:44.34315698Z"
     dependencies:
     - alias: slashingprotectiondb
@@ -2308,4 +2450,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-0.0.1/xatu-0.0.1.tgz
     version: 0.0.1
-generated: "2022-11-15T10:42:38.81130937Z"
+generated: "2022-12-19T13:31:20.792045885Z"
