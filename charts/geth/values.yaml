@@ -35,6 +35,7 @@ customCommand: [] # Only change this if you need to change the default command
 # This is useful if you want to expose and announce your node to the Internet.
 # Limitation: You can only one have one replica when exposing via NodePort.
 #             Check the chart README.md for more details
+gethBinary: geth
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
