@@ -8,7 +8,7 @@
 {{- if .Values.p2pNodePort.enabled }}
   . /env/init-nodeport;
 {{- end }}
-  exec geth
+  exec {{ .Values.gethBinary }} 
   --datadir=/data
   --config=/config/geth.toml
 {{- if .Values.p2pNodePort.enabled }}
