@@ -31,6 +31,9 @@ jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 # -- Command replacement for the geth container
 customCommand: [] # Only change this if you need to change the default command
 
+# -- Override geth binary
+gethBinaryOverride: geth
+
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
 # Limitation: You can only one have one replica when exposing via NodePort.
