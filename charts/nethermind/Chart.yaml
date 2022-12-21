@@ -7,7 +7,7 @@ icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
 sources:
   - https://github.com/NethermindEth/nethermind
 type: application
-version: 0.3.5
+version: 0.3.6
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

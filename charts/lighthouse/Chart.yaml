@@ -6,7 +6,7 @@ icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
 sources:
   - https://github.com/sigp/lighthouse
 type: application
-version: 0.2.6
+version: 0.2.7
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
