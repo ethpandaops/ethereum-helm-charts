@@ -28,7 +28,7 @@ An open-source Ethereum 2.0 client, written in Go
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3500` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
-| image.repository | string | `"skylenet/prysm-beacon-debian"` | Prysm container image repository |
+| image.repository | string | `"samcm/prysm-beacon-debian"` | Prysm container image repository |
 | image.tag | string | `"v3.2.0"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |

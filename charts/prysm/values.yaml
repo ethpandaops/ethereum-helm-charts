@@ -10,7 +10,7 @@ replicas: 1
 image:
   # -- Prysm container image repository
   #repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-  repository: skylenet/prysm-beacon-debian
+  repository: samcm/prysm-beacon-debian
   # Note: The official beacon-chain image from prysmaticlabs doesn't contain any shell (`sh`)
   #       which is required to detect the NodePorts when using `p2pNodePort.enabled=true`. See
   #       the following example on how to create your own: https://github.com/skylenet/prysm-debian-docker/blob/master/Dockerfile
