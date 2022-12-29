@@ -1730,6 +1730,23 @@ entries:
     version: 0.1.0
   nethermind:
   - apiVersion: v2
+    created: "2022-12-29T09:32:36.561299937Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 0d9e6b10193d3b7111ca48a1219e861775bfa21a2c63b0cf1e99814e97b73d18
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.3.7/nethermind-0.3.7.tgz
+    version: 0.3.7
+  - apiVersion: v2
     created: "2022-12-21T09:04:15.004803044Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
       with the C# .NET tech stack, running on all major platforms including ARM. '
@@ -1900,6 +1917,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2022-12-29T09:32:36.732798674Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: ce4d316b107814ae1be14cbdac5a14abe1cc1e77570404331e87e9cc1e0a65ff
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.4.9/nimbus-0.4.9.tgz
+    version: 0.4.9
   - apiVersion: v2
     created: "2022-12-21T09:04:15.258086321Z"
     description: An open-source Ethereum consensus layer client, written in Java
@@ -2125,6 +2158,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
     version: 0.1.0
   prysm:
+  - apiVersion: v2
+    created: "2022-12-29T09:32:36.898625891Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 4657aabf77dba35a1aaa31f6c69290f1c969518f3ef0802707018d0308c9d6b7
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.2.7/prysm-0.2.7.tgz
+    version: 0.2.7
   - apiVersion: v2
     created: "2022-12-21T09:04:15.481354746Z"
     description: An open-source Ethereum 2.0 client, written in Go
@@ -2605,4 +2654,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-0.0.1/xatu-0.0.1.tgz
     version: 0.0.1
-generated: "2022-12-21T09:04:15.706482804Z"
+generated: "2022-12-29T09:32:36.899047Z"
