@@ -11,7 +11,7 @@ image:
   # -- nimbus container image repository
   repository: statusim/nimbus-eth2
   # -- nimbus container image tag
-  tag: amd64-v22.11.1
+  tag: amd64-v22.12.0
   # -- nimbus container pull policy
   pullPolicy: IfNotPresent
 
