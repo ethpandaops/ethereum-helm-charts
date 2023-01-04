@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "xatu.fullname" . }}
+  name: {{ include "xatu-sentry.fullname" . }}
   labels:
-    {{- include "xatu.labels" . | nindent 4 }}
+    {{- include "xatu-sentry.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      {{- include "xatu.selectorLabels" . | nindent 6 }}
+      {{- include "xatu-sentry.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "xatu.selectorLabels" . | nindent 8 }}
+        {{- include "xatu-sentry.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -25,7 +25,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "xatu.serviceAccountName" . }}
+      serviceAccountName: {{ include "xatu-sentry.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
@@ -70,7 +70,7 @@ spec:
           {{- end }}
         ports:
           - name: metrics
-            containerPort: {{ include "xatu.metricsPort" . }}
+            containerPort: {{ include "xatu-sentry.metricsPort" . }}
             protocol: TCP
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -83,7 +83,7 @@ spec:
           - name: {{ $key }}
             valueFrom:
               secretKeyRef:
-                name: {{ include "xatu.fullname" $ }}-env
+                name: {{ include "xatu-sentry.fullname" $ }}-env
                 key: {{ $key }}
         {{- end }}
         {{- if .Values.extraEnv }}
@@ -105,4 +105,4 @@ spec:
       {{- end }}
         - name: config
           configMap:
-            name: {{ include "xatu.fullname" . }}
+            name: {{ include "xatu-sentry.fullname" . }}

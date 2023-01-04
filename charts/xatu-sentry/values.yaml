@@ -25,15 +25,14 @@ config:
   logging: "info"
   metricsAddr: ":9090"
   name: example-instance
+  ntp_server: time.google.com
   ethereum:
     beacon_node_address: http://localhost:5052
   outputs:
   - name: basic
     type: http
     config:
-      type: http
       address: http://localhost:8080
-      ntp_server: pool.ntp.org
       headers:
         Authorization: Someb64Value
       max_queue_size: 51200

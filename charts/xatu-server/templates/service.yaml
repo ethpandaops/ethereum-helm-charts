@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xatu-server.fullname" . }}
+  labels:
+    {{- include "xatu-server.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "xatu-server.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ include "xatu-server.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "xatu-server.selectorLabels" . | nindent 4 }}
