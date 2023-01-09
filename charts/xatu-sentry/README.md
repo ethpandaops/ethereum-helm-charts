@@ -1,9 +1,9 @@
 
-# xatu
+# xatu-sentry
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Ethereum p2p monitoring tool
+Ethereum p2p monitoring tool that runs along side a Ethereum consensus client and collects data via the consensus client's Beacon API.
 
 **Homepage:** <https://github.com/ethpandaops/xatu>
 
@@ -18,14 +18,13 @@ Ethereum p2p monitoring tool
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
 | config.name | string | `"example-instance"` |  |
+| config.ntp_server | string | `"time.google.com"` |  |
 | config.outputs[0].config.address | string | `"http://localhost:8080"` |  |
 | config.outputs[0].config.batch_timeout | string | `"5s"` |  |
 | config.outputs[0].config.export_timeout | string | `"30s"` |  |
 | config.outputs[0].config.headers.Authorization | string | `"Someb64Value"` |  |
 | config.outputs[0].config.max_export_batch_size | int | `512` |  |
 | config.outputs[0].config.max_queue_size | int | `51200` |  |
-| config.outputs[0].config.ntp_server | string | `"pool.ntp.org"` |  |
-| config.outputs[0].config.type | string | `"http"` |  |
 | config.outputs[0].name | string | `"basic"` |  |
 | config.outputs[0].type | string | `"http"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
