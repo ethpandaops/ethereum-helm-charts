@@ -8,7 +8,7 @@ image:
   # -- blockscout container image repository
   repository: blockscout/blockscout
   # -- blockscout container image tag
-  tag: "5.0.0-prerelease-15815427"
+  tag: "5.0.0"
   # -- blockscout container pull policy
   pullPolicy: IfNotPresent
 

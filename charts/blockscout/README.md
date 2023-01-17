@@ -37,7 +37,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blockscout container pull policy |
 | image.repository | string | `"blockscout/blockscout"` | blockscout container image repository |
-| image.tag | string | `"5.0.0-prerelease-15815427"` | blockscout container image tag |
+| image.tag | string | `"5.0.0"` | blockscout container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
