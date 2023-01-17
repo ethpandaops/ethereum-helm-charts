@@ -6,9 +6,9 @@ fullnameOverride: ""
 
 image:
   # -- blockscout container image repository
-  repository: skylenet/blockscout
+  repository: blockscout/blockscout
   # -- blockscout container image tag
-  tag: v4.0.0-beta
+  tag: "5.0.0-prerelease-15815427"
   # -- blockscout container pull policy
   pullPolicy: IfNotPresent
 
@@ -31,7 +31,20 @@ config:
   ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
   ETHEREUM_JSONRPC_WS_URL: ws://geth:8546
   NETWORK: Ethereum
+  ECTO_USE_SSL: "false"
   #SUBNETWORK: Testnet
+
+  # Branding related configs
+  LOGO: /images/blockscout_logo.svg
+  LOGO_FOOTER: /images/blockscout_logo.svg
+
+  # Account related configs
+  ACCOUNT_ENABLED: "false"  # If set to true, you should also deploy redis
+  # ACCOUNT_REDIS_URL: redis://blockscout-redis:6379/0
+
+  # Smart contract verification related configs
+  ENABLE_RUST_VERIFICATION_SERVICE: "false" # If set to true, you should also deploy smart-contract-verifier-http
+  RUST_VERIFICATION_SERVICE_URL: http://blockscout-smart-contract-verifier-http:8043
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -195,6 +208,53 @@ serviceMonitor:
   # -- ServiceMonitor relabelings
   relabelings: []
 
+verifier:
+  enabled: false
+  config: |
+    [server]
+    addr = "0.0.0.0:8043"
+
+    [compilers]
+    # if omitted, number of CPU cores would be used
+    # max_threads = 8
+
+    [solidity]
+    enabled = true
+    compilers_dir = "/data/solidity-compilers"
+    refresh_versions_schedule = "0 0 * * * * *"
+
+    [solidity.fetcher.list]
+    list_url = "https://solc-bin.ethereum.org/linux-amd64/list.json"
+
+    #[solidity.fetcher.s3]
+    #access_key = "access_key"
+    #secret_key = "secret_key"
+    #region = "region"
+    #endpoint = "endpoint"
+    ## The only required field for the s3 fetcher
+    #bucket = "bucket"
+
+    [vyper]
+    enabled = false
+    compilers_dir = "/data/vyper-compilers"
+    refresh_versions_schedule = "0 0 * * * * *"
+    [vyper.fetcher.list]
+    list_url = "https://raw.githubusercontent.com/blockscout/solc-bin/main/vyper.list.json"
+
+    [sourcify]
+    enabled = false
+    api_url = "https://sourcify.dev/server/"
+    verification_attempts = 3
+    request_timeout = 10
+
+    [metrics]
+    enabled = false
+    addr = "0.0.0.0:6060"
+    route = "/metrics"
+
+    [jaeger]
+    enabled = false
+    agent_endpoint = "localhost:6831"
 
 postgresql:
   # -- If enabled a postgres chart will be deployed as a dependency
@@ -217,3 +277,8 @@ postgresql:
   initdbScripts:
     init_01.sql: |
       CREATE DATABASE explorer;
+
+redis:
+  enabled: false
+  replica:
+    replicaCount: 1

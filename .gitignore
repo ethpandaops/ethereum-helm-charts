@@ -10,3 +10,7 @@
 
 # Ignore archives
 *.tgz
+
+# IDE
+.idea
+.vscode

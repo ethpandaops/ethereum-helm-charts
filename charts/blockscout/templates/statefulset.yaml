@@ -51,16 +51,15 @@ spec:
           command:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-          command:
-            - /bin/sh
-            - -ace
-            - >
-              mix do ecto.create, ecto.migrate;
-              exec mix phx.server;
+          command: ["/bin/sh"]
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
           args:
             {{- toYaml .Values.customArgs | nindent 12}}
+          {{- else }}
+          args:
+            - "-c"
+            - "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}

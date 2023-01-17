@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -16,6 +16,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | redis | 17.x.x |
+| https://ethpandaops.github.io/ethereum-helm-charts | smart-contract-verifier-http | 0.1.0 |
 
 ## Values
 
@@ -34,8 +36,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blockscout container pull policy |
-| image.repository | string | `"skylenet/blockscout"` | blockscout container image repository |
-| image.tag | string | `"v4.0.0-beta"` | blockscout container image tag |
+| image.repository | string | `"blockscout/blockscout"` | blockscout container image repository |
+| image.tag | string | `"5.0.0-prerelease-15815427"` | blockscout container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -65,6 +67,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
+| redis.enabled | bool | `false` |  |
+| redis.replica.replicaCount | int | `1` |  |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
@@ -86,6 +90,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| verifier.config | string | `"[server]\naddr = \"0.0.0.0:8043\"\n\n[compilers]\n# if omitted, number of CPU cores would be used\n# max_threads = 8\n\n[solidity]\nenabled = true\ncompilers_dir = \"/data/solidity-compilers\"\nrefresh_versions_schedule = \"0 0 * * * * *\"\n\n[solidity.fetcher.list]\nlist_url = \"https://solc-bin.ethereum.org/linux-amd64/list.json\"\n\n#[solidity.fetcher.s3]\n#access_key = \"access_key\"\n#secret_key = \"secret_key\"\n#region = \"region\"\n#endpoint = \"endpoint\"\n## The only required field for the s3 fetcher\n#bucket = \"bucket\"\n\n[vyper]\nenabled = false\ncompilers_dir = \"/data/vyper-compilers\"\nrefresh_versions_schedule = \"0 0 * * * * *\"\n[vyper.fetcher.list]\nlist_url = \"https://raw.githubusercontent.com/blockscout/solc-bin/main/vyper.list.json\"\n\n[sourcify]\nenabled = false\napi_url = \"https://sourcify.dev/server/\"\nverification_attempts = 3\nrequest_timeout = 10\n\n[metrics]\nenabled = false\naddr = \"0.0.0.0:6060\"\nroute = \"/metrics\"\n\n[jaeger]\nenabled = false\nagent_endpoint = \"localhost:6831\"\n"` |  |
+| verifier.enabled | bool | `false` |  |
 
 # Examples
 
@@ -99,4 +105,29 @@ postgresql:
 config:
   # Some existing internal postgresdb
   DATABASE_URL: postgresql://postgres:postgres@postgresql:5432/explorer?ssl=false
+```
+
+## Connecting to an existing Redis database
+
+```yaml
+# Disable the redis deployment
+redis:
+  enabled: false
+
+config:
+  ACCOUNT_ENABLED: "true"
+  ACCOUNT_REDIS_URL: redis://blockscout-redis:6379/0
+```
+
+## Enabling the Smart-contract Verifier
+Smart-contract verification service is a stateless http server for verifying smart contracts.
+You can read more about it from [blockscout/blockscout-rs](https://github.com/blockscout/blockscout-rs/blob/9e06ddb8ad3c944b0937b99e192d41f33725d129/smart-contract-verifier-http/README.md)
+
+```yaml
+verifier:
+  enabled: true
+
+config:
+  ENABLE_RUST_VERIFICATION_SERVICE: "true" # If set to true, you should also deploy smart-contract-verifier-http
+  RUST_VERIFICATION_SERVICE_URL: http://blockscout-smart-contract-verifier-http:8043
 ```

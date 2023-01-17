@@ -8,12 +8,21 @@ icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/a
 sources:
   - https://github.com/blockscout/blockscout/
 type: application
-version: 0.1.3
+version: 0.1.4
+appVersion: "5.0.0"
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
 dependencies:
-- name: postgresql
-  version: "10.x.x"
-  repository: "https://charts.bitnami.com/bitnami"
-  condition: postgresql.enabled
+  - name: postgresql
+    version: "10.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
+  - name: redis
+    version: "17.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: redis.enabled
+  - name: smart-contract-verifier-http
+    version: "0.1.0"
+    repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+    condition: verifier.enabled

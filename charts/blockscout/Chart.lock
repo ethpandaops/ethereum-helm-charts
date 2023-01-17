@@ -2,5 +2,11 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 10.16.2
-digest: sha256:4dd3203f3c5accb616976649b2656c49f14017e3055ccbcc8b59180d57c3db36
-generated: "2022-08-31T13:44:54.065620684+02:00"
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 17.3.6
+- name: smart-contract-verifier-http
+  repository: https://ethpandaops.github.io/ethereum-helm-charts
+  version: 0.1.0
+digest: sha256:d5684f9e88fd22bdc991f2598e4095a6edb641e4ba3294258ed74fc850fbc22d
+generated: "2022-10-19T14:38:17.377429+09:00"
