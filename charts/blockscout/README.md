@@ -15,7 +15,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 11.x.x |
 | https://charts.bitnami.com/bitnami | redis | 17.x.x |
 | https://ethpandaops.github.io/ethereum-helm-charts | smart-contract-verifier-http | 0.1.0 |
 
