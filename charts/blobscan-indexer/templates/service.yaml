@@ -6,8 +6,8 @@ metadata:
     {{- include "blobscan-indexer.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  ports:
   {{- if .Values.extraPorts }}
+  ports:
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
   selector:
