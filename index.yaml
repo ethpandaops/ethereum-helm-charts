@@ -339,6 +339,20 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blobscan-0.1.0/blobscan-0.1.0.tgz
     version: 0.1.0
+  blobscan-indexer:
+  - apiVersion: v2
+    created: "2023-01-23T14:59:06.674788643Z"
+    description: Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
+    digest: 734189a49f67ea95e4e4e7f73de85ab468c5758a78cff4c8236e3535b2495cf3
+    home: https://github.com/blobscan/blobscan-indexer
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: blobscan-indexer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blobscan-indexer-0.1.0/blobscan-indexer-0.1.0.tgz
+    version: 0.1.0
   blockscout:
   - apiVersion: v2
     created: "2022-10-20T18:29:59.230556499Z"
@@ -2723,4 +2737,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-01-23T14:20:17.50919018Z"
+generated: "2023-01-23T14:59:06.675283156Z"
