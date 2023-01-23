@@ -324,6 +324,21 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-0.1.0/besu-0.1.0.tgz
     version: 0.1.0
+  blobscan:
+  - apiVersion: v2
+    created: "2023-01-23T14:20:17.508517675Z"
+    description: Blobscan is the first blockchain explorer that helps to navigate
+      and visualize those EIP-4844 blobs
+    digest: 748155bbc658be7b95b0a67b8e4e26de5218c784f36ead175500ef25a8bb88ad
+    home: https://github.com/blobscan/blobscan
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: blobscan
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blobscan-0.1.0/blobscan-0.1.0.tgz
+    version: 0.1.0
   blockscout:
   - apiVersion: v2
     created: "2022-10-20T18:29:59.230556499Z"
@@ -2708,4 +2723,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-01-11T08:38:00.21167752Z"
+generated: "2023-01-23T14:20:17.50919018Z"
