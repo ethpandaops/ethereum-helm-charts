@@ -61,9 +61,6 @@ spec:
             {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- end }}
         ports:
-          - name: http
-            containerPort: {{ include "blobscan-indexer.httpPort" . }}
-            protocol: TCP
           {{- if .Values.extraPodPorts }}
             {{ toYaml .Values.extraPodPorts | nindent 10 }}
           {{- end }}

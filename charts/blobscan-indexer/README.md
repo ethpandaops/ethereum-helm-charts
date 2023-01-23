@@ -24,7 +24,6 @@ Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan-indexer container pull policy |
 | image.repository | string | `"ethpandaops/blobscan-indexer"` | blobscan-indexer container image repository |
 | image.tag | string | `"latest"` | blobscan-indexer container image tag |

@@ -60,7 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "blobscan-indexer.httpPort" -}}
-{{ .Values.httpPort | default "3000" }}
-{{- end }}
