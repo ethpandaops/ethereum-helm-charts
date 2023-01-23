@@ -25,7 +25,7 @@ httpPort: 3000
 args: []
 
 # -- Additional env variables
-extraEnv: 
+extraEnv:
   - name: MONGODB_URI
     value: "mongodb://mongodb:27017"
   - name: MONGODB_DB
