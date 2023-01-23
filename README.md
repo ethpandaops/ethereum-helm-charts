@@ -40,12 +40,14 @@ helm delete ethstats
 ## List of charts
 
 Execution layer clients
+
 - [`besu`](charts/besu)
 - [`erigon`](charts/erigon)
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
 
 Consensus layer clients
+
 - [`lighthouse`](charts/lighthouse)
 - [`lodestar`](charts/lodestar)
 - [`nimbus`](charts/nimbus)
@@ -53,7 +55,9 @@ Consensus layer clients
 - [`teku`](charts/teku)
 
 Tooling
+
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
+- [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.

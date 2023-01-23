@@ -3,9 +3,9 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs, providing the necessary infrastructure to scale Ethereum.
+Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
 
-**Homepage:** <https://github.com/Blobscan/blobscan>
+**Homepage:** <https://github.com/blobscan/blobscan>
 
 ## Values
 
@@ -14,27 +14,19 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config.beacon.upstreams[0].address | string | `"http://192.168.0.100:5052"` |  |
-| config.beacon.upstreams[0].dataProvider | bool | `true` |  |
-| config.beacon.upstreams[0].name | string | `"upstream1"` |  |
-| config.blobscan.caches.blocks.max_items | int | `100` |  |
-| config.blobscan.caches.states.max_items | int | `5` |  |
-| config.blobscan.historical_epoch_count | int | `20` |  |
-| config.global.listenAddr | string | `":5555"` |  |
-| config.global.logging | string | `"info"` |  |
-| config.global.metricsAddr | string | `":9090"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[{"name":"MONGODB_URI","value":"mongodb://mongodb:27017"},{"name":"MONGODB_DB","value":"blobscan"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"samcm/blobscan"` | blobscan container image repository |
+| image.repository | string | `"ethpandaops/blobscan"` | blobscan container image repository |
 | image.tag | string | `"latest"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
