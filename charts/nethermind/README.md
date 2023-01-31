@@ -1,7 +1,7 @@
 
 # nethermind
 
-![Version: 0.3.7](https://img.shields.io/badge/Version-0.3.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.8](https://img.shields.io/badge/Version-0.3.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Nethermind is an Ethereum execution layer implementation created with the C# .NET tech stack, running on all major platforms including ARM.
 
@@ -30,7 +30,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | nethermind container pull policy |
 | image.repository | string | `"nethermind/nethermind"` | nethermind container image repository |
-| image.tag | string | `"1.15.0"` | nethermind container image tag |
+| image.tag | string | `"1.16.1"` | nethermind container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

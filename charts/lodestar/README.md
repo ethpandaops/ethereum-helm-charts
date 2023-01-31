@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -29,7 +29,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | httpPort | int | `9596` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | lodestar container pull policy |
 | image.repository | string | `"chainsafe/lodestar"` | lodestar container image repository |
-| image.tag | string | `"v1.2.2"` | lodestar container image tag |
+| image.tag | string | `"v1.3.0"` | lodestar container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

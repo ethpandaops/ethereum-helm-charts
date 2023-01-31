@@ -1,7 +1,7 @@
 
 # web3signer
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.
 
@@ -32,7 +32,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | httpPort | int | `9000` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | web3signer container pull policy |
 | image.repository | string | `"consensys/web3signer"` | web3signer container image repository |
-| image.tag | string | `"22.11.0"` | web3signer container image tag |
+| image.tag | string | `"23.1.0"` | web3signer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

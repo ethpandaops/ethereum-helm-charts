@@ -11,7 +11,7 @@ image:
   # -- teku container image repository
   repository: consensys/teku
   # -- teku container image tag
-  tag: 22.12.0
+  tag: 23.1.1
   # -- teku container pull policy
   pullPolicy: IfNotPresent
 

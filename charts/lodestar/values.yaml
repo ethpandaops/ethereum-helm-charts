@@ -11,7 +11,7 @@ image:
   # -- lodestar container image repository
   repository: chainsafe/lodestar
   # -- lodestar container image tag
-  tag: v1.2.2
+  tag: v1.3.0
 
   # -- lodestar container pull policy
   pullPolicy: IfNotPresent
