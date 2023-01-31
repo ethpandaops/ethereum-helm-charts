@@ -11,9 +11,9 @@ image:
   # -- erigon container image repository
   repository: thorax/erigon
   # -- erigon container image tag
-  tag: v2.37.0
+  tag: latest
   # -- erigon container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Extra args for the erigon container
 extraArgs: []

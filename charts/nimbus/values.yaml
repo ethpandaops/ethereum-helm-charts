@@ -11,9 +11,9 @@ image:
   # -- nimbus container image repository
   repository: statusim/nimbus-eth2
   # -- nimbus container image tag
-  tag: amd64-v23.1.1
+  tag: multiarch-latest
   # -- nimbus container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 
 # -- Path within the container to the beacon node binary

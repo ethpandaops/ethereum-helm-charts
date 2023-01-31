@@ -11,9 +11,9 @@ image:
   # -- web3signer container image repository
   repository: consensys/web3signer
   # -- web3signer container image tag
-  tag: "23.1.0"
+  tag: latest
   # -- web3signer container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Extra args for the web3signer container
 extraArgs: []

@@ -6,7 +6,9 @@ icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.p
 sources:
   - https://github.com/Consensys/teku/
 type: application
-version: 0.2.10
+version: 1.0.0
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com

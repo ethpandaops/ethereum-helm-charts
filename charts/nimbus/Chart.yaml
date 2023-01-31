@@ -6,7 +6,9 @@ icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
 sources:
   - https://github.com/status-im/nimbus-eth2
 type: application
-version: 0.4.10
+version: 1.0.0
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com

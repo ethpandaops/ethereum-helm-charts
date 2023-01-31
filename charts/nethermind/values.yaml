@@ -11,9 +11,9 @@ image:
   # -- nethermind container image repository
   repository: nethermind/nethermind
   # -- nethermind container image tag
-  tag: 1.16.1
+  tag: latest
   # -- nethermind container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Extra args for the nethermind container
 extraArgs: []

@@ -11,9 +11,9 @@ image:
   # -- teku container image repository
   repository: consensys/teku
   # -- teku container image tag
-  tag: 23.1.1
+  tag: latest
   # -- teku container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Mode can be 'beacon' or 'validator'
 mode: "beacon"

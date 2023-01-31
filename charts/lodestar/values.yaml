@@ -11,10 +11,9 @@ image:
   # -- lodestar container image repository
   repository: chainsafe/lodestar
   # -- lodestar container image tag
-  tag: v1.3.0
-
+  tag: latest
   # -- lodestar container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Mode can be 'beacon' or 'validator'
 mode: "beacon"

@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 0.4.10](https://img.shields.io/badge/Version-0.4.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Java
 
@@ -28,9 +28,9 @@ An open-source Ethereum consensus layer client, written in Java
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `5052` | HTTP Port |
-| image.pullPolicy | string | `"IfNotPresent"` | nimbus container pull policy |
+| image.pullPolicy | string | `"Always"` | nimbus container pull policy |
 | image.repository | string | `"statusim/nimbus-eth2"` | nimbus container image repository |
-| image.tag | string | `"amd64-v23.1.1"` | nimbus container image tag |
+| image.tag | string | `"multiarch-latest"` | nimbus container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

@@ -1,7 +1,7 @@
 
 # besu
 
-![Version: 0.3.10](https://img.shields.io/badge/Version-0.3.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An Ethereum execution layer client designed to be enterprise-friendly for both public and private, permissioned network use cases. Besu is written in Java and released under the Apache 2.0 Licence.
 
@@ -28,9 +28,9 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8545` | HTTP Port |
-| image.pullPolicy | string | `"IfNotPresent"` | besu container pull policy |
+| image.pullPolicy | string | `"Always"` | besu container pull policy |
 | image.repository | string | `"hyperledger/besu"` | besu container image repository |
-| image.tag | string | `"23.1.0-beta"` | besu container image tag |
+| image.tag | string | `"latest"` | besu container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
