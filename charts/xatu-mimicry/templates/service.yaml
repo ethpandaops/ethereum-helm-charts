@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xatu-mimicry.fullname" . }}
+  labels:
+    {{- include "xatu-mimicry.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "xatu-mimicry.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "xatu-mimicry.selectorLabels" . | nindent 4 }}
