@@ -76,6 +76,7 @@ Tooling
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
+- [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-sentry`](charts/xatu-sentry) - Ethereum p2p monitoring tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
 - [`xatu-server`](charts/xatu-server) - Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
