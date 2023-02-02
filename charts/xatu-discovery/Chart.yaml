@@ -1,9 +1,9 @@
 apiVersion: v2
-name: xatu-server
-description: Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
+name: xatu-discovery
+description: Ethereum p2p monitoring tool that discovers node records.
 home: https://github.com/ethpandaops/xatu
 type: application
-version: 0.0.2
+version: 0.0.1
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

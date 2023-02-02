@@ -25,18 +25,18 @@ config:
   logging: "info" # panic,fatal,warn,info,debug,trace
   addr: ":8080"
   metricsAddr: ":9090"
-  ntp_server: time.google.com
+  ntpServer: time.google.com
   services:
     coordinator:
       enabled: false
       persistence:
-        driver_name: postgres
-        connection_string: postgres://postgres:password@localhost:5432/xatu?sslmode=disable
-        max_queue_size: 51200
-        batch_timeout: 5s
-        export_timeout: 30s
-        max_export_batch_size: 512
-    event_ingester:
+        driverName: postgres
+        connectionString: postgres://postgres:password@localhost:5432/xatu?sslmode=disable
+        maxQueueSize: 51200
+        batchTimeout: 5s
+        exportTimeout: 30s
+        maxExportBatchSize: 512
+    eventIngester:
       enabled: true
       outputs:
       - name: basic
@@ -44,11 +44,11 @@ config:
         config:
           address: http://localhost:8080
           headers:
-            Authorization: Someb64Value
-          max_queue_size: 51200
-          batch_timeout: 5s
-          export_timeout: 30s
-          max_export_batch_size: 512
+            authorization: Someb64Value
+          maxQueueSize: 51200
+          batchTimeout: 5s
+          exportTimeout: 30s
+          maxExportBatchSize: 512
 
 ingress:
   # -- Ingress resource for the HTTP API

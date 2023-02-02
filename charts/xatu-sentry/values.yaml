@@ -25,20 +25,20 @@ config:
   logging: "info"
   metricsAddr: ":9090"
   name: example-instance
-  ntp_server: time.google.com
+  ntpServer: time.google.com
   ethereum:
-    beacon_node_address: http://localhost:5052
+    beaconNodeAddress: http://localhost:5052
   outputs:
   - name: basic
     type: http
     config:
       address: http://localhost:8080
       headers:
-        Authorization: Someb64Value
-      max_queue_size: 51200
-      batch_timeout: 5s
-      export_timeout: 30s
-      max_export_batch_size: 512
+        authorization: Someb64Value
+      maxQueueSize: 51200
+      batchTimeout: 5s
+      exportTimeout: 30s
+      maxExportBatchSize: 512
 
 # -- Custom args for the xatu container
 customArgs: []
