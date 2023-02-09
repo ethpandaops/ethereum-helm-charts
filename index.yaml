@@ -860,6 +860,20 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-0.1.0/erigon-0.1.0.tgz
     version: 0.1.0
+  eth-faucet:
+  - apiVersion: v2
+    created: "2023-02-09T08:04:16.678551538Z"
+    description: Ether faucet server built with Go and Svelte.
+    digest: 1b5bf0c2786206539087985e6550ffeb2f603e6da9e0a5b5da346c02c8f98fef
+    home: https://github.com/chainflag/eth-faucet
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: eth-faucet
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth-faucet-0.1.0/eth-faucet-0.1.0.tgz
+    version: 0.1.0
   eth2-fork-mon:
   - apiVersion: v2
     created: "2022-10-20T18:29:59.980098272Z"
@@ -2832,4 +2846,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-09T04:27:37.308201323Z"
+generated: "2023-02-09T08:04:16.67892834Z"
