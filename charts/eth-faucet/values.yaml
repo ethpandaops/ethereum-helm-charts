@@ -17,7 +17,7 @@ image:
 
 # -- Secret env variables injected via a created secret
 secretEnv:
-  PRIVATE_KEY: "50f8ef924669b4b963d160d70d03841b7c401ee37a6bfc12dc64b94d4fec6d5cf4fd495c45333203fe8757c8638b944305c2dc53159033bd4a170c8b09bd5b16"
+  PRIVATE_KEY: "52f81d18fd7c51ec151a72b7dfd13cddc39e01ef75b724ce0092c34962e59d5b"
 
 # -- Ports
 httpPort: 8080
