@@ -18,7 +18,7 @@ Ether faucet server built with Go and Svelte.
 | customArgs | list | `[]` | Custom args for the eth-faucet container |
 | customCommand | list | `[]` | Command replacement for the eth-faucet container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"WEB3_PROVIDER","value":"http://rpc-provider:8545"},{"name":"PRIVATE_KEY","value":"private-key-here"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"WEB3_PROVIDER","value":"http://rpc-provider:8545"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
@@ -45,7 +45,7 @@ Ether faucet server built with Go and Svelte.
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{"PRIVATE_KEY":"private-key-here"}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

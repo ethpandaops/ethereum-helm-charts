@@ -16,7 +16,8 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
-secretEnv: {}
+secretEnv:
+  PRIVATE_KEY: "private-key-here"
 
 # -- Ports
 httpPort: 8080
@@ -28,8 +29,6 @@ args: []
 extraEnv:
   - name: WEB3_PROVIDER
     value: "http://rpc-provider:8545"
-  - name: PRIVATE_KEY
-    value: "private-key-here"
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -164,4 +163,3 @@ extraVolumeMounts: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
-

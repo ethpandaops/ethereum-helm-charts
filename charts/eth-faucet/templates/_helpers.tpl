@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "eth-faucet.httpPort" -}}
-{{ .Values.httpPort | default "3000" }}
+{{ .Values.httpPort | default "8080" }}
 {{- end }}
