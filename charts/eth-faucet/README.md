@@ -62,7 +62,7 @@ extraArgs:
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"PRIVATE_KEY":"private-key-here"}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{"PRIVATE_KEY":"50f8ef924669b4b963d160d70d03841b7c401ee37a6bfc12dc64b94d4fec6d5cf4fd495c45333203fe8757c8638b944305c2dc53159033bd4a170c8b09bd5b16"}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
