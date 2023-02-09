@@ -47,3 +47,4 @@ jobs:
           --excluded-charts beaconchain-explorer
           --excluded-charts blockscout
           --excluded-charts fauceth
+          --excluded-charts eth-faucet
