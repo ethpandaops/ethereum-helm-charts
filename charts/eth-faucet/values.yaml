@@ -1,0 +1,167 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- eth-faucet container image repository
+  repository: chainflag/eth-faucet
+  # -- eth-faucet container image tag
+  tag: latest
+  # -- eth-faucet container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+# -- Ports
+httpPort: 8080
+
+# -- Command arguments
+args: []
+
+# -- Additional env variables
+extraEnv:
+  - name: WEB3_PROVIDER
+    value: "http://rpc-provider:8545"
+  - name: PRIVATE_KEY
+    value: "private-key-here"
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Custom args for the eth-faucet container
+customArgs: []
+
+# -- Command replacement for the eth-faucet container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Extra Pod ports
+extraPodPorts: []
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
