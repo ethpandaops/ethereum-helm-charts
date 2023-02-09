@@ -64,6 +64,7 @@ Tooling
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status.
+- [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
 - [`fauceth`](charts/fauceth) - EIP1559 compatible web faucet using Hcaptcha.
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.

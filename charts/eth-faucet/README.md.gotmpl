@@ -1,0 +1,34 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+## Example Configuration
+
+[Upstream docs](https://github.com/chainflag/eth-faucet#configuration)
+
+```yaml
+secretEnv:
+  PRIVATE_KEY: "your_private_key"
+
+extraEnv:
+  - name: WEB3_PROVIDER
+    value: "http://your-rpc-provider:8545"
+
+## Optional flags
+extraArgs:
+  - -faucet.amount=32.05
+```
+
+{{ template "chart.valuesSection" . }}
