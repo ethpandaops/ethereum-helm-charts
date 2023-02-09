@@ -7,6 +7,23 @@ Ether faucet server built with Go and Svelte.
 
 **Homepage:** <https://github.com/chainflag/eth-faucet>
 
+## Example Configuration
+
+[Upstream docs](https://github.com/chainflag/eth-faucet#configuration)
+
+```yaml
+secretEnv:
+  PRIVATE_KEY: "your_private_key"
+
+extraEnv:
+  - name: WEB3_PROVIDER
+    value: "http://your-rpc-provider:8545"
+
+## Optional flags
+extraArgs:
+  - -faucet.amount=32.05
+```
+
 ## Values
 
 | Key | Type | Default | Description |
