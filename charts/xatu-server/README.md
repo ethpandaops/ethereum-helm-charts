@@ -1,7 +1,7 @@
 
 # xatu-server
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
@@ -14,6 +14,10 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| autoscaling.enabled | bool | `false` | Autoscaling configuration |
+| autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
+| autoscaling.minReplicas | int | `2` | Minimum number of replicas |
+| autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.addr | string | `":8080"` |  |
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
