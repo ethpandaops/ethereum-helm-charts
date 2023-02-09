@@ -30,7 +30,7 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8545` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | geth container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | geth container pull policy |
 | image.repository | string | `"ethereum/client-go"` | geth container image repository |
 | image.tag | string | `"stable"` | geth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

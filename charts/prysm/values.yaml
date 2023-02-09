@@ -19,7 +19,7 @@ image:
   # -- Prysm container image tag
   tag: master
   # -- Prysm container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Mode can be 'beacon' or 'validator'
 mode: "beacon"

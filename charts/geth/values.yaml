@@ -13,7 +13,7 @@ image:
   # -- geth container image tag
   tag: stable
   # -- geth container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Extra args for the geth container
 extraArgs: []

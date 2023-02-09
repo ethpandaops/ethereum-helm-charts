@@ -13,7 +13,7 @@ image:
   # -- erigon container image tag
   tag: latest
   # -- erigon container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Extra args for the erigon container
 extraArgs: []

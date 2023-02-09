@@ -13,7 +13,7 @@ image:
   # -- nimbus container image tag
   tag: multiarch-latest
   # -- nimbus container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 
 # -- Path within the container to the beacon node binary

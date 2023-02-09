@@ -13,7 +13,7 @@ image:
   # -- web3signer container image tag
   tag: latest
   # -- web3signer container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Extra args for the web3signer container
 extraArgs: []

@@ -27,7 +27,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `9596` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | lodestar container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | lodestar container pull policy |
 | image.repository | string | `"chainsafe/lodestar"` | lodestar container image repository |
 | image.tag | string | `"latest"` | lodestar container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

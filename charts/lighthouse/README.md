@@ -27,7 +27,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `5052` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | Lighthouse container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | Lighthouse container pull policy |
 | image.repository | string | `"sigp/lighthouse"` | Lighthouse container image repository |
 | image.tag | string | `"latest"` | Lighthouse container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

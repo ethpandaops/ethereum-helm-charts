@@ -27,7 +27,7 @@ An open-source Ethereum 2.0 client, written in Java
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `5051` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | teku container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | teku container pull policy |
 | image.repository | string | `"consensys/teku"` | teku container image repository |
 | image.tag | string | `"latest"` | teku container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

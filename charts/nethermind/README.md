@@ -28,7 +28,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8545` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | nethermind container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | nethermind container pull policy |
 | image.repository | string | `"nethermind/nethermind"` | nethermind container image repository |
 | image.tag | string | `"latest"` | nethermind container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

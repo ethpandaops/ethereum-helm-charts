@@ -27,7 +27,7 @@ An open-source Ethereum 2.0 client, written in Go
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3500` | HTTP Port |
-| image.pullPolicy | string | `"Always"` | Prysm container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
 | image.repository | string | `"ethpandaops/prysm"` | Prysm container image repository |
 | image.tag | string | `"master"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |

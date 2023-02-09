@@ -13,7 +13,7 @@ image:
   # -- Lighthouse container image tag
   tag: latest
   # -- Lighthouse container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Mode can be 'beacon','validator' or 'bootnode'
 mode: "beacon"

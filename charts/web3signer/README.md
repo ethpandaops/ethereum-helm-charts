@@ -30,7 +30,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `9000` |  |
-| image.pullPolicy | string | `"Always"` | web3signer container pull policy |
+| image.pullPolicy | string | `"IfNotPresent"` | web3signer container pull policy |
 | image.repository | string | `"consensys/web3signer"` | web3signer container image repository |
 | image.tag | string | `"latest"` | web3signer container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
