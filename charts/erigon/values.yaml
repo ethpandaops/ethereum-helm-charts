@@ -11,7 +11,7 @@ image:
   # -- erigon container image repository
   repository: thorax/erigon
   # -- erigon container image tag
-  tag: v2.33.1
+  tag: stable
   # -- erigon container pull policy
   pullPolicy: IfNotPresent
 
@@ -89,7 +89,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: auth-rpc
+    port: p2p-tcp
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -97,7 +97,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: auth-rpc
+    port: p2p-tcp
   initialDelaySeconds: 10
   periodSeconds: 10
 

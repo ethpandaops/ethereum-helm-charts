@@ -11,7 +11,7 @@ image:
   # -- besu container image repository
   repository: hyperledger/besu
   # -- besu container image tag
-  tag: 22.10.3
+  tag: latest
   # -- besu container pull policy
   pullPolicy: IfNotPresent
 

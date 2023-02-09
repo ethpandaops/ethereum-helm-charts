@@ -11,7 +11,7 @@ image:
   # -- geth container image repository
   repository: ethereum/client-go
   # -- geth container image tag
-  tag: v1.10.26
+  tag: stable
   # -- geth container pull policy
   pullPolicy: IfNotPresent
 
