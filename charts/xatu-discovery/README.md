@@ -1,7 +1,7 @@
 
 # xatu-discovery
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that discovers node records.
 
@@ -65,6 +65,7 @@ Ethereum p2p monitoring tool that discovers node records.
 | image.tag | string | `"latest"` | xatu container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | initContainers | list | `[]` | Additional init containers |
+| lifecycle | object | See `values.yaml` | Lifecycle hooks |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -91,5 +92,5 @@ Ethereum p2p monitoring tool that discovers node records.
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| terminationGracePeriodSeconds | int | `90` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |

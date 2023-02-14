@@ -163,8 +163,17 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 90
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
