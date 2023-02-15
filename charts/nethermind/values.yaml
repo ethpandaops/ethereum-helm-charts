@@ -22,8 +22,57 @@ extraArgs: []
 # -- JWT secret used by client as a configMap. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the nethermind container
-customCommand: [] # Only change this if you need to change the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec /nethermind/Nethermind.Runner
+    --datadir=/data
+    --KeyStore.KeyStoreDirectory=/data/keystore
+    --Network.LocalIp=$(POD_IP)
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--Network.ExternalIp=" (.Values.extraArgs | join ",")) }}
+    --Network.ExternalIp==$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--Network.P2PPort=" (.Values.extraArgs | join ",")) }}
+    --Network.P2PPort=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--Network.DiscoveryPort=" (.Values.extraArgs | join ",")) }}
+    --Network.DiscoveryPort=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+  {{- if not (contains "--Network.ExternalIp=" (.Values.extraArgs | join ",")) }}
+    --Network.ExternalIp=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--Network.P2PPort=" (.Values.extraArgs | join ",")) }}
+    --Network.P2PPort={{ include "nethermind.p2pPort" . }}
+    {{- end }}
+    {{- if not (contains "--Network.DiscoveryPort=" (.Values.extraArgs | join ",")) }}
+    --Network.DiscoveryPort={{ include "nethermind.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --JsonRpc.Enabled=true
+    --JsonRpc.Host=0.0.0.0
+    --JsonRpc.Port={{ .Values.httpPort }}
+    --Init.WebSocketsEnabled=true
+    --JsonRpc.WebSocketsPort={{ .Values.httpPort }}
+    --JsonRpc.JwtSecretFile=/data/jwt.hex
+    --JsonRpc.EngineHost=0.0.0.0
+    --JsonRpc.EnginePort={{ .Values.authPort }}
+    --Metrics.Enabled=true
+    --Metrics.NodeName=$(POD_NAME)
+    --Metrics.ExposePort={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.

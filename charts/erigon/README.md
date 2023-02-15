@@ -1,7 +1,7 @@
 
 # erigon
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected implementation of Ethereum, currently written in Go but with implementations in other languages planned. Erigon's goal is to provide a faster, more modular, and more optimized implementation of Ethereum.
 
@@ -19,8 +19,10 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | authPort | int | `8551` | Engine Port (Auth Port) |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the erigon container |
-| customCommandRPCDaemon | list | `[]` | Command replacement for the rpcdaemon container |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
+| customCommandRPCDaemon | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandRPCDaemonTemplate instead. |
+| defaultCommandRPCDaemonTemplate | string | See `values.yaml` | Template used for the default command |
+| defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
 | extraArgs | list | `[]` | Extra args for the erigon container |
 | extraArgsRPCDaemon | list | `[]` | Extra args for the rpcdaemon container |
 | extraContainers | list | `[]` | Additional containers |

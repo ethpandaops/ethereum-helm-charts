@@ -22,8 +22,52 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the besu container
-customCommand: [] # Only change this if you need to change the default command
+## -- Template used for the default command
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec besu
+    --data-path=/data
+    --nat-method=NONE
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--p2p-host=" (.Values.extraArgs | join ",")) }}
+    --p2p-host=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--p2p-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--p2p-host=" (.Values.extraArgs | join ",")) }}
+    --p2p-host=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--p2p-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-port={{ include "besu.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --rpc-http-enabled
+    --rpc-http-host=0.0.0.0
+    --rpc-http-port={{ .Values.httpPort }}
+    --rpc-http-cors-origins=*
+    --rpc-ws-enabled
+    --rpc-ws-host=0.0.0.0
+    --rpc-ws-port={{ .Values.wsPort }}
+    --host-allowlist=*
+    --engine-jwt-secret=/data/jwt.hex
+    --engine-rpc-port={{ .Values.authPort }}
+    --engine-host-allowlist=*
+    --metrics-enabled
+    --metrics-host=0.0.0.0
+    --metrics-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.

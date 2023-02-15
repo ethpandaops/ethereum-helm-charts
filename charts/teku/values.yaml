@@ -31,8 +31,68 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the teku container
-customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|validator)
+
+# -- Template used for the default beacon command
+# @default -- See `values.yaml`
+defaultBeaconCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec /opt/teku/bin/teku
+    --log-destination=CONSOLE
+    --data-path=/data
+    --p2p-enabled=true
+    --p2p-port={{ .Values.p2pPort }}
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-advertised-ip=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--p2p-advertised-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-advertised-port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-advertised-ip=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--p2p-advertised-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-advertised-port={{ .Values.p2pPort }}
+    {{- end }}
+  {{- end }}
+    --rest-api-enabled=true
+    --rest-api-interface=0.0.0.0
+    --rest-api-host-allowlist=*
+    --rest-api-port={{ .Values.httpPort }}
+    --ee-jwt-secret-file=/data/jwt.hex
+    --metrics-enabled=true
+    --metrics-interface=0.0.0.0
+    --metrics-host-allowlist=*
+    --metrics-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Template used for the default validator command
+# @default -- See `values.yaml`
+defaultValidatorCommandTemplate: |
+  - sh
+  - -ac
+  - >
+    exec /opt/teku/bin/teku validator-client
+    --log-destination=CONSOLE
+    --data-path=/data
+    --metrics-enabled
+    --metrics-interface=0.0.0.0
+    --metrics-host-allowlist=*
+    --metrics-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.

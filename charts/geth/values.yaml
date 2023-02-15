@@ -28,7 +28,8 @@ config: |
 # -- JWT secret used by client as a configMap. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-## -- Template used for the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
 defaultCommandTemplate: |
   - sh
   - -ac
@@ -74,8 +75,8 @@ defaultCommandTemplate: |
     {{ . }}
   {{- end }}
 
-# -- Command replacement for the geth container
-customCommand: [] # Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
