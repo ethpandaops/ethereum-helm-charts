@@ -21,7 +21,7 @@ An open-source, fast, local, laptop-friendly Ethereum block explorer. It is desi
 | customArgs | list | `[]` | Custom args for the otterscan container |
 | customCommand | list | `[]` | Command replacement for the otterscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `["ERIGON_URL=http://erigon.default.svc.cluster.local:8545"]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
@@ -45,7 +45,7 @@ An open-source, fast, local, laptop-friendly Ethereum block explorer. It is desi
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"WS_SECRET":"PleaseChangeThisotterscanSecret"}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
@@ -56,9 +56,9 @@ An open-source, fast, local, laptop-friendly Ethereum block explorer. It is desi
 
 # Examples
 
-## Setting the shared secret required for incoming websocket connections
+## Setting the Erigon Ethereum execution client node url required for chain data inspection
 
 ```yaml
-secretEnv:
-  WS_SECRET: "SomeSuperSharedSecret"
+extraEnv:
+  ERIGON_URL: "http://erigon.default.svc.cluster.local:8545"
 ```

@@ -13,8 +13,7 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
-secretEnv:
-  WS_SECRET: "PleaseChangeThisotterscanSecret"
+secretEnv: {}
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -148,4 +147,5 @@ extraVolumeMounts: []
 extraPorts: []
 
 # -- Additional env variables
-extraEnv: []
+extraEnv:
+- ERIGON_URL: http://erigon.default.svc.cluster.local:8545

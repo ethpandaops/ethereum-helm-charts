@@ -16,9 +16,9 @@
 
 # Examples
 
-## Setting the shared secret required for incoming websocket connections
+## Setting the Erigon Ethereum execution client node url required for chain data inspection
 
 ```yaml
-secretEnv:
-  WS_SECRET: "SomeSuperSharedSecret"
+extraEnv:
+  ERIGON_URL: "http://erigon.default.svc.cluster.local:8545"
 ```
