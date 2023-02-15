@@ -22,7 +22,8 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-## -- Template used for the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
 defaultCommandTemplate: |
   - sh
   - -ac
