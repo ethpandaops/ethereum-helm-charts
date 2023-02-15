@@ -28,8 +28,55 @@ config: |
 # -- JWT secret used by client as a configMap. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the geth container
-customCommand: [] # Only change this if you need to change the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec geth
+    --datadir=/data
+    --config=/config/geth.toml
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port={{ include "geth.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --http
+    --http.addr=0.0.0.0
+    --http.port={{ .Values.httpPort }}
+    --http.vhosts=*
+    --http.corsdomain=*
+    --ws
+    --ws.addr=0.0.0.0
+    --ws.port={{ .Values.wsPort }}
+    --ws.origins=*
+    --authrpc.jwtsecret=/data/jwt.hex
+    --authrpc.addr=0.0.0.0
+    --authrpc.port={{ .Values.authPort }}
+    --authrpc.vhosts=*
+    --metrics
+    --metrics.addr=0.0.0.0
+    --metrics.port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.

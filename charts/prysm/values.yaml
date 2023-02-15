@@ -41,8 +41,67 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the prysm container
-customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|validator)
+# -- Template used for the default beacon command
+# @default -- See `values.yaml`
+defaultBeaconCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec /app/cmd/beacon-chain/beacon-chain
+    --accept-terms-of-use=true
+    --datadir=/data
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--p2p-host-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-host-ip=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--p2p-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-tcp-port=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--p2p-udp-port" (.Values.extraArgs | join ",")) }}
+    --p2p-udp-port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--p2p-host-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-host-ip=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--p2p-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-tcp-port={{ .Values.p2pPort }}
+    {{- end }}
+    {{- if not (contains "--p2p-udp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-udp-port={{ .Values.p2pPort }}
+    {{- end }}
+  {{- end }}
+    --rpc-host=0.0.0.0
+    --rpc-port={{ .Values.rpcPort }}
+    --jwt-secret=/data/jwt.hex
+    --grpc-gateway-host=0.0.0.0
+    --grpc-gateway-port={{ .Values.httpPort }}
+    --monitoring-host=0.0.0.0
+    --monitoring-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Template used for the default validator command
+# @default -- See `values.yaml`
+defaultValidatorCommandTemplate: |
+  - sh
+  - -ac
+  - >-
+    exec /app/cmd/validator/validator
+    --accept-terms-of-use=true
+    --datadir=/data
+    --monitoring-host=0.0.0.0
+    --monitoring-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.

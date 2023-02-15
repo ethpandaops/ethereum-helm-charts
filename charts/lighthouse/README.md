@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -18,7 +18,10 @@ An open-source Ethereum 2.0 client, written in Rust
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the lighthouse container |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
+| defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
+| defaultBootnodeCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
 | extraArgs | list | `[]` | Extra args for the lighthouse container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |

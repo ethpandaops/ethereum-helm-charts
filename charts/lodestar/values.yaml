@@ -32,8 +32,68 @@ extraArgs: []
 # -- JWT secret used by client as a configMap. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the lodestar container
-customCommand: [] # Only change this if you need to change the default commands provided by 'mode' (beacon|validator)
+# -- Template used for the default beacon command
+# @default -- See `values.yaml`
+defaultBeaconCommandTemplate: |
+  - sh
+  - -ac
+  - >-
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    node /usr/app/node_modules/.bin/lodestar
+    beacon
+    --dataDir=/data
+    --discv5
+    --listenAddress=0.0.0.0
+    --port={{ .Values.p2pPort }}
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--enr.ip=" (.Values.extraArgs | join ",")) }}
+    --enr.ip=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--enr.tcp=" (.Values.extraArgs | join ",")) }}
+    --enr.tcp=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--enr.udp=" (.Values.extraArgs | join ",")) }}
+    --enr.udp=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--enr.ip=" (.Values.extraArgs | join ",")) }}
+    --enr.ip=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--enr.tcp=" (.Values.extraArgs | join ",")) }}
+    --enr.tcp={{ .Values.p2pPort }}
+    {{- end }}
+    {{- if not (contains "--enr.udp=" (.Values.extraArgs | join ",")) }}
+    --enr.udp={{ .Values.p2pPort }}
+    {{- end }}
+  {{- end }}
+    --rest
+    --rest.address=0.0.0.0
+    --rest.port={{ .Values.httpPort }}
+    --jwt-secret=/data/jwt.hex
+    --metrics
+    --metrics.address=0.0.0.0
+    --metrics.port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Template used for the default validator command
+# @default -- See `values.yaml`
+defaultValidatorCommandTemplate: |
+  - sh
+  - -ac
+  - >-
+    node /usr/app/node_modules/.bin/lodestar
+    validator
+    --dataDir=/data
+  {{- range .Values.extraArgs }}
+    {{ . }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.
