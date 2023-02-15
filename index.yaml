@@ -91,6 +91,26 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2023-02-15T13:59:26.580626269Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 48ef207af3ece74fb77ae869fab6bba44205c0317c0578582659ff47e9002520
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-1.0.1/besu-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-02-09T13:01:27.769102722Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -640,6 +660,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2023-02-15T13:59:26.765474795Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: 10ba996bef5d867de1679850dfb20859388bdbc393c3bbbf70828cf2dda8a134
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-1.0.1/erigon-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2023-02-09T13:01:27.960564892Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -1347,6 +1389,27 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    created: "2023-02-15T13:59:26.949458025Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 80531d01f45f41343f80ae585cb1738495e491201dedc14b45bee7681b87feb7
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-1.0.1/geth-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-02-09T13:01:28.127292573Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
       of the Ethereum protocol. Currently, it is the most widespread client with the
@@ -1540,6 +1603,24 @@ entries:
     version: 0.1.0
   lighthouse:
   - apiVersion: v2
+    created: "2023-02-15T13:59:27.158589023Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 8ca271eee18bcea874cc8a37ab57ce2330265fefbb3954b6e765ee5a7b422245
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.0.1/lighthouse-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-02-09T13:01:28.305770253Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: 1ace90e3dae95d60ebd5ecc9771e83c8ed0322d7b6fba0e5b988b679a99fe8c3
@@ -1702,6 +1783,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2023-02-15T13:59:27.370008608Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: f5881f3fd295c5596f1e4a6a1e82a40103487de4c4cc893d503d3feca7a909ef
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-1.0.1/lodestar-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2023-02-09T13:01:28.466081189Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -1892,6 +1992,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
+  - apiVersion: v2
+    created: "2023-02-15T13:59:27.552419547Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: d48d4ece51ba1bd4f2144663f84ccca8c05871035b2f07ad88aab298d8589bb0
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-1.0.1/nethermind-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2023-02-09T13:01:28.64338228Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
@@ -2099,6 +2218,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2023-02-15T13:59:27.771243294Z"
+    description: An open-source Ethereum consensus layer client, written in Java
+    digest: 302fbaad035bdb865b27c335514c7ab7da6124ed534e3d6b15423a3cafb4e867
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-1.0.1/nimbus-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2023-02-09T13:01:28.827904009Z"
     description: An open-source Ethereum consensus layer client, written in Java
@@ -2359,6 +2496,24 @@ entries:
     version: 0.1.0
   prysm:
   - apiVersion: v2
+    created: "2023-02-15T13:59:28.016367901Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 9e97d5a37518c8d2eff023b6ab2ac2ee2b501fe882ec3bcf2c16d826242ebad4
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.0.1/prysm-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-02-09T13:01:29.001699829Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 4ecd7d6c97781ca45fe531bdb9bf9d4e2db7cc818bcd22a1405c5ede9d2f5935
@@ -2595,6 +2750,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/stubbies-0.0.1/stubbies-0.0.1.tgz
     version: 0.0.1
   teku:
+  - apiVersion: v2
+    created: "2023-02-15T13:59:28.225748198Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: 879c7ba5632e5e03b331b493b8946239e565370bde5c05fc4758994724d6bd2b
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-1.0.1/teku-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     created: "2023-02-09T13:01:29.19541788Z"
     description: An open-source Ethereum 2.0 client, written in Java
@@ -3167,4 +3340,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-14T03:02:42.976754233Z"
+generated: "2023-02-15T13:59:28.226435994Z"
