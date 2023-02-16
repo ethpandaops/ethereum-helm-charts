@@ -21,7 +21,7 @@ An open-source, fast, local, laptop-friendly Ethereum block explorer. It is desi
 | customArgs | list | `[]` | Custom args for the otterscan container |
 | customCommand | list | `[]` | Command replacement for the otterscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `["ERIGON_URL=http://erigon.default.svc.cluster.local:8545"]` | Additional env variables |
+| extraEnv | list | `[{"ERIGON_URL":"http://erigon.default.svc.cluster.local:8545"}]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
