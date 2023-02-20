@@ -1,7 +1,7 @@
 
 # xatu-server
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
@@ -19,16 +19,16 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.addr | string | `":8080"` |  |
+| config.geoip.enabled | bool | `false` |  |
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
 | config.ntpServer | string | `"time.google.com"` |  |
+| config.persistence.enabled | bool | `false` |  |
 | config.services.coordinator.enabled | bool | `false` |  |
-| config.services.coordinator.persistence.batchTimeout | string | `"5s"` |  |
-| config.services.coordinator.persistence.connectionString | string | `"postgres://postgres:password@localhost:5432/xatu?sslmode=disable"` |  |
-| config.services.coordinator.persistence.driverName | string | `"postgres"` |  |
-| config.services.coordinator.persistence.exportTimeout | string | `"30s"` |  |
-| config.services.coordinator.persistence.maxExportBatchSize | int | `512` |  |
-| config.services.coordinator.persistence.maxQueueSize | int | `51200` |  |
+| config.services.coordinator.nodeRecord.batchTimeout | string | `"5s"` |  |
+| config.services.coordinator.nodeRecord.exportTimeout | string | `"30s"` |  |
+| config.services.coordinator.nodeRecord.maxExportBatchSize | int | `512` |  |
+| config.services.coordinator.nodeRecord.maxQueueSize | int | `51200` |  |
 | config.services.eventIngester.enabled | bool | `true` |  |
 | config.services.eventIngester.outputs[0].config.address | string | `"http://localhost:8080"` |  |
 | config.services.eventIngester.outputs[0].config.batchTimeout | string | `"5s"` |  |
@@ -38,6 +38,7 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | config.services.eventIngester.outputs[0].config.maxQueueSize | int | `51200` |  |
 | config.services.eventIngester.outputs[0].name | string | `"basic"` |  |
 | config.services.eventIngester.outputs[0].type | string | `"http"` |  |
+| config.store.type | string | `"memory"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu container |
 | customCommand | list | `[]` | Command replacement for the xatu container |
