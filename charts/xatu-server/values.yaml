@@ -36,12 +36,16 @@ config:
   addr: ":8080"
   metricsAddr: ":9090"
   ntpServer: time.google.com
+  persistence:
+    enabled: false
+  store:
+    type: memory
+  geoip:
+    enabled: false
   services:
     coordinator:
       enabled: false
-      persistence:
-        driverName: postgres
-        connectionString: postgres://postgres:password@localhost:5432/xatu?sslmode=disable
+      nodeRecord:
         maxQueueSize: 51200
         batchTimeout: 5s
         exportTimeout: 30s
