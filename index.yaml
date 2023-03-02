@@ -3101,6 +3101,21 @@ entries:
     version: 0.0.1
   xatu-discovery:
   - apiVersion: v2
+    created: "2023-03-02T07:01:06.183487625Z"
+    description: Ethereum p2p monitoring tool that discovers node records.
+    digest: b83f02aa31fda5a31cb20933eff6413f5b4f812ec9fcc77e745077bf29553603
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-discovery
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.4/xatu-discovery-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2023-02-14T03:02:42.552830226Z"
     description: Ethereum p2p monitoring tool that discovers node records.
     digest: 57fff35ec02f2244a9b27050e70db0876ec22c2bbe443a42966bc55f30f58277
@@ -3146,6 +3161,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.1/xatu-discovery-0.0.1.tgz
     version: 0.0.1
   xatu-mimicry:
+  - apiVersion: v2
+    created: "2023-03-02T07:01:06.361169986Z"
+    description: Ethereum p2p monitoring tool that collects data from the execution
+      layer.
+    digest: 94ca3abe3078d4a23dc5fb3d5c609e4189ee62e6506243f2c8dee7fb2f6e8d03
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.4/xatu-mimicry-0.0.4.tgz
+    version: 0.0.4
   - apiVersion: v2
     created: "2023-02-14T03:02:42.698650449Z"
     description: Ethereum p2p monitoring tool that collects data from the execution
@@ -3195,6 +3226,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.1/xatu-mimicry-0.0.1.tgz
     version: 0.0.1
   xatu-sentry:
+  - apiVersion: v2
+    created: "2023-03-02T07:01:06.519368289Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: 263837e461bde77504519921ecc4c5ab7344841a73cb645adc0d6b99818e88ad
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-sentry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-sentry-0.0.5/xatu-sentry-0.0.5.tgz
+    version: 0.0.5
   - apiVersion: v2
     created: "2023-02-14T03:02:42.821594901Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
@@ -3260,6 +3307,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-sentry-0.0.1/xatu-sentry-0.0.1.tgz
     version: 0.0.1
   xatu-server:
+  - apiVersion: v2
+    created: "2023-03-02T07:01:06.670578998Z"
+    description: Ethereum p2p monitoring tool that collects events from and controls
+      various Xatu clients.
+    digest: 81f79575e8135e811dc03f64cbd53ef51b09e9582c342c9ab515ab972d5ebfee
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.7/xatu-server-0.0.7.tgz
+    version: 0.0.7
   - apiVersion: v2
     created: "2023-02-21T00:30:59.337759359Z"
     description: Ethereum p2p monitoring tool that collects events from and controls
@@ -3356,4 +3419,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-02-21T00:30:59.33832457Z"
+generated: "2023-03-02T07:01:06.671035704Z"
