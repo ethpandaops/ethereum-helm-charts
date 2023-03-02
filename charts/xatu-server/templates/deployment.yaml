@@ -75,6 +75,11 @@ spec:
           - name: metrics
             containerPort: {{ include "xatu-server.metricsPort" . }}
             protocol: TCP
+          {{- if (include "xatu-server.pprofPort" .) }}
+          - name: pprof
+            containerPort: {{ include "xatu-server.pprofPort" . }}
+            protocol: TCP
+          {{- end }}
           {{- if .Values.extraPodPorts }}
             {{ toYaml .Values.extraPodPorts | nindent 10 }}
           {{- end }}
