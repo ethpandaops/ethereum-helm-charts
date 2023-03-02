@@ -72,6 +72,11 @@ spec:
           - name: metrics
             containerPort: {{ include "xatu-discovery.metricsPort" . }}
             protocol: TCP
+          {{- if (include "xatu-discovery.pprofPort" .) }}
+          - name: pprof
+            containerPort: {{ include "xatu-discovery.pprofPort" . }}
+            protocol: TCP
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:

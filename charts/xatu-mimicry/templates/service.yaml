@@ -11,6 +11,12 @@ spec:
       targetPort: metrics
       protocol: TCP
       name: metrics
+    {{- if (include "xatu-mimicry.pprofPort" .) }}
+    - port: {{ include "xatu-mimicry.pprofPort" . }}
+      targetPort: pprof
+      protocol: TCP
+      name: pprof
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

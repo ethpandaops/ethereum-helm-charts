@@ -72,6 +72,11 @@ spec:
           - name: metrics
             containerPort: {{ include "xatu-mimicry.metricsPort" . }}
             protocol: TCP
+          {{- if (include "xatu-mimicry.pprofPort" .) }}
+          - name: pprof
+            containerPort: {{ include "xatu-mimicry.pprofPort" . }}
+            protocol: TCP
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:

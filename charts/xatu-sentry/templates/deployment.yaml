@@ -72,6 +72,11 @@ spec:
           - name: metrics
             containerPort: {{ include "xatu-sentry.metricsPort" . }}
             protocol: TCP
+          {{- if (include "xatu-sentry.pprofPort" .) }}
+          - name: pprof
+            containerPort: {{ include "xatu-sentry.pprofPort" . }}
+            protocol: TCP
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:

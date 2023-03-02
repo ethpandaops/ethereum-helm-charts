@@ -64,3 +64,9 @@ Create the name of the service account to use
 {{- define "xatu-mimicry.metricsPort" -}}
 {{ (split ":" .Values.config.metricsAddr)._1 | default ":9090" }}
 {{- end -}}
+
+{{- define "xatu-mimicry.pprofPort" -}}
+{{- if .Values.config.pprofAddr -}}
+{{ (split ":" .Values.config.pprofAddr)._1 | default "6060" }}
+{{- end -}}
+{{- end -}}
