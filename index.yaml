@@ -2704,6 +2704,22 @@ entries:
     version: 0.1.0
   smart-contract-verifier-http:
   - apiVersion: v2
+    created: "2023-03-22T13:37:20.289883039Z"
+    description: 'Smart-contract verification service. Runs as an HTTP server and
+      allows making verification requests through REST API. '
+    digest: 14a4f2c4eaa3967da4d9b97fc719151e9eef678702cae503642c349046e22747
+    home: https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: smart-contract-verifier-http
+    sources:
+    - https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/smart-contract-verifier-http-0.1.2/smart-contract-verifier-http-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-10-20T18:30:03.326837902Z"
     description: 'Smart-contract verification service. Runs as an HTTP server and
       allows making verification requests through REST API. '
@@ -3419,4 +3435,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-02T07:01:06.671035704Z"
+generated: "2023-03-22T13:37:20.29040194Z"
