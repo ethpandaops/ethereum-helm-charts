@@ -62,7 +62,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "smart-contract-verifier-http.httpPort" -}}
-{{- printf "8043" -}}
+{{- printf "8050" -}}
 {{- end -}}
 
 {{- define "smart-contract-verifier-http.metricsPort" -}}

@@ -1,7 +1,7 @@
 
 # smart-contract-verifier-http
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Smart-contract verification service. Runs as an HTTP server and allows making verification requests through REST API.
 
@@ -22,7 +22,7 @@ Smart-contract verification service. Runs as an HTTP server and allows making ve
 | customArgs | list | `[]` | Custom args for the smart-contract-verifier-http container |
 | customCommand | list | `[]` | Command replacement for the smart-contract-verifier-http container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[{"name":"SMART_CONTRACT_VERIFIER__CONFIG","value":"/app/config.toml"}]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
