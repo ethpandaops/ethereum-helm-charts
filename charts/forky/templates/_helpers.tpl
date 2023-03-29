@@ -62,9 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "forky.httpPort" -}}
-{{ (split ":" .Values.config.global.listenAddr)._1 | default ":5555" }}
+{{ (split ":" .Values.config.listen_addr)._1 | default ":5555" }}
 {{- end }}
 
 {{- define "forky.metricsPort" -}}
-{{ (split ":" .Values.config.global.metricsAddr)._1 | default ":9090" }}
+{{ (split ":" .Values.config.metrics.addr)._1 | default ":9090" }}
 {{- end -}}

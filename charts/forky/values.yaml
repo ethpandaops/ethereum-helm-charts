@@ -45,7 +45,7 @@ config:
           beaconAddress: "http://localhost:5052"
           pollingInterval: "12s"
           cacheTtlSeconds: 300
-    
+
     ethereum:
       network:
         # name: "mainnet"
@@ -58,7 +58,7 @@ config:
         # spec:
         #   seconds_per_slot: 12
         #   slots_per_epoch: 32
-        #   genesis_time: 1616508000   
+        #   genesis_time: 1616508000
 
         # name: "sepolia"
         # spec:
