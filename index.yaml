@@ -1294,6 +1294,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forkmon-0.1.0/forkmon-0.1.0.tgz
     version: 0.1.0
+  forky:
+  - apiVersion: v2
+    created: "2023-03-29T04:43:15.867692968Z"
+    description: A beacon chain fork choice viewer
+    digest: 146102af67814eb7947a1f8102ef5b4d45a58a2a0a09985e0b10c1be1a2c1028
+    home: https://github.com/ethpandaops/forky
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: forky
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forky-0.1.0/forky-0.1.0.tgz
+    version: 0.1.0
   ganache:
   - apiVersion: v2
     appVersion: 6.12.2
@@ -3435,4 +3451,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-22T13:37:20.29040194Z"
+generated: "2023-03-29T04:43:15.868326067Z"
