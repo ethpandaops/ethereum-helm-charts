@@ -17,15 +17,15 @@ A beacon chain fork choice viewer
 | config.forky.ethereum.network | string | `nil` |  |
 | config.forky.indexer.driver_name | string | `"sqlite"` |  |
 | config.forky.indexer.dsn | string | `":memory:"` |  |
-| config.forky.retentionPeriod | string | `"30m"` |  |
-| config.forky.sources[0].config.beaconAddress | string | `"http://localhost:5052"` |  |
-| config.forky.sources[0].config.cacheTtlSeconds | int | `300` |  |
-| config.forky.sources[0].config.pollingInterval | string | `"12s"` |  |
+| config.forky.retention_period | string | `"30m"` |  |
+| config.forky.sources[0].config.address | string | `"http://localhost:5052"` |  |
+| config.forky.sources[0].config.labels[0] | string | `"example_label"` |  |
+| config.forky.sources[0].config.polling_interval | string | `"12s"` |  |
 | config.forky.sources[0].name | string | `"example"` |  |
 | config.forky.sources[0].type | string | `"beacon_node"` |  |
 | config.forky.store.type | string | `"memory"` |  |
 | config.listen_addr | string | `":5555"` |  |
-| config.log_level | string | `"info"` |  |
+| config.log_level | string | `"debug"` |  |
 | config.metrics.addr | string | `":9090"` |  |
 | config.metrics.enabled | bool | `true` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |

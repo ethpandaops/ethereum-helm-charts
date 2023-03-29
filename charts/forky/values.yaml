@@ -23,13 +23,13 @@ args: []
 
 config:
   listen_addr: ":5555"
-  log_level: "info"
+  log_level: "debug"
   metrics:
     addr: ":9090"
     enabled: true
 
   forky:
-    retentionPeriod: "30m"
+    retention_period: "30m"
 
     store:
       type: memory
@@ -42,9 +42,10 @@ config:
       - name: "example"
         type: "beacon_node"
         config:
-          beaconAddress: "http://localhost:5052"
-          pollingInterval: "12s"
-          cacheTtlSeconds: 300
+          address: "http://localhost:5052"
+          polling_interval: "12s"
+          labels:
+            - "example_label"
 
     ethereum:
       network:
