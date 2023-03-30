@@ -79,7 +79,7 @@ spec:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
           {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
           - name: storage
             mountPath: "/data"

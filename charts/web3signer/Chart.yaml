@@ -3,7 +3,7 @@ name: web3signer
 description: Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.
 home: https://github.com/Consensys/web3signer/
 type: application
-version: 1.0.0
+version: 1.0.1
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
