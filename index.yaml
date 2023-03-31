@@ -3050,6 +3050,28 @@ entries:
     version: 0.1.0
   web3signer:
   - apiVersion: v2
+    created: "2023-03-31T10:09:08.231979024Z"
+    dependencies:
+    - alias: slashingprotectiondb
+      condition: slashingprotectiondb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: Web3Signer is capable of signing on multiple platforms using private
+      keys stored in an external vault, or encrypted on a disk.
+    digest: 6ddfc9ed295d0cd02aad5b770a4107d389d328303ec6723f255cec1ef7fde53c
+    home: https://github.com/Consensys/web3signer/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: rafael@skyle.net
+      name: skylenet
+    name: web3signer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-1.0.1/web3signer-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     created: "2023-02-09T13:01:29.390257422Z"
     dependencies:
     - alias: slashingprotectiondb
@@ -3451,4 +3473,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-03-29T04:43:15.868326067Z"
+generated: "2023-03-31T10:09:08.232762133Z"
