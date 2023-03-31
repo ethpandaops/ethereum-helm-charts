@@ -81,12 +81,12 @@ spec:
           {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 12}}
           {{- end }}
-          - name: storage
-            mountPath: "/data"
-          - name: config
-            mountPath: "/data/config.yaml"
-            subPath: config.yaml
-            readOnly: true
+            - name: storage
+              mountPath: "/data"
+            - name: config
+              mountPath: "/data/config.yaml"
+              subPath: config.yaml
+              readOnly: true
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
