@@ -6,4 +6,4 @@ metadata:
     {{- include "ethereum-metrics-exporter.labels" . | nindent 4 }}
 data:
   config.yaml: |-
-    {{ toYaml .Values.config | nindent 4 }}
+    {{ tpl (toYaml .Values.config | nindent 4) $ }}
