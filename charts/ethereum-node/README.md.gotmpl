@@ -1,0 +1,33 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+# Examples
+
+
+Run mainnet geth-lighthouse combo with monitoring:
+
+
+```yaml
+##
+## $ helm install mainnet-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
+##
+
+## Example values.yaml for geth-lighthouse on mainnet
+geth:
+  enabled: true
+lighthouse:
+  enabled: true
+ethereum-metrics-exporter:
+  enabled: true
+```

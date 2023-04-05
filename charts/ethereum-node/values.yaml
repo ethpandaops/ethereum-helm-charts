@@ -1,0 +1,63 @@
+global:
+  main:
+    engineEndpoint: http://{{ .Release.Name }}-execution:8551
+    rpcEndpoint:  http://{{ .Release.Name }}-execution:8545
+    beaconEndpoint: http://{{ .Release.Name }}-beacon:5000
+
+
+########################
+###
+###  Execution clients
+###
+########################
+
+geth:
+  enabled: false
+  nameOverride: execution
+
+nethermind:
+  enabled: false
+  nameOverride: execution
+
+
+########################
+###
+###  Consensus clients
+###
+########################
+
+lighthouse:
+  enabled: false
+  nameOverride: beacon
+  extraArgs:
+    - --execution-endpoint={{ tpl  .Values.global.main.engineEndpoint . }}
+
+teku:
+  enabled: false
+  nameOverride: beacon
+  extraArgs:
+    - --ee-endpoint={{ tpl  .Values.global.main.engineEndpoint . }}
+
+
+########################
+###
+###  Monitoring
+###
+########################
+
+ethereum-metrics-exporter:
+  enabled: false
+  nameOverride: metrics-exporter
+  config:
+    consensus:
+      enabled: true
+      url: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+      name: consensus-client
+    execution:
+      enabled: true
+      url: "{{ tpl  .Values.global.main.rpcEndpoint . }}"
+      name: execution-client
+      modules:
+        - eth
+        - net
+        - web3
