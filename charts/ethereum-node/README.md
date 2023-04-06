@@ -25,6 +25,7 @@ This chart will run an execution and consensus layer ethereum node.
 | file://../nimbus | nimbus | 1.0.2 |
 | file://../prysm | prysm | 1.0.2 |
 | file://../teku | teku | 1.0.2 |
+| file://../xatu-sentry | xatu-sentry | 0.0.6 |
 
 # Examples
 
