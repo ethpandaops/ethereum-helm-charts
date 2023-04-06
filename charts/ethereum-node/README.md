@@ -15,16 +15,16 @@ This chart will run an execution and consensus layer ethereum node.
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../besu | besu | 1.0.1 |
-| file://../erigon | erigon | 1.0.1 |
+| file://../besu | besu | 1.0.2 |
+| file://../erigon | erigon | 1.0.2 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.2 |
-| file://../geth | geth | 1.0.1 |
-| file://../lighthouse | lighthouse | 1.0.1 |
-| file://../lodestar | lodestar | 1.0.1 |
-| file://../nethermind | nethermind | 1.0.1 |
-| file://../nimbus | nimbus | 1.0.1 |
-| file://../prysm | prysm | 1.0.1 |
-| file://../teku | teku | 1.0.1 |
+| file://../geth | geth | 1.0.2 |
+| file://../lighthouse | lighthouse | 1.0.2 |
+| file://../lodestar | lodestar | 1.0.2 |
+| file://../nethermind | nethermind | 1.0.2 |
+| file://../nimbus | nimbus | 1.0.2 |
+| file://../prysm | prysm | 1.0.2 |
+| file://../teku | teku | 1.0.2 |
 
 # Examples
 
