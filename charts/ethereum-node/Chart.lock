@@ -29,5 +29,8 @@ dependencies:
 - name: ethereum-metrics-exporter
   repository: file://../ethereum-metrics-exporter
   version: 0.1.3
-digest: sha256:0ba7d034f2f391650e4e9b9c767858b73a91541fcb4b16481743c4409b447f76
-generated: "2023-04-06T13:47:15.854812+02:00"
+- name: xatu-sentry
+  repository: file://../xatu-sentry
+  version: 0.0.6
+digest: sha256:815a0a66e2ea4451da3337bc34c5c21f28a04859645c466891c36bf657c884ce
+generated: "2023-04-06T15:29:54.434957+02:00"

@@ -65,3 +65,8 @@ dependencies:
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereum-metrics-exporter"
   condition: ethereum-metrics-exporter.enabled
+- name: xatu-sentry
+  version: "0.0.6"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../xatu-sentry"
+  condition: xatu-sentry.enabled

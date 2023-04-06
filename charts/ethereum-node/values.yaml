@@ -243,3 +243,20 @@ ethereum-metrics-exporter:
         - eth
         - net
         - web3
+
+xatu-sentry:
+  enabled: true
+  nameOverride: xatu-sentry
+  config:
+    logging: "info"
+    metricsAddr: ":9090"
+    name: "{{ .Release.Name }}"
+    ethereum:
+      beaconNodeAddress: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+    outputs:
+    - name: basic
+      type: http
+      config:
+        address: http://localhost:8080
+        headers:
+          authorization: Someb64Value
