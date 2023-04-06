@@ -208,14 +208,14 @@ nimbus:
         - -ac
         - >-
           {{- if .Values.global.checkpointSync.enabled }}
-            exec {{ .Values.defaultBinaryPath }}
-            trustedNodeSync
-            --data-dir=/data
-            --network={{ .Values.global.main.network }}
-            --backfill=false
-            --trusted-node-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+          exec {{ .Values.defaultBinaryPath }}
+          trustedNodeSync
+          --data-dir=/data
+          --network={{ .Values.global.main.network }}
+          --backfill=false
+          --trusted-node-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
           {{- else }}
-            echo "Checkpoint-sync isn't enabled. Nothing to do."
+          echo "Checkpoint-sync isn't enabled. Nothing to do."
           {{- end }}
       volumeMounts:
       - name: storage
@@ -245,7 +245,7 @@ ethereum-metrics-exporter:
         - web3
 
 xatu-sentry:
-  enabled: true
+  enabled: false
   nameOverride: xatu-sentry
   config:
     logging: "info"
