@@ -76,7 +76,7 @@ defaultBeaconCommandTemplate: |
     --metrics.address=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Template used for the default validator command
@@ -89,7 +89,7 @@ defaultValidatorCommandTemplate: |
     validator
     --dataDir=/data
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
