@@ -196,6 +196,30 @@ nimbus:
         {{ . }}
         {{- end -}}
       {{- end -}}
+  initContainers:
+    - name: init-checkpoint-sync
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - >-
+          {{- if .Values.global.checkpointSync.enabled }}
+            exec {{ .Values.defaultBinaryPath }}
+            trustedNodeSync
+            --data-dir=/data
+            --network={{ .Values.global.main.network }}
+            --backfill=false
+            --trusted-node-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+          {{- else }}
+            echo "Checkpoint-sync isn't enabled. Nothing to do."
+          {{- end }}
+      volumeMounts:
+      - name: storage
+        mountPath: "/data"
 
 ########################
 ###
