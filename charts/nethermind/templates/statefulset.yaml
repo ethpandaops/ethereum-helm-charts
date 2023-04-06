@@ -39,7 +39,7 @@ spec:
         {{- toYaml .Values.securityContext | nindent 8 }}
       initContainers:
       {{- if .Values.initContainers }}
-        {{- toYaml .Values.initContainers | nindent 8 }}
+        {{- tpl (toYaml .Values.initContainers | nindent 8) $ }}
       {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: init-nodeport
@@ -115,7 +115,7 @@ spec:
             - name: jwt
               mountPath: "/data/jwt.hex"
               subPath: jwt.hex
-              readOnly: true 
+              readOnly: true
           ports:
             - name: p2p-tcp
               containerPort: {{ include "nethermind.p2pPort" . }}
@@ -128,7 +128,7 @@ spec:
               protocol: TCP
             - name: auth-rpc
               containerPort: {{ .Values.authPort }}
-              protocol: TCP  
+              protocol: TCP
             - name: metrics
               containerPort: {{ .Values.metricsPort }}
               protocol: TCP
