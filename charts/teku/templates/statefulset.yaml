@@ -151,7 +151,7 @@ spec:
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
       {{- if .Values.extraContainers }}
-        {{ toYaml .Values.extraContainers | nindent 8}}
+        {{ tpl (toYaml .Values.extraContainers | nindent 8) $ }}
       {{- end }}
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
