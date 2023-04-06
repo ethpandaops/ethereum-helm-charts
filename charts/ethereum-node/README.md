@@ -17,7 +17,7 @@ This chart will run an execution and consensus layer ethereum node.
 |------------|------|---------|
 | file://../besu | besu | 1.0.2 |
 | file://../erigon | erigon | 1.0.2 |
-| file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.2 |
+| file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.3 |
 | file://../geth | geth | 1.0.2 |
 | file://../lighthouse | lighthouse | 1.0.2 |
 | file://../lodestar | lodestar | 1.0.2 |
