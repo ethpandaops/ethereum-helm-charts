@@ -1,8 +1,71 @@
 global:
   main:
+    network: "mainnet"
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
-    rpcEndpoint:  http://{{ .Release.Name }}-execution:8545
+    rpcEndpoint: http://{{ .Release.Name }}-execution:8545
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5000
+  checkpointSync:
+    enabled: true
+    addresses:
+      mainnet: https://mainnet-checkpoint-sync.attestant.io
+      goerli: https://checkpoint-sync.goerli.ethpandaops.io
+      sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
+  clientArgs:
+    networks:
+      mainnet:
+        execution:
+          besu: []
+          erigon: []
+          geth: []
+          nethermind: []
+        consensus:
+          lighthouse: []
+          lodestar: []
+          nimbus: []
+          prysm: []
+          teku: []
+      goerli:
+        execution:
+          besu:
+            - --network=goerli
+          erigon:
+            - --chain=goerli
+          geth:
+            - --goerli
+          nethermind:
+            - --config=goerli
+        consensus:
+          lighthouse:
+            - --network=goerli
+          lodestar:
+            - --network=goerli
+          nimbus:
+            - --network=goerli
+          prysm:
+            - --goerli
+          teku:
+            - --network=goerli
+      sepolia:
+        execution:
+          besu:
+            - --network=sepolia
+          erigon:
+            - --chain=sepolia
+          geth:
+            - --sepolia
+          nethermind:
+            - --config=sepolia
+        consensus:
+          lighthouse:
+            - --network=sepolia
+          lodestar:
+            - --network=sepolia
+          nimbus:
+            - --network=sepolia
+          prysm:
+            - --sepolia
+          teku:
+            - --network=sepolia
 
 
 ########################
@@ -11,14 +74,49 @@ global:
 ###
 ########################
 
+besu:
+  enabled: false
+  nameOverride: execution
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .execution.besu }}
+        {{- . }}
+        {{- end }}
+      {{- end }}
+
 geth:
   enabled: false
   nameOverride: execution
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .execution.geth }}
+        {{- . }}
+        {{- end }}
+      {{- end }}
+
+erigon:
+  enabled: false
+  nameOverride: execution
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .execution.erigon }}
+        {{- . }}
+        {{- end }}
+      {{- end }}
 
 nethermind:
   enabled: false
   nameOverride: execution
-
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .execution.nethermind }}
+        {{- . }}
+        {{- end }}
+      {{- end }}
 
 ########################
 ###
@@ -30,14 +128,74 @@ lighthouse:
   enabled: false
   nameOverride: beacon
   extraArgs:
-    - --execution-endpoint={{ tpl  .Values.global.main.engineEndpoint . }}
+    - >-
+      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.lighthouse }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
 
 teku:
   enabled: false
   nameOverride: beacon
   extraArgs:
-    - --ee-endpoint={{ tpl  .Values.global.main.engineEndpoint . }}
+    - >-
+      --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.teku }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --initial-state={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}/eth/v2/debug/beacon/states/finalized
+      {{- end -}}
 
+lodestar:
+  enabled: false
+  nameOverride: beacon
+  extraArgs:
+    - >-
+      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.lodestar }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpointSyncUrl={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
+
+prysm:
+  enabled: false
+  nameOverride: beacon
+  extraArgs:
+    - >-
+      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.prysm }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+        --genesis-beacon-api-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
+
+nimbus:
+  enabled: false
+  nameOverride: beacon
+  extraArgs:
+    - >-
+      --web3-url={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.nimbus }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
 
 ########################
 ###

@@ -23,6 +23,16 @@ dependencies:
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled
+- name: besu
+  version: "1.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../besu"
+  condition: besu.enabled
+- name: erigon
+  version: "1.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../erigon"
+  condition: erigon.enabled
 
 - name: lighthouse
   version: "1.0.1"
@@ -34,6 +44,21 @@ dependencies:
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../teku"
   condition: teku.enabled
+- name: prysm
+  version: "1.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../prysm"
+  condition: prysm.enabled
+- name: nimbus
+  version: "1.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../nimbus"
+  condition: nimbus.enabled
+- name: lodestar
+  version: "1.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../lodestar"
+  condition: lodestar.enabled
 
 - name: ethereum-metrics-exporter
   version: "0.1.2"
