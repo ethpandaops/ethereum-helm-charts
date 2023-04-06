@@ -1,7 +1,8 @@
 apiVersion: v2
 name: ethereum-node
 description: >
-  This chart will run an execution and consensus layer ethereum node.
+  This chart acts as an umbrella chart and allows to run a ethereum execution and
+  consensus layer client. It's also able to deploy optional monitoring applications.
 home: https://ethereum.org
 icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:

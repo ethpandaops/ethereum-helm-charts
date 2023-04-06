@@ -3,7 +3,7 @@ global:
     network: "mainnet"
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
-    beaconEndpoint: http://{{ .Release.Name }}-beacon:5000
+    beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
   checkpointSync:
     enabled: true
     addresses:
@@ -77,6 +77,7 @@ global:
 besu:
   enabled: false
   nameOverride: execution
+  httpPort: 8545
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -88,6 +89,7 @@ besu:
 geth:
   enabled: false
   nameOverride: execution
+  httpPort: 8545
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -99,6 +101,7 @@ geth:
 erigon:
   enabled: false
   nameOverride: execution
+  httpPort: 8545
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -110,6 +113,7 @@ erigon:
 nethermind:
   enabled: false
   nameOverride: execution
+  httpPort: 8545
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -127,6 +131,8 @@ nethermind:
 lighthouse:
   enabled: false
   nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
   extraArgs:
     - >-
       --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
@@ -142,6 +148,8 @@ lighthouse:
 teku:
   enabled: false
   nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
   extraArgs:
     - >-
       --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
@@ -157,6 +165,8 @@ teku:
 lodestar:
   enabled: false
   nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
   extraArgs:
     - >-
       --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
@@ -172,6 +182,8 @@ lodestar:
 prysm:
   enabled: false
   nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
   extraArgs:
     - >-
       --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
@@ -188,6 +200,8 @@ prysm:
 nimbus:
   enabled: false
   nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
   extraArgs:
     - >-
       --web3-url={{ tpl .Values.global.main.engineEndpoint . }}

@@ -3,7 +3,7 @@
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-This chart will run an execution and consensus layer ethereum node.
+This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
 **Homepage:** <https://ethereum.org>
 
@@ -11,8 +11,7 @@ This chart will run an execution and consensus layer ethereum node.
 
 * <https://github.com/ethpandaops/ethereum-helm-charts>
 
-## Requirements
-
+## Subcharts
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../besu | besu | 1.0.2 |
@@ -29,18 +28,27 @@ This chart will run an execution and consensus layer ethereum node.
 
 # Examples
 
-Run mainnet geth-lighthouse combo with monitoring:
+Run mainnet nimbus/geth combo with monitoring:
 
 ```yaml
 ##
-## $ helm install mainnet-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
+## $ helm install goerli-nimbus-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
 ##
 
 ## Example values.yaml for geth-lighthouse on mainnet
+global:
+  main:
+    network: "goerli"
+  checkpointSync:
+    enabled: true
+
+# Client pairs
 geth:
   enabled: true
-lighthouse:
+nimbus:
   enabled: true
+
+# Monitoring
 ethereum-metrics-exporter:
   enabled: true
 ```
