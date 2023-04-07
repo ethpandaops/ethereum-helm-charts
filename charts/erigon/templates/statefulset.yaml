@@ -111,7 +111,7 @@ spec:
             - name: jwt
               mountPath: "/data/jwt.hex"
               subPath: jwt.hex
-              readOnly: true  
+              readOnly: true
           ports:
             - name: p2p-tcp
               containerPort: {{ include "erigon.p2pPort" . }}
@@ -121,7 +121,7 @@ spec:
               protocol: UDP
             - name: auth-rpc
               containerPort: {{ .Values.authPort }}
-              protocol: TCP   
+              protocol: TCP
             - name: metrics
               containerPort: {{ .Values.metricsPort }}
               protocol: TCP
@@ -164,7 +164,7 @@ spec:
           ports:
             - name: http-rpc
               containerPort: {{ .Values.httpPort }}
-              protocol: TCP  
+              protocol: TCP
             - name: metrics-rpcd
               containerPort: {{ .Values.metricsPortRPCDaemon }}
               protocol: TCP
@@ -198,6 +198,8 @@ spec:
         {{- toYaml .Values.affinity | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
