@@ -82,8 +82,8 @@ besu:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .execution.besu }}
-        {{- . }}
-        {{- end }}
+        {{ . }}
+        {{- end -}}
       {{- end }}
 
 geth:
@@ -94,8 +94,8 @@ geth:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .execution.geth }}
-        {{- . }}
-        {{- end }}
+        {{ . }}
+        {{- end -}}
       {{- end }}
 
 erigon:
@@ -107,8 +107,8 @@ erigon:
       --externalcl
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .execution.erigon }}
-        {{- . }}
-        {{- end }}
+        {{ . }}
+        {{- end -}}
       {{- end }}
 
 nethermind:
@@ -119,8 +119,8 @@ nethermind:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .execution.nethermind }}
-        {{- . }}
-        {{- end }}
+        {{ . }}
+        {{- end -}}
       {{- end }}
 
 ########################
