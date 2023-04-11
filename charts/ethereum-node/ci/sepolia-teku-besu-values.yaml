@@ -1,0 +1,15 @@
+global:
+  main:
+    network: "sepolia"
+  checkpointSync:
+    enabled: true
+
+# Client pairs
+teku:
+  enabled: true
+besu:
+  enabled: true
+
+# Monitoring
+ethereum-metrics-exporter:
+  enabled: true

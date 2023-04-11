@@ -1,0 +1,15 @@
+global:
+  main:
+    network: "sepolia"
+  checkpointSync:
+    enabled: true
+
+# Client pairs
+nimbus:
+  enabled: true
+nethermind:
+  enabled: true
+
+# Monitoring
+ethereum-metrics-exporter:
+  enabled: true
