@@ -104,6 +104,7 @@ erigon:
   httpPort: 8545
   extraArgs:
     - >-
+      --externalcl
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .execution.erigon }}
         {{- . }}
