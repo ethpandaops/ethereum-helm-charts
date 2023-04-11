@@ -1,4 +1,4 @@
-name: charts/ethereum-node
+name: test/charts/ethereum-node
 
 on:
   pull_request:
