@@ -33,7 +33,7 @@ jobs:
         uses: pre-commit/action@v3.0.0
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.1.0
+        uses: helm/chart-testing-action@v2.4.0
 
       - name: Check if chart got changed
         id: list-changed
@@ -43,7 +43,13 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml --charts charts/ethereum-node
+        run: >
+          ct lint
+          --config ct.yaml
+          --charts charts/ethereum-node
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml"
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml"
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml"
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
@@ -54,6 +60,6 @@ jobs:
           ct install
           --config ct.yaml
           --charts charts/ethereum-node
-          --helm-extra-args="--values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml"
-          --helm-extra-args="--values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml"
-          --helm-extra-args="--values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml"
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml"
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml"
+          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml"
