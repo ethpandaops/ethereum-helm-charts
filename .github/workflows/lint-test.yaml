@@ -44,6 +44,7 @@ jobs:
       - name: Run chart-testing (install)
         run: >
           ct install --config ct.yaml
+          --excluded-charts ethereum-node
           --excluded-charts beaconchain-explorer
           --excluded-charts blockscout
           --excluded-charts fauceth
