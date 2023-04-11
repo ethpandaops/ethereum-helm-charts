@@ -1,7 +1,9 @@
 name: charts/ethereum-node
 
-on: pull_request
-
+on:
+  pull_request:
+    paths:
+      - 'charts/ethereum-node'
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,7 +15,7 @@ jobs:
       matrix:
         consensus: [teku, prysm, lighthouse, nimbus, lodestar]
         execution: [geth, nethermind, erigon, besu]
-        network: [sepolia]
+        network: [sepolia, mainnet]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
