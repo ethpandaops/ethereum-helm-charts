@@ -1,4 +1,4 @@
-name: Test charts/ethereum-node
+name: charts/ethereum-node
 
 on: pull_request
 
@@ -43,7 +43,7 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml --charts ethereum-node
+        run: ct lint --config ct.yaml --charts charts/ethereum-node
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
@@ -53,7 +53,7 @@ jobs:
         run: >
           ct install
           --config ct.yaml
-          --charts ethereum-node
+          --charts charts/ethereum-node
           --helm-extra-args="
           -f charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml
           -f charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml
