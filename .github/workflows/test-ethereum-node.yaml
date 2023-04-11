@@ -3,7 +3,7 @@ name: charts/ethereum-node
 on:
   pull_request:
     paths:
-      - 'charts/ethereum-node'
+      - charts/ethereum-node/**
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -55,6 +55,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
+        if: steps.list-changed.outputs.changed == 'true'
         run: >
           ct install
           --config ct.yaml
