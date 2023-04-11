@@ -1,6 +1,6 @@
 global:
   main:
-    network: "mainnet"
+    network: mainnet
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
@@ -81,8 +81,12 @@ besu:
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
-        {{- range .execution.besu }}
-        {{ . }}
+        {{- range $i, $v := .execution.besu }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
         {{- end -}}
       {{- end }}
 
@@ -93,8 +97,12 @@ geth:
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
-        {{- range .execution.geth }}
-        {{ . }}
+        {{- range $i, $v := .execution.geth }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
         {{- end -}}
       {{- end }}
 
@@ -104,12 +112,16 @@ erigon:
   httpPort: 8545
   extraArgs:
     - >-
-      --externalcl
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
-        {{- range .execution.erigon }}
-        {{ . }}
+        {{- range $i, $v := .execution.erigon }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
         {{- end -}}
       {{- end }}
+        --externalcl
 
 nethermind:
   enabled: false
@@ -118,8 +130,12 @@ nethermind:
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
-        {{- range .execution.nethermind }}
-        {{ . }}
+        {{- range $i, $v := .execution.nethermind }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
         {{- end -}}
       {{- end }}
 

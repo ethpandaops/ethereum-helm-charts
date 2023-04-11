@@ -1,0 +1,65 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+====
+
+{{- $elName := "" | int }}
+{{- $elCount := 0 | int }}
+{{- if .Values.geth.enabled }}
+{{ $elCount = add1 $elCount }}
+{{ $elName := "geth" }}
+{{- end }}
+{{- if .Values.erigon.enabled }}
+{{ $elCount = add1 $elCount }}
+{{ $elName := "erigon" }}
+{{- end }}
+{{- if .Values.besu.enabled }}
+{{ $elCount = add1 $elCount }}
+{{ $elName := "besu" }}
+{{- end }}
+{{- if .Values.nethermind.enabled }}
+{{ $elCount = add1 $elCount }}
+{{ $elName := "nethermind" }}
+{{- end }}
+
+
+{{- $clName := "" | int }}
+{{- $clCount := 0 | int }}
+{{- if .Values.lighthouse.enabled }}
+{{ $clCount = add1 $clCount }}
+{{ $clName := "lighthouse" }}
+{{- end }}
+{{- if .Values.teku.enabled }}
+{{ $clCount = add1 $clCount }}
+{{ $clName := "teku" }}
+{{- end }}
+{{- if .Values.lodestar.enabled }}
+{{ $clCount = add1 $clCount }}
+{{ $clName := "lodestar" }}
+{{- end }}
+{{- if .Values.nimbus.enabled }}
+{{ $clCount = add1 $clCount }}
+{{ $clName := "nimbus" }}
+{{- end }}
+{{- if .Values.prysm.enabled }}
+{{ $clCount = add1 $clCount }}
+{{ $clName := "prysm" }}
+{{- end }}
+
+{{- if gt $elCount 1 }}
+{{ fail "ERROR: You should only enable one execution layer client software" }}
+{{- end }}
+{{- if gt $clCount 1 }}
+{{ fail "ERROR: You should only enable one consensus layer client software" }}
+{{- end }}
+
+Infos about your ethereum node installation:
+- Network: {{ .Values }}
+- Execution layer client: {{ printf "%s" $elName }}
+- Consensus layer client: {{ printf "%s" $clName }}
