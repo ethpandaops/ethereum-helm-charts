@@ -1,4 +1,4 @@
-name: test/charts/all
+name: charts/all
 
 on: pull_request
 
