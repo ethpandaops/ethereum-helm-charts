@@ -57,6 +57,8 @@ jobs:
           ct install
           --config ct.yaml
           --charts charts/ethereum-node
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml"
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml"
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml"
+          --helm-extra-set-args="
+            --values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml
+            --values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml
+            --values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml
+          "

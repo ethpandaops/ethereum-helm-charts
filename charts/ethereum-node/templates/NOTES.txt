@@ -9,47 +9,47 @@ To learn more about the release, try:
 
 ====
 
-{{- $elName := "" | int }}
+{{- $elName := "" }}
 {{- $elCount := 0 | int }}
 {{- if .Values.geth.enabled }}
 {{ $elCount = add1 $elCount }}
-{{ $elName := "geth" }}
+{{ $elName = "geth" }}
 {{- end }}
 {{- if .Values.erigon.enabled }}
 {{ $elCount = add1 $elCount }}
-{{ $elName := "erigon" }}
+{{ $elName = "erigon" }}
 {{- end }}
 {{- if .Values.besu.enabled }}
 {{ $elCount = add1 $elCount }}
-{{ $elName := "besu" }}
+{{ $elName = "besu" }}
 {{- end }}
 {{- if .Values.nethermind.enabled }}
 {{ $elCount = add1 $elCount }}
-{{ $elName := "nethermind" }}
+{{ $elName = "nethermind" }}
 {{- end }}
 
 
-{{- $clName := "" | int }}
+{{- $clName := "" }}
 {{- $clCount := 0 | int }}
 {{- if .Values.lighthouse.enabled }}
 {{ $clCount = add1 $clCount }}
-{{ $clName := "lighthouse" }}
+{{ $clName = "lighthouse" }}
 {{- end }}
 {{- if .Values.teku.enabled }}
 {{ $clCount = add1 $clCount }}
-{{ $clName := "teku" }}
+{{ $clName = "teku" }}
 {{- end }}
 {{- if .Values.lodestar.enabled }}
 {{ $clCount = add1 $clCount }}
-{{ $clName := "lodestar" }}
+{{ $clName = "lodestar" }}
 {{- end }}
 {{- if .Values.nimbus.enabled }}
 {{ $clCount = add1 $clCount }}
-{{ $clName := "nimbus" }}
+{{ $clName = "nimbus" }}
 {{- end }}
 {{- if .Values.prysm.enabled }}
 {{ $clCount = add1 $clCount }}
-{{ $clName := "prysm" }}
+{{ $clName = "prysm" }}
 {{- end }}
 
 {{- if gt $elCount 1 }}
