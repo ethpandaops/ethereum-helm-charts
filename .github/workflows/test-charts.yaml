@@ -3,7 +3,7 @@ name: test/charts/all
 on: pull_request
 
 jobs:
-  lint-test:
+  test:
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.head_ref }}
