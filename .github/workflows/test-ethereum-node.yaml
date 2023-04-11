@@ -41,7 +41,7 @@ jobs:
         id: list-changed
         run: |
           if ct list-changed --config ct.yaml | grep -q 'charts/ethereum-node'; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Run chart-testing (lint)
