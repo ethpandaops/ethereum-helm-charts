@@ -186,7 +186,7 @@ prysm:
   p2pPort: 9000
   extraArgs:
     - >-
-      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.prysm }}
         {{ . }}
