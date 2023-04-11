@@ -47,9 +47,6 @@ jobs:
           ct lint
           --config ct.yaml
           --charts charts/ethereum-node
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml"
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/execution/${{ matrix.execution }}.yaml"
-          --helm-extra-set-args="--values=charts/ethereum-node/ci/clients/consensus/${{ matrix.consensus }}.yaml"
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.2.0
