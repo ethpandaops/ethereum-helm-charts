@@ -60,6 +60,6 @@ To learn more about the release, try:
 {{- end }}
 
 Infos about your ethereum node installation:
-- Network: {{ .Values }}
+- Network: {{ .Values.global.main.network }}
 - Execution layer client: {{ printf "%s" $elName }}
 - Consensus layer client: {{ printf "%s" $clName }}
