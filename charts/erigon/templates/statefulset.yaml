@@ -199,6 +199,13 @@ spec:
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- with .topologySpreadConstraints }}
+      topologySpreadConstraints:
+        {{- range $constraint := . }}
+      - {{ toYaml $constraint | nindent 8 | trim }}
+      {{- end }}
+        labelSelector:
+          matchLabels:
       volumes:
         - name: jwt
           secret:
