@@ -198,14 +198,15 @@ spec:
         {{- toYaml .Values.affinity | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
-      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
-      {{- with .topologySpreadConstraints }}
+      {{- if .Values.topologySpreadConstraints }}
       topologySpreadConstraints:
-        {{- range $constraint := . }}
+        {{- range $constraint := .Values.topologySpreadConstraints }}
       - {{ toYaml $constraint | nindent 8 | trim }}
-      {{- end }}
         labelSelector:
-          matchLabels:
+          matchLabels: {{- include "erigon.selectorLabels" $ | nindent 12 }}
+        {{- end }}    
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: jwt
           secret:
