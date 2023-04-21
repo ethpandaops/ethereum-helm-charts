@@ -1,0 +1,11 @@
+apiVersion: v2
+name: eleel
+description: A multiplexer for Ethereum execution clients
+home: https://github.com/sigp/eleel
+type: application
+version: 0.1.0
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+  - name: savid
+    email: andrew.davis@ethereum.org

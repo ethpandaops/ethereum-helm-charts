@@ -77,6 +77,7 @@ Tooling
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
+- [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
 - [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.
