@@ -79,7 +79,7 @@ defaultBeaconCommandTemplate: |
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Template used for the default validator command
@@ -94,7 +94,7 @@ defaultValidatorCommandTemplate: |
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Template used for the default validator command

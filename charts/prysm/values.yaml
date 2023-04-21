@@ -82,7 +82,7 @@ defaultBeaconCommandTemplate: |
     --monitoring-host=0.0.0.0
     --monitoring-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Template used for the default validator command
@@ -97,7 +97,7 @@ defaultValidatorCommandTemplate: |
     --monitoring-host=0.0.0.0
     --monitoring-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.

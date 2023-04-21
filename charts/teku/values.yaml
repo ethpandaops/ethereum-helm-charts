@@ -71,7 +71,7 @@ defaultBeaconCommandTemplate: |
     --metrics-host-allowlist=*
     --metrics-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $  }}
   {{- end }}
 
 # -- Template used for the default validator command
@@ -88,7 +88,7 @@ defaultValidatorCommandTemplate: |
     --metrics-host-allowlist=*
     --metrics-port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.

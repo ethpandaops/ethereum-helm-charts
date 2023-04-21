@@ -68,7 +68,7 @@ defaultCommandTemplate: |
     --Metrics.NodeName=$(POD_NAME)
     --Metrics.ExposePort={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.

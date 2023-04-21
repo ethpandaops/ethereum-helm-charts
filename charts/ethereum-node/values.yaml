@@ -1,0 +1,293 @@
+global:
+  main:
+    network: mainnet
+    engineEndpoint: http://{{ .Release.Name }}-execution:8551
+    rpcEndpoint: http://{{ .Release.Name }}-execution:8545
+    beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
+  checkpointSync:
+    enabled: true
+    addresses:
+      mainnet: https://mainnet-checkpoint-sync.attestant.io
+      goerli: https://checkpoint-sync.goerli.ethpandaops.io
+      sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
+  clientArgs:
+    networks:
+      mainnet:
+        execution:
+          besu: []
+          erigon: []
+          geth: []
+          nethermind: []
+        consensus:
+          lighthouse: []
+          lodestar: []
+          nimbus: []
+          prysm: []
+          teku: []
+      goerli:
+        execution:
+          besu:
+            - --network=goerli
+          erigon:
+            - --chain=goerli
+          geth:
+            - --goerli
+          nethermind:
+            - --config=goerli
+        consensus:
+          lighthouse:
+            - --network=goerli
+          lodestar:
+            - --network=goerli
+          nimbus:
+            - --network=goerli
+          prysm:
+            - --goerli
+          teku:
+            - --network=goerli
+      sepolia:
+        execution:
+          besu:
+            - --network=sepolia
+          erigon:
+            - --chain=sepolia
+          geth:
+            - --sepolia
+          nethermind:
+            - --config=sepolia
+        consensus:
+          lighthouse:
+            - --network=sepolia
+          lodestar:
+            - --network=sepolia
+          nimbus:
+            - --network=sepolia
+          prysm:
+            - --sepolia
+          teku:
+            - --network=sepolia
+
+
+########################
+###
+###  Execution clients
+###
+########################
+
+besu:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.besu }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+geth:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.geth }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+erigon:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.erigon }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+        --externalcl
+
+nethermind:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.nethermind }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+########################
+###
+###  Consensus clients
+###
+########################
+
+lighthouse:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.lighthouse }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
+
+teku:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.teku }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --initial-state={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}/eth/v2/debug/beacon/states/finalized
+      {{- end -}}
+
+lodestar:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.lodestar }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpointSyncUrl={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
+
+prysm:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.prysm }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+        --genesis-beacon-api-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
+
+nimbus:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --web3-url={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.nimbus }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+  initContainers:
+    - name: init-checkpoint-sync
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - >-
+          {{- if .Values.global.checkpointSync.enabled }}
+          exec {{ .Values.defaultBinaryPath }}
+          trustedNodeSync
+          --data-dir=/data
+          --network={{ .Values.global.main.network }}
+          --backfill=false
+          --trusted-node-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+          {{- else }}
+          echo "Checkpoint-sync isn't enabled. Nothing to do."
+          {{- end }}
+      volumeMounts:
+      - name: storage
+        mountPath: "/data"
+
+########################
+###
+###  Monitoring
+###
+########################
+
+ethereum-metrics-exporter:
+  enabled: false
+  nameOverride: metrics-exporter
+  config:
+    consensus:
+      enabled: true
+      url: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+      name: consensus-client
+    execution:
+      enabled: true
+      url: "{{ tpl  .Values.global.main.rpcEndpoint . }}"
+      name: execution-client
+      modules:
+        - eth
+        - net
+        - web3
+
+xatu-sentry:
+  enabled: false
+  nameOverride: xatu-sentry
+  config:
+    logging: "info"
+    metricsAddr: ":9090"
+    name: "{{ .Release.Name }}"
+    ethereum:
+      beaconNodeAddress: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+    outputs:
+    - name: basic
+      type: http
+      config:
+        address: http://localhost:8080
+        headers:
+          authorization: Someb64Value

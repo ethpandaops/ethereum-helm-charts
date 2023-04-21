@@ -63,7 +63,7 @@ defaultCommandTemplate: |
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Template used for the default command
@@ -84,7 +84,7 @@ defaultCommandRPCDaemonTemplate: |
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPortRPCDaemon }}
   {{- range .Values.extraArgsRPCDaemon }}
-    {{ . }}
+    {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
@@ -149,7 +149,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: p2p-tcp
+    port: metrics
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -157,7 +157,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: p2p-tcp
+    port: metrics
   initialDelaySeconds: 10
   periodSeconds: 10
 
