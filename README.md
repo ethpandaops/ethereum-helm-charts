@@ -54,6 +54,10 @@ Consensus layer clients
 - [`prysm`](charts/prysm)
 - [`teku`](charts/teku)
 
+Generic
+
+- [`ethereum-node`](charts/ethereum-node) - Umbrella chart that uses the execution and consensus layer client charts.
+
 Tooling
 
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
