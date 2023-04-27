@@ -15,7 +15,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 12.x.x |
 
 ## Values
 
@@ -26,7 +26,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | config | object | See `values.yaml` | Config file https://docs.blockscout.com/for-developers/information-and-settings/env-variables |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blockscout container |
-| customCommand | list | `[]` | Command replacement for the blockscout container |
+| customCommand | list | `["/bin/sh","-ace","bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\"; exec bin/blockscout start;\n"]` | Command replacement for the blockscout container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -59,7 +59,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | postgresql.initdbUser | string | `"postgres"` |  |
 | postgresql.persistence.enabled | bool | `true` |  |
 | postgresql.persistence.size | string | `"8Gi"` |  |
-| postgresql.postgresqlDatabase | string | `"explorer"` |  |
+| postgresql.postgresqlDatabase | string | `"blockscout"` |  |
 | postgresql.postgresqlPassword | string | `"postgres"` |  |
 | postgresql.postgresqlUsername | string | `"postgres"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
