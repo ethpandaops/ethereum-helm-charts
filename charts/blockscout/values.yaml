@@ -6,9 +6,9 @@ fullnameOverride: ""
 
 image:
   # -- blockscout container image repository
-  repository: skylenet/blockscout
+  repository: blockscout/blockscout
   # -- blockscout container image tag
-  tag: v4.0.0-beta
+  tag: latest
   # -- blockscout container pull policy
   pullPolicy: IfNotPresent
 
@@ -18,14 +18,18 @@ customArgs: []
   #- -output-dir=public
 
 # -- Command replacement for the blockscout container
-customCommand: [] # Only change this if you need to change the default command
+customCommand:
+  - /bin/sh
+  - -ace
+  - >
+    bin/blockscout eval "Elixir.Explorer.ReleaseTasks.create_and_migrate()"; exec bin/blockscout start;
 
 # -- Config file
 # @default -- See `values.yaml`
 # https://docs.blockscout.com/for-developers/information-and-settings/env-variables
 config:
   MIX_ENV: prod
-  DATABASE_URL: postgresql://postgres:postgres@blockscout-postgresql:5432/explorer?ssl=false
+  DATABASE_URL: postgresql://postgres:postgres@blockscout-postgresql:5432/blockscout?ssl=false
   SECRET_KEY_BASE: RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5
   ETHEREUM_JSONRPC_VARIANT: geth
   ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
@@ -202,11 +206,11 @@ postgresql:
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 11.13.0-debian-10-r58
+    tag: 15-debian-11
   pullPolicy: IfNotPresent
   initdbUser: postgres
   initdbPassword: postgres
-  postgresqlDatabase: explorer
+  postgresqlDatabase: blockscout
   postgresqlUsername: postgres
   postgresqlPassword: postgres
   persistence:
@@ -216,4 +220,4 @@ postgresql:
   # @default -- See `values.yaml`
   initdbScripts:
     init_01.sql: |
-      CREATE DATABASE explorer;
+      CREATE DATABASE blockscout;

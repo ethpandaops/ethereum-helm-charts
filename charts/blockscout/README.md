@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -34,8 +34,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blockscout container pull policy |
-| image.repository | string | `"skylenet/blockscout"` | blockscout container image repository |
-| image.tag | string | `"v4.0.0-beta"` | blockscout container image tag |
+| image.repository | string | `"blockscout/blockscout"` | blockscout container image repository |
+| image.tag | string | `"latest"` | blockscout container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -53,7 +53,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
 | postgresql.image.registry | string | `"docker.io"` |  |
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
-| postgresql.image.tag | string | `"11.13.0-debian-10-r58"` |  |
+| postgresql.image.tag | string | `"15-debian-11"` |  |
 | postgresql.initdbPassword | string | `"postgres"` |  |
 | postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
 | postgresql.initdbUser | string | `"postgres"` |  |
