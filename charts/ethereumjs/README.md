@@ -102,8 +102,7 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 
 ```yaml
 extraArgs:
-  - --goerli
-  - --maxpeers=60
+  - --network=goerli
 ```
 
 ## Exposing the P2P service via NodePort
