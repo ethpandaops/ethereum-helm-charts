@@ -59,6 +59,8 @@ defaultCommandTemplate: |
     --rpcEngine
     --rpcEngineAddr=0.0.0.0
     --rpcEnginePort={{ .Values.authPort }}
+    --wsEngineAddr=0.0.0.0
+    --wsEnginePort={{ .Values.wsAuthPort }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -138,10 +140,13 @@ readinessProbe:
 rpcPort: 8545
 
 # -- WS Port
-wsPort: 8546
+wsPort: 8545
 
 # -- Engine Port (Auth Port)
 authPort: 8551
+
+# -- WS Engine Auth Port
+wsAuthPort: 8551
 
 # -- Node selector for pods
 nodeSelector: {}

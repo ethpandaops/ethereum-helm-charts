@@ -19,14 +19,22 @@ spec:
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ .Values.wsPort }}
-      targetPort: ws-rpc
-      protocol: TCP
-      name: ws-rpc
     - port: {{ .Values.authPort }}
       targetPort: auth-rpc
       protocol: TCP
       name: auth-rpc
+    {{- if ne .Values.rpcPort .Values.wsPort }}  
+    - port: {{ .Values.wsPort }}
+      targetPort: ws-rpc
+      protocol: TCP
+      name: ws-rpc
+    {{- end }}
+    {{- if ne .Values.authPort .Values.wsAuthPort }}
+    - port: {{ .Values.wsAuthPort }}
+      targetPort: ws-auth-rpc
+      protocol: TCP
+      name: ws-auth-rpc
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
