@@ -26,7 +26,7 @@ extraArgs: []
   # Nimbus requires trustedNodeSync command to be run before the beacon is launched.
   # Read more here: https://nimbus.guide/trusted-node-sync.html
 
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Template used for the default command

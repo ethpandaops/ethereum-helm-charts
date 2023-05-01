@@ -29,7 +29,7 @@ extraArgs: []
   #- --network=goerli
   #- --server=http://lodestar-beacon:9596
 
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Template used for the default beacon command
