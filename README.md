@@ -43,6 +43,7 @@ Execution layer clients
 
 - [`besu`](charts/besu)
 - [`erigon`](charts/erigon)
+- [`ethereumjs`](charts/ethereumjs)
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
 

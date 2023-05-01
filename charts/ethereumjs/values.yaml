@@ -1,0 +1,338 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- ethereumjs container image repository
+  repository: ethpandaops/ethereumjs
+  # -- ethereumjs container image tag
+  tag: master
+  # -- ethereumjs container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Extra args for the ethereumjs container
+extraArgs: []
+  #- --goerli
+
+# -- TOML config file
+# @default -- See `values.yaml` for example
+config: |
+  [Node.P2P]
+  DialRatio = 3
+
+# -- JWT secret used by client as a configMap. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec ethereumjs
+    --dataDir=/data
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--extIP=" (.Values.extraArgs | join ",")) }}
+    --extIP=extip:$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--extIP=" (.Values.extraArgs | join ",")) }}
+    --extIP=extip:$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port={{ include "ethereumjs.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --rpc
+    --rpcAddr=0.0.0.0
+    --rpcPort={{ .Values.rpcPort }}
+    --rpcCors=*
+    --ws
+    --wsAddr=0.0.0.0
+    --wsPort={{ .Values.wsPort }}
+    --wsEngineAddr=0.0.0.0
+    --wsEnginePort={{ .Values.wsPort }}
+    --jwtSecret=/data/jwt.hex
+    --rpcEngine
+    --rpcEngineAddr=0.0.0.0
+    --rpcEnginePort={{ .Values.authPort }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
+
+# When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
+# This is useful if you want to expose and announce your node to the Internet.
+# Limitation: You can only one have one replica when exposing via NodePort.
+#             Check the chart README.md for more details
+p2pNodePort:
+  # -- Expose P2P port via NodePort
+  enabled: false
+  # -- NodePort to be used
+  port: 31000
+  initContainer:
+    image:
+      # -- Container image to fetch nodeport information
+      repository: lachlanevenson/k8s-kubectl
+      # -- Container tag
+      tag: v1.21.3
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+  portForwardContainer:
+    image:
+      # -- Container image for the port forwarder
+      repository: alpine/socat
+      # -- Container tag
+      tag: latest
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http-rpc
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http-rpc
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- HTTP Port
+rpcPort: 8545
+
+# -- WS Port
+wsPort: 8545
+
+# -- Engine Port (Auth Port)
+authPort: 8551
+
+# -- Node selector for pods
+nodeSelector: {}
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 20Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+rbac:
+  # -- Specifies whether RBAC resources are to be created
+  create: true
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  clusterRules:
+     # Required to obtain the nodes external IP
+    - apiGroups: [""]
+      resources:
+      - nodes
+      verbs:
+      - get
+      - list
+      - watch
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  rules:
+    # Required to get information about the serices nodePort.
+    - apiGroups: [""]
+      resources:
+      - services
+      verbs:
+      - get
+      - list
+      - watch
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 300
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers or extraContainerPorts
+extraPorts: []
+
+# -- Additional ports for the main container
+extraContainerPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+# MY_PASSWORD: supersecret
+
+initChownData:
+  # -- Init container to set the correct permissions to access data directories
+  enabled: true
+  image:
+    # -- Container repository
+    repository: busybox
+    # -- Container tag
+    tag: 1.34.0
+    # -- Container pull policy
+    pullPolicy: IfNotPresent
+  # -- Resource requests and limits
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /debug/metrics/prometheus
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
