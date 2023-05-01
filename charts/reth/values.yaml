@@ -33,6 +33,7 @@ defaultCommandTemplate: |
   {{- end }}
     /usr/local/bin/reth node
     --db=/data
+    --config=/data/config.toml
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
     --nat=extip:$EXTERNAL_IP
