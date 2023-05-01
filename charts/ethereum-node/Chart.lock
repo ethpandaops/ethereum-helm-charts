@@ -14,6 +14,9 @@ dependencies:
 - name: nethermind
   repository: file://../nethermind
   version: 1.0.2
+- name: reth
+  repository: file://../reth
+  version: 0.0.1
 - name: lighthouse
   repository: file://../lighthouse
   version: 1.0.2
@@ -35,5 +38,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.6
-digest: sha256:1ace42c8a9868c6ca5d83823c8758264684c730663f024ec6c8325752dc99c34
-generated: "2023-05-01T14:37:42.892842+02:00"
+digest: sha256:9967a2ef243e97f0ec6f9a429a8380561f959c3c8e5cf290b5de1ee016d72002
+generated: "2023-05-01T17:23:34.804329+02:00"

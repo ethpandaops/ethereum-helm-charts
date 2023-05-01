@@ -38,7 +38,7 @@ global:
             - --goerli
           nethermind:
             - --config=goerli
-          reth: 
+          reth:
             - --chain=goerli
         consensus:
           lighthouse:
@@ -63,7 +63,7 @@ global:
             - --sepolia
           nethermind:
             - --config=sepolia
-          reth: 
+          reth:
             - --chain=sepolia
         consensus:
           lighthouse:
