@@ -23,7 +23,6 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
@@ -112,9 +111,6 @@ spec:
               mountPath: "/data/jwt.hex"
               subPath: jwt.hex
               readOnly: true
-            - name: config
-              mountPath: "/config"
-              readOnly: true
           ports:
             {{- if .Values.extraContainerPorts }}
               {{ toYaml .Values.extraContainerPorts | nindent 12}}
@@ -176,9 +172,6 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
-        - name: config
-          configMap:
-            name: {{ include "ethereumjs.fullname" . }}
   {{- if not .Values.persistence.enabled }}
         - name: storage
           emptyDir: {}

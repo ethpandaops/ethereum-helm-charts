@@ -19,13 +19,7 @@ image:
 extraArgs: []
   #- --network=goerli
 
-# -- TOML config file
-# @default -- See `values.yaml` for example
-config: |
-  [Node.P2P]
-  DialRatio = 3
-
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret is attached as a secret object. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Template used for the default command
@@ -61,8 +55,6 @@ defaultCommandTemplate: |
     --ws
     --wsAddr=0.0.0.0
     --wsPort={{ .Values.wsPort }}
-    --wsEngineAddr=0.0.0.0
-    --wsEnginePort={{ .Values.wsPort }}
     --jwtSecret=/data/jwt.hex
     --rpcEngine
     --rpcEngineAddr=0.0.0.0
