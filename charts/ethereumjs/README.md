@@ -1,15 +1,15 @@
 
 # ethereumjs
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Go Ethereum (ethereumjs for short) is one of the original implementations of the Ethereum protocol. Currently, it is the most widespread client with the biggest user base and variety of tooling for users and developers. It is written in Go, fully open source and licensed under the GNU LGPL v3
+The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract language Ethereum dApp developers are most familiar with. It is targeted to be a client for research and development and not meant to be used in production on mainnet for the foreseeable future (out of resource and security considerations).
 
-**Homepage:** <https://ethereumjs.ethereum.org/>
+**Homepage:** <https://ethereumjs.readthedocs.io/en/latest/>
 
 ## Source Code
 
-* <https://github.com/ethereum/go-ethereum>
+* <https://github.com/ethereumjs/ethereumjs-monorepo>
 
 ## Values
 
@@ -30,10 +30,9 @@ Go Ethereum (ethereumjs for short) is one of the original implementations of the
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| rpcPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | ethereumjs container pull policy |
-| image.repository | string | `"ethereum/client-go"` | ethereumjs container image repository |
-| image.tag | string | `"stable"` | ethereumjs container image tag |
+| image.repository | string | `"ethpandaops/ethereumjs"` | ethereumjs container image repository |
+| image.tag | string | `"master"` | ethereumjs container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -48,7 +47,6 @@ Go Ethereum (ethereumjs for short) is one of the original implementations of the
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a configMap. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| metricsPort | int | `6060` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
@@ -77,6 +75,7 @@ Go Ethereum (ethereumjs for short) is one of the original implementations of the
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
+| rpcPort | int | `8545` | HTTP Port |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
@@ -96,7 +95,7 @@ Go Ethereum (ethereumjs for short) is one of the original implementations of the
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsPort | int | `8546` | WS Port |
+| wsPort | int | `8545` | WS Port |
 
 # Examples
 
