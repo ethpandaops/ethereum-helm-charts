@@ -18,6 +18,10 @@ To learn more about the release, try:
 {{ $elCount = add1 $elCount -}}
 {{ $elName = "erigon" -}}
 {{- end -}}
+{{- if .Values.ethereumjs.enabled -}}
+{{ $elCount = add1 $elCount -}}
+{{ $elName = "ethereumjs" -}}
+{{- end -}}
 {{- if .Values.besu.enabled -}}
 {{ $elCount = add1 $elCount -}}
 {{ $elName = "besu" -}}
