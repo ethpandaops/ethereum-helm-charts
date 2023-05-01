@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -17,6 +17,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../besu | besu | 1.0.2 |
 | file://../erigon | erigon | 1.0.2 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.3 |
+| file://../ethereumjs | ethereumjs | 0.0.1 |
 | file://../geth | geth | 1.0.2 |
 | file://../lighthouse | lighthouse | 1.0.2 |
 | file://../lodestar | lodestar | 1.0.2 |

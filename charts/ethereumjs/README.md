@@ -95,7 +95,7 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsPort | int | `8545` | WS Port |
+| wsPort | int | `8546` | WS Port |
 
 # Examples
 
