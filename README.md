@@ -46,6 +46,7 @@ Execution layer clients
 - [`ethereumjs`](charts/ethereumjs)
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
+- ['reth'](charts/reth)
 
 Consensus layer clients
 
