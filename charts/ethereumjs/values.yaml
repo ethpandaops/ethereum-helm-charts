@@ -17,7 +17,7 @@ image:
 
 # -- Extra args for the ethereumjs container
 extraArgs: []
-  #- --goerli
+  #- --network=goerli
 
 # -- TOML config file
 # @default -- See `values.yaml` for example
@@ -37,7 +37,7 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    exec ethereumjs
+    node /usr/app/ethereumjs-monorepo/packages/client/dist/bin/cli.js
     --dataDir=/data
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--extIP=" (.Values.extraArgs | join ",")) }}
