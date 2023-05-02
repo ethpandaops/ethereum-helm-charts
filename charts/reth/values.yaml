@@ -32,7 +32,7 @@ defaultCommandTemplate: |
     . /env/init-nodeport;
   {{- end }}
     /usr/local/bin/reth node
-    --db=/data
+    --datadir=/data
     --config=/data/config.toml
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
