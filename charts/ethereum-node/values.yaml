@@ -16,6 +16,7 @@ global:
         execution:
           besu: []
           erigon: []
+          ethereumjs: []
           geth: []
           nethermind: []
         consensus:
@@ -30,6 +31,8 @@ global:
             - --network=goerli
           erigon:
             - --chain=goerli
+          ethereumjs:
+            - --network=goerli
           geth:
             - --goerli
           nethermind:
@@ -51,6 +54,8 @@ global:
             - --network=sepolia
           erigon:
             - --chain=sepolia
+          ethereumjs:
+            - --network=sepolia
           geth:
             - --sepolia
           nethermind:
@@ -90,22 +95,6 @@ besu:
         {{- end -}}
       {{- end }}
 
-geth:
-  enabled: false
-  nameOverride: execution
-  httpPort: 8545
-  extraArgs:
-    - >-
-      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
-        {{- range $i, $v := .execution.geth }}
-        {{- if (eq $i 0) }}
-        {{- $v }}
-        {{- else }}
-        {{ $v }}
-        {{- end }}
-        {{- end -}}
-      {{- end }}
-
 erigon:
   enabled: false
   nameOverride: execution
@@ -121,7 +110,38 @@ erigon:
         {{- end }}
         {{- end -}}
       {{- end }}
-        --externalcl
+
+ethereumjs:
+  enabled: false
+  nameOverride: execution
+  rpcPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.ethereumjs }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+geth:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.geth }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
 
 nethermind:
   enabled: false

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ethereumjs.fullname" . }}
+  labels:
+    {{- include "ethereumjs.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ include "ethereumjs.p2pPort" . }}
+      targetPort: p2p-tcp
+      protocol: TCP
+      name: p2p-tcp
+    - port: {{ include "ethereumjs.p2pPort" . }}
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+    - port: {{ .Values.rpcPort }}
+      targetPort: http-rpc
+      protocol: TCP
+      name: http-rpc
+    - port: {{ .Values.authPort }}
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc
+    {{- if ne .Values.rpcPort .Values.wsPort }}  
+    - port: {{ .Values.wsPort }}
+      targetPort: ws-rpc
+      protocol: TCP
+      name: ws-rpc
+    {{- end }}
+    {{- if ne .Values.authPort .Values.wsAuthPort }}
+    - port: {{ .Values.wsAuthPort }}
+      targetPort: ws-auth-rpc
+      protocol: TCP
+      name: ws-auth-rpc
+    {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "ethereumjs.selectorLabels" . | nindent 4 }}

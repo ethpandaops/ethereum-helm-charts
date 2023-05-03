@@ -1,15 +1,18 @@
 dependencies:
-- name: geth
-  repository: file://../geth
-  version: 1.0.2
-- name: nethermind
-  repository: file://../nethermind
-  version: 1.0.2
 - name: besu
   repository: file://../besu
   version: 1.0.2
 - name: erigon
   repository: file://../erigon
+  version: 1.0.2
+- name: ethereumjs
+  repository: file://../ethereumjs
+  version: 0.0.1
+- name: geth
+  repository: file://../geth
+  version: 1.0.2
+- name: nethermind
+  repository: file://../nethermind
   version: 1.0.2
 - name: lighthouse
   repository: file://../lighthouse
@@ -32,5 +35,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.6
-digest: sha256:815a0a66e2ea4451da3337bc34c5c21f28a04859645c466891c36bf657c884ce
-generated: "2023-04-06T15:29:54.434957+02:00"
+digest: sha256:1ace42c8a9868c6ca5d83823c8758264684c730663f024ec6c8325752dc99c34
+generated: "2023-05-01T14:37:42.892842+02:00"
