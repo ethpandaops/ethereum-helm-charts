@@ -56,7 +56,6 @@ defaultCommandTemplate: |
     --ws
     --ws.addr=0.0.0.0
     --ws.port={{ .Values.wsPort }}
-    --ws.corsdomain=*
     --ws.origins=*
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
