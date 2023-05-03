@@ -19,7 +19,7 @@ image:
 extraArgs: []
   #- --config=goerli
 
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Template used for the default command
@@ -60,7 +60,7 @@ defaultCommandTemplate: |
     --JsonRpc.Host=0.0.0.0
     --JsonRpc.Port={{ .Values.httpPort }}
     --Init.WebSocketsEnabled=true
-    --JsonRpc.WebSocketsPort={{ .Values.httpPort }}
+    --JsonRpc.WebSocketsPort={{ .Values.wsPort }}
     --JsonRpc.JwtSecretFile=/data/jwt.hex
     --JsonRpc.EngineHost=0.0.0.0
     --JsonRpc.EnginePort={{ .Values.authPort }}
@@ -144,6 +144,9 @@ readinessProbe:
 
 # -- HTTP Port
 httpPort: 8545
+
+# -- WS Port
+wsPort: 8545
 
 # -- Engine Port (Auth Port)
 authPort: 8551
