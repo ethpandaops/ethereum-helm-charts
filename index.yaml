@@ -1243,6 +1243,22 @@ entries:
     version: 0.0.1
   ethstats:
   - apiVersion: v2
+    created: "2023-05-03T10:07:43.475010766Z"
+    description: 'Visual interface for tracking ethereum network status. It uses WebSockets
+      to receive stats from running nodes and output them through a web interface. '
+    digest: 59e8495888802a7b1c8d389512866945c31a26e2b29846ef2c57ff553770a44d
+    home: https://ethstats.net/
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethstats
+    sources:
+    - https://github.com/goerli/ethstats-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethstats-0.1.3/ethstats-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2022-10-20T18:30:00.404672155Z"
     description: 'Visual interface for tracking ethereum network status. It uses WebSockets
       to receive stats from running nodes and output them through a web interface. '
@@ -3740,4 +3756,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-04-21T11:27:39.777055519Z"
+generated: "2023-05-03T10:07:43.476148877Z"
