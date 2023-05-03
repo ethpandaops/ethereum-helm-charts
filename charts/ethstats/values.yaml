@@ -12,6 +12,9 @@ image:
   # -- ethstats container pull policy
   pullPolicy: IfNotPresent
 
+# -- Number of replicas
+replicas: 1
+
 # -- Secret env variables injected via a created secret
 secretEnv:
   WS_SECRET: "PleaseChangeThisEthstatsSecret"
