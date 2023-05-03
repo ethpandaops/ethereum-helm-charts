@@ -20,7 +20,7 @@ dependencies:
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.2"
+  version: "1.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
@@ -30,12 +30,12 @@ dependencies:
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled
 - name: geth
-  version: "1.0.2"
+  version: "1.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../geth"
   condition: geth.enabled
 - name: nethermind
-  version: "1.0.2"
+  version: "1.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled
@@ -61,12 +61,12 @@ dependencies:
   repository: "file://../prysm"
   condition: prysm.enabled
 - name: nimbus
-  version: "1.0.2"
+  version: "1.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nimbus"
   condition: nimbus.enabled
 - name: lodestar
-  version: "1.0.2"
+  version: "1.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lodestar"
   condition: lodestar.enabled
