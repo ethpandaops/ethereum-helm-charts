@@ -1,7 +1,7 @@
 
 # ethstats
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Visual interface for tracking ethereum network status. It uses WebSockets to receive stats from running nodes and output them through a web interface.
 
@@ -44,6 +44,7 @@ Visual interface for tracking ethereum network status. It uses WebSockets to rec
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
+| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{"WS_SECRET":"PleaseChangeThisEthstatsSecret"}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
