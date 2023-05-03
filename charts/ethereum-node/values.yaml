@@ -19,6 +19,7 @@ global:
           ethereumjs: []
           geth: []
           nethermind: []
+          reth: []
         consensus:
           lighthouse: []
           lodestar: []
@@ -37,6 +38,8 @@ global:
             - --goerli
           nethermind:
             - --config=goerli
+          reth:
+            - --chain=goerli
         consensus:
           lighthouse:
             - --network=goerli
@@ -60,6 +63,8 @@ global:
             - --sepolia
           nethermind:
             - --config=sepolia
+          reth:
+            - --chain=sepolia
         consensus:
           lighthouse:
             - --network=sepolia
@@ -151,6 +156,22 @@ nethermind:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range $i, $v := .execution.nethermind }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+reth:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.reth }}
         {{- if (eq $i 0) }}
         {{- $v }}
         {{- else }}

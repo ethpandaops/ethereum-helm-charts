@@ -30,6 +30,10 @@ To learn more about the release, try:
 {{ $elCount = add1 $elCount -}}
 {{ $elName = "nethermind" -}}
 {{- end -}}
+{{- if .Values.reth.enabled -}}
+{{ $elCount = add1 $elCount -}}
+{{ $elName = "reth" -}}
+{{- end -}}
 
 {{- $clName := "" -}}
 {{- $clCount := 0 | int -}}
