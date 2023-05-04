@@ -679,6 +679,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
+  eleel:
+  - apiVersion: v2
+    created: "2023-05-04T06:30:54.861440649Z"
+    description: A multiplexer for Ethereum execution clients
+    digest: ac4697927fb7dd4573d34ecd1f9c3145567695dea382347756b00d45dc0eda4b
+    home: https://github.com/sigp/eleel
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: eleel
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.0/eleel-0.1.0.tgz
+    version: 0.1.0
   erigon:
   - apiVersion: v2
     created: "2023-05-03T12:39:08.293380375Z"
@@ -4036,4 +4052,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-03T15:00:56.622035673Z"
+generated: "2023-05-04T06:30:54.862901057Z"
