@@ -63,6 +63,24 @@ imagePullSecrets: []
 # -- Annotations for the Deployment
 annotations: {}
 
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
 # -- Node selector for pods
 nodeSelector: {}
 

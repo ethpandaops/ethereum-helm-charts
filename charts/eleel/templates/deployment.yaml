@@ -48,6 +48,8 @@ spec:
         {{- else }}
           - "eleel"
           - --ee-jwt-secret=/jwt.hex
+          - --listen-address=0.0.0.0
+          - --listen-port={{ include "eleel.httpPort" . }}
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
           {{- end }}
