@@ -1,7 +1,7 @@
 apiVersion: v2
-name: blobscan-indexer
-description: Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
-home: https://github.com/blobscan/blobscan-indexer
+name: blobscan-api
+description: Blobscan tRPC API
+home: https://github.com/blobscan/blobscan
 type: application
 version: 0.2.0
 maintainers:

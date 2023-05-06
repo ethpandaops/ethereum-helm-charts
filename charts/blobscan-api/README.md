@@ -1,9 +1,9 @@
 
-# blobscan
+# blobscan-api
 
 ![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+Blobscan tRPC API
 
 **Homepage:** <https://github.com/blobscan/blobscan>
 

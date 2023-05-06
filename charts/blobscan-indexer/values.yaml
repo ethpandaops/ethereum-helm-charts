@@ -9,9 +9,9 @@ replicas: 1
 
 image:
   # -- blobscan-indexer container image repository
-  repository: ethpandaops/blobscan-indexer
+  repository: blossomlabs/blobscan-indexer
   # -- blobscan-indexer container image tag
-  tag: latest
+  tag: master
   # -- blobscan-indexer container pull policy
   pullPolicy: IfNotPresent
 
@@ -23,14 +23,14 @@ args: []
 
 # -- Additional env variables
 extraEnv:
-  - name: MONGODB_URI
-    value: "mongodb://mongodb:27017"
-  - name: MONGODB_DB
-    value: "blobscan"
+  - name: BLOBSCAN_API_ENDPOINT
+    value: "http://blobscan-api:3001"
   - name: EXECUTION_NODE_RPC
     value: "http://your-execution-node:8545"
   - name: BEACON_NODE_RPC
     value: "http://your-beacon-node:5052"
+  - name: SECRET_KEY
+    value: "supersecret"
 
 ingress:
   # -- Ingress resource for the HTTP API

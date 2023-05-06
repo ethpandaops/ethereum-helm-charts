@@ -64,6 +64,7 @@ Tooling
 
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
+- [`blobscan-api`](charts/blobscan-api) - Blobscan tRPC API.
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.

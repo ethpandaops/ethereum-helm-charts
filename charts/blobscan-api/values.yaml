@@ -22,16 +22,16 @@ secretEnv: {}
 httpPort: 3000
 
 # -- Command arguments
-args: ["web"]
+args: ["api"]
 
 # -- Additional env variables
 extraEnv:
-  - name: DATABASE_URL
-    value: "postgresql://blobscan:s3cr3t@postgres:5432/blobscan_dev?schema=public"
-  - name: NEXTAUTH_URL
-    value: "http://localhost:3000"
-  - name: NEXTAUTH_SECRET
-    value: "supersecret"
+  - name: BLOBSCAN_API_ENDPOINT
+    value: http://localhost:3001
+  - name: BEACON_NODE_RPC
+    value: http://localhost:3500
+  - name: EXECUTION_NODE_URL
+    value: http://localhost:8545
 
 ingress:
   # -- Ingress resource for the HTTP API
