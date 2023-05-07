@@ -13,12 +13,12 @@ Blobscan tRPC API
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
-| args | list | `[]` | Command arguments |
+| args | list | `["api"]` | Command arguments |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"MONGODB_URI","value":"mongodb://mongodb:27017"},{"name":"MONGODB_DB","value":"blobscan"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"BLOBSCAN_API_ENDPOINT","value":"http://localhost:3001"},{"name":"BEACON_NODE_RPC","value":"http://localhost:3500"},{"name":"EXECUTION_NODE_URL","value":"http://localhost:8545"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
@@ -26,8 +26,8 @@ Blobscan tRPC API
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"ethpandaops/blobscan"` | blobscan container image repository |
-| image.tag | string | `"latest"` | blobscan container image tag |
+| image.repository | string | `"blossomlabs/blobscan"` | blobscan container image repository |
+| image.tag | string | `"next"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

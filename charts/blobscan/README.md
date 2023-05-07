@@ -13,12 +13,12 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
-| args | list | `[]` | Command arguments |
+| args | list | `["web"]` | Command arguments |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blobscan container |
 | customCommand | list | `[]` | Command replacement for the blobscan container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[{"name":"MONGODB_URI","value":"mongodb://mongodb:27017"},{"name":"MONGODB_DB","value":"blobscan"}]` | Additional env variables |
+| extraEnv | list | `[{"name":"DATABASE_URL","value":"postgresql://blobscan:s3cr3t@postgres:5432/blobscan_dev?schema=public"},{"name":"NEXTAUTH_URL","value":"http://localhost:3000"},{"name":"NEXTAUTH_SECRET","value":"supersecret"}]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
@@ -26,8 +26,8 @@ Blobscan is the first blockchain explorer that helps to navigate and visualize t
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3000` | Ports |
 | image.pullPolicy | string | `"IfNotPresent"` | blobscan container pull policy |
-| image.repository | string | `"ethpandaops/blobscan"` | blobscan container image repository |
-| image.tag | string | `"latest"` | blobscan container image tag |
+| image.repository | string | `"blossomlabs/blobscan"` | blobscan container image repository |
+| image.tag | string | `"next"` | blobscan container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
