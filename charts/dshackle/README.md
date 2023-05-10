@@ -15,7 +15,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | redis | 16.8.9 |
+| https://charts.bitnami.com/bitnami | redis | 16.x.x |
 
 ## Values
 

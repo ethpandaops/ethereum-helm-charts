@@ -15,7 +15,7 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 11.x.x |
 
 ## Values
 

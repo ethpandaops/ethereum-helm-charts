@@ -13,6 +13,6 @@ maintainers:
     email: rafael@skyle.net
 dependencies:
 - name: postgresql
-  version: "10.x.x"
+  version: "11.x.x"
   repository: "https://charts.bitnami.com/bitnami"
   condition: postgresql.enabled

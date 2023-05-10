@@ -14,6 +14,6 @@ maintainers:
     email: rafael@skyle.net
 dependencies:
 - name: redis
-  version: "16.8.9"
+  version: "16.x.x"
   repository: "https://charts.bitnami.com/bitnami"
   condition: redis.enabled
