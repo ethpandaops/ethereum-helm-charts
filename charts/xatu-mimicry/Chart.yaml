@@ -3,7 +3,7 @@ name: xatu-mimicry
 description: Ethereum p2p monitoring tool that collects data from the execution layer.
 home: https://github.com/ethpandaops/xatu
 type: application
-version: 0.0.4
+version: 0.0.5
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

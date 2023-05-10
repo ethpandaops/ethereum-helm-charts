@@ -3,7 +3,7 @@ name: forky
 description: A beacon chain fork choice viewer
 home: https://github.com/ethpandaops/forky
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
