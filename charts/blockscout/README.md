@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -15,7 +15,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 11.x.x |
 
 ## Values
 
@@ -84,6 +84,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

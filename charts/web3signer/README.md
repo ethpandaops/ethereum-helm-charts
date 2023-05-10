@@ -1,7 +1,7 @@
 
 # web3signer
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.
 
@@ -106,6 +106,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.persistence.size | string | `"1Gi"` |  |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

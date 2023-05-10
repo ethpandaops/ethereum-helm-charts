@@ -3,7 +3,7 @@ name: stubbies
 description: Ethereum execution client stub for consensus layer clients.
 home: https://github.com/ethpandaops/stubbies
 type: application
-version: 0.0.1
+version: 0.0.2
 maintainers:
   - name: savid
     email: andrew.davis@ethereum.org

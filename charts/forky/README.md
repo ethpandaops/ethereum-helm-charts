@@ -1,7 +1,7 @@
 
 # forky
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A beacon chain fork choice viewer
 
@@ -40,7 +40,7 @@ A beacon chain fork choice viewer
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | forky container pull policy |
 | image.repository | string | `"ethpandaops/forky"` | forky container image repository |
-| image.tag | string | `"latest"` | forky container image tag |
+| image.tag | string | `"debian-latest"` | forky container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -76,3 +76,4 @@ A beacon chain fork choice viewer
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

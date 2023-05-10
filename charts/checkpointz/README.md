@@ -1,7 +1,7 @@
 
 # checkpointz
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A beacon chain Checkpoint Sync provider
 
@@ -71,3 +71,4 @@ A beacon chain Checkpoint Sync provider
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

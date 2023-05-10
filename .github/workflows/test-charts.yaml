@@ -52,3 +52,4 @@ jobs:
           --excluded-charts blockscout
           --excluded-charts fauceth
           --excluded-charts eth-faucet
+          --excluded-charts genesis-generator

@@ -1,7 +1,7 @@
 
 # beaconchain-explorer
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Beacon chain explorer built using golang and using a PostgreSQL database for storing and indexing data.
 
@@ -15,7 +15,7 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 10.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 11.x.x |
 
 ## Values
 
@@ -74,6 +74,7 @@ Beacon chain explorer built using golang and using a PostgreSQL database for sto
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

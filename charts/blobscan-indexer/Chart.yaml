@@ -3,7 +3,7 @@ name: blobscan-indexer
 description: Blobscan-indexer indexes blobs in MongoDB for use with Blobscan.
 home: https://github.com/blobscan/blobscan-indexer
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

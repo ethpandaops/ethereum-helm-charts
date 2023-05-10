@@ -139,6 +139,10 @@ terminationGracePeriodSeconds: 90
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
 
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created
 podDisruptionBudget: {}

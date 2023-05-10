@@ -1,7 +1,7 @@
 
 # teku
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Java
 
@@ -92,6 +92,7 @@ An open-source Ethereum 2.0 client, written in Java
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 
