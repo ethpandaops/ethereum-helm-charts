@@ -40,7 +40,7 @@ A beacon chain fork choice viewer
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | forky container pull policy |
 | image.repository | string | `"ethpandaops/forky"` | forky container image repository |
-| image.tag | string | `"latest"` | forky container image tag |
+| image.tag | string | `"debian-latest"` | forky container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
