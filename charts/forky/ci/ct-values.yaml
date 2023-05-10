@@ -1,0 +1,9 @@
+config:
+  forky:
+    ethereum:
+      network:
+        name: "mainnet"
+        spec:
+          seconds_per_slot: 12
+          slots_per_epoch: 32
+          genesis_time: 1606824023
