@@ -97,6 +97,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
+| topologySpreadConstraints | list | `[]` | Rules used to distribute Pods evenly across nodes or other topological domains |
 | tolerations | list | `[]` | Tolerations for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
