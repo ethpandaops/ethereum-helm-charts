@@ -20,7 +20,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../ethereumjs | ethereumjs | 0.0.2 |
 | file://../geth | geth | 1.0.4 |
 | file://../lighthouse | lighthouse | 1.0.3 |
-| file://../lodestar | lodestar | 1.0.5 |
+| file://../lodestar | lodestar | 1.0.4 |
 | file://../nethermind | nethermind | 1.0.4 |
 | file://../nimbus | nimbus | 1.0.4 |
 | file://../prysm | prysm | 1.0.3 |
