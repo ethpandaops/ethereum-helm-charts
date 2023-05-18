@@ -36,6 +36,14 @@ config:
   addr: ":8080"
   metricsAddr: ":9090"
   ntpServer: time.google.com
+  ethereum:
+    network:
+      name: "mainnet"
+      id: 1
+      spec:
+        secondsPerSlot: 12
+        slotsPerEpoch: 32
+        genesisTime: 1606824023
   persistence:
     enabled: false
   store:
