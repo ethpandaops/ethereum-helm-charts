@@ -25,7 +25,7 @@ args: []
   #- --ee-url=http://your-eth1-node:8551
 
 # -- Execution Engine JWT secret
-jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+jwt: ""
 
 ingress:
   # -- Ingress resource for the HTTP API
