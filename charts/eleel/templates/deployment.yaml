@@ -47,9 +47,11 @@ spec:
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
           - "eleel"
-          - --ee-jwt-secret=/jwt.hex
           - --listen-address=0.0.0.0
           - --listen-port={{ include "eleel.httpPort" . }}
+          {{- if .Values.jwt }}
+          - --ee-jwt-secret=/jwt.hex
+          {{- end }}
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
           {{- end }}
@@ -61,10 +63,12 @@ spec:
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 12 }}
         volumeMounts:
+          {{- if .Values.jwt }}
           - name: jwt
             mountPath: "/jwt.hex"
             subPath: jwt.hex
             readOnly: true
+          {{- end }}
           {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
           {{- end }}
@@ -108,6 +112,8 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
+      {{- if .Values.jwt }}
         - name: jwt
           secret:
             secretName: {{ include "eleel.fullname" . }}-jwt
+      {{- end }}
