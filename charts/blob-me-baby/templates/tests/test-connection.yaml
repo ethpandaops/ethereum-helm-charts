@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "blob-me-baby.fullname" . }}-test-connection"
+  labels:
+    {{- include "blob-me-baby.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "blob-me-baby.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never
