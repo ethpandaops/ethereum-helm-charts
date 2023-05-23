@@ -1,6 +1,6 @@
 apiVersion: v2
 name: blob-me-baby
-description: A blob of a chart
+description: Send arbitary blob data in well-formatted blobs
 type: application
 version: 0.1.0
 maintainers:

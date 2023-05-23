@@ -46,7 +46,7 @@ Execution layer clients
 - [`ethereumjs`](charts/ethereumjs)
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
-- ['reth'](charts/reth)
+- [`reth`](charts/reth)
 
 Consensus layer clients
 
@@ -63,6 +63,7 @@ Generic
 Tooling
 
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
+- [`blob-me-baby`](charts/blob-me-baby) - Send arbitary blob data in well-formatted blobs
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
