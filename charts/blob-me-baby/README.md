@@ -9,33 +9,46 @@ Send arbitary blob data in well-formatted blobs
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| affinity | object | `{}` |  |
-| autoscaling.enabled | bool | `false` |  |
-| autoscaling.maxReplicas | int | `100` |  |
-| autoscaling.minReplicas | int | `1` |  |
-| autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
-| fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ethpandaops/blob-me-baby"` |  |
-| image.tag | string | `"latest"` |  |
-| imagePullSecrets | list | `[]` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| affinity | object | `{}` | Affinity configuration for pods |
+| annotations | object | `{}` | Annotations for the Deployment |
+| args | list | `[]` | Command arguments |
+| containerSecurityContext | object | See `values.yaml` | The security context for containers |
+| customArgs | list | `[]` | Custom args for the blob-me-baby container |
+| customCommand | list | `[]` | Command replacement for the blob-me-baby container |
+| extraContainers | list | `[]` | Additional containers |
+| extraEnv | list | `[]` | Additional env variables |
+| extraPodPorts | list | `[]` | Extra Pod ports |
+| extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
+| extraVolumeMounts | list | `[]` | Additional volume mounts |
+| extraVolumes | list | `[]` | Additional volumes |
+| fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| httpPort | int | `80` | HTTP Port |
+| image.pullPolicy | string | `"IfNotPresent"` | blob-me-baby container pull policy |
+| image.repository | string | `"ethpandaops/blob-me-baby"` | blob-me-baby container image repository |
+| image.tag | string | `"latest"` | blob-me-baby container image tag |
+| imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
+| ingress.annotations | object | `{}` | Annotations for Ingress |
+| ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths[0].path | string | `"/"` |  |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
-| ingress.tls | list | `[]` |  |
-| nameOverride | string | `""` |  |
-| nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
-| podSecurityContext | object | `{}` |  |
-| replicaCount | int | `1` |  |
-| resources | object | `{}` |  |
-| securityContext | object | `{}` |  |
-| service.port | int | `80` |  |
-| service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
-| tolerations | list | `[]` |  |
+| ingress.hosts[0].paths | list | `[]` |  |
+| ingress.tls | list | `[]` | Ingress TLS |
+| initContainers | list | `[]` | Additional init containers |
+| livenessProbe | object | See `values.yaml` | Liveness probe |
+| nameOverride | string | `""` | Overrides the chart's name |
+| nodeSelector | object | `{}` | Node selector for pods |
+| podAnnotations | object | `{}` | Pod annotations |
+| podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
+| podLabels | object | `{}` | Pod labels |
+| priorityClassName | string | `nil` | Pod priority class |
+| readinessProbe | object | See `values.yaml` | Readiness probe |
+| replicas | int | `1` | Number of replicas |
+| resources | object | `{}` | Resource requests and limits |
+| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| securityContext | object | See `values.yaml` | The security context for pods |
+| service.type | string | `"ClusterIP"` | Service type |
+| serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
+| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

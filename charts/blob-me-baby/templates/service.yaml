@@ -7,9 +7,12 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.httpPort }}
       targetPort: http
       protocol: TCP
       name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
   selector:
     {{- include "blob-me-baby.selectorLabels" . | nindent 4 }}
