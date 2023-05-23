@@ -58,7 +58,7 @@ imagePullSecrets: []
 annotations: {}
 
 # -- HTTP Port
-httpPort: 80
+httpPort: 8080
 
 # -- Liveness probe
 # @default -- See `values.yaml`
