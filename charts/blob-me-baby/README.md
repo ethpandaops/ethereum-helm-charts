@@ -22,7 +22,7 @@ Send arbitary blob data in well-formatted blobs
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `80` | HTTP Port |
+| httpPort | int | `8080` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | blob-me-baby container pull policy |
 | image.repository | string | `"ethpandaops/blob-me-baby"` | blob-me-baby container image repository |
 | image.tag | string | `"latest"` | blob-me-baby container image tag |
