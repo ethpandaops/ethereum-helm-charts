@@ -5,11 +5,11 @@ metadata:
   labels:
     {{- include "blob-me-baby.labels" . | nindent 4 }}
   annotations:
-    "helm.sh/hook": test
+    "helm.sh/hook": blob-me-baby
 spec:
   containers:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "blob-me-baby.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "blob-me-baby.fullname" . }}:{{ .Values.httpPort }}/encode/0xdeadbeef']
   restartPolicy: Never
