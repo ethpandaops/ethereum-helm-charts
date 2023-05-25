@@ -8,65 +8,65 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.0.5
+version: 0.0.6
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
 
 dependencies:
 - name: besu
-  version: "1.0.3"
+  version: "1.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
 - name: ethereumjs
-  version: "0.0.2"
+  version: "0.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled
 - name: geth
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../geth"
   condition: geth.enabled
 - name: nethermind
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled
 - name: reth
-  version: "0.0.2"
+  version: "0.0.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../reth"
   condition: reth.enabled
 
 - name: lighthouse
-  version: "1.0.3"
+  version: "1.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lighthouse"
   condition: lighthouse.enabled
 - name: teku
-  version: "1.0.3"
+  version: "1.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../teku"
   condition: teku.enabled
 - name: prysm
-  version: "1.0.3"
+  version: "1.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../prysm"
   condition: prysm.enabled
 - name: nimbus
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nimbus"
   condition: nimbus.enabled
 - name: lodestar
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lodestar"
   condition: lodestar.enabled
