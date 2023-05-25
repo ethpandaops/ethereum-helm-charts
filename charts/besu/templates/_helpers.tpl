@@ -61,6 +61,14 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Create the name of the cluster role.
+It needs to be namespace prefixed to avoid naming conflicts when using the same deployment name across namespaces.
+*/}}
+{{- define "besu.clusterRoleName" -}}
+{{ .Release.Namespace }}-{{ include "besu.fullname" . }}
+{{- end }}
+
 {{- define "besu.p2pPort" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print .Values.p2pNodePort.port }}

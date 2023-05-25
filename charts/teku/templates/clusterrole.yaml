@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "teku.serviceAccountName" . }}
+  name: {{ include "teku.clusterRoleName" . }}
   labels:
     {{- include "teku.labels" . | nindent 4 }}
 rules:

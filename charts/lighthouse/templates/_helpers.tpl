@@ -51,6 +51,14 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Create the name of the cluster role.
+It needs to be namespace prefixed to avoid naming conflicts when using the same deployment name across namespaces.
+*/}}
+{{- define "lighthouse.clusterRoleName" -}}
+{{ .Release.Namespace }}-{{ include "lighthouse.fullname" . }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "lighthouse.serviceAccountName" -}}

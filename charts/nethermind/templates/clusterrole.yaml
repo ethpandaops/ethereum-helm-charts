@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: {{ include "nethermind.serviceAccountName" . }}
+  name: {{ include "nethermind.clusterRoleName" . }}
   labels:
     {{- include "nethermind.labels" . | nindent 4 }}
 rules:
