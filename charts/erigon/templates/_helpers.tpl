@@ -61,6 +61,14 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Create the name of the cluster role.
+It needs to be namespace prefixed to avoid naming conflicts when using the same deployment name across namespaces.
+*/}}
+{{- define "erigon.clusterRoleName" -}}
+{{ .Release.Namespace }}-{{ include "erigon.fullname" . }}
+{{- end }}
+
 {{- define "erigon.p2pPort" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print .Values.p2pNodePort.port }}

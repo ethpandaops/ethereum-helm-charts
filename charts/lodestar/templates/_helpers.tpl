@@ -60,3 +60,11 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name of the cluster role.
+It needs to be namespace prefixed to avoid naming conflicts when using the same deployment name across namespaces.
+*/}}
+{{- define "lodestar.clusterRoleName" -}}
+{{ .Release.Namespace }}-{{ include "lodestar.fullname" . }}
+{{- end }}
