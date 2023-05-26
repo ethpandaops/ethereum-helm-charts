@@ -2,7 +2,7 @@ apiVersion: v2
 name: blob-me-baby
 description: Send arbitary blob data in well-formatted blobs
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
