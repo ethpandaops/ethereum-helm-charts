@@ -45,21 +45,17 @@ initContainers:
 extraArgs:
   - --validator-keys=/data/validator/keys
   - --keystore-password-file=/data/validator/secrets
-  - --beacon-node-api-endpoint=http://teku-beacon:5051
   - --suggested-fee-recipient=0x0000000000000000000000000000000000000000
-  # If we use --network=auto, it will try to get the network info from the beacon node
-  # During the CI test, there's not beacon node running... thus it gets stuck on retrying
-  # and doesn't even start the metric server which is used for the liveness/readiness probes
   - --network=goerli
 
 livenessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: 8008
+    port: {{ .Values.httpPort }}
 
 readinessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: 8008
+    port: {{ .Values.httpPort }}

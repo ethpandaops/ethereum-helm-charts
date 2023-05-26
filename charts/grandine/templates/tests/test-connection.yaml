@@ -12,9 +12,5 @@ spec:
     - name: curl
       image: curlimages/curl
       command: ['curl']
-    {{- if eq .Values.mode "beacon" }}
       args: ['{{ include "grandine.fullname" . }}:{{ .Values.httpPort }}/eth/v1/node/version']
-    {{- else }}
-      args: ['{{ include "grandine.fullname" . }}:{{ .Values.metricsPort }}/metrics']
-    {{- end }}
   restartPolicy: Never
