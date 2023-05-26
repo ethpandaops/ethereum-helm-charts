@@ -52,10 +52,10 @@ livenessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: "{{ .Values.httpPort }}"
+    port: 5052
 
 readinessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: "{{ .Values.httpPort }}"
+    port: 5052
