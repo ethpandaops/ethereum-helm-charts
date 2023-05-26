@@ -139,9 +139,6 @@ p2pPort: 9000
 # -- HTTP Port
 httpPort: 5052
 
-# -- Metrics Port
-metricsPort: 8008
-
 # -- Node selector for pods
 nodeSelector: {}
 

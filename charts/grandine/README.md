@@ -5,7 +5,7 @@
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
-**Homepage:** <https://github.com/sifraitech/grandine>
+**Homepage:** <https://sifrai.com>
 
 ## Source Code
 
@@ -45,7 +45,6 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| metricsPort | int | `8008` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
