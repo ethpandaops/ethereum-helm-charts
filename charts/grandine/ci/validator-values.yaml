@@ -43,7 +43,7 @@ initContainers:
 
 
 extraArgs:
-  - --validator-keys=/data/validator/keys
+  - --keystore-dir=/data/validator/keys
   - --keystore-password-file=/data/validator/secrets
   - --suggested-fee-recipient=0x0000000000000000000000000000000000000000
   - --network=goerli
