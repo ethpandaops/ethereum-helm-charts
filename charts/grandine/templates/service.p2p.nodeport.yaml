@@ -1,5 +1,4 @@
 {{- if .Values.p2pNodePort.enabled -}}
-{{- if eq .Values.mode "beacon" }}
 
 {{- range $i, $e := until (int $.Values.replicas) }}
 
@@ -36,5 +35,4 @@ spec:
 
 {{- end }}
 
-{{- end }}
 {{- end }}
