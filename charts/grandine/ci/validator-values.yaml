@@ -51,11 +51,11 @@ extraArgs:
 livenessProbe:
   tcpSocket: null
   httpGet:
-    path: /metrics
+    path: /eth/v1/node/identity
     port: http-api
 
 readinessProbe:
   tcpSocket: null
   httpGet:
-    path: /metrics
+    path: /eth/v1/node/identity
     port: http-api
