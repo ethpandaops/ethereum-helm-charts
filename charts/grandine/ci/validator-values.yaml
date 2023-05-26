@@ -52,10 +52,10 @@ livenessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: 5052
+    port: http-api
 
 readinessProbe:
   tcpSocket: null
   httpGet:
     path: /metrics
-    port: 5052
+    port: http-api
