@@ -43,6 +43,7 @@ initContainers:
 
 
 extraArgs:
+  - --eth1-rpc-urls=http://localhost:8551
   - --keystore-dir=/data/validator/keys
   - --keystore-password-file=/data/validator/secrets
   - --suggested-fee-recipient=0x0000000000000000000000000000000000000000
