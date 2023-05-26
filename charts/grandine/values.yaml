@@ -49,7 +49,7 @@ defaultBeaconCommandTemplate: |
 # --metrics-interface=0.0.0.0
 # --metrics-port={{ .Values.metricsPort }}
 
-# P2P Advertised IP and Port is currently not supported by Grandine  
+# P2P Advertised IP and Port is currently not supported by Grandine
 # {{- if .Values.p2pNodePort.enabled }}
 #   {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
 #   --p2p-advertised-ip=$EXTERNAL_IP

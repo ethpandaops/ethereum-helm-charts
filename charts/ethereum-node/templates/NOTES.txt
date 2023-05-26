@@ -37,6 +37,10 @@ To learn more about the release, try:
 
 {{- $clName := "" -}}
 {{- $clCount := 0 | int -}}
+{{- if .Values.grandine.enabled -}}
+{{ $clCount = add1 $clCount -}}
+{{ $clName = "grandine" -}}
+{{- end -}}
 {{- if .Values.lighthouse.enabled -}}
 {{ $clCount = add1 $clCount -}}
 {{ $clName = "lighthouse" -}}

@@ -2,7 +2,6 @@ apiVersion: v2
 name: grandine
 description: A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 home: https://github.com/sifraitech/grandine
-icon: 
 sources:
   - https://github.com/sifraitech/grandine
 type: application
