@@ -406,6 +406,18 @@ entries:
     version: 0.1.0
   blob-me-baby:
   - apiVersion: v2
+    created: "2023-05-26T12:21:06.61511667Z"
+    description: Send arbitary blob data in well-formatted blobs
+    digest: 945f0cc3e51c3f7b4892ad094a6716acb313457214493f5473d63aa1a19ade21
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: blob-me-baby
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blob-me-baby-0.1.1/blob-me-baby-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2023-05-26T11:49:36.812234259Z"
     description: Send arbitary blob data in well-formatted blobs
     digest: 8b70d6fd5df7245c99642dc9c7b264b85659fe5bbd2ff203c1e579c92f222491
@@ -4482,4 +4494,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-05-26T11:49:36.812782062Z"
+generated: "2023-05-26T12:21:06.615517678Z"
