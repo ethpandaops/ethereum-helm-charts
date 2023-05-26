@@ -1,0 +1,3 @@
+# Leave empty so that CT tests with default values
+extraArgs:
+  - --eth1-rpc-urls=http://localhost:8551
