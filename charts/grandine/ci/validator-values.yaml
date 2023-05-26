@@ -1,6 +1,6 @@
 replicas: 1
 
-image: 
+image:
   pullPolicy: Always
 
 initContainers:
