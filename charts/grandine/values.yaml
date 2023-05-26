@@ -39,7 +39,7 @@ defaultBeaconCommandTemplate: |
     --libp2p-port={{ .Values.p2pPort }}
     --http-address=0.0.0.0
     --http-port={{ .Values.httpPort }}
-    --network-metrics
+    --metrics
     --jwt-secret=/data/jwt.hex
   {{- range .Values.extraArgs }}
     {{ tpl . $  }}
