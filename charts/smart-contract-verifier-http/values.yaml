@@ -27,11 +27,17 @@ customCommand: [] # Only change this if you need to change the default command
 secretEnv:
   #SOME_SECRET_ENV_VAR: some-secret
 
+# -- Additional env variables
+extraEnv:
+  - name: SMART_CONTRACT_VERIFIER__CONFIG
+    value: /app/config.toml
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
-  [server]
-  addr = "0.0.0.0:8043"
+  [server.http]
+  enabled = true
+  addr = "0.0.0.0:{{ include "smart-contract-verifier-http.httpPort" . }}"
 
   [compilers]
   # if omitted, number of CPU cores would be used
@@ -199,6 +205,10 @@ terminationGracePeriodSeconds: 30
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
 
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created
 podDisruptionBudget: {}
@@ -227,10 +237,6 @@ extraVolumeMounts: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
-
-# -- Additional env variables
-extraEnv: []
-
 
 serviceMonitor:
   # -- If true, a ServiceMonitor CRD is created for a prometheus operator

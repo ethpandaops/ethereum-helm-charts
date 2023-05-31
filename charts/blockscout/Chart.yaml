@@ -9,7 +9,6 @@ sources:
   - https://github.com/blockscout/blockscout/
 type: application
 version: 0.1.4
-appVersion: "5.0.0"
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

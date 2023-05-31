@@ -1,0 +1,9 @@
+apiVersion: v2
+name: blobscan
+description: Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs
+home: https://github.com/blobscan/blobscan
+type: application
+version: 0.1.1
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org

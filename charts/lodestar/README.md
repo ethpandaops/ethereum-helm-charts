@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -18,7 +18,9 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the lodestar container |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
+| defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
+| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
 | extraArgs | list | `[]` | Extra args for the lodestar container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -29,7 +31,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | httpPort | int | `9596` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | lodestar container pull policy |
 | image.repository | string | `"chainsafe/lodestar"` | lodestar container image repository |
-| image.tag | string | `"v1.2.2"` | lodestar container image tag |
+| image.tag | string | `"latest"` | lodestar container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -42,7 +44,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | initChownData.image.tag | string | `"1.34.0"` | Container tag |
 | initChownData.resources | object | `{}` | Resource requests and limits |
 | initContainers | list | `[]` | Additional init containers |
-| jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a configMap. Change this value. |
+| jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | metricsPort | int | `8008` | Metrics Port |
 | mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
@@ -90,6 +92,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

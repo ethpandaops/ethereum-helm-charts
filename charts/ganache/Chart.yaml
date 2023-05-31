@@ -8,7 +8,7 @@ icon: https://www.trufflesuite.com/img/ganache-logomark.svg
 sources:
   - https://github.com/trufflesuite/ganache
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "6.12.2"
 maintainers:
   - name: skylenet

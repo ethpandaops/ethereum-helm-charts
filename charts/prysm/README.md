@@ -1,7 +1,7 @@
 
 # prysm
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Go
 
@@ -18,7 +18,9 @@ An open-source Ethereum 2.0 client, written in Go
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the prysm container |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
+| defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
+| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
 | extraArgs | list | `[]` | Extra args for the prysm container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -28,8 +30,8 @@ An open-source Ethereum 2.0 client, written in Go
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3500` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
-| image.repository | string | `"samcm/prysm-debian"` | Prysm container image repository |
-| image.tag | string | `"v3.2.0"` |  |
+| image.repository | string | `"ethpandaops/prysm"` | Prysm container image repository |
+| image.tag | string | `"master"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -91,6 +93,7 @@ An open-source Ethereum 2.0 client, written in Go
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

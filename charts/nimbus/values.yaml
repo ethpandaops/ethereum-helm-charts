@@ -11,7 +11,7 @@ image:
   # -- nimbus container image repository
   repository: statusim/nimbus-eth2
   # -- nimbus container image tag
-  tag: amd64-v22.12.0
+  tag: multiarch-latest
   # -- nimbus container pull policy
   pullPolicy: IfNotPresent
 
@@ -26,11 +26,55 @@ extraArgs: []
   # Nimbus requires trustedNodeSync command to be run before the beacon is launched.
   # Read more here: https://nimbus.guide/trusted-node-sync.html
 
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
-# -- Command replacement for the nimbus container
-customCommand: [] # Only change this if you need to change the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec {{ .Values.defaultBinaryPath }}
+    --data-dir=/data
+    --enr-auto-update=false
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--udp-port=" (.Values.extraArgs | join ",")) }}
+    --udp-port=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--tcp-port=" (.Values.extraArgs | join ",")) }}
+    --tcp-port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--udp-port=" (.Values.extraArgs | join ",")) }}
+    --udp-port={{ .Values.p2pPort }}
+    {{- end }}
+    {{- if not (contains "--tcp-port=" (.Values.extraArgs | join ",")) }}
+    --tcp-port={{ .Values.p2pPort }}
+    {{- end }}
+  {{- end }}
+    --rest=true
+    --rest-address=0.0.0.0
+    --rest-port={{ .Values.httpPort }}
+    --jwt-secret=/data/jwt.hex
+    --metrics=true
+    --metrics-address=0.0.0.0
+    --metrics-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
@@ -213,6 +257,10 @@ terminationGracePeriodSeconds: 300
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

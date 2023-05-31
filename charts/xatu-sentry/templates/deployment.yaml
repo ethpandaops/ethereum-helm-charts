@@ -66,16 +66,23 @@ spec:
             subPath: config.yaml
             readOnly: true
           {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
+            {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
         ports:
           - name: metrics
             containerPort: {{ include "xatu-sentry.metricsPort" . }}
             protocol: TCP
+          {{- if (include "xatu-sentry.pprofPort" .) }}
+          - name: pprof
+            containerPort: {{ include "xatu-sentry.pprofPort" . }}
+            protocol: TCP
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:
           {{- toYaml .Values.readinessProbe | nindent 12 }}
+        lifecycle:
+          {{- toYaml .Values.lifecycle | nindent 12 }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         env:
@@ -98,6 +105,8 @@ spec:
         {{- toYaml .Values.affinity | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
       {{- if .Values.extraVolumes }}

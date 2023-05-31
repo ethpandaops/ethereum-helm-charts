@@ -40,25 +40,38 @@ helm delete ethstats
 ## List of charts
 
 Execution layer clients
+
 - [`besu`](charts/besu)
 - [`erigon`](charts/erigon)
+- [`ethereumjs`](charts/ethereumjs)
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
+- [`reth`](charts/reth)
 
 Consensus layer clients
+
 - [`lighthouse`](charts/lighthouse)
 - [`lodestar`](charts/lodestar)
 - [`nimbus`](charts/nimbus)
 - [`prysm`](charts/prysm)
 - [`teku`](charts/teku)
 
+Generic
+
+- [`ethereum-node`](charts/ethereum-node) - Umbrella chart that uses the execution and consensus layer client charts.
+
 Tooling
+
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
+- [`blob-me-baby`](charts/blob-me-baby) - Send arbitary blob data in well-formatted blobs
+- [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
+- [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
 - [`ethstats`](charts/ethstats) - Web UI to track execution layer node status.
+- [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
 - [`fauceth`](charts/fauceth) - EIP1559 compatible web faucet using Hcaptcha.
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
@@ -70,7 +83,11 @@ Tooling
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
+- [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
+- [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
+- [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
+- [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.
 - [`xatu-sentry`](charts/xatu-sentry) - Ethereum p2p monitoring tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
 - [`xatu-server`](charts/xatu-server) - Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 

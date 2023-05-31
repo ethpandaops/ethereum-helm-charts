@@ -4,9 +4,9 @@ dependencies:
   version: 11.9.13
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 17.4.3
+  version: 17.11.3
 - name: smart-contract-verifier-http
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.1.0
-digest: sha256:9260d4eb2cc38a2f71a1e57cd7f8bcd5550d88bc9ea346057c2bb773b9d631c6
-generated: "2023-01-17T16:12:54.282241+09:00"
+digest: sha256:7b6a8b493001239b7b04a8b4b089aa84205e58dd54a764395f9a4b756701c1e1
+generated: "2023-05-31T17:22:57.386611+02:00"

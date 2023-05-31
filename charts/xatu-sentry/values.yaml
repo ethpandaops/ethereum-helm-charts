@@ -25,20 +25,20 @@ config:
   logging: "info"
   metricsAddr: ":9090"
   name: example-instance
-  ntp_server: time.google.com
+  ntpServer: time.google.com
   ethereum:
-    beacon_node_address: http://localhost:5052
+    beaconNodeAddress: http://localhost:5052
   outputs:
   - name: basic
     type: http
     config:
       address: http://localhost:8080
       headers:
-        Authorization: Someb64Value
-      max_queue_size: 51200
-      batch_timeout: 5s
-      export_timeout: 30s
-      max_export_batch_size: 512
+        authorization: Someb64Value
+      maxQueueSize: 51200
+      batchTimeout: 5s
+      exportTimeout: 30s
+      maxExportBatchSize: 512
 
 # -- Custom args for the xatu container
 customArgs: []
@@ -123,12 +123,25 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 90
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

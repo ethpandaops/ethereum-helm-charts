@@ -12,6 +12,9 @@ image:
   # -- ethstats container pull policy
   pullPolicy: IfNotPresent
 
+# -- Number of replicas
+replicas: 1
+
 # -- Secret env variables injected via a created secret
 secretEnv:
   WS_SECRET: "PleaseChangeThisEthstatsSecret"
@@ -122,6 +125,10 @@ terminationGracePeriodSeconds: 30
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

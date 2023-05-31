@@ -1,7 +1,7 @@
 
 # xatu-sentry
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that runs along side a Ethereum consensus client and collects data via the consensus client's Beacon API.
 
@@ -14,17 +14,17 @@ Ethereum p2p monitoring tool that runs along side a Ethereum consensus client an
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config.ethereum.beacon_node_address | string | `"http://localhost:5052"` |  |
+| config.ethereum.beaconNodeAddress | string | `"http://localhost:5052"` |  |
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
 | config.name | string | `"example-instance"` |  |
-| config.ntp_server | string | `"time.google.com"` |  |
+| config.ntpServer | string | `"time.google.com"` |  |
 | config.outputs[0].config.address | string | `"http://localhost:8080"` |  |
-| config.outputs[0].config.batch_timeout | string | `"5s"` |  |
-| config.outputs[0].config.export_timeout | string | `"30s"` |  |
-| config.outputs[0].config.headers.Authorization | string | `"Someb64Value"` |  |
-| config.outputs[0].config.max_export_batch_size | int | `512` |  |
-| config.outputs[0].config.max_queue_size | int | `51200` |  |
+| config.outputs[0].config.batchTimeout | string | `"5s"` |  |
+| config.outputs[0].config.exportTimeout | string | `"30s"` |  |
+| config.outputs[0].config.headers.authorization | string | `"Someb64Value"` |  |
+| config.outputs[0].config.maxExportBatchSize | int | `512` |  |
+| config.outputs[0].config.maxQueueSize | int | `51200` |  |
 | config.outputs[0].name | string | `"basic"` |  |
 | config.outputs[0].type | string | `"http"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
@@ -41,6 +41,7 @@ Ethereum p2p monitoring tool that runs along side a Ethereum consensus client an
 | image.tag | string | `"latest"` | xatu container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | initContainers | list | `[]` | Additional init containers |
+| lifecycle | object | See `values.yaml` | Lifecycle hooks |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -67,5 +68,6 @@ Ethereum p2p monitoring tool that runs along side a Ethereum consensus client an
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| terminationGracePeriodSeconds | int | `90` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

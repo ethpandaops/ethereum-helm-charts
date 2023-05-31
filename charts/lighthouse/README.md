@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 0.2.7](https://img.shields.io/badge/Version-0.2.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -18,7 +18,10 @@ An open-source Ethereum 2.0 client, written in Rust
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the lighthouse container |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
+| defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
+| defaultBootnodeCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
 | extraArgs | list | `[]` | Extra args for the lighthouse container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -29,7 +32,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | httpPort | int | `5052` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Lighthouse container pull policy |
 | image.repository | string | `"sigp/lighthouse"` | Lighthouse container image repository |
-| image.tag | string | `"v3.3.0"` | Lighthouse container image tag |
+| image.tag | string | `"latest"` | Lighthouse container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -90,6 +93,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 

@@ -8,7 +8,7 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: {{ .Values.replicas }} 
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "forkmon.selectorLabels" . | nindent 6 }}
@@ -51,7 +51,7 @@ spec:
           {{- if gt (len .Values.customCommand) 0 }}
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-            {{- include "forkmon.defaultCommand" . | nindent 12}}  
+            {{- include "forkmon.defaultCommand" . | nindent 12}}
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
@@ -88,6 +88,8 @@ spec:
         {{- toYaml .Values.affinity | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
       {{- if .Values.extraVolumes }}

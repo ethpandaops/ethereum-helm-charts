@@ -81,12 +81,12 @@ spec:
           {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 12}}
           {{- end }}
-          - name: storage
-            mountPath: "/data"
-          - name: config
-            mountPath: "/data/config.yaml"
-            subPath: config.yaml
-            readOnly: true
+            - name: storage
+              mountPath: "/data"
+            - name: config
+              mountPath: "/data/config.yaml"
+              subPath: config.yaml
+              readOnly: true
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
@@ -106,6 +106,8 @@ spec:
         {{- toYaml .Values.affinity | nindent 8 }}
       tolerations:
         {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
         - name: config

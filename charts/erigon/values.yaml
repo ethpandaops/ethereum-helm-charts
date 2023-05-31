@@ -11,7 +11,7 @@ image:
   # -- erigon container image repository
   repository: thorax/erigon
   # -- erigon container image tag
-  tag: v2.33.1
+  tag: stable
   # -- erigon container pull policy
   pullPolicy: IfNotPresent
 
@@ -19,7 +19,7 @@ image:
 extraArgs: []
   #- --goerli
 
-# -- JWT secret used by client as a configMap. Change this value.
+# -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
 # -- Extra args for the rpcdaemon container
@@ -27,10 +27,70 @@ extraArgsRPCDaemon: []
   #- --http.corsdomain=yourdomain.tld
   #- --http.api=eth,erigon,web3,net,debug,trace,txpool,db
 
-# -- Command replacement for the erigon container
-customCommand: [] # Only change this if you need to change the default command
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec erigon
+    --datadir=/data
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+    --nat=extip:$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+    --port={{ include "erigon.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --http=false
+    --private.api.addr=127.0.0.1:9090
+    --authrpc.jwtsecret=/data/jwt.hex
+    --authrpc.addr=0.0.0.0
+    --authrpc.port={{ .Values.authPort }}
+    --authrpc.vhosts=*
+    --metrics
+    --metrics.addr=0.0.0.0
+    --metrics.port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
 
-# -- Command replacement for the rpcdaemon container
+# -- Template used for the default command
+# @default -- See `values.yaml`
+defaultCommandRPCDaemonTemplate: |
+  - sh
+  - -ac
+  - >
+    while ! nc -z 127.0.0.1 9090; do sleep 1; done;
+    exec rpcdaemon
+    --datadir=/data
+    --private.api.addr=127.0.0.1:9090
+    --txpool.api.addr=127.0.0.1:9090
+    --http.addr=0.0.0.0
+    --http.port={{ .Values.httpPort }}
+    --http.vhosts=*
+    --metrics
+    --metrics.addr=0.0.0.0
+    --metrics.port={{ .Values.metricsPortRPCDaemon }}
+  {{- range .Values.extraArgsRPCDaemon }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
+customCommand: []
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandRPCDaemonTemplate instead.
 customCommandRPCDaemon: [] # Only change this if you need to change the default command
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
@@ -89,7 +149,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: auth-rpc
+    port: metrics
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -97,7 +157,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: auth-rpc
+    port: metrics
   initialDelaySeconds: 10
   periodSeconds: 10
 
@@ -233,6 +293,10 @@ terminationGracePeriodSeconds: 300
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

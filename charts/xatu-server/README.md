@@ -1,7 +1,7 @@
 
 # xatu-server
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.9](https://img.shields.io/badge/Version-0.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
@@ -14,26 +14,36 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| autoscaling.enabled | bool | `false` | Autoscaling configuration |
+| autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
+| autoscaling.minReplicas | int | `2` | Minimum number of replicas |
+| autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.addr | string | `":8080"` |  |
+| config.ethereum.network.id | int | `1` |  |
+| config.ethereum.network.name | string | `"mainnet"` |  |
+| config.ethereum.network.spec.genesisTime | int | `1606824023` |  |
+| config.ethereum.network.spec.secondsPerSlot | int | `12` |  |
+| config.ethereum.network.spec.slotsPerEpoch | int | `32` |  |
+| config.geoip.enabled | bool | `false` |  |
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
-| config.ntp_server | string | `"time.google.com"` |  |
+| config.ntpServer | string | `"time.google.com"` |  |
+| config.persistence.enabled | bool | `false` |  |
 | config.services.coordinator.enabled | bool | `false` |  |
-| config.services.coordinator.persistence.batch_timeout | string | `"5s"` |  |
-| config.services.coordinator.persistence.connection_string | string | `"postgres://postgres:password@localhost:5432/xatu?sslmode=disable"` |  |
-| config.services.coordinator.persistence.driver_name | string | `"postgres"` |  |
-| config.services.coordinator.persistence.export_timeout | string | `"30s"` |  |
-| config.services.coordinator.persistence.max_export_batch_size | int | `512` |  |
-| config.services.coordinator.persistence.max_queue_size | int | `51200` |  |
-| config.services.event_ingester.enabled | bool | `true` |  |
-| config.services.event_ingester.outputs[0].config.address | string | `"http://localhost:8080"` |  |
-| config.services.event_ingester.outputs[0].config.batch_timeout | string | `"5s"` |  |
-| config.services.event_ingester.outputs[0].config.export_timeout | string | `"30s"` |  |
-| config.services.event_ingester.outputs[0].config.headers.Authorization | string | `"Someb64Value"` |  |
-| config.services.event_ingester.outputs[0].config.max_export_batch_size | int | `512` |  |
-| config.services.event_ingester.outputs[0].config.max_queue_size | int | `51200` |  |
-| config.services.event_ingester.outputs[0].name | string | `"basic"` |  |
-| config.services.event_ingester.outputs[0].type | string | `"http"` |  |
+| config.services.coordinator.nodeRecord.batchTimeout | string | `"5s"` |  |
+| config.services.coordinator.nodeRecord.exportTimeout | string | `"30s"` |  |
+| config.services.coordinator.nodeRecord.maxExportBatchSize | int | `512` |  |
+| config.services.coordinator.nodeRecord.maxQueueSize | int | `51200` |  |
+| config.services.eventIngester.enabled | bool | `true` |  |
+| config.services.eventIngester.outputs[0].config.address | string | `"http://localhost:8080"` |  |
+| config.services.eventIngester.outputs[0].config.batchTimeout | string | `"5s"` |  |
+| config.services.eventIngester.outputs[0].config.exportTimeout | string | `"30s"` |  |
+| config.services.eventIngester.outputs[0].config.headers.authorization | string | `"Someb64Value"` |  |
+| config.services.eventIngester.outputs[0].config.maxExportBatchSize | int | `512` |  |
+| config.services.eventIngester.outputs[0].config.maxQueueSize | int | `51200` |  |
+| config.services.eventIngester.outputs[0].name | string | `"basic"` |  |
+| config.services.eventIngester.outputs[0].type | string | `"http"` |  |
+| config.store.type | string | `"memory"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu container |
 | customCommand | list | `[]` | Command replacement for the xatu container |
@@ -54,6 +64,7 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
+| lifecycle | object | See `values.yaml` | Lifecycle hooks |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -80,5 +91,6 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| terminationGracePeriodSeconds | int | `90` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
+| topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

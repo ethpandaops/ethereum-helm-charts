@@ -7,6 +7,16 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+autoscaling:
+  # -- Autoscaling configuration
+  enabled: false
+  # -- Minimum number of replicas
+  minReplicas: 2
+  # -- Maximum number of replicas
+  maxReplicas: 3
+  # -- Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 85
+
 image:
   # -- xatu container image repository
   repository: ethpandaops/xatu
@@ -25,18 +35,30 @@ config:
   logging: "info" # panic,fatal,warn,info,debug,trace
   addr: ":8080"
   metricsAddr: ":9090"
-  ntp_server: time.google.com
+  ntpServer: time.google.com
+  ethereum:
+    network:
+      name: "mainnet"
+      id: 1
+      spec:
+        secondsPerSlot: 12
+        slotsPerEpoch: 32
+        genesisTime: 1606824023
+  persistence:
+    enabled: false
+  store:
+    type: memory
+  geoip:
+    enabled: false
   services:
     coordinator:
       enabled: false
-      persistence:
-        driver_name: postgres
-        connection_string: postgres://postgres:password@localhost:5432/xatu?sslmode=disable
-        max_queue_size: 51200
-        batch_timeout: 5s
-        export_timeout: 30s
-        max_export_batch_size: 512
-    event_ingester:
+      nodeRecord:
+        maxQueueSize: 51200
+        batchTimeout: 5s
+        exportTimeout: 30s
+        maxExportBatchSize: 512
+    eventIngester:
       enabled: true
       outputs:
       - name: basic
@@ -44,11 +66,11 @@ config:
         config:
           address: http://localhost:8080
           headers:
-            Authorization: Someb64Value
-          max_queue_size: 51200
-          batch_timeout: 5s
-          export_timeout: 30s
-          max_export_batch_size: 512
+            authorization: Someb64Value
+          maxQueueSize: 51200
+          batchTimeout: 5s
+          exportTimeout: 30s
+          maxExportBatchSize: 512
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -153,12 +175,25 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 90
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
 # If not set then a PodDisruptionBudget will not be created

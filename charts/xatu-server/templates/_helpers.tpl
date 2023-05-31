@@ -62,9 +62,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "xatu-server.httpPort" -}}
-{{ (split ":" .Values.config.addr)._1 | default ":8080" }}
+{{ (split ":" .Values.config.addr)._1 | default "8080" }}
 {{- end }}
 
 {{- define "xatu-server.metricsPort" -}}
-{{ (split ":" .Values.config.metricsAddr)._1 | default ":9090" }}
+{{ (split ":" .Values.config.metricsAddr)._1 | default "9090" }}
+{{- end -}}
+
+{{- define "xatu-server.pprofPort" -}}
+{{- if .Values.config.pprofAddr -}}
+{{ (split ":" .Values.config.pprofAddr)._1 | default "6060" }}
+{{- end -}}
 {{- end -}}

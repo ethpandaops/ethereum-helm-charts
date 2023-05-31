@@ -6,7 +6,7 @@ sources:
   - https://github.com/skylenet/ethereum-genesis-generator
   - https://github.com/protolambda/eth2-testnet-genesis
 type: application
-version: 0.2.1
+version: 0.2.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
