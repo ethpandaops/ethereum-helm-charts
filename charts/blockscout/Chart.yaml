@@ -24,4 +24,4 @@ dependencies:
   - name: smart-contract-verifier-http
     version: "0.1.2"
     repository: "https://ethpandaops.github.io/ethereum-helm-charts"
-    condition: smart-contract-verifier-http.enable
+    condition: smart-contract-verifier-http.enabled

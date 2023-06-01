@@ -40,14 +40,39 @@ config:
   LOGO: /images/blockscout_logo.svg
   FOOTER_LOGO: /images/blockscout_logo.svg
 
-  # Account related configs: https://docs.blockscout.com/for-developers/configuration-options/my-account-settings
-  ACCOUNT_ENABLED: "false"
-  ACCOUNT_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/0
+  # Rate limiting
+  #API_RATE_LIMIT_DISABLED=true
+  API_RATE_LIMIT_TIME_INTERVAL: 1s
+  API_RATE_LIMIT_BY_IP_TIME_INTERVAL: 5m
+  API_RATE_LIMIT: "50"
+  API_RATE_LIMIT_BY_KEY: "50"
+  API_RATE_LIMIT_BY_WHITELISTED_IP: "50"
+  API_RATE_LIMIT_WHITELISTED_IPS: ""
+  API_RATE_LIMIT_STATIC_API_KEY: ""
+  API_RATE_LIMIT_UI_V2_WITH_TOKEN: "5"
+  API_RATE_LIMIT_BY_IP: "3000"
+  # API_RATE_LIMIT_HAMMER_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/1
+  # API_RATE_LIMIT_IS_BLOCKSCOUT_BEHIND_PROXY: false
+  API_RATE_LIMIT_UI_V2_TOKEN_TTL_IN_SECONDS: "18000"
 
   # Smart contract verification related configs
   MICROSERVICE_SC_VERIFIER_ENABLED: '{{ (index .Values "smart-contract-verifier-http").enabled }}'
   MICROSERVICE_SC_VERIFIER_URL: http://{{ .Release.Name }}-smart-contract-verifier-http:8050
   MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
+
+  # Account related configs: https://docs.blockscout.com/for-developers/configuration-options/my-account-settings
+  ACCOUNT_ENABLED: "false"
+  #ACCOUNT_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/0
+  #ACCOUNT_AUTH0_DOMAIN: login.blockscout.com
+  #ACCOUNT_AUTH0_CLIENT_ID: ...
+  #ACCOUNT_AUTH0_CLIENT_SECRET: ...
+  #ACCOUNT_SENDGRID_API_KEY: ...
+  #ACCOUNT_SENDGRID_SENDER: noreply@blockscout.com
+  #ACCOUNT_SENDGRID_TEMPLATE: d-...
+  #ACCOUNT_PUBLIC_TAGS_AIRTABLE_URL: https://api.airtable.com/v0/.../Public%20Tags
+  #ACCOUNT_PUBLIC_TAGS_AIRTABLE_API_KEY: key...
+  #ACCOUNT_CLOAK_KEY: ...
+  #ACCOUNT_DATABASE_URL: postgresql://user:pass@host:port/db
 
 ingress:
   # -- Ingress resource for the HTTP API
