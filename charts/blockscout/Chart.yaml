@@ -22,6 +22,6 @@ dependencies:
     repository: "https://charts.bitnami.com/bitnami"
     condition: redis.enabled
   - name: smart-contract-verifier-http
-    version: "0.1.0"
+    version: "0.1.2"
     repository: "https://ethpandaops.github.io/ethereum-helm-charts"
     condition: verifier.enabled

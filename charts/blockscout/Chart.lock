@@ -7,6 +7,6 @@ dependencies:
   version: 17.11.3
 - name: smart-contract-verifier-http
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.0
-digest: sha256:7b6a8b493001239b7b04a8b4b089aa84205e58dd54a764395f9a4b756701c1e1
-generated: "2023-05-31T17:22:57.386611+02:00"
+  version: 0.1.2
+digest: sha256:e85429aa644137fd86705c45a606cc23a7d674a81cc344828d9a8cef100a80ea
+generated: "2023-06-01T11:33:41.922419+02:00"
