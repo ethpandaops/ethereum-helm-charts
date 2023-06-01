@@ -25,26 +25,29 @@ customCommand: [] # Only change this if you need to change the default command
 # https://docs.blockscout.com/for-developers/information-and-settings/env-variables
 config:
   MIX_ENV: prod
-  DATABASE_URL: postgresql://postgres:postgres@blockscout-postgresql:5432/explorer?ssl=false
+  PORT: '{{ include "blockscout.httpPort" . }}'
+  DATABASE_URL: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql:5432/blockscout?ssl=false
   SECRET_KEY_BASE: RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5
+  ECTO_USE_SSL: "false"
   ETHEREUM_JSONRPC_VARIANT: geth
   ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
   ETHEREUM_JSONRPC_WS_URL: ws://geth:8546
+  ETHEREUM_JSONRPC_TRACE_URL: http://geth:8545
   NETWORK: Ethereum
-  ECTO_USE_SSL: "false"
   #SUBNETWORK: Testnet
 
   # Branding related configs
   LOGO: /images/blockscout_logo.svg
-  LOGO_FOOTER: /images/blockscout_logo.svg
+  FOOTER_LOGO: /images/blockscout_logo.svg
 
-  # Account related configs
-  ACCOUNT_ENABLED: "false"  # If set to true, you should also deploy redis
-  # ACCOUNT_REDIS_URL: redis://blockscout-redis:6379/0
+  # Account related configs: https://docs.blockscout.com/for-developers/configuration-options/my-account-settings
+  ACCOUNT_ENABLED: "false"
+  ACCOUNT_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/0
 
   # Smart contract verification related configs
-  ENABLE_RUST_VERIFICATION_SERVICE: "false" # If set to true, you should also deploy smart-contract-verifier-http
-  RUST_VERIFICATION_SERVICE_URL: http://blockscout-smart-contract-verifier-http:8050
+  MICROSERVICE_SC_VERIFIER_ENABLED: '{{ (index .Values "smart-contract-verifier-http").enabled }}'
+  MICROSERVICE_SC_VERIFIER_URL: http://{{ .Release.Name }}-smart-contract-verifier-http:8050
+  MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -144,7 +147,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 60
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -212,32 +215,30 @@ serviceMonitor:
   # -- ServiceMonitor relabelings
   relabelings: []
 
-verifier:
-  enabled: false
-
 postgresql:
   # -- If enabled a postgres chart will be deployed as a dependency
   enabled: true
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 11.13.0-debian-10-r58
+    tag: 15.3.0-debian-11-r7
   pullPolicy: IfNotPresent
-  initdbUser: postgres
-  initdbPassword: postgres
-  postgresqlDatabase: explorer
-  postgresqlUsername: postgres
-  postgresqlPassword: postgres
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+    username: postgres
+    password: postgres
+  primary:
+    extendedConfiguration: |
+      max_connections = 1024
   persistence:
     enabled: true
     size: 8Gi
-  # -- How to init the PSQL DB
-  # @default -- See `values.yaml`
-  initdbScripts:
-    init_01.sql: |
-      CREATE DATABASE explorer;
 
 redis:
   enabled: false
   replica:
     replicaCount: 1
+
+smart-contract-verifier-http:
+  enabled: false

@@ -51,15 +51,16 @@ spec:
           command:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-          command: ["/bin/sh"]
+          command:
+            - /bin/sh
+            - -ace
+            - >
+              bin/blockscout eval "Elixir.Explorer.ReleaseTasks.create_and_migrate()";
+              exec bin/blockscout start;
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
           args:
             {{- toYaml .Values.customArgs | nindent 12}}
-          {{- else }}
-          args:
-            - "-c"
-            - "bin/blockscout eval \"Elixir.Explorer.ReleaseTasks.create_and_migrate()\" && bin/blockscout start"
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
