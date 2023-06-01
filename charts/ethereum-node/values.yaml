@@ -21,6 +21,7 @@ global:
           nethermind: []
           reth: []
         consensus:
+          grandine: []
           lighthouse: []
           lodestar: []
           nimbus: []
@@ -41,6 +42,8 @@ global:
           reth:
             - --chain=goerli
         consensus:
+          grandine:
+            - --network=goerli
           lighthouse:
             - --network=goerli
           lodestar:
@@ -66,6 +69,8 @@ global:
           reth:
             - --chain=sepolia
         consensus:
+          grandine:
+            - --network=sepolia
           lighthouse:
             - --network=sepolia
           lodestar:
@@ -185,6 +190,23 @@ reth:
 ###  Consensus clients
 ###
 ########################
+
+grandine:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  extraArgs:
+    - >-
+      --eth1-rpc-urls={{ tpl .Values.global.main.engineEndpoint . }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.grandine }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+      {{- if .Values.global.checkpointSync.enabled }}
+        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
+      {{- end -}}
 
 lighthouse:
   enabled: false

@@ -49,7 +49,7 @@ Execution layer clients
 - [`reth`](charts/reth)
 
 Consensus layer clients
-
+- [`grandine`](charts/grandine)
 - [`lighthouse`](charts/lighthouse)
 - [`lodestar`](charts/lodestar)
 - [`nimbus`](charts/nimbus)
