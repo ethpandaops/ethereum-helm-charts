@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -15,9 +15,9 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 11.x.x |
+| https://charts.bitnami.com/bitnami | postgresql | 12.x.x |
 | https://charts.bitnami.com/bitnami | redis | 17.x.x |
-| https://ethpandaops.github.io/ethereum-helm-charts | smart-contract-verifier-http | 0.1.0 |
+| https://ethpandaops.github.io/ethereum-helm-charts | smart-contract-verifier-http | 0.1.2 |
 
 ## Values
 
@@ -37,7 +37,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | blockscout container pull policy |
 | image.repository | string | `"blockscout/blockscout"` | blockscout container image repository |
-| image.tag | string | `"5.0.0"` | blockscout container image tag |
+| image.tag | string | `"5.1.5"` | blockscout container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -52,18 +52,17 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
+| postgresql.auth.enablePostgresUser | bool | `true` |  |
+| postgresql.auth.password | string | `"postgres"` |  |
+| postgresql.auth.postgresPassword | string | `"postgres"` |  |
+| postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
 | postgresql.image.registry | string | `"docker.io"` |  |
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
-| postgresql.image.tag | string | `"11.13.0-debian-10-r58"` |  |
-| postgresql.initdbPassword | string | `"postgres"` |  |
-| postgresql.initdbScripts | object | See `values.yaml` | How to init the PSQL DB |
-| postgresql.initdbUser | string | `"postgres"` |  |
+| postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
 | postgresql.persistence.enabled | bool | `true` |  |
 | postgresql.persistence.size | string | `"8Gi"` |  |
-| postgresql.postgresqlDatabase | string | `"explorer"` |  |
-| postgresql.postgresqlPassword | string | `"postgres"` |  |
-| postgresql.postgresqlUsername | string | `"postgres"` |  |
+| postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
@@ -86,13 +85,12 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
+| smart-contract-verifier-http.enabled | bool | `false` |  |
+| terminationGracePeriodSeconds | int | `60` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| verifier.config | string | `"[server]\naddr = \"0.0.0.0:8043\"\n\n[compilers]\n# if omitted, number of CPU cores would be used\n# max_threads = 8\n\n[solidity]\nenabled = true\ncompilers_dir = \"/data/solidity-compilers\"\nrefresh_versions_schedule = \"0 0 * * * * *\"\n\n[solidity.fetcher.list]\nlist_url = \"https://solc-bin.ethereum.org/linux-amd64/list.json\"\n\n#[solidity.fetcher.s3]\n#access_key = \"access_key\"\n#secret_key = \"secret_key\"\n#region = \"region\"\n#endpoint = \"endpoint\"\n## The only required field for the s3 fetcher\n#bucket = \"bucket\"\n\n[vyper]\nenabled = false\ncompilers_dir = \"/data/vyper-compilers\"\nrefresh_versions_schedule = \"0 0 * * * * *\"\n[vyper.fetcher.list]\nlist_url = \"https://raw.githubusercontent.com/blockscout/solc-bin/main/vyper.list.json\"\n\n[sourcify]\nenabled = false\napi_url = \"https://sourcify.dev/server/\"\nverification_attempts = 3\nrequest_timeout = 10\n\n[metrics]\nenabled = false\naddr = \"0.0.0.0:6060\"\nroute = \"/metrics\"\n\n[jaeger]\nenabled = false\nagent_endpoint = \"localhost:6831\"\n"` |  |
-| verifier.enabled | bool | `false` |  |
 
 # Examples
 
