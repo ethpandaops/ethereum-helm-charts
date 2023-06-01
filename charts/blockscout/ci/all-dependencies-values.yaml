@@ -1,0 +1,4 @@
+smart-contract-verifier-http:
+  enabled: true
+redis:
+  enabled: true
