@@ -37,7 +37,7 @@ defaultCommandTemplate: |
     --Network.LocalIp=$(POD_IP)
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--Network.ExternalIp=" (.Values.extraArgs | join ",")) }}
-    --Network.ExternalIp==$EXTERNAL_IP
+    --Network.ExternalIp=$EXTERNAL_IP
     {{- end }}
     {{- if not (contains "--Network.P2PPort=" (.Values.extraArgs | join ",")) }}
     --Network.P2PPort=$EXTERNAL_PORT
