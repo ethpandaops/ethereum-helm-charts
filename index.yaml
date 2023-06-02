@@ -2865,6 +2865,25 @@ entries:
     version: 0.1.0
   nethermind:
   - apiVersion: v2
+    created: "2023-06-02T09:12:42.688705872Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 697eb0ade5e96b22069f5183bfefffc6687e887536e2b38fdc9c9d1997cad541
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-1.0.6/nethermind-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2023-05-25T17:11:26.030615913Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
       with the C# .NET tech stack, running on all major platforms including ARM. '
@@ -4587,4 +4606,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-01T11:15:15.901268491Z"
+generated: "2023-06-02T09:12:42.68915538Z"
