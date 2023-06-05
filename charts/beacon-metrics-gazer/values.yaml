@@ -17,34 +17,36 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Endpoint that you would like to monitor
-endpoint: http://sepolia-lighthouse-geth:5000
+endpoint: http://beacon-node:5052
 
 # -- Config file - defaults are set to the sepolia validator set
 # @default -- See `values.yaml`
 ranges: |
-  0-100: EF
-  100-199: Nethermind
-  200-299: Besu
-  300-399: Erigon
-  400-499: Lighthouse
-  500-599: Teku
-  600-699: Nimbus
-  700-799: Lodestar
-  800-899: Prysm
-  900-999: Attestant/Vouch
-  1000-1099: q9f
-  1100-1199: Lightclient
-  1200-1299: Kiln.fi
-  1300-1399: Ralexstokes
-  1400-1499: Simply staking
-  1500-1549: EF Security
-  1550-1569: EF DevOps sepolia inflation
-  1570-1572: Attestant/Vouch token/tooling test deposits
-  1573-1672: Blox staking
-  1673-1772: Missing keys
-  1773-1779: Staked.us
-  1780-1879: Obol network
-  1880-1972: Staked.us
+  0-1: test
+# -- Example ranges.yaml file:
+  # 0-100: EF
+  # 100-199: Nethermind
+  # 200-299: Besu
+  # 300-399: Erigon
+  # 400-499: Lighthouse
+  # 500-599: Teku
+  # 600-699: Nimbus
+  # 700-799: Lodestar
+  # 800-899: Prysm
+  # 900-999: Attestant/Vouch
+  # 1000-1099: q9f
+  # 1100-1199: Lightclient
+  # 1200-1299: Kiln.fi
+  # 1300-1399: Ralexstokes
+  # 1400-1499: Simply staking
+  # 1500-1549: EF Security
+  # 1550-1569: EF DevOps sepolia inflation
+  # 1570-1572: Attestant/Vouch token/tooling test deposits
+  # 1573-1672: Blox staking
+  # 1673-1772: Missing keys
+  # 1773-1779: Staked.us
+  # 1780-1879: Obol network
+  # 1880-1972: Staked.us
 
 # - HTTP port for forkmon interface
 httpPort: 8080

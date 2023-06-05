@@ -15,7 +15,7 @@ Collects network wide participation metrics given a range of indexes
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the forkmon container |
-| endpoint | string | `"http://sepolia-lighthouse-geth:5000"` | Endpoint that you would like to monitor |
+| endpoint | string | `"http://beacon-node:5052"` | Endpoint that you would like to monitor |
 | extraArgs | list | `[]` | Extra args for the forkmon container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
