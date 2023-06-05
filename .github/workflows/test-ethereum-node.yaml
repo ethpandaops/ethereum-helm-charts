@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        consensus: [teku, prysm, lighthouse, nimbus, lodestar]
+        consensus: [teku, prysm, lighthouse, nimbus, lodestar, grandine]
         execution: [geth, nethermind, erigon, besu, ethereumjs, reth]
         network: [sepolia, mainnet]
     steps:

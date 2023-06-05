@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.0.6
+version: 0.0.7
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -45,6 +45,11 @@ dependencies:
   repository: "file://../reth"
   condition: reth.enabled
 
+- name: grandine
+  version: "0.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../grandine"
+  condition: grandine.enabled
 - name: lighthouse
   version: "1.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"

@@ -1,15 +1,15 @@
 
-# nethermind
+# grandine
 
-![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Nethermind is an Ethereum execution layer implementation created with the C# .NET tech stack, running on all major platforms including ARM.
+A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
-**Homepage:** <https://nethermind.io/>
+**Homepage:** <https://sifrai.com>
 
 ## Source Code
 
-* <https://github.com/NethermindEth/nethermind>
+* <https://github.com/sifraitech/grandine>
 
 ## Values
 
@@ -17,21 +17,20 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| authPort | int | `8551` | Engine Port (Auth Port) |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
-| defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
-| extraArgs | list | `[]` | Extra args for the nethermind container |
+| customCommand | list | `[]` |  |
+| defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
+| extraArgs | list | `[]` | Extra args for the grandine container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `8545` | HTTP Port |
-| image.pullPolicy | string | `"IfNotPresent"` | nethermind container pull policy |
-| image.repository | string | `"nethermind/nethermind"` | nethermind container image repository |
-| image.tag | string | `"latest"` | nethermind container image tag |
+| httpPort | int | `5052` | HTTP Port |
+| image.pullPolicy | string | `"IfNotPresent"` | grandine container pull policy |
+| image.repository | string | `"sifrai/grandine"` | grandine container image repository |
+| image.tag | string | `"unstable"` | grandine container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -46,17 +45,15 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| metricsPort | int | `9545` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
-| p2pNodePort.port | int | `31000` | NodePort to be used |
-| p2pNodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
-| p2pNodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
-| p2pNodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
+| p2pNodePort.portsOverwrite | object | See `values.yaml` for example | Overwrite a port for specific replicas |
+| p2pNodePort.startAt | int | `31000` | Port used to start |
+| p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
 | persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
@@ -95,30 +92,119 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsPort | int | `8545` | WS Port |
 
 # Examples
 
-## Connecting to the goerli test network
+## Beacon node on the Goerli testnet connected to Goerli via Infura
 
 ```yaml
+mode: "beacon"
+
 extraArgs:
-  - --config=goerli
-  - --Network.MaxActivePeers=60
+  - --network=goerli
+  - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
-## Exposing the P2P service via NodePort
+## Beacon nodes exposing the P2P service via NodePort
 
-This will make your node accessible via the Internet using a service of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport).
-When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+This will make your nodes accessible via the Internet using services of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport). It will allocate a service definition and a pre-defined node port for each replica. The allocation starts at `p2pNodePort.startAt`. When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
 
-**Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`.If you need N nodes, simply deploy the chart N times.
-Currently nethermind doesn't allow you to announce a a different discovery port, which would be a requirement to run multiple replicas within the same chart.
+```yaml
+replicas: 5
+
+mode: "beacon"
+
+p2pNodePort:
+  enabled: true
+  startAt: 30000
+  portsOverwrite:
+    "3": 32000
+```
+
+This would create 5 beacon nodes, exposed via Node Port services with the following configuration:
+- Node 0: `30000`
+- Node 1: `30001`
+- Node 2: `30002`
+- Node 3: `32000`
+- Node 4: `30004`
+
+## Validator node targeting a beacon node service
+
+This example runs a validator on the goerli network that targets a pre-existing `grandine-beacon`
+service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
+approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
 ```yaml
 replicas: 1
 
-p2pNodePort:
-  enabled: true
-  port: 31000
+mode: validator
+
+initContainers:
+  - name: init-keystore
+    image: bash:latest
+    imagePullPolicy: IfNotPresent
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+    - bash
+    - -c
+    - >
+      apk add jq;
+      export INDEX=$(echo $(hostname)| rev | cut -d'-' -f 1 | rev);
+      mkdir -p /data/validator/keys;
+      mkdir -p /data/validator/secrets;
+      KEY_COUNT="NODE_${INDEX}_KEY_COUNT";
+      for ((i = 0 ; i < "${!KEY_COUNT}" ; i++ ));
+      do
+        key="NODE_${INDEX}_KEY_${i}";
+        PUBKEY=$(echo ${!key} | jq '.pubkey' -j);
+        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+        secret="NODE_${INDEX}_SECRET_${i}";
+        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+        echo "Added 0x${PUBKEY}";
+      done
+    volumeMounts:
+      - name: storage
+        mountPath: "/data"
+        readOnly:
+    env:
+      - name: NODE_0_KEY_COUNT
+        value: "1"
+      - name: NODE_0_SECRET_0
+        valueFrom:
+          secretKeyRef:
+            # Name of the secret that will be generated for you. This is normally `${RELEASE-name}-env`
+            # You might need to change this
+            name: grandine-env
+            key: NODE_0_SECRET_0
+      - name: NODE_0_KEY_0
+        valueFrom:
+          secretKeyRef:
+            # See comment on the previous secretKeyRef
+            name: grandine-env
+            key: NODE_0_KEY_0
+
+extraArgs:
+  - --validator-keys=/data/validator/keys:/data/validator/secrets
+  - --beacon-node-api-endpoint=http://grandine-beacon:5051
+  - --network=auto
+
+livenessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
+
+readinessProbe:
+  tcpSocket: null
+  httpGet:
+    path: /metrics
+    port: 8008
+
+secretEnv:
+  # Note: Never publish any of your production secrets online. These are just used for testing purposes.
+  NODE_0_SECRET_0: Mrc085nWbjTc1mhAPt_Ukj4m_vui2iUQWr6TwNRq_4k=
+  NODE_0_KEY_0: {"crypto":{"checksum":{"function":"sha256","message":"7bbdd8cda652d792dceae7477b911106296620c44a6c1d0356c6ff52daca2b5b","params":{}},"cipher":{"function":"aes-128-ctr","message":"689f5c97fad87665e2fe8acbc0aad91bdc85de7756ebdc496f1373bae01c02c8","params":{"iv":"7b8e1ed4480dee19cbb1528394ad2095"}},"kdf":{"function":"pbkdf2","message":"","params":{"c":262144,"dklen":32,"prf":"hmac-sha256","salt":"bb560dfbb56016e0630e4415b74d86ede9090c0545854ed7c0ad921047a39cef"}}},"path":"","pubkey":"8e48cbd28d25847a6b122a62179b6ac11ee7877a4c489799918308e6252b7f6601f969179ac7465e256c01815b71b6d1","uuid":"f13ece4f-d57e-4789-accc-ad50f0fef882","version":4}
+
 ```
