@@ -1,0 +1,46 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Example
+
+Usage: beacon-metrics-gazer [OPTIONS] <URL>
+
+Arguments:
+```shell
+  <URL>  Beacon HTTP API URL: http://1.2.3.4:4000
+```
+Options:
+```shell
+      --ranges <RANGES>            Index ranges to group IDs as JSON or TXT. Example: `{"0..100": "lh-geth-0", "100..200": "lh-geth-1"}
+      --ranges-file <RANGES_FILE>  Local path or URL containing a file with index ranges with the format as defined in --ranges
+      --dump                       Dump participation ranges print to stderr on each fetch
+  -p, --port <PORT>                Metrics server port [default: 8080]
+      --address <ADDRESS>          Metrics server bind address [default: 127.0.0.1]
+  -h, --help                       Print help
+  -V, --version                    Print version
+```
+The format of the ranges file is very flexible, can be JSON, YAML or plain text:
+```shell
+0-500 Nethermind lighthouse-0
+500-1000 Nethermind lighthouse-1
+1000-1500 Nethermind teku-0
+1500-2000 Nethermind teku-1
+2000-2500 Nethermind lodestar-0
+2500-3750 Gateway lh + nethermind
+3750-5000 Gateway lh + nethermind
+```
+
+More details can be found [here](https://docs.rs/crate/beacon-metrics-gazer/0.1.1) or [here](https://github.com/dapplion/beacon-metrics-gazer).

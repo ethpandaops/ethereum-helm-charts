@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "beacon-metrics-gazer.fullname" . }}-test-connection"
+  labels:
+    {{- include "beacon-metrics-gazer.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "beacon-metrics-gazer.fullname" . }}:{{ .Values.httpPort }}']
+  restartPolicy: Never

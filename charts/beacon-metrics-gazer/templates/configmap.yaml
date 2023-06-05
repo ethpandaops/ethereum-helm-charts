@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "beacon-metrics-gazer.fullname" . }}
+  labels:
+    {{- include "beacon-metrics-gazer.labels" . | nindent 4 }}
+data:
+  ranges.yaml: |
+    {{- tpl .Values.ranges . | nindent 4 }}
+
+
