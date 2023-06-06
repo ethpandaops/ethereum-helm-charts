@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   beacon-metrics-gazer:
   - apiVersion: v2
+    created: "2023-06-06T14:11:31.63225562Z"
+    description: Collects network wide participation metrics given a range of indexes
+    digest: 9f49a286a2896d2b6d00cdc743c5222716df6354e6579ab29eede92287b75425
+    home: https://github.com/dapplion/beacon-metrics-gazer
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: beacon-metrics-gazer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beacon-metrics-gazer-0.1.1/beacon-metrics-gazer-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2023-06-06T13:16:37.452961435Z"
     description: Collects network wide participation metrics given a range of indexes
     digest: af066b0fade43491f7a4ad106abed639995d9c8c7c35223504b1f51ec075acd1
@@ -4620,4 +4633,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-06T13:16:37.453390741Z"
+generated: "2023-06-06T14:11:31.632673425Z"
