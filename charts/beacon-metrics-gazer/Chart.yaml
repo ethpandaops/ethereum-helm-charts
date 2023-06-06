@@ -3,7 +3,7 @@ name: beacon-metrics-gazer
 description: Collects network wide participation metrics given a range of indexes
 home: https://github.com/dapplion/beacon-metrics-gazer
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
