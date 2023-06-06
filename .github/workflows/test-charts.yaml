@@ -53,3 +53,4 @@ jobs:
           --excluded-charts fauceth
           --excluded-charts eth-faucet
           --excluded-charts genesis-generator
+          --excluded-charts beacon-metrics-gazer
