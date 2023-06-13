@@ -1,7 +1,7 @@
 
 # xatu-server
 
-![Version: 0.0.9](https://img.shields.io/badge/Version-0.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.10](https://img.shields.io/badge/Version-0.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
@@ -19,11 +19,6 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.addr | string | `":8080"` |  |
-| config.ethereum.network.id | int | `1` |  |
-| config.ethereum.network.name | string | `"mainnet"` |  |
-| config.ethereum.network.spec.genesisTime | int | `1606824023` |  |
-| config.ethereum.network.spec.secondsPerSlot | int | `12` |  |
-| config.ethereum.network.spec.slotsPerEpoch | int | `32` |  |
 | config.geoip.enabled | bool | `false` |  |
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
