@@ -986,21 +986,6 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.2/eleel-0.1.2.tgz
     version: 0.1.2
   - apiVersion: v2
-    created: "2023-05-10T18:22:05.160362324Z"
-    description: A multiplexer for Ethereum execution clients
-    digest: a527a410bc4b1be82f7c7442c0b02ec6bfe399efff4aa8604a740fea42d26072
-    home: https://github.com/sigp/eleel
-    maintainers:
-    - email: sam.calder-mason@ethereum.org
-      name: samcm
-    - email: andrew.davis@ethereum.org
-      name: savid
-    name: eleel
-    type: application
-    urls:
-    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.1/eleel-0.1.1.tgz
-    version: 0.1.1
-  - apiVersion: v2
     created: "2023-05-04T06:30:54.861440649Z"
     description: A multiplexer for Ethereum execution clients
     digest: ac4697927fb7dd4573d34ecd1f9c3145567695dea382347756b00d45dc0eda4b
@@ -5413,4 +5398,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-14T11:58:37.326639519Z"
+generated: "2023-06-14T12:33:10.326639519Z"
