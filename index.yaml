@@ -500,6 +500,37 @@ entries:
     version: 0.1.0
   blockscout:
   - apiVersion: v2
+    created: "2023-06-14T09:33:43.326114289Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.x.x
+    - condition: smart-contract-verifier-http.enabled
+      name: smart-contract-verifier-http
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.2
+    description: 'BlockScout provides a comprehensive, easy-to-use interface for users
+      to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine)
+      blockchains '
+    digest: 37924c3bfba0f4e4b40da711b34c30d39b20082590f3a49b6c86457fc4535fff
+    home: https://docs.blockscout.com/
+    icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/assets/static/apple-touch-icon.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: blockscout
+    sources:
+    - https://github.com/blockscout/blockscout/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.2.0/blockscout-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2022-10-20T18:29:59.230556499Z"
     dependencies:
     - condition: postgresql.enabled
@@ -4662,4 +4693,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-13T02:15:48.709121223Z"
+generated: "2023-06-14T09:33:43.326639519Z"
