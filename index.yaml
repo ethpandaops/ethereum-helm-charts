@@ -4404,6 +4404,7 @@ entries:
     type: application
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-proxy-0.1.2/rpc-proxy-0.1.2.tgz
+    version: 0.1.2
   - apiVersion: v2
     created: "2022-10-20T18:30:03.169511666Z"
     description: A proxy for web3 JSONRPC
@@ -5412,4 +5413,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-14T11:53:15.326639519Z"
+generated: "2023-06-14T11:58:37.326639519Z"
