@@ -6,9 +6,9 @@ fullnameOverride: ""
 
 image:
   # -- blockscout container image repository
-  repository: skylenet/blockscout
+  repository: blockscout/blockscout
   # -- blockscout container image tag
-  tag: v4.0.0-beta
+  tag: "5.1.5"
   # -- blockscout container pull policy
   pullPolicy: IfNotPresent
 
@@ -25,13 +25,54 @@ customCommand: [] # Only change this if you need to change the default command
 # https://docs.blockscout.com/for-developers/information-and-settings/env-variables
 config:
   MIX_ENV: prod
-  DATABASE_URL: postgresql://postgres:postgres@blockscout-postgresql:5432/explorer?ssl=false
+  PORT: '{{ include "blockscout.httpPort" . }}'
+  DATABASE_URL: postgresql://postgres:postgres@{{ .Release.Name }}-postgresql:5432/blockscout?ssl=false
   SECRET_KEY_BASE: RMgI4C1HSkxsEjdhtGMfwAHfyT6CKWXOgzCboJflfSm4jeAlic52io05KB6mqzc5
+  ECTO_USE_SSL: "false"
   ETHEREUM_JSONRPC_VARIANT: geth
   ETHEREUM_JSONRPC_HTTP_URL: http://geth:8545
-  ETHEREUM_JSONRPC_WS_URL: ws://geth:8546
+  #ETHEREUM_JSONRPC_WS_URL: ws://geth:8546
+  #ETHEREUM_JSONRPC_TRACE_URL: http://geth:8545
   NETWORK: Ethereum
   #SUBNETWORK: Testnet
+
+  # Branding related configs
+  LOGO: /images/blockscout_logo.svg
+  FOOTER_LOGO: /images/blockscout_logo.svg
+
+  # Rate limiting
+  #API_RATE_LIMIT_DISABLED=true
+  API_RATE_LIMIT_TIME_INTERVAL: 1s
+  API_RATE_LIMIT_BY_IP_TIME_INTERVAL: 5m
+  API_RATE_LIMIT: "50"
+  API_RATE_LIMIT_BY_KEY: "50"
+  API_RATE_LIMIT_BY_WHITELISTED_IP: "50"
+  API_RATE_LIMIT_WHITELISTED_IPS: ""
+  API_RATE_LIMIT_STATIC_API_KEY: ""
+  API_RATE_LIMIT_UI_V2_WITH_TOKEN: "5"
+  API_RATE_LIMIT_BY_IP: "3000"
+  # API_RATE_LIMIT_HAMMER_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/1
+  # API_RATE_LIMIT_IS_BLOCKSCOUT_BEHIND_PROXY: false
+  API_RATE_LIMIT_UI_V2_TOKEN_TTL_IN_SECONDS: "18000"
+
+  # Smart contract verification related configs
+  MICROSERVICE_SC_VERIFIER_ENABLED: '{{ (index .Values "smart-contract-verifier-http").enabled }}'
+  MICROSERVICE_SC_VERIFIER_URL: http://{{ .Release.Name }}-smart-contract-verifier-http:8050
+  MICROSERVICE_SC_VERIFIER_TYPE: sc_verifier
+
+  # Account related configs: https://docs.blockscout.com/for-developers/configuration-options/my-account-settings
+  ACCOUNT_ENABLED: "false"
+  #ACCOUNT_REDIS_URL: redis://{{ .Release.Name }}-redis:6379/0
+  #ACCOUNT_AUTH0_DOMAIN: login.blockscout.com
+  #ACCOUNT_AUTH0_CLIENT_ID: ...
+  #ACCOUNT_AUTH0_CLIENT_SECRET: ...
+  #ACCOUNT_SENDGRID_API_KEY: ...
+  #ACCOUNT_SENDGRID_SENDER: noreply@blockscout.com
+  #ACCOUNT_SENDGRID_TEMPLATE: d-...
+  #ACCOUNT_PUBLIC_TAGS_AIRTABLE_URL: https://api.airtable.com/v0/.../Public%20Tags
+  #ACCOUNT_PUBLIC_TAGS_AIRTABLE_API_KEY: key...
+  #ACCOUNT_CLOAK_KEY: ...
+  #ACCOUNT_DATABASE_URL: postgresql://user:pass@host:port/db
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -131,7 +172,7 @@ serviceAccount:
   name: ""
 
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 60
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -199,25 +240,30 @@ serviceMonitor:
   # -- ServiceMonitor relabelings
   relabelings: []
 
-
 postgresql:
   # -- If enabled a postgres chart will be deployed as a dependency
   enabled: true
   image:
     registry: docker.io
     repository: bitnami/postgresql
-    tag: 11.13.0-debian-10-r58
+    tag: 15.3.0-debian-11-r7
   pullPolicy: IfNotPresent
-  initdbUser: postgres
-  initdbPassword: postgres
-  postgresqlDatabase: explorer
-  postgresqlUsername: postgres
-  postgresqlPassword: postgres
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+    username: postgres
+    password: postgres
+  primary:
+    extendedConfiguration: |
+      max_connections = 1024
   persistence:
     enabled: true
     size: 8Gi
-  # -- How to init the PSQL DB
-  # @default -- See `values.yaml`
-  initdbScripts:
-    init_01.sql: |
-      CREATE DATABASE explorer;
+
+redis:
+  enabled: false
+  replica:
+    replicaCount: 1
+
+smart-contract-verifier-http:
+  enabled: false

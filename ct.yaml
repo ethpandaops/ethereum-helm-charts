@@ -10,3 +10,4 @@ check-version-increment: true
 lint-conf: lintconf.yaml
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
+  - ethereum-helm-charts=https://ethpandaops.github.io/ethereum-helm-charts
