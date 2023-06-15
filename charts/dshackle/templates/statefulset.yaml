@@ -67,16 +67,16 @@ spec:
               readOnly: true
           ports:
             - name: http
-              containerPort: {{ include "dshackle.httpPort" . }}
+              containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: grpc
-              containerPort: {{ include "dshackle.gRPCPort" . }}
+              containerPort: {{ .Values.gRPCPort }}
               protocol: TCP
             - name: metrics
-              containerPort: {{ include "dshackle.metricsPort" . }}
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
             - name: health
-              containerPort: {{ include "dshackle.healthPort" . }}
+              containerPort: {{ .Values.healthPort }}
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}

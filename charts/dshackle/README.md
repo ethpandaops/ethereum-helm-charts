@@ -1,7 +1,7 @@
 
 # dshackle
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket.
 
@@ -33,9 +33,12 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| gRPCPort | int | See `values.yaml` | gRPC Port |
+| healthPort | int | See `values.yaml` | Health Port |
+| httpPort | int | See `values.yaml` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | dshackle container pull policy |
 | image.repository | string | `"emeraldpay/dshackle"` | dshackle container image repository |
-| image.tag | string | `"0.12"` | dshackle container image tag |
+| image.tag | string | `"0.14.0"` | dshackle container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -44,6 +47,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| metricsPort | int | See `values.yaml` | Metrics Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | podAnnotations | object | `{}` | Pod annotations |

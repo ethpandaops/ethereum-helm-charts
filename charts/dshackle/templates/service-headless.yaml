@@ -7,11 +7,11 @@ metadata:
 spec:
   clusterIP: None
   ports:
-    - port: {{ include "dshackle.httpPort" . }}
+    - port: {{ .Values.httpPort }}
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ include "dshackle.gRPCPort" . }}
+    - port: {{ .Values.gRPCPort }}
       targetPort: grpc
       protocol: TCP
       name: grpc

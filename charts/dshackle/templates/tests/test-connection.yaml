@@ -15,5 +15,5 @@ spec:
        - --location
        - --request
        - GET
-       - '{{ include "dshackle.fullname" . }}:{{ include "dshackle.httpPort" . }}/'
+       - '{{ include "dshackle.fullname" . }}:{{ .Values.httpPort }}/'
   restartPolicy: Never

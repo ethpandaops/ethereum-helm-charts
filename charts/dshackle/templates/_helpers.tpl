@@ -60,19 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "dshackle.gRPCPort" -}}
-{{- printf "2449" -}}
-{{- end -}}
-
-{{- define "dshackle.httpPort" -}}
-{{- printf "8545" -}}
-{{- end -}}
-
-{{- define "dshackle.metricsPort" -}}
-{{- printf "8081" -}}
-{{- end -}}
-
-{{- define "dshackle.healthPort" -}}
-{{- printf "8082" -}}
-{{- end -}}
