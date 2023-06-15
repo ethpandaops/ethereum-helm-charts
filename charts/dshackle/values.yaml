@@ -11,7 +11,7 @@ image:
   # -- dshackle container image repository
   repository: emeraldpay/dshackle
   # -- dshackle container image tag
-  tag: "0.12"
+  tag: "0.14.0"
   # -- dshackle container pull policy
   pullPolicy: IfNotPresent
 
@@ -27,13 +27,13 @@ customCommand: [] # Only change this if you need to change the default command
 # @default -- See `values.yaml`
 config: |
   version: v1
-  port: 2449
+  port: {{ .Values.gRPCPort }}
   tls:
     enabled: false
 
   proxy:
     host: 0.0.0.0
-    port: 8545
+    port: {{ .Values.httpPort }}
     routes:
       - id: eth
         blockchain: ethereum
@@ -56,11 +56,11 @@ config: |
     prometheus:
       enabled: true
       bind: 0.0.0.0
-      port: 8081
+      port: {{ .Values.metricsPort }}
       path: /metrics
 
   health:
-    port: 8082
+    port: {{ .Values.healthPort }}
     host: 0.0.0.0
     path: /health
     blockchains:
@@ -70,7 +70,7 @@ config: |
   cache:
     redis:
       enabled: true
-      host: dshackle-redis-master
+      host: {{ .Release.Name }}-redis-master
       port: 6379
       db: 0
       password: ${REDIS_PASSWORD}
@@ -105,11 +105,27 @@ imagePullSecrets: []
 # -- Annotations for the StatefulSet
 annotations: {}
 
+# -- gRPC Port
+# @default -- See `values.yaml`
+gRPCPort: 2449
+
+# -- HTTP Port
+# @default -- See `values.yaml`
+httpPort: 8545
+
+# -- Metrics Port
+# @default -- See `values.yaml`
+metricsPort: 8081
+
+# -- Health Port
+# @default -- See `values.yaml`
+healthPort: 8082
+
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: 8545
+    port: http
   initialDelaySeconds: 60
   periodSeconds: 30
 
@@ -117,7 +133,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: 8545
+    port: http
   initialDelaySeconds: 10
   periodSeconds: 10
 
