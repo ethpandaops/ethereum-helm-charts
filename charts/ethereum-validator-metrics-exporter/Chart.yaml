@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ethereum-validator-metrics-exporter
+description: A prometheus exporter for Ethereum validators
+home: https://github.com/ethpandaops/ethereum-validator-metrics-exporter
+type: application
+version: 0.0.1
+maintainers:
+  - name: savid
+    email: andrew.davis@ethereum.org
