@@ -2134,6 +2134,20 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-node-0.0.1/ethereum-node-0.0.1.tgz
     version: 0.0.1
+  ethereum-validator-metrics-exporter:
+  - apiVersion: v2
+    created: "2023-06-16T00:05:26.239011694Z"
+    description: A prometheus exporter for Ethereum validators
+    digest: 0b422a547a91351410866a771721731892257d89aa8f2c2ab564e7b9fc71377a
+    home: https://github.com/ethpandaops/ethereum-validator-metrics-exporter
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: ethereum-validator-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-validator-metrics-exporter-0.0.1/ethereum-validator-metrics-exporter-0.0.1.tgz
+    version: 0.0.1
   ethereumjs:
   - apiVersion: v2
     created: "2023-05-25T17:11:25.390101602Z"
@@ -5420,4 +5434,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-15T13:52:44.439450479Z"
+generated: "2023-06-16T00:05:26.239508487Z"
