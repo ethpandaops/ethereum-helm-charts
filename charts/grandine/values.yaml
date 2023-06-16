@@ -40,14 +40,12 @@ defaultBeaconCommandTemplate: |
     --http-address=0.0.0.0
     --http-port={{ .Values.httpPort }}
     --metrics
+    --metrics-address=0.0.0.0
+    --metrics-port={{ .Values.metricsPort }}
     --jwt-secret=/data/jwt.hex
   {{- range .Values.extraArgs }}
     {{ tpl . $  }}
   {{- end }}
-
-### Metrics to be pulled are not yet supported by Grandine
-# --metrics-interface=0.0.0.0
-# --metrics-port={{ .Values.metricsPort }}
 
 # P2P Advertised IP and Port is currently not supported by Grandine
 # {{- if .Values.p2pNodePort.enabled }}
@@ -138,6 +136,9 @@ p2pPort: 9000
 
 # -- HTTP Port
 httpPort: 5052
+
+# -- Metrics Port
+metricsPort: 5054
 
 # -- Node selector for pods
 nodeSelector: {}

@@ -19,6 +19,10 @@ spec:
       targetPort: http-api
       protocol: TCP
       name: http-api
+    - port: {{ .Values.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
