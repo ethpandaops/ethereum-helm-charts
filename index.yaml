@@ -2907,6 +2907,23 @@ entries:
     version: 0.1.0
   grandine:
   - apiVersion: v2
+    created: "2023-06-16T12:44:16.582668113Z"
+    description: A currently closed source, but hopefully soon to be open-source Ethereum
+      Consensus layer client, written in Rust.
+    digest: a4d7130ce54914c268349c9916bb9e6a8fab5b4db0b7bb5ddde1add07c621f13
+    home: https://sifrai.com
+    icon: https://github.com/sifraitech/grandine/blob/master/gui.png
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: grandine
+    sources:
+    - https://github.com/sifraitech/grandine
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.0.2/grandine-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2023-06-01T11:15:15.900884992Z"
     description: A currently closed source, but hopefully soon to be open-source Ethereum
       Consensus layer client, written in Rust.
@@ -5434,4 +5451,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-06-16T00:05:26.239508487Z"
+generated: "2023-06-16T12:44:16.583267419Z"
