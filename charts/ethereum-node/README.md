@@ -17,7 +17,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../besu | besu | 1.0.4 |
 | file://../erigon | erigon | 1.0.5 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.4 |
-| file://../ethereumjs | ethereumjs | 0.0.3 |
+| file://../ethereumjs | ethereumjs | 0.0.4 |
 | file://../geth | geth | 1.0.5 |
 | file://../grandine | grandine | 0.0.3 |
 | file://../lighthouse | lighthouse | 1.0.5 |

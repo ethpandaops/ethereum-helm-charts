@@ -22,6 +22,9 @@ extraArgs: []
 # -- JWT secret is attached as a secret object. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Path within the container to the beacon node binary
+defaultBinaryPath: node /usr/app/node_modules/.bin/ethereumjs
+
 # -- Template used for the default command
 # @default -- See `values.yaml`
 defaultCommandTemplate: |
@@ -31,7 +34,7 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    node /usr/app/ethereumjs-monorepo/packages/client/dist/bin/cli.js
+    {{ .Values.defaultBinaryPath }}
     --dataDir=/data
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--extIP=" (.Values.extraArgs | join ",")) }}

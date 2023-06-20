@@ -25,7 +25,7 @@ dependencies:
   repository: "file://../erigon"
   condition: erigon.enabled
 - name: ethereumjs
-  version: "0.0.3"
+  version: "0.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled

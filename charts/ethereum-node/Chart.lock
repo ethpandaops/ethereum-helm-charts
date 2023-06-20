@@ -7,7 +7,7 @@ dependencies:
   version: 1.0.5
 - name: ethereumjs
   repository: file://../ethereumjs
-  version: 0.0.3
+  version: 0.0.4
 - name: geth
   repository: file://../geth
   version: 1.0.5
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.7
-digest: sha256:05965665040d60f9956c58f8cf6f83bd850fc3b263f8e62b10026c624ae84f58
-generated: "2023-06-20T11:08:55.967367341Z"
+digest: sha256:75f5145aa39bb5366011e9dbed500d1933b40e6d2b4807a2af184d41756f6f06
+generated: "2023-06-20T16:08:09.543527+02:00"
