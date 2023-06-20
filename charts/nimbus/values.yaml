@@ -77,7 +77,7 @@ defaultCommandTemplate: |
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
   {{- if .Values.checkpointSync.enabled }}
-    --network={{ tpl .Values.checkpointSync.url $ }}
+    --network={{ tpl .Values.checkpointSync.network $ }}
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
