@@ -214,7 +214,7 @@ lighthouse:
   httpPort: 5052
   p2pPort: 9000
   checkpointSync:
-    enabled: "{{ .Values.global.checkpointSync.enabled | default "false" }}"
+    enabled: "{{ default .Values.global.checkpointSync.enabled "false" }}"
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
@@ -231,7 +231,7 @@ teku:
   httpPort: 5052
   p2pPort: 9000
   checkpointSync:
-    enabled: "{{ .Values.global.checkpointSync.enabled | default "false" }}"
+    enabled: "{{ default .Values.global.checkpointSync.enabled "false" }}"
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
@@ -248,7 +248,7 @@ lodestar:
   httpPort: 5052
   p2pPort: 9000
   checkpointSync:
-    enabled: "{{ .Values.global.checkpointSync.enabled | default "false" }}"
+    enabled: "{{ default .Values.global.checkpointSync.enabled "false" }}"
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
@@ -265,7 +265,7 @@ prysm:
   httpPort: 5052
   p2pPort: 9000
   checkpointSync:
-    enabled: "{{ .Values.global.checkpointSync.enabled | default "false" }}"
+    enabled: "{{ default .Values.global.checkpointSync.enabled "false" }}"
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
@@ -282,7 +282,7 @@ nimbus:
   httpPort: 5052
   p2pPort: 9000
   checkpointSync:
-    enabled: "{{ .Values.global.checkpointSync.enabled | default "false" }}"
+    enabled: "{{ default .Values.global.checkpointSync.enabled "false" }}"
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
     network: "{{ .Values.global.main.network }}"
   extraArgs:
