@@ -48,7 +48,7 @@ defaultBeaconCommandTemplate: |
     --metrics-port={{ .Values.metricsPort }}
     --jwt-secret=/data/jwt.hex
   {{- if .Values.checkpointSync.enabled }}
-    --checkpoint-sync-url={{ .Values.checkpointSync.url }}
+    --checkpoint-sync-url={{ tpl .Values.checkpointSync.url $ }}
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $  }}

@@ -81,7 +81,7 @@ defaultBeaconCommandTemplate: |
     --metrics.address=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
   {{- if .Values.checkpointSync.enabled }}
-    --checkpointSyncUrl={{ .Values.checkpointSync.url }}
+    --checkpointSyncUrl={{ tpl .Values.checkpointSync.url $ }}
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}

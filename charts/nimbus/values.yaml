@@ -299,9 +299,9 @@ initContainers:
         exec {{ .Values.defaultBinaryPath }}
         trustedNodeSync
         --data-dir=/data
-        --network={{ .Values.checkpointSync.network }}
+        --network={{ tpl .Values.checkpointSync.network $ }}
         --backfill=false
-        --trusted-node-url={{ .Values.checkpointSync.url }}
+        --trusted-node-url={{ tpl .Values.checkpointSync.url $ }}
         {{- else }}
         echo "Checkpoint-sync isn't enabled. Nothing to do."
         {{- end }}
