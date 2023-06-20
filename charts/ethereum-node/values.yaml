@@ -196,6 +196,9 @@ grandine:
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
       --eth1-rpc-urls={{ tpl .Values.global.main.engineEndpoint . }}
@@ -204,15 +207,15 @@ grandine:
         {{ . }}
         {{- end -}}
       {{- end -}}
-      {{- if .Values.global.checkpointSync.enabled }}
-        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-      {{- end -}}
 
 lighthouse:
   enabled: false
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
       --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
@@ -221,15 +224,15 @@ lighthouse:
         {{ . }}
         {{- end -}}
       {{- end -}}
-      {{- if .Values.global.checkpointSync.enabled }}
-        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-      {{- end -}}
 
 teku:
   enabled: false
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
       --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
@@ -238,15 +241,15 @@ teku:
         {{ . }}
         {{- end -}}
       {{- end -}}
-      {{- if .Values.global.checkpointSync.enabled }}
-        --initial-state={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}/eth/v2/debug/beacon/states/finalized
-      {{- end -}}
 
 lodestar:
   enabled: false
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
       --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
@@ -255,15 +258,15 @@ lodestar:
         {{ . }}
         {{- end -}}
       {{- end -}}
-      {{- if .Values.global.checkpointSync.enabled }}
-        --checkpointSyncUrl={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-      {{- end -}}
 
 prysm:
   enabled: false
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
       --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
@@ -272,16 +275,16 @@ prysm:
         {{ . }}
         {{- end -}}
       {{- end -}}
-      {{- if .Values.global.checkpointSync.enabled }}
-        --checkpoint-sync-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-        --genesis-beacon-api-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-      {{- end -}}
 
 nimbus:
   enabled: false
   nameOverride: beacon
   httpPort: 5052
   p2pPort: 9000
+  checkpointSync:
+    enabled: false
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
+    network: "{{ .Values.global.main.network }}"
   extraArgs:
     - >-
       --web3-url={{ tpl .Values.global.main.engineEndpoint . }}
@@ -290,30 +293,6 @@ nimbus:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  initContainers:
-    - name: init-checkpoint-sync
-      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-      imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-      securityContext:
-        runAsNonRoot: false
-        runAsUser: 0
-      command:
-        - sh
-        - -ac
-        - >-
-          {{- if .Values.global.checkpointSync.enabled }}
-          exec {{ .Values.defaultBinaryPath }}
-          trustedNodeSync
-          --data-dir=/data
-          --network={{ .Values.global.main.network }}
-          --backfill=false
-          --trusted-node-url={{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}
-          {{- else }}
-          echo "Checkpoint-sync isn't enabled. Nothing to do."
-          {{- end }}
-      volumeMounts:
-      - name: storage
-        mountPath: "/data"
 
 ########################
 ###

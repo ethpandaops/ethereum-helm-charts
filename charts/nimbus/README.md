@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.6](https://img.shields.io/badge/Version-1.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Java
 
@@ -17,6 +17,7 @@ An open-source Ethereum consensus layer client, written in Java
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| checkpointSync | object | `{"enabled":false,"network":"","url":""}` | Checkpoint Sync |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultBinaryPath | string | `"/home/user/nimbus-eth2/build/nimbus_beacon_node"` | Path within the container to the beacon node binary |
@@ -43,7 +44,7 @@ An open-source Ethereum consensus layer client, written in Java
 | initChownData.image.repository | string | `"busybox"` | Container repository |
 | initChownData.image.tag | string | `"1.34.0"` | Container tag |
 | initChownData.resources | object | `{}` | Resource requests and limits |
-| initContainers | list | `[]` | Additional init containers |
+| initContainers | list | `[{"command":["sh","-ac","{{- if .Values.checkpointSync.enabled }} exec {{ .Values.defaultBinaryPath }} trustedNodeSync --data-dir=/data --network={{ .Values.checkpointSync.network }} --backfill=false --trusted-node-url={{ .Values.checkpointSync.url }} {{- else }} echo \"Checkpoint-sync isn't enabled. Nothing to do.\" {{- end }}"],"image":"{{ .Values.image.repository }}:{{ .Values.image.tag }}","imagePullPolicy":"{{ .Values.image.pullPolicy }}","name":"init-checkpoint-sync","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | metricsPort | int | `8008` | Metrics Port |

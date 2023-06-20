@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.8](https://img.shields.io/badge/Version-0.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -19,14 +19,14 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.4 |
 | file://../ethereumjs | ethereumjs | 0.0.3 |
 | file://../geth | geth | 1.0.5 |
-| file://../grandine | grandine | 0.0.1 |
-| file://../lighthouse | lighthouse | 1.0.4 |
-| file://../lodestar | lodestar | 1.0.5 |
-| file://../nethermind | nethermind | 1.0.5 |
-| file://../nimbus | nimbus | 1.0.5 |
-| file://../prysm | prysm | 1.0.4 |
+| file://../grandine | grandine | 0.0.3 |
+| file://../lighthouse | lighthouse | 1.0.5 |
+| file://../lodestar | lodestar | 1.0.6 |
+| file://../nethermind | nethermind | 1.0.6 |
+| file://../nimbus | nimbus | 1.0.6 |
+| file://../prysm | prysm | 1.0.5 |
 | file://../reth | reth | 0.0.3 |
-| file://../teku | teku | 1.0.4 |
+| file://../teku | teku | 1.0.5 |
 | file://../xatu-sentry | xatu-sentry | 0.0.7 |
 
 # Details

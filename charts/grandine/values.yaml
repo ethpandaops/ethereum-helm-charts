@@ -24,6 +24,10 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Checkpoint Sync
+checkpointSync:
+  enabled: false
+  url: ""
 
 # -- Template used for the default beacon command
 # @default -- See `values.yaml`
@@ -43,6 +47,9 @@ defaultBeaconCommandTemplate: |
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
     --jwt-secret=/data/jwt.hex
+  {{- if .Values.checkpointSync.enabled }}
+    --checkpoint-sync-url={{ .Values.checkpointSync.url }}
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $  }}
   {{- end }}
