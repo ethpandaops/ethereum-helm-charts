@@ -284,6 +284,7 @@ updateStrategy:
   type: RollingUpdate
 
 # -- Additional init containers
+# @default -- See `values.yaml`
 initContainers:
   - name: init-checkpoint-sync
     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
