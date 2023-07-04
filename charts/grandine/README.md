@@ -1,7 +1,7 @@
 
 # grandine
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
@@ -17,6 +17,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| checkpointSync | object | `{"enabled":false,"url":""}` | Checkpoint Sync |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` |  |
 | defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |

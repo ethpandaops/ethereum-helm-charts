@@ -41,6 +41,11 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Checkpoint Sync
+checkpointSync:
+  enabled: false
+  url: ""
+
 # -- Template used for the default beacon command
 # @default -- See `values.yaml`
 defaultBeaconCommandTemplate: |
@@ -81,6 +86,10 @@ defaultBeaconCommandTemplate: |
     --grpc-gateway-port={{ .Values.httpPort }}
     --monitoring-host=0.0.0.0
     --monitoring-port={{ .Values.metricsPort }}
+  {{- if .Values.checkpointSync.enabled }}
+    --checkpoint-sync-url={{ tpl .Values.checkpointSync.url $ }}
+    --genesis-beacon-api-url={{ tpl .Values.checkpointSync.url $ }}
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}

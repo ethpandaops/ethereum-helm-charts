@@ -29,6 +29,13 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Checkpoint Sync
+checkpointSync:
+  enabled: false
+  url: ""
+  # If you enable checkpointSync, you must provide which network you are using
+  network: ""
+
 # -- Template used for the default command
 # @default -- See `values.yaml`
 defaultCommandTemplate: |
@@ -69,6 +76,9 @@ defaultCommandTemplate: |
     --metrics=true
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
+  {{- if .Values.checkpointSync.enabled }}
+    --network={{ tpl .Values.checkpointSync.network $ }}
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -274,10 +284,31 @@ updateStrategy:
   type: RollingUpdate
 
 # -- Additional init containers
-initContainers: []
-# - name: my-init-container
-#   image: busybox:latest
-#   command: ['sh', '-c', 'echo hello']
+# @default -- See `values.yaml`
+initContainers:
+  - name: init-checkpoint-sync
+    image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+    imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+    securityContext:
+      runAsNonRoot: false
+      runAsUser: 0
+    command:
+      - sh
+      - -ac
+      - >-
+        {{- if .Values.checkpointSync.enabled }}
+        exec {{ .Values.defaultBinaryPath }}
+        trustedNodeSync
+        --data-dir=/data
+        --network={{ tpl .Values.checkpointSync.network $ }}
+        --backfill=false
+        --trusted-node-url={{ tpl .Values.checkpointSync.url $ }}
+        {{- else }}
+        echo "Checkpoint-sync isn't enabled. Nothing to do."
+        {{- end }}
+    volumeMounts:
+    - name: storage
+      mountPath: "/data"
 
 # -- Additional containers
 extraContainers: []
