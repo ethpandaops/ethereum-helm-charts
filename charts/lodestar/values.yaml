@@ -51,7 +51,7 @@ defaultBeaconCommandTemplate: |
     --dataDir=/data
     --discv5
     --listenAddress=0.0.0.0
-    --port={{ include "grandine.p2pPort" . }}
+    --port={{ include "lodestar.p2pPort" . }}
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--enr.ip=" (.Values.extraArgs | join ",")) }}
     --enr.ip=$EXTERNAL_IP
@@ -67,10 +67,10 @@ defaultBeaconCommandTemplate: |
     --enr.ip=$(POD_IP)
     {{- end }}
     {{- if not (contains "--enr.tcp=" (.Values.extraArgs | join ",")) }}
-    --enr.tcp={{ include "grandine.p2pPort" . }}
+    --enr.tcp={{ include "lodestar.p2pPort" . }}
     {{- end }}
     {{- if not (contains "--enr.udp=" (.Values.extraArgs | join ",")) }}
-    --enr.udp={{ include "grandine.p2pPort" . }}
+    --enr.udp={{ include "lodestar.p2pPort" . }}
     {{- end }}
   {{- end }}
     --rest
