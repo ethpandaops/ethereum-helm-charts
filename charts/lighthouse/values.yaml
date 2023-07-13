@@ -124,10 +124,10 @@ defaultBootnodeCommandTemplate: |
   {{- end }}
   {{- if .Values.p2pNodePort.enabled }}
     --enr-port=$EXTERNAL_PORT
-    $EXTERNAL_IP
+    --enr-address=$EXTERNAL_IP
   {{- else }}
     --enr-port={{ include "lighthouse.p2pPort" . }}
-    $(POD_IP)
+    --enr-address=$(POD_IP)
   {{- end }}
 
 
