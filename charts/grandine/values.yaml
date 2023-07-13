@@ -40,9 +40,30 @@ defaultBeaconCommandTemplate: |
   {{- end }}
     exec grandine
     --data-dir=/data
-    --libp2p-port={{ .Values.p2pPort }}
+    --libp2p-port={{ include "grandine.p2pPort" . }}
     --http-address=0.0.0.0
     --http-port={{ .Values.httpPort }}
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--enr-address=" (.Values.extraArgs | join ",")) }}
+    --enr-address=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--enr-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --enr-tcp-port=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--enr-udp-port=" (.Values.extraArgs | join ",")) }}
+    --enr-udp-port=$EXTERNAL_PORT
+    {{- end }}
+    {{- else }}
+    {{- if not (contains "--enr-address=" (.Values.extraArgs | join ",")) }}
+    --enr-address=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--enr-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --enr-tcp-port={{ include "grandine.p2pPort" . }}
+    {{- end }}
+    {{- if not (contains "--enr-udp-port=" (.Values.extraArgs | join ",")) }}
+    --enr-udp-port={{ include "grandine.p2pPort" . }}
+    {{- end }}
+  {{- end }}
     --metrics
     --metrics-address=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
@@ -54,23 +75,6 @@ defaultBeaconCommandTemplate: |
     {{ tpl . $  }}
   {{- end }}
 
-# P2P Advertised IP and Port is currently not supported by Grandine
-# {{- if .Values.p2pNodePort.enabled }}
-#   {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
-#   --p2p-advertised-ip=$EXTERNAL_IP
-#   {{- end }}
-#   {{- if not (contains "--p2p-advertised-port=" (.Values.extraArgs | join ",")) }}
-#   --p2p-advertised-port=$EXTERNAL_PORT
-#   {{- end }}
-# {{- else }}
-#   {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
-#   --p2p-advertised-ip=$(POD_IP)
-#   {{- end }}
-#   {{- if not (contains "--p2p-advertised-port=" (.Values.extraArgs | join ",")) }}
-#   --p2p-advertised-port={{ .Values.p2pPort }}
-#   {{- end }}
-# {{- end }}
-
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
 customCommand: []
 
@@ -80,13 +84,8 @@ customCommand: []
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information

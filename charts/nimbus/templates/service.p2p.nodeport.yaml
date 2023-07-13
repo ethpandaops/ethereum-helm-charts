@@ -15,12 +15,12 @@ spec:
   externalTrafficPolicy: Local
   ports:
     - name: p2p-tcp
-      port: {{ $.Values.p2pPort }}
+      port: {{ include "nimbus.p2pPort" $ }}
       protocol: TCP
       targetPort: p2p-tcp
       nodePort: {{ $port }}
     - name: p2p-udp
-      port: {{ $.Values.p2pPort }}
+      port: {{ include "nimbus.p2pPort" $ }}
       protocol: UDP
       targetPort: p2p-udp
       nodePort: {{ $port }}

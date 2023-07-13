@@ -1,7 +1,7 @@
 
 # teku
 
-![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Java
 
@@ -55,8 +55,7 @@ An open-source Ethereum 2.0 client, written in Java
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
-| p2pNodePort.portsOverwrite | object | See `values.yaml` for example | Overwrite a port for specific replicas |
-| p2pNodePort.startAt | int | `31000` | Port used to start |
+| p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
@@ -109,20 +108,19 @@ extraArgs:
   - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
-## Beacon nodes exposing the P2P service via NodePort
+## Exposing the P2P service via NodePort
 
-This will make your nodes accessible via the Internet using services of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport). It will allocate a service definition and a pre-defined node port for each replica. The allocation starts at `p2pNodePort.startAt`. When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+This will make your node accessible via the Internet using a service of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport).
+When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+
+**Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`.If you need N nodes, simply deploy the chart N times.
 
 ```yaml
-replicas: 5
-
-mode: "beacon"
+replicas: 1
 
 p2pNodePort:
   enabled: true
-  startAt: 30000
-  portsOverwrite:
-    "3": 32000
+  port: 31000
 ```
 
 This would create 5 beacon nodes, exposed via Node Port services with the following configuration:

@@ -8,11 +8,11 @@ spec:
   type: ClusterIP
   ports:
   {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
-    - port: {{ .Values.p2pPort }}
+    - port: {{ include "prysm.p2pPort" . }}
       targetPort: p2p-tcp
       protocol: TCP
       name: p2p-tcp
-    - port: {{ .Values.p2pPort }}
+    - port: {{ include "prysm.p2pPort" . }}
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp

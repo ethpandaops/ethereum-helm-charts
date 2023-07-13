@@ -1,7 +1,7 @@
 
 # grandine
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
@@ -19,7 +19,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | checkpointSync | object | `{"enabled":false,"url":""}` | Checkpoint Sync |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` |  |
+| customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
 | defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |
 | extraArgs | list | `[]` | Extra args for the grandine container |
 | extraContainers | list | `[]` | Additional containers |
@@ -53,8 +53,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
-| p2pNodePort.portsOverwrite | object | See `values.yaml` for example | Overwrite a port for specific replicas |
-| p2pNodePort.startAt | int | `31000` | Port used to start |
+| p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
@@ -107,28 +106,20 @@ extraArgs:
   - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
-## Beacon nodes exposing the P2P service via NodePort
+## Exposing the P2P service via NodePort
 
-This will make your nodes accessible via the Internet using services of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport). It will allocate a service definition and a pre-defined node port for each replica. The allocation starts at `p2pNodePort.startAt`. When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+This will make your node accessible via the Internet using a service of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport).
+When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+
+**Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`.If you need N nodes, simply deploy the chart N times.
 
 ```yaml
-replicas: 5
-
-mode: "beacon"
+replicas: 1
 
 p2pNodePort:
   enabled: true
-  startAt: 30000
-  portsOverwrite:
-    "3": 32000
+  port: 31000
 ```
-
-This would create 5 beacon nodes, exposed via Node Port services with the following configuration:
-- Node 0: `30000`
-- Node 1: `30001`
-- Node 2: `30002`
-- Node 3: `32000`
-- Node 4: `30004`
 
 ## Validator node targeting a beacon node service
 

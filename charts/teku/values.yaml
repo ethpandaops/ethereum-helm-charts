@@ -49,7 +49,7 @@ defaultBeaconCommandTemplate: |
     --log-destination=CONSOLE
     --data-path=/data
     --p2p-enabled=true
-    --p2p-port={{ .Values.p2pPort }}
+    --p2p-port={{ include "teku.p2pPort" . }}
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--p2p-advertised-ip=" (.Values.extraArgs | join ",")) }}
     --p2p-advertised-ip=$EXTERNAL_IP
@@ -62,7 +62,7 @@ defaultBeaconCommandTemplate: |
     --p2p-advertised-ip=$(POD_IP)
     {{- end }}
     {{- if not (contains "--p2p-advertised-port=" (.Values.extraArgs | join ",")) }}
-    --p2p-advertised-port={{ .Values.p2pPort }}
+    --p2p-advertised-port={{ include "teku.p2pPort" . }}
     {{- end }}
   {{- end }}
     --rest-api-enabled=true
@@ -107,13 +107,8 @@ customCommand: []
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information

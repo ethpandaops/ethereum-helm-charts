@@ -68,3 +68,19 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- define "teku.clusterRoleName" -}}
 {{ .Release.Namespace }}-{{ include "teku.fullname" . }}
 {{- end }}
+
+{{- define "teku.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
+{{- print .Values.p2pPort }}
+{{- end }}
+{{- end -}}
+
+{{- define "teku.replicas" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end}}
+{{- end -}}

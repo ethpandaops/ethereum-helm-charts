@@ -73,10 +73,10 @@ defaultBeaconCommandTemplate: |
     --p2p-host-ip=$(POD_IP)
     {{- end }}
     {{- if not (contains "--p2p-tcp-port=" (.Values.extraArgs | join ",")) }}
-    --p2p-tcp-port={{ .Values.p2pPort }}
+    --p2p-tcp-port={{ include "prysm.p2pPort" . }}
     {{- end }}
     {{- if not (contains "--p2p-udp-port=" (.Values.extraArgs | join ",")) }}
-    --p2p-udp-port={{ .Values.p2pPort }}
+    --p2p-udp-port={{ include "prysm.p2pPort" . }}
     {{- end }}
   {{- end }}
     --rpc-host=0.0.0.0
@@ -118,13 +118,8 @@ customCommand: []
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information

@@ -1,12 +1,6 @@
 {{- if .Values.p2pNodePort.enabled -}}
-{{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
 
-{{- range $i, $e := until (int $.Values.replicas) }}
-
-{{- $port := add $.Values.p2pNodePort.startAt $i -}}
-{{- if hasKey $.Values.p2pNodePort.portsOverwrite ($i | toString) -}}
-  {{ $port = index $.Values.p2pNodePort.portsOverwrite ($i | toString) }}
-{{- end }}
+{{- $port := $.Values.p2pNodePort.port -}}
 ---
 apiVersion: v1
 kind: Service
@@ -21,20 +15,16 @@ spec:
   externalTrafficPolicy: Local
   ports:
     - name: p2p-tcp
-      port: {{ $.Values.p2pPort }}
+      port: {{ include "lighthouse.p2pPort" $ }}
       protocol: TCP
       targetPort: p2p-tcp
       nodePort: {{ $port }}
     - name: p2p-udp
-      port: {{ $.Values.p2pPort }}
+      port: {{ include "lighthouse.p2pPort" $ }}
       protocol: UDP
       targetPort: p2p-udp
       nodePort: {{ $port }}
   selector:
     {{- include "lighthouse.selectorLabels" $ | nindent 4 }}
-    statefulset.kubernetes.io/pod-name: {{ include "lighthouse.fullname" $ }}-{{ $i }}
-
-{{- end }}
-
-{{- end }}
+    statefulset.kubernetes.io/pod-name: "{{ include "lighthouse.fullname" $ }}-0"
 {{- end }}

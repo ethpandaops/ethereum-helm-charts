@@ -63,10 +63,10 @@ defaultCommandTemplate: |
     --nat=extip:$(POD_IP)
     {{- end }}
     {{- if not (contains "--udp-port=" (.Values.extraArgs | join ",")) }}
-    --udp-port={{ .Values.p2pPort }}
+    --udp-port={{ include "nimbus.p2pPort" . }}
     {{- end }}
     {{- if not (contains "--tcp-port=" (.Values.extraArgs | join ",")) }}
-    --tcp-port={{ .Values.p2pPort }}
+    --tcp-port={{ include "nimbus.p2pPort" . }}
     {{- end }}
   {{- end }}
     --rest=true

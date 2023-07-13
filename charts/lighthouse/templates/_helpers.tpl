@@ -68,3 +68,19 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "lighthouse.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
+{{- print .Values.p2pPort }}
+{{- end }}
+{{- end -}}
+
+{{- define "lighthouse.replicas" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end}}
+{{- end -}}

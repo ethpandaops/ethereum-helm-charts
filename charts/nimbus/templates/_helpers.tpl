@@ -69,6 +69,14 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{ .Release.Namespace }}-{{ include "nimbus.fullname" . }}
 {{- end }}
 
+{{- define "nimbus.p2pPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
+{{- print .Values.p2pPort }}
+{{- end }}
+{{- end -}}
+
 {{- define "nimbus.replicas" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print 1 }}
