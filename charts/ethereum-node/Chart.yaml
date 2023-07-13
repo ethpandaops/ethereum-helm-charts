@@ -15,32 +15,32 @@ maintainers:
 
 dependencies:
 - name: besu
-  version: "1.0.4"
+  version: "1.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.5"
+  version: "1.0.6"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
 - name: ethereumjs
-  version: "0.0.4"
+  version: "0.0.5"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled
 - name: geth
-  version: "1.0.5"
+  version: "1.0.6"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../geth"
   condition: geth.enabled
 - name: nethermind
-  version: "1.0.6"
+  version: "1.0.7"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled
 - name: reth
-  version: "0.0.3"
+  version: "0.0.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../reth"
   condition: reth.enabled

@@ -1,22 +1,22 @@
 dependencies:
 - name: besu
   repository: file://../besu
-  version: 1.0.4
+  version: 1.0.5
 - name: erigon
   repository: file://../erigon
-  version: 1.0.5
+  version: 1.0.6
 - name: ethereumjs
   repository: file://../ethereumjs
-  version: 0.0.4
+  version: 0.0.5
 - name: geth
   repository: file://../geth
-  version: 1.0.5
+  version: 1.0.6
 - name: nethermind
   repository: file://../nethermind
-  version: 1.0.6
+  version: 1.0.7
 - name: reth
   repository: file://../reth
-  version: 0.0.3
+  version: 0.0.4
 - name: grandine
   repository: file://../grandine
   version: 0.1.0
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.7
-digest: sha256:060f485952c73f4045b91c512e9229e2b9543a30e62636d68eccb22a86a6e333
-generated: "2023-07-13T13:44:19.907525+02:00"
+digest: sha256:25d00f8520bfe5c119edea6b1260e9d737375b66998fe7da3b41b5d87ac39fd7
+generated: "2023-07-13T14:36:57.534782+02:00"

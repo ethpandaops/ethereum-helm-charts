@@ -70,17 +70,17 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- end }}
 
 {{- define "besu.p2pPort" -}}
-{{- if .Values.p2pNodePort.enabled }}
+{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
 {{- print .Values.p2pNodePort.port }}
 {{- else }}
-{{- printf "30303" -}}
+{{- print .Values.p2pPort }}
 {{- end }}
 {{- end -}}
 
 {{- define "besu.replicas" -}}
-{{- if .Values.p2pNodePort.enabled }}
+{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
 {{- print 1 }}
 {{ else }}
 {{- print .Values.replicas }}
-{{- end}}
+{{- end }}
 {{- end -}}
