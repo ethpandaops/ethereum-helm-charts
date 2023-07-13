@@ -70,7 +70,7 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- end }}
 
 {{- define "lodestar.p2pPort" -}}
-{{- if .Values.p2pNodePort.enabled }}
+{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
 {{- print .Values.p2pNodePort.port }}
 {{- else }}
 {{- print .Values.p2pPort }}
@@ -78,9 +78,9 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- end -}}
 
 {{- define "lodestar.replicas" -}}
-{{- if .Values.p2pNodePort.enabled }}
+{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
 {{- print 1 }}
 {{ else }}
 {{- print .Values.replicas }}
-{{- end}}
+{{- end }}
 {{- end -}}
