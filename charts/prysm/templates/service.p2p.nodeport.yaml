@@ -5,10 +5,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "prysm.fullname" $ }}-p2p-{{ $i }}
+  name: {{ include "prysm.fullname" $ }}-p2p-0
   labels:
     {{- include "prysm.labels" $ | nindent 4 }}
-    pod: {{ include "prysm.fullname" $ }}-{{ $i }}
+    pod: {{ include "prysm.fullname" $ }}-0
     type: p2p
 spec:
   type: NodePort

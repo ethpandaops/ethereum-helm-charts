@@ -5,10 +5,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "lighthouse.fullname" $ }}-p2p-{{ $i }}
+  name: {{ include "lighthouse.fullname" $ }}-p2p-0
   labels:
     {{- include "lighthouse.labels" $ | nindent 4 }}
-    pod: {{ include "lighthouse.fullname" $ }}-{{ $i }}
+    pod: {{ include "lighthouse.fullname" $ }}-0
     type: p2p
 spec:
   type: NodePort

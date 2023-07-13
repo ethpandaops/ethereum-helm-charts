@@ -5,10 +5,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "teku.fullname" $ }}-p2p-{{ $i }}
+  name: {{ include "teku.fullname" $ }}-p2p-0
   labels:
     {{- include "teku.labels" $ | nindent 4 }}
-    pod: {{ include "teku.fullname" $ }}-{{ $i }}
+    pod: {{ include "teku.fullname" $ }}-0
     type: p2p
 spec:
   type: NodePort
