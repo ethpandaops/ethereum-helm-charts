@@ -93,6 +93,7 @@ besu:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -109,6 +110,7 @@ erigon:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -125,6 +127,7 @@ ethereumjs:
   enabled: false
   nameOverride: execution
   rpcPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -141,6 +144,7 @@ geth:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -157,6 +161,7 @@ nethermind:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
@@ -173,6 +178,7 @@ reth:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  p2pPort: 30303
   extraArgs:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
