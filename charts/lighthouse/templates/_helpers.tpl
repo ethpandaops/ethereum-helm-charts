@@ -70,7 +70,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "lighthouse.p2pPort" -}}
-{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
+{{- if and (.Values.p2pNodePort.enabled) (gt (int .Values.replicas)  1) }}
 {{- print .Values.p2pNodePort.port }}
 {{- else }}
 {{- print .Values.p2pPort }}
@@ -78,7 +78,7 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "lighthouse.replicas" -}}
-{{- if and (.Values.p2pNodePort.enabled) ( gt .Values.replicas  1) }}
+{{- if and (.Values.p2pNodePort.enabled) (gt (int .Values.replicas)  1) }}
 {{- print 1 }}
 {{ else }}
 {{- print .Values.replicas }}
