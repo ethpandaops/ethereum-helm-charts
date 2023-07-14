@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -57,6 +57,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | p2pNodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
 | p2pNodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
+| p2pPort | int | `30303` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
 | persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |

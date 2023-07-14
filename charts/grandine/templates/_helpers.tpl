@@ -68,3 +68,19 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- define "grandine.clusterRoleName" -}}
 {{ .Release.Namespace }}-{{ include "grandine.fullname" . }}
 {{- end }}
+
+{{- define "grandine.p2pPort" -}}
+{{- if and (.Values.p2pNodePort.enabled) (gt (int .Values.replicas)  1) }}
+{{- print .Values.p2pNodePort.port }}
+{{- else }}
+{{- print .Values.p2pPort }}
+{{- end }}
+{{- end -}}
+
+{{- define "grandine.replicas" -}}
+{{- if and (.Values.p2pNodePort.enabled) (gt (int .Values.replicas)  1) }}
+{{- print 1 }}
+{{ else }}
+{{- print .Values.replicas }}
+{{- end }}
+{{- end -}}

@@ -1,6 +1,4 @@
 {{- if .Values.p2pNodePort.enabled -}}
-
-{{- $port := $.Values.p2pNodePort.port -}}
 ---
 apiVersion: v1
 kind: Service
@@ -18,12 +16,12 @@ spec:
       port: {{ include "erigon.p2pPort" $ }}
       protocol: TCP
       targetPort: p2p-tcp
-      nodePort: {{ $port }}
+      nodePort: {{ include "erigon.p2pPort" $ }}
     - name: p2p-udp
       port: {{ include "erigon.p2pPort" $ }}
       protocol: UDP
       targetPort: p2p-udp
-      nodePort: {{ $port }}
+      nodePort: {{ include "erigon.p2pPort" $ }}
   selector:
     {{- include "erigon.selectorLabels" $ | nindent 4 }}
     statefulset.kubernetes.io/pod-name: "{{ include "erigon.fullname" $ }}-0"

@@ -8,7 +8,7 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: {{ .Values.replicas }}
+  replicas: {{ include "lodestar.replicas" . }}
   selector:
     matchLabels:
       {{- include "lodestar.selectorLabels" . | nindent 6 }}
@@ -119,10 +119,10 @@ spec:
           ports:
           {{- if eq .Values.mode "beacon" }}
             - name: p2p-tcp
-              containerPort: {{ .Values.p2pPort }}
+              containerPort: {{ include "lodestar.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ .Values.p2pPort }}
+              containerPort: {{ include "lodestar.p2pPort" . }}
               protocol: UDP
             - name: http-api
               containerPort: {{ .Values.httpPort }}

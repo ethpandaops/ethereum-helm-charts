@@ -6,7 +6,7 @@ icon: https://github.com/sifraitech/grandine/blob/master/gui.png
 sources:
   - https://github.com/sifraitech/grandine
 type: application
-version: 0.0.3
+version: 0.1.0
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com

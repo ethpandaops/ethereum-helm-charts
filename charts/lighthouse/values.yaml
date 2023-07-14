@@ -67,15 +67,15 @@ defaultBeaconCommandTemplate: |
     --enr-address=$(POD_IP)
     {{- end }}
     {{- if not (contains "--enr-tcp-port=" (.Values.extraArgs | join ",")) }}
-    --enr-tcp-port={{ .Values.p2pPort }}
+    --enr-tcp-port={{ include "lighthouse.p2pPort" . }}
     {{- end }}
     {{- if not (contains "--enr-udp-port=" (.Values.extraArgs | join ",")) }}
-    --enr-udp-port={{ .Values.p2pPort }}
+    --enr-udp-port={{ include "lighthouse.p2pPort" . }}
     {{- end }}
   {{- end }}
     --listen-address=0.0.0.0
-    --port={{ .Values.p2pPort }}
-    --discovery-port={{ .Values.p2pPort }}
+    --port={{ include "lighthouse.p2pPort" . }}
+    --discovery-port={{ include "lighthouse.p2pPort" . }}
     --http
     --http-address=0.0.0.0
     --http-port={{ .Values.httpPort }}
@@ -118,16 +118,16 @@ defaultBootnodeCommandTemplate: |
     boot_node
     --datadir=/data
     --listen-address=0.0.0.0
-    --port={{ .Values.p2pPort }}
+    --port={{ include "lighthouse.p2pPort" . }}
   {{- range .Values.extraArgs }}
     {{ . }}
   {{- end }}
   {{- if .Values.p2pNodePort.enabled }}
     --enr-port=$EXTERNAL_PORT
-    $EXTERNAL_IP
+    --enr-address=$EXTERNAL_IP
   {{- else }}
-    --enr-port={{ .Values.p2pPort }}
-    $(POD_IP)
+    --enr-port={{ include "lighthouse.p2pPort" . }}
+    --enr-address=$(POD_IP)
   {{- end }}
 
 
@@ -140,13 +140,8 @@ customCommand: []
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information

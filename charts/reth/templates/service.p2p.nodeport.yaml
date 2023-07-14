@@ -1,6 +1,4 @@
 {{- if .Values.p2pNodePort.enabled -}}
-
-{{- $port := $.Values.p2pNodePort.port -}}
 ---
 apiVersion: v1
 kind: Service
@@ -18,12 +16,12 @@ spec:
       port: {{ include "reth.p2pPort" $ }}
       protocol: TCP
       targetPort: p2p-tcp
-      nodePort: {{ $port }}
+      nodePort: {{ include "reth.p2pPort" $ }}
     - name: p2p-udp
       port: {{ include "reth.p2pPort" $ }}
       protocol: UDP
       targetPort: p2p-udp
-      nodePort: {{ $port }}
+      nodePort: {{ include "reth.p2pPort" $ }}
   selector:
     {{- include "reth.selectorLabels" $ | nindent 4 }}
     statefulset.kubernetes.io/pod-name: "{{ include "reth.fullname" $ }}-0"

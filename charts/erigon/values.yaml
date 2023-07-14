@@ -177,6 +177,9 @@ readinessProbeRPCDaemon:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- P2P Port
+p2pPort: 30303
+
 # -- HTTP Port
 httpPort: 8545
 

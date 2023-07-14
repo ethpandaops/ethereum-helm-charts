@@ -8,7 +8,7 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
-  replicas: {{ .Values.replicas }}
+  replicas: {{ include "lighthouse.replicas" . }}
   selector:
     matchLabels:
       {{- include "lighthouse.selectorLabels" . | nindent 6 }}
@@ -118,10 +118,10 @@ spec:
           ports:
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
             - name: p2p-tcp
-              containerPort: {{ .Values.p2pPort }}
+              containerPort: {{ include "lighthouse.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ .Values.p2pPort }}
+              containerPort: {{ include "lighthouse.p2pPort" . }}
               protocol: UDP
           {{- end }}
           {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}

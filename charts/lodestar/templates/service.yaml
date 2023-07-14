@@ -9,11 +9,11 @@ spec:
   type: ClusterIP
   ports:
   {{- if eq .Values.mode "beacon" }}
-    - port: {{ .Values.p2pPort }}
+    - port: {{ include "lodestar.p2pPort" . }}
       targetPort: p2p-tcp
       protocol: TCP
       name: p2p-tcp
-    - port: {{ .Values.p2pPort }}
+    - port: {{ include "lodestar.p2pPort" . }}
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp

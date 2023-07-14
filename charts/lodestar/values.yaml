@@ -51,7 +51,7 @@ defaultBeaconCommandTemplate: |
     --dataDir=/data
     --discv5
     --listenAddress=0.0.0.0
-    --port={{ .Values.p2pPort }}
+    --port={{ include "lodestar.p2pPort" . }}
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--enr.ip=" (.Values.extraArgs | join ",")) }}
     --enr.ip=$EXTERNAL_IP
@@ -67,10 +67,10 @@ defaultBeaconCommandTemplate: |
     --enr.ip=$(POD_IP)
     {{- end }}
     {{- if not (contains "--enr.tcp=" (.Values.extraArgs | join ",")) }}
-    --enr.tcp={{ .Values.p2pPort }}
+    --enr.tcp={{ include "lodestar.p2pPort" . }}
     {{- end }}
     {{- if not (contains "--enr.udp=" (.Values.extraArgs | join ",")) }}
-    --enr.udp={{ .Values.p2pPort }}
+    --enr.udp={{ include "lodestar.p2pPort" . }}
     {{- end }}
   {{- end }}
     --rest
@@ -109,13 +109,8 @@ customCommand: []
 p2pNodePort:
   # -- Expose P2P port via NodePort
   enabled: false
-  # -- Port used to start
-  startAt: 31000
-  # -- Overwrite a port for specific replicas
-  # @default -- See `values.yaml` for example
-  portsOverwrite: {}
-  #  "0": 32345
-  #  "3": 32348
+  # -- NodePort to be used
+  port: 31000
   initContainer:
     image:
       # -- Container image to fetch nodeport information
