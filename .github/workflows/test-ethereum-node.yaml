@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Fetch default branch
         run: git fetch origin ${{ github.event.repository.default_branch }}:${{ github.event.repository.default_branch }}
@@ -43,7 +45,6 @@ jobs:
       - name: Check if chart got changed
         id: list-changed
         run: |
-          git branch;
           if ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} | grep -q 'charts/ethereum-node'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
