@@ -42,7 +42,7 @@ jobs:
       - name: Check if chart got changed
         id: list-changed
         run: |
-          if ct list-changed --config ct.yaml | grep -q 'charts/ethereum-node'; then
+          if ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }} | grep -q 'charts/ethereum-node'; then
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
@@ -50,6 +50,7 @@ jobs:
         run: >
           ct lint
           --config ct.yaml
+          --target-branch ${{ github.event.repository.default_branch }}
           --charts charts/ethereum-node
 
       - name: Create kind cluster
@@ -61,6 +62,7 @@ jobs:
         run: >
           ct install
           --config ct.yaml
+          --target-branch ${{ github.event.repository.default_branch }}
           --charts charts/ethereum-node
           --helm-extra-set-args="
             --values=charts/ethereum-node/ci/networks/${{ matrix.network }}.yaml

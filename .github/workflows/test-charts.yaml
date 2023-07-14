@@ -34,13 +34,16 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed --config ct.yaml)
+          changed=$(ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+        run: >
+          ct lint
+          --config ct.yaml
+          --target-branch ${{ github.event.repository.default_branch }}
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.5.0
@@ -48,7 +51,9 @@ jobs:
 
       - name: Run chart-testing (install)
         run: >
-          ct install --config ct.yaml
+          ct install
+          --config ct.yaml
+          --target-branch ${{ github.event.repository.default_branch }}
           --excluded-charts ethereum-node
           --excluded-charts beaconchain-explorer
           --excluded-charts fauceth
