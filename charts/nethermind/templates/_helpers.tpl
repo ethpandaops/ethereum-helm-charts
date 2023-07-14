@@ -70,7 +70,7 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- end }}
 
 {{- define "nethermind.p2pPort" -}}
-{{- if and (.Values.p2pNodePort.enabled) (gt (int .Values.replicas)  1) }}
+{{- if .Values.p2pNodePort.enabled }}
 {{- print .Values.p2pNodePort.port }}
 {{- else }}
 {{- print .Values.p2pPort }}
