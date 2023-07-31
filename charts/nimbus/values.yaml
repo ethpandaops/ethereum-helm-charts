@@ -296,16 +296,19 @@ initContainers:
       - sh
       - -ac
       - >-
-        {{- if .Values.checkpointSync.enabled }}
-        exec {{ .Values.defaultBinaryPath }}
-        trustedNodeSync
-        --data-dir=/data
-        --network={{ tpl .Values.checkpointSync.network $ }}
-        --backfill=false
-        --trusted-node-url={{ tpl .Values.checkpointSync.url $ }}
-        {{- else }}
-        echo "Checkpoint-sync isn't enabled. Nothing to do."
-        {{- end }}
+        if [ -z "$(ls -A /data)" ]; then
+          {{- if .Values.checkpointSync.enabled }}
+          exec {{ .Values.defaultBinaryPath }} trustedNodeSync
+          --data-dir=/data
+          --network={{ tpl .Values.checkpointSync.network $ }}
+          --backfill=false
+          --trusted-node-url={{ tpl .Values.checkpointSync.url $ }}
+          {{- else }}
+          echo "Checkpoint-sync isn't enabled. Nothing to do."
+          {{- end }}
+        else
+          echo "/data directory is not empty. Skipping the command."
+        fi
     volumeMounts:
     - name: storage
       mountPath: "/data"
