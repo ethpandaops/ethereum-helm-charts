@@ -1,7 +1,7 @@
 
 # dshackle
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket.
 
