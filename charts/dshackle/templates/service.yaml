@@ -15,6 +15,14 @@ spec:
       targetPort: grpc
       protocol: TCP
       name: grpc
+    - port: {{ .Values.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    - port: {{ .Values.healthPort }}
+      targetPort: health
+      protocol: TCP
+      name: health
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
