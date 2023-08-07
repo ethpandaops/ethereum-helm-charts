@@ -296,7 +296,7 @@ initContainers:
       - sh
       - -ac
       - >-
-        if [ -z "$(ls -A /data)" ]; then
+        if [ -z "$(ls -A /data/db)" ]; then
           {{- if .Values.checkpointSync.enabled }}
           exec {{ .Values.defaultBinaryPath }} trustedNodeSync
           --data-dir=/data
