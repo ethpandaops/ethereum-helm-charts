@@ -60,6 +60,7 @@ defaultCommandTemplate: |
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
     --authrpc.port={{ .Values.authPort }}
+    --metrics=0.0.0.0:{{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -149,6 +150,9 @@ authPort: 8551
 
 # -- WS Engine Auth Port
 wsAuthPort: 8551
+
+# -- Metrics Port
+metricsPort: 6060
 
 # -- Node selector for pods
 nodeSelector: {}
