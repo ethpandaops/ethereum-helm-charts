@@ -10,4 +10,5 @@ check-version-increment: true
 lint-conf: lintconf.yaml
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
+  - bjw-s=https://bjw-s.github.io/helm-charts
   - ethereum-helm-charts=https://ethpandaops.github.io/ethereum-helm-charts
