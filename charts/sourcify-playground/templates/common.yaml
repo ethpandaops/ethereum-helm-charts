@@ -1,0 +1,28 @@
+---
+{{- include "bjw-s.common.loader.init" . }}
+
+{{- define "app-template.nameOverride" -}}
+# Set the nameOverride based on the release name if no override has been set
+{{ if not .Values.global.nameOverride }}
+global:
+  nameOverride: "{{ .Release.Name }}"
+{{ end }}
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "app-template.nameOverride" . | fromYaml) -}}
+
+{{- define "app-template.hardcodedValues"}}
+{{- if .Values.secrets.secretenv.enabled }}
+# Populate env from secret
+envFrom:
+  - secretRef:
+      name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}-secretenv
+  {{- with .Values.envFrom }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}
+{{- end -}}
+
+{{- $_ := mergeOverwrite .Values (include "app-template.hardcodedValues" . | fromYaml) -}}
+
+{{/* Render the templates */}}
+{{ include "bjw-s.common.loader.generate" . }}

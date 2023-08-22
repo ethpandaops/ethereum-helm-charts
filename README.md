@@ -39,7 +39,7 @@ helm delete ethstats
 
 ## List of charts
 
-Execution layer clients
+**Execution layer clients**
 
 - [`besu`](charts/besu)
 - [`erigon`](charts/erigon)
@@ -48,7 +48,7 @@ Execution layer clients
 - [`nethermind`](charts/nethermind)
 - [`reth`](charts/reth)
 
-Consensus layer clients
+**Consensus layer clients**
 - [`grandine`](charts/grandine)
 - [`lighthouse`](charts/lighthouse)
 - [`lodestar`](charts/lodestar)
@@ -56,11 +56,22 @@ Consensus layer clients
 - [`prysm`](charts/prysm)
 - [`teku`](charts/teku)
 
-Generic
+**Generic**
 
 - [`ethereum-node`](charts/ethereum-node) - Umbrella chart that uses the execution and consensus layer client charts.
 
-Tooling
+**Sourcify**
+
+Smart contract source code and metadata verification tool.
+
+- [`sourcify-docs`](charts/sourcify-docs)
+- [`sourcify-monitor`](charts/sourcify-monitor)
+- [`sourcify-playground`](charts/sourcify-playground)
+- [`sourcify-repository`](charts/sourcify-repository)
+- [`sourcify-server`](charts/sourcify-server)
+- [`sourcify-ui`](charts/sourcify-ui)
+
+**Tooling**
 
 - [`beacon-metrics-gazer`](charts/beacon-metrics-gazer) - A prometheus exporter for Ethereum validator clients.
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.

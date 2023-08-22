@@ -1,0 +1,5 @@
+persistence:
+  data:
+    enabled: false
+  compilers:
+    enabled: false

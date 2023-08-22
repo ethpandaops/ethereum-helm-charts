@@ -1,0 +1,85 @@
+image:
+  repository: ethereum/source-verify
+  tag: repository-latest
+  pullPolicy: IfNotPresent
+
+##
+## Application
+##
+
+controller:
+  type: deployment
+  replicas: 1
+  strategy: RollingUpdate
+
+service:
+  main:
+    enabled: true
+    primary: true
+    type: ClusterIP
+    ports:
+      http:
+        port: 80
+
+##
+## Environment configuration
+##
+
+env: {}
+
+##
+## Secrets
+##
+
+secrets:
+  secretenv:
+    enabled: false # If enabled, a Secret will be created and imported via envFrom into the main application.
+    stringData: {}
+
+
+##
+## Data persistence
+##
+
+persistence:
+  data:
+    enabled: true
+    type: pvc
+    existingClaim: sourcify-repository
+    mountPath: /data
+
+
+##
+## Health probes
+##
+
+probes:
+  liveness:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  startup:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      timeoutSeconds: 1
+      periodSeconds: 5
+      failureThreshold: 30
+
+##
+## Ingress
+##
+
+ingress:
+  main:
+    enabled: false

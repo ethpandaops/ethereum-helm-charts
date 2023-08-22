@@ -1,0 +1,3 @@
+persistence:
+  data:
+    enabled: false

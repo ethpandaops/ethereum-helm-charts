@@ -1,0 +1,121 @@
+image:
+  repository: ethereum/source-verify
+  tag: server-latest
+  pullPolicy: IfNotPresent
+
+##
+## Application
+##
+
+controller:
+  type: statefulset
+  replicas: 1
+  strategy: RollingUpdate
+
+service:
+  main:
+    enabled: true
+    primary: true
+    type: ClusterIP
+    ports:
+      http:
+        port: 80
+
+##
+## Environment configuration
+##
+
+env:
+  REPOSITORY_PATH: /data/repository
+  REPOSITORY_SERVER_URL: https://repo.sourcify.dev
+  SOLC_REPO: /data/compilers/solc
+  SOLJSON_REPO: /data/compilers/soljson
+  SERVER_PORT: "80"
+
+  IPFS_GATEWAY: https://ipfs.io/ipfs/
+  AUTH0_AUDIENCE: https://sourcify.dev
+  AUTH0_ISSUERBASEURL: https://dev-htkreq1l71u1hn5l.us.auth0.com
+  AUTH0_TOKENSIGNINGALG: RS256
+  AUTH0_CLIENTID: epipuQWJL67dVggPvxNmAy40ggzNum9F
+
+##
+## Secrets
+##
+
+secrets:
+  secretenv:
+    enabled: true # If enabled, a Secret will be created and imported via envFrom into the main application.
+    stringData:
+      SESSION_SECRET: yoursessionsecret
+      # # RPC endpoint tokens
+      # CF_ACCESS_CLIENT_ID: ""
+      # CF_ACCESS_CLIENT_SECRET: ""
+      # INFURA_ID: ""
+      # ALCHEMY_ID: ""
+      # ALCHEMY_ID_OPTIMISM: ""
+      # ALCHEMY_ID_ARBITRUM: ""
+      # # "Etherscans"
+      # ETHERSCAN_API_KEY: ""
+      # ARBISCAN_API_KEY: ""
+      # POLYGONSCAN_API_KEY: ""
+      # BSCSCAN_API_KEY: ""
+      # SNOWTRACE_API_KEY: ""
+      # CELOSCAN_API_KEY: ""
+      # MOONSCAN_MOONBEAM_API_KEY: ""
+      # MOONSCAN_MOONRIVER_API_KEY: ""
+      # BOBASCAN_API_KEY: ""
+      # GNOSISSCAN_API_KEY: ""
+      # OPTIMISMSCAN_API_KEY: ""
+      # CRONOSCAN_API_KEY: ""
+      # BASESCAN_API_KEY: ""
+
+##
+## Data persistence
+##
+
+persistence:
+  data:
+    enabled: true
+    type: pvc
+    existingClaim: sourcify-repository
+    mountPath: /data/repository
+  compilers:
+    enabled: true
+    type: pvc
+    existingClaim: sourcify-compilers
+    mountPath: /data/compilers
+
+##
+## Health probes
+##
+
+probes:
+  liveness:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  readiness:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      periodSeconds: 10
+      timeoutSeconds: 1
+      failureThreshold: 3
+  startup:
+    enabled: true
+    spec:
+      initialDelaySeconds: 0
+      timeoutSeconds: 1
+      periodSeconds: 5
+      failureThreshold: 30
+
+##
+## Ingress
+##
+
+ingress:
+  main:
+    enabled: false
