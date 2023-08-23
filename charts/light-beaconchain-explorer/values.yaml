@@ -84,12 +84,24 @@ config: |
       # CL Client RPC
       endpoints:
         {{- range .Values.endpoints }}
-          url = {{ .url | quote }}
-          name = {{ .name | quote | default "" }}
-          priority = {{ .priority | quote | default "" }}
-          archive = {{ .archive | quote | default false }}
-          headers = {{ .headers | toYaml | quote | default "" }}
+          url: {{ .url | quote }}
+          {{- if .name }}
+          name: {{ .name | quote }}
+          {{- end }}
+          {{- if .priority }}
+          priority: {{ .priority | quote }}
+          {{- end }}
+          {{- if .archive }}
+          archive: {{ .archive | quote }}
+          {{- end }}
+          {{- if .headers }}
+          headers:
+          {{- range $key, $value := .headers }}
+            {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+          {{- end }}
+          {{- end }}
         {{- end }}
+
       # local cache for page models
       localCacheSize: 100 # 100MB
 
@@ -117,12 +129,11 @@ config: |
     database:
       engine: "pgsql"
       pgsql:
-        host: "{{ Release.Name }}-postgresql }}"
+        host: "{{ .Release.Name }}-postgresql"
         port: 5432
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
         name: "{{ .Values.postgresql.auth.database }}"
-
 
 ranges: |
   0-1: test
