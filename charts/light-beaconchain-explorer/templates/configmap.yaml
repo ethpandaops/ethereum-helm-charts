@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "light-beaconchain-explorer.fullname" . }}-ranges
+  labels:
+    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+data:
+  ranges.yaml: |
+    {{- .Values.ranges | nindent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "light-beaconchain-explorer.fullname" . }}-config
+  labels:
+    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    logging:
+      outputLevel: "info"
+      #outputStderr: false
+
+      #filePath: "explorer.log"
+      #fileLevel: "warn"
+
+    # Chain network configuration
+    chain:
+      name: "{{ .Values.config.name | default .Release.Name }}"
+      configPath: "/data/config.yaml"
+      displayName: "{{ .Values.config.name | default .Release.Name }}"
+
+    # HTTP Server configuration
+    server:
+      host: "0.0.0.0" # Address to listen on
+      port: "{{ .Values.httpPort }}" # Port to listen on
+
+    frontend:
+      enabled: true # Enable or disable to web frontend
+      debug: false
+      minimize: false # minimize html templates
+
+      # Name of the site, displayed in the title tag
+      siteName: "Light Beaconchain Explorer"
+      siteSubtitle: "{{ .Release.Name }}"
+
+      # link to EL Explorer
+      ethExplorerLink: "{{ .Values.config.ethExplorerLink }}"
+
+      # file or inventory url to load validator names from
+      validatorNamesYaml: "/data/ranges.yaml"
+      validatorNamesInventory: "{{ .Values.config.validatorNamesInventory }}"
+
+    beaconapi:
+      # CL Client RPC
+      endpoint: "{{ .Values.endpoint }}"
+      # local cache for page models
+      localCacheSize: 100 # 100MB
+
+      # remote cache for page models
+      redisCacheAddr: ""
+      redisCachePrefix: ""
+
+    # indexer keeps track of the latest epochs in memory.
+    indexer:
+      # number of epochs to load on startup
+      prepopulateEpochs: 2
+
+      # max number of epochs to keep in memory
+      inMemoryEpochs: 3
+
+      # epoch processing delay (should be >= 2)
+      epochProcessingDelay: 2
+
+      # disable synchronizing and everything that writes to the db (indexer just maintains local cache)
+      disableIndexWriter: false
+
+      # number of seconds to wait between each epoch (don't overload CL client)
+      syncEpochCooldown: 2
+
+    database:
+      engine: "pgsql"
+      pgsql:
+        host: "{{ .Release.Name }}-postgresql"
+        port: 5432
+        user: "postgres"
+        password: "postgres"
+        name: "light-beaconchain-explorer"
