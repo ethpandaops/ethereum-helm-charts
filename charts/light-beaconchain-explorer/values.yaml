@@ -83,7 +83,13 @@ config: |
     beaconapi:
       # CL Client RPC
       endpoints:
-        {{- toYaml .Values.endpoints | nindent 8 }}
+        {{- range .Values.endpoints }}
+          url = {{ .url | quote }}
+          name = {{ .name | quote | default "" }}
+          priority = {{ .priority | quote | default "" }}
+          archive = {{ .archive | quote | default false }}
+          headers = {{ .headers | toYaml | quote | default "" }}
+        {{- end }}
       # local cache for page models
       localCacheSize: 100 # 100MB
 
