@@ -86,4 +86,4 @@ data:
         port: 5432
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
-        name: "light-beaconchain-explorer"
+        name: "{{ .Values.postgresql.auth.database }}"
