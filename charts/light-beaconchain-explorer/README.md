@@ -7,6 +7,12 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 
 **Homepage:** <https://github.com/pk910/light-beaconchain-explorer>
 
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.bitnami.com/bitnami | postgresql | 12.x.x |
+
 ## Values
 
 | Key | Type | Default | Description |

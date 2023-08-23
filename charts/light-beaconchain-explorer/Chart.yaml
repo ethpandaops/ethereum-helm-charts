@@ -7,3 +7,8 @@ version: 0.0.1
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
+dependencies:
+  - name: postgresql
+    version: "12.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
