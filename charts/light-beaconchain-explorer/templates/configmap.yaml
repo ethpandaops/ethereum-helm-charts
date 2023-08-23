@@ -16,4 +16,4 @@ metadata:
     {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
 data:
   config.yaml: |
-  {{- .Values.configuration | nindent 4}}
+  {{- .Values.config | nindent 4}}

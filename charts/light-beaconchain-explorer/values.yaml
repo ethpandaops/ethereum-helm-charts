@@ -26,27 +26,25 @@ endpoints:
       "X-Test": "test"
       "Y-Test": "test2"
 
-# -- Config file - defaults are set to the sepolia validator set
-# @default -- See `values.yaml`
-config:
-  # -- Name of the site, displayed in the title tag
-  # -- # use built in config by name ("mainnet", "prater", "sepolia")
-  name: "mainnet"
+# -- Name of the network ("mainnet", "prater", "sepolia")
+name: mainnet
 
-  # -- Path to the network config file
-  # -- This can be a url or a local path
-  # -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml"
-  configPath: ""
-  # -- Link to the eth explorer
-  ethExplorerLink: ""
-  # -- This can be a url here for example:
-  # -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
-  # -- If you want to use a local range file define it in the values.yaml ranges section
-  validatorNamesInventory: ""
+# -- This can be a url here for example:
+# -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
+# -- If you want to use a local range file define it in the values.yaml ranges section
+validatorNamesInventory: ""
+
+# -- Path to the network config file
+# -- This can be a url or a local path
+# -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml"
+configPath: ""
+
+# -- Link to the eth explorer
+ethExplorerLink: ""
 
 # -- Config file
 # @default -- See `values.yaml`
-configuration: |
+config: |
     logging:
       outputLevel: "info"
       #outputStderr: false
@@ -57,9 +55,9 @@ configuration: |
     # Chain network configuration
     chain:
       # use built in config by name ("mainnet", "prater", "sepolia")
-      name: "{{ .Values.config.name | default "mainnet" }}"
-      configPath: {{ .Values.config.configPath | default "" }}
-      displayName: "{{ .Values.config.name | default "mainnet" }}"
+      name: "{{ .Values.name }}"
+      configPath: "{{ .Values.configPath }}"
+      displayName: "{{ .Values.name }}"
 
     # HTTP Server configuration
     server:
@@ -76,11 +74,11 @@ configuration: |
       siteSubtitle: "{{ .Release.Name }}"
 
       # link to EL Explorer
-      ethExplorerLink: "{{ .Values.config.ethExplorerLink }}"
+      ethExplorerLink: "{{ .Values.ethExplorerLink }}"
 
       # file or inventory url to load validator names from
       validatorNamesYaml: "/data/ranges.yaml"
-      validatorNamesInventory: "{{ .Values.config.validatorNamesInventory }}"
+      validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
 
     beaconapi:
       # CL Client RPC
