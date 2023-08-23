@@ -84,6 +84,6 @@ data:
       pgsql:
         host: "{{ .Release.Name }}-postgresql"
         port: 5432
-        user: "postgres"
-        password: "postgres"
+        user: "{{ .Values.postgresql.auth.username }}"
+        password: "{{ .Values.postgresql.auth.password }}"
         name: "light-beaconchain-explorer"

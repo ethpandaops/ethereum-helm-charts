@@ -59,6 +59,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
+| postgresql.auth.database | string | `"light-beaconchain-explorer"` |  |
 | postgresql.auth.enablePostgresUser | bool | `true` |  |
 | postgresql.auth.password | string | `"postgres"` |  |
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |

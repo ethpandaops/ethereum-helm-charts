@@ -255,6 +255,7 @@ postgresql:
   auth:
     enablePostgresUser: true
     postgresPassword: postgres
+    database: light-beaconchain-explorer
     username: postgres
     password: postgres
   primary:
