@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "helm-ipfs-cluster.ipfs-name" . }}
+spec:
+  serviceName: {{ include "helm-ipfs-cluster.ipfs-name" . }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 6 }}
+      nodeType: ipfs
+  template:
+    metadata:
+      labels:
+        {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 8 }}
+        nodeType: ipfs
+    spec:
+      {{- with .Values.ipfs.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "helm-ipfs-cluster.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.ipfs.podSecurityContext | nindent 8 }}
+      containers:
+      - name: ipfs
+        image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag | default "latest" }}
+        ports:
+        - containerPort: 4001
+          name: swarm
+        - containerPort: 5001
+          name: api
+        - containerPort: 8080
+          name: gateway
+        - containerPort: 5353
+          name: zeroconf
+          protocol: UDP
+#        livenessProbe:
+#          httpGet:
+#            path: /
+#            port: gateway
+#        readinessProbe:
+#          httpGet:
+#            path: /
+#            port: gateway
+        volumeMounts:
+        - name: data
+          mountPath: /data/ipfs
+        resources:
+          {{- toYaml .Values.ipfs.resources | nindent 12 }}
+      {{- with .Values.ipfs.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.ipfs.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.ipfs.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- with .Values.ipfs.storage.storageClassName }}
+      storageClassName: {{ . }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ .Values.ipfs.storage.volumeSize | default "1Gi" }}

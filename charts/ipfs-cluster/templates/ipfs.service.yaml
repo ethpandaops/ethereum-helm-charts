@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm-ipfs-cluster.ipfs-name" . }}
+  labels:
+    {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
+    nodeType: ipfs
+spec:
+  type: {{ .Values.ipfs.service.type | default .Values.service.type }}
+  ports:
+  - port: 4001
+    name: swarm
+  - port: 5001
+    name: api
+  - port: 8080
+    name: gateway
+    #  clusterIP: None
+  selector:
+    {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
+    nodeType: ipfs

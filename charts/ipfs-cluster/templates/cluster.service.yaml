@@ -1,0 +1,40 @@
+{{- range $i, $n := (until (int .Values.replicaCount)) -}}
+{{- if ne $i 0 }}
+---
+{{- end }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-{{ $i }}-{{ include "helm-ipfs-cluster.name" $ }}
+  labels:
+    {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 4 }}
+    nodeType: cluster
+spec:
+  type: {{ $.Values.cluster.service.type | default $.Values.service.type }}
+  ports:
+  - port: 9096
+    name: p2p
+    #  clusterIP: None
+  selector:
+    {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 4 }}
+    nodeType: cluster
+{{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cluster-{{ include "helm-ipfs-cluster.name" . }}-api
+  labels:
+    {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 4 }}
+    nodeType: cluster
+spec:
+  type: {{ .Values.ipfs.service.type | default .Values.service.type }}
+  ports:
+  - port: 9094
+    name: api
+  - port: 9095
+    name: ipfs-proxy
+  selector:
+    {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 4 }}
+    nodeType: cluster
