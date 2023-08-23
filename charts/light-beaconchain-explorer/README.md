@@ -1,11 +1,11 @@
 
 # light-beaconchain-explorer
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Collects network wide participation metrics given a range of indexes
+A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
-**Homepage:** <https://github.com/dapplion/light-beaconchain-explorer>
+**Homepage:** <https://github.com/pk910/light-beaconchain-explorer>
 
 ## Values
 
@@ -13,10 +13,14 @@ Collects network wide participation metrics given a range of indexes
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| config | object | See `values.yaml` | Config file - defaults are set to the sepolia validator set |
+| config.ethExplorerLink | string | `""` | Link to the eth explorer |
+| config.name | string | `""` | Name of the site, displayed in the title tag |
+| config.validatorNamesInventory | string | `""` | You can use an url here for example: https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges -- If you want to use a local range file define it in the values.yaml ranges section |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the forkmon container |
-| endpoint | string | `"http://beacon-node:5052"` | Endpoint that you would like to monitor |
-| extraArgs | list | `[]` | Extra args for the forkmon container |
+| customCommand | list | `[]` | Command replacement for the light-beaconchain-explorer container |
+| endpoint | string | `"http://beacon-node:5052"` | Endpoint to use for the explorer |
+| extraArgs | list | `[]` | Extra args for the light-beaconchain-explorer container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -24,8 +28,8 @@ Collects network wide participation metrics given a range of indexes
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` |  |
-| image.pullPolicy | string | `"IfNotPresent"` | forkmon container pull policy |
-| image.repository | string | `"dapplion/light-beaconchain-explorer"` | forkmon container image repository |
+| image.pullPolicy | string | `"IfNotPresent"` | light-beaconchain-explorer container pull policy |
+| image.repository | string | `"pk910/light-beaconchain-explorer"` | light-beaconchain-explorer container image repository |
 | image.tag | string | `"latest"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
@@ -48,8 +52,20 @@ Collects network wide participation metrics given a range of indexes
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
+| postgresql.auth.enablePostgresUser | bool | `true` |  |
+| postgresql.auth.password | string | `"postgres"` |  |
+| postgresql.auth.postgresPassword | string | `"postgres"` |  |
+| postgresql.auth.username | string | `"postgres"` |  |
+| postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
+| postgresql.image.registry | string | `"docker.io"` |  |
+| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
+| postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
+| postgresql.persistence.enabled | bool | `true` |  |
+| postgresql.persistence.size | string | `"8Gi"` |  |
+| postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
-| ranges | string | See `values.yaml` | Config file - defaults are set to the sepolia validator set |
+| ranges | string | `"0-1: test\n"` |  |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
@@ -77,23 +93,16 @@ Collects network wide participation metrics given a range of indexes
 
 # Example
 
-Usage: light-beaconchain-explorer [OPTIONS] <URL>
+Usage: light-beaconchain-explorer -config config.yaml
 
-Arguments:
+Helper:
 ```shell
-  <URL>  Beacon HTTP API URL: http://1.2.3.4:4000
+Usage of ./explorer_linux_amd64:
+-config string
+    Path to the config file, if empty string defaults will be used
 ```
-Options:
-```shell
-      --ranges <RANGES>            Index ranges to group IDs as JSON or TXT. Example: `{"0..100": "lh-geth-0", "100..200": "lh-geth-1"}
-      --ranges-file <RANGES_FILE>  Local path or URL containing a file with index ranges with the format as defined in --ranges
-      --dump                       Dump participation ranges print to stderr on each fetch
-  -p, --port <PORT>                Metrics server port [default: 8080]
-      --address <ADDRESS>          Metrics server bind address [default: 127.0.0.1]
-  -h, --help                       Print help
-  -V, --version                    Print version
-```
-The format of the ranges file is very flexible, can be JSON, YAML or plain text:
+
+In order to name validators based on ranges the following file format can be provided YAML:
 ```shell
 0-500 Nethermind lighthouse-0
 500-1000 Nethermind lighthouse-1

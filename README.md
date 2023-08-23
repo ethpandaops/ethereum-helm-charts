@@ -77,6 +77,7 @@ Tooling
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
+- [`light-beaconchain-explorer`](charts/light-beaconchain-explorer) - Lightweight Beaconchain explorer.
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
 - [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
