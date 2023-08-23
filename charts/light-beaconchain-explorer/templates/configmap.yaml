@@ -25,9 +25,10 @@ data:
 
     # Chain network configuration
     chain:
-      name: "{{ .Values.config.name | default .Release.Name }}"
-      configPath: "/data/config.yaml"
-      displayName: "{{ .Values.config.name | default .Release.Name }}"
+      # use built in config by name ("mainnet", "prater", "sepolia")
+      name: "{{ .Values.config.name | default "mainnet" }}"
+      configPath: {{ .Values.config.configPath | default "" }}
+      displayName: "{{ .Values.config.name | default "mainnet" }}"
 
     # HTTP Server configuration
     server:
@@ -52,7 +53,8 @@ data:
 
     beaconapi:
       # CL Client RPC
-      endpoint: "{{ .Values.endpoint }}"
+      endpoints: 
+        {{- toYaml .Values.endpoints | nindent 8 }}
       # local cache for page models
       localCacheSize: 100 # 100MB
 
