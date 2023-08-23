@@ -14,10 +14,10 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | object | See `values.yaml` | Config file - defaults are set to the sepolia validator set |
-| config.configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- https://raw.githubusercontent.com/ethpandaops/dencun-testnet/master/network-configs/devnet-8/config.yaml |
+| config.configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://raw.githubusercontent.com/ethpandaops/dencun-testnet/master/network-configs/devnet-8/config.yaml" |
 | config.ethExplorerLink | string | `""` | Link to the eth explorer |
 | config.name | string | `"mainnet"` | Name of the site, displayed in the title tag -- # use built in config by name ("mainnet", "prater", "sepolia") |
-| config.validatorNamesInventory | string | `""` | This can be a url here for example:  -- https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges -- If you want to use a local range file define it in the values.yaml ranges section |
+| config.validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml ranges section |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the light-beaconchain-explorer container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
