@@ -44,6 +44,8 @@ config:
   # -- If you want to use a local range file define it in the values.yaml ranges section
   validatorNamesInventory: ""
 
+# -- Config file
+# @default -- See `values.yaml`
 configuration: |
     logging:
       outputLevel: "info"
