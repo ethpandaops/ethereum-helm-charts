@@ -35,7 +35,7 @@ config:
 
   # -- Path to the network config file
   # -- This can be a url or a local path
-  # -- "https://raw.githubusercontent.com/ethpandaops/dencun-testnet/master/network-configs/devnet-8/config.yaml"
+  # -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml"
   configPath: ""
   # -- Link to the eth explorer
   ethExplorerLink: ""

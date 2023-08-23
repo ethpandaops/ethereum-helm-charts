@@ -102,7 +102,7 @@ spec:
       {{- end }}
         - name: config
           configMap:
-            name: {{ include "light-beaconchain-explorer.fullname" . }}
+            name: {{ include "light-beaconchain-explorer.fullname" . }}-config
         - name: ranges
           configMap: 
-            name: {{ include "light-beaconchain-explorer.fullname" . }}
+            name: {{ include "light-beaconchain-explorer.fullname" . }}-ranges
