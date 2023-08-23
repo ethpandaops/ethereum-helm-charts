@@ -35,12 +35,12 @@ config:
 
   # -- Path to the network config file
   # -- This can be a url or a local path
-  # -- https://raw.githubusercontent.com/ethpandaops/dencun-testnet/master/network-configs/devnet-8/config.yaml
+  # -- "https://raw.githubusercontent.com/ethpandaops/dencun-testnet/master/network-configs/devnet-8/config.yaml"
   configPath: ""
   # -- Link to the eth explorer
   ethExplorerLink: ""
   # -- This can be a url here for example:
-  # -- https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges
+  # -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
   # -- If you want to use a local range file define it in the values.yaml ranges section
   validatorNamesInventory: ""
 
