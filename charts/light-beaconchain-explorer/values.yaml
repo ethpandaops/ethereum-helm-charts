@@ -89,10 +89,10 @@ config: |
           name: {{ .name | quote }}
           {{- end }}
           {{- if .priority }}
-          priority: {{ .priority | quote }}
+          priority: {{ .priority }}
           {{- end }}
           {{- if .archive }}
-          archive: {{ .archive | bool }}
+          archive: {{ .archive }}
           {{- end }}
           {{- if .headers }}
           headers:
