@@ -84,7 +84,7 @@ config: |
       # CL Client RPC
       endpoints:
         {{- range .Values.endpoints }}
-          url: {{ .url | quote }}
+        - url: {{ .url | quote }}
           {{- if .name }}
           name: {{ .name | quote }}
           {{- end }}
@@ -129,7 +129,7 @@ config: |
     database:
       engine: "pgsql"
       pgsql:
-        host: "{{ .Release.Name }}-postgresql"
+        host: "{{ include "light-beaconchain-explorer.name" . }}-postgresql"
         port: 5432
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
