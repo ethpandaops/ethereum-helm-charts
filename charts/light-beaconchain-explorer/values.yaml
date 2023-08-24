@@ -129,7 +129,7 @@ config: |
     database:
       engine: "pgsql"
       pgsql:
-        host: "{{ include "light-beaconchain-explorer.name" . }}-postgresql"
+        host: "{{ tpl .Values.postgresql.name $ }}"
         port: 5432
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
@@ -336,6 +336,7 @@ serviceMonitor:
 
 postgresql:
   # -- If enabled a postgres chart will be deployed as a dependency
+  name: "{{ .Release.Name }}-postgresql"
   enabled: true
   image:
     registry: docker.io
