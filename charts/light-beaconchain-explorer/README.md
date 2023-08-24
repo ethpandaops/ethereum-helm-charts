@@ -63,10 +63,11 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.auth.password | string | `"postgres"` |  |
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |
 | postgresql.auth.username | string | `"postgres"` |  |
-| postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
+| postgresql.enabled | bool | `true` |  |
 | postgresql.image.registry | string | `"docker.io"` |  |
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
+| postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
 | postgresql.persistence.enabled | bool | `true` |  |
 | postgresql.persistence.size | string | `"8Gi"` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
