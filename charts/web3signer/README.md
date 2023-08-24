@@ -1,7 +1,7 @@
 
 # web3signer
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Web3Signer is capable of signing on multiple platforms using private keys stored in an external vault, or encrypted on a disk.
 
@@ -88,8 +88,8 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.extraVolumes[0].emptyDir | object | `{}` |  |
 | slashingprotectiondb.primary.extraVolumes[0].name | string | `"sql-scripts"` |  |
 | slashingprotectiondb.primary.initContainers[0].command[0] | string | `"bash"` |  |
-| slashingprotectiondb.primary.initContainers[0].command[1] | string | `"-acex"` |  |
-| slashingprotectiondb.primary.initContainers[0].command[2] | string | `"cd /sql-scripts; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00001__initial.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00002__removeUniqueConstraints.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00003__addLowWatermark.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00004__addGenesisValidatorsRoot.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00005__xnor_source_target_low_watermark.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00006__signed_data_indexes.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00007__add_db_version.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00008__signed_data_unique_constraints.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00009__upsert_validators.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00010__validator_enabled_status.sql; wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00011__bigint_indexes.sql\n"` |  |
+| slashingprotectiondb.primary.initContainers[0].command[1] | string | `"-cex"` |  |
+| slashingprotectiondb.primary.initContainers[0].command[2] | string | `"cd /sql-scripts\nBASE_URL=\"https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql\"\nMIGRATIONS=(\n    \"V00001__initial.sql\"\n    \"V00002__removeUniqueConstraints.sql\"\n    \"V00003__addLowWatermark.sql\"\n    \"V00004__addGenesisValidatorsRoot.sql\"\n    \"V00005__xnor_source_target_low_watermark.sql\"\n    \"V00006__signed_data_indexes.sql\"\n    \"V00007__add_db_version.sql\"\n    \"V00008__signed_data_unique_constraints.sql\"\n    \"V00009__upsert_validators.sql\"\n    \"V00010__validator_enabled_status.sql\"\n    \"V00011__bigint_indexes.sql\"\n)\nfor MIGRATION in \"${MIGRATIONS[@]}\"; do\n    if [ ! -f \"/sql-scripts/$MIGRATION\" ]; then\n        wget \"$BASE_URL/$MIGRATION\"\n    fi\ndone\n"` |  |
 | slashingprotectiondb.primary.initContainers[0].image | string | `"bash:latest"` |  |
 | slashingprotectiondb.primary.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
 | slashingprotectiondb.primary.initContainers[0].name | string | `"init-sql-migration-scripts"` |  |
@@ -98,8 +98,8 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 | slashingprotectiondb.primary.initContainers[0].volumeMounts[0].mountPath | string | `"/sql-scripts"` |  |
 | slashingprotectiondb.primary.initContainers[0].volumeMounts[0].name | string | `"sql-scripts"` |  |
 | slashingprotectiondb.primary.initdb.password | string | `"postgres"` |  |
-| slashingprotectiondb.primary.initdb.scripts."init_00.sql" | string | `"CREATE DATABASE web3signer;\n"` |  |
-| slashingprotectiondb.primary.initdb.scripts."init_02_db.sh" | string | `"#!/bin/sh\nexport PGPASSWORD=postgres\ncd /sql-scripts\nfor FILE in *.sql; do\n  psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE\ndone\n"` |  |
+| slashingprotectiondb.primary.initdb.scripts."init_01_db.sh" | string | `"#!/bin/sh\nexport PGPASSWORD=postgres\n\nDB_EXISTS=$(psql -U postgres -h 127.0.0.1 -t -c \"SELECT 1 FROM pg_database WHERE datname='web3signer'\")\nif [ -z \"$DB_EXISTS\" ]; then\n    psql -U postgres -h 127.0.0.1 -c \"CREATE DATABASE web3signer;\"\nfi\n"` |  |
+| slashingprotectiondb.primary.initdb.scripts."init_02_db.sh" | string | `"#!/bin/sh\nexport PGPASSWORD=postgres\ncd /sql-scripts\nfor FILE in *.sql; do\n  COMPLETED_FILE=\"${FILE}.completed\"\n  if [ ! -f \"$COMPLETED_FILE\" ]; then\n    psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE && touch \"$COMPLETED_FILE\"\n  fi\ndone\n"` |  |
 | slashingprotectiondb.primary.initdb.user | string | `"postgres"` |  |
 | slashingprotectiondb.primary.name | string | `"web3signer"` |  |
 | slashingprotectiondb.primary.persistence.enabled | bool | `true` | Uses an EmptyDir when not enabled |
