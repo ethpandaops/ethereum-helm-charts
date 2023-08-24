@@ -71,7 +71,7 @@ config: |
 
       # Name of the site, displayed in the title tag
       siteName: "Light Beaconchain Explorer"
-      siteSubtitle: "{{ .Release.Name }}"
+      siteSubtitle: "{{ .Values.name }}"
 
       # link to EL Explorer
       ethExplorerLink: "{{ .Values.ethExplorerLink }}"
