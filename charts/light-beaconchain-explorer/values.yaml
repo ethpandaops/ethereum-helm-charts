@@ -92,7 +92,7 @@ config: |
           priority: {{ .priority | quote }}
           {{- end }}
           {{- if .archive }}
-          archive: {{ .archive | quote }}
+          archive: {{ .archive | bool }}
           {{- end }}
           {{- if .headers }}
           headers:
