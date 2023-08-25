@@ -278,20 +278,28 @@ slashingprotectiondb:
           runAsUser: 0
         command:
           - bash
-          - -acex
-          - >
-            cd /sql-scripts;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00001__initial.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00002__removeUniqueConstraints.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00003__addLowWatermark.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00004__addGenesisValidatorsRoot.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00005__xnor_source_target_low_watermark.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00006__signed_data_indexes.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00007__add_db_version.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00008__signed_data_unique_constraints.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00009__upsert_validators.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00010__validator_enabled_status.sql;
-            wget https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql/V00011__bigint_indexes.sql
+          - -cex
+          - |
+            cd /sql-scripts
+            BASE_URL="https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql"
+            MIGRATIONS=(
+                "V00001__initial.sql"
+                "V00002__removeUniqueConstraints.sql"
+                "V00003__addLowWatermark.sql"
+                "V00004__addGenesisValidatorsRoot.sql"
+                "V00005__xnor_source_target_low_watermark.sql"
+                "V00006__signed_data_indexes.sql"
+                "V00007__add_db_version.sql"
+                "V00008__signed_data_unique_constraints.sql"
+                "V00009__upsert_validators.sql"
+                "V00010__validator_enabled_status.sql"
+                "V00011__bigint_indexes.sql"
+            )
+            for MIGRATION in "${MIGRATIONS[@]}"; do
+                if [ ! -f "/sql-scripts/$MIGRATION" ]; then
+                    wget "$BASE_URL/$MIGRATION"
+                fi
+            done
         volumeMounts:
           - name: sql-scripts
             mountPath: "/sql-scripts"
@@ -299,14 +307,23 @@ slashingprotectiondb:
       user: postgres
       password: postgres
       scripts:
-        init_00.sql: |
-          CREATE DATABASE web3signer;
+        init_01_db.sh: |
+          #!/bin/sh
+          export PGPASSWORD=postgres
+
+          DB_EXISTS=$(psql -U postgres -h 127.0.0.1 -t -c "SELECT 1 FROM pg_database WHERE datname='web3signer'")
+          if [ -z "$DB_EXISTS" ]; then
+              psql -U postgres -h 127.0.0.1 -c "CREATE DATABASE web3signer;"
+          fi
         init_02_db.sh: |
           #!/bin/sh
           export PGPASSWORD=postgres
           cd /sql-scripts
           for FILE in *.sql; do
-            psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE
+            COMPLETED_FILE="${FILE}.completed"
+            if [ ! -f "$COMPLETED_FILE" ]; then
+              psql -U postgres -h 127.0.0.1 -d web3signer -f $FILE && touch "$COMPLETED_FILE"
+            fi
           done
     persistence:
       # -- Uses an EmptyDir when not enabled
