@@ -65,28 +65,29 @@ Tooling
 - [`beacon-metrics-gazer`](charts/beacon-metrics-gazer) - A prometheus exporter for Ethereum validator clients.
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
 - [`blob-me-baby`](charts/blob-me-baby) - Send arbitary blob data in well-formatted blobs
-- [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
+- [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
+- [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
-- [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
-- [`ethstats`](charts/ethstats) - Web UI to track execution layer node status.
+- [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
+- [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
+- [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
+- [`ethereum-metrics-exporter`](charts/ethereum-metrics-exporter) - A prometheus exporter for Ethereum execution and consensus clients.
+- [`ethereum-validator-metrics-exporter`](charts/ethereum-validator-metrics-exporter) - A prometheus exporter for Ethereum validators.
+- [`ethstats`](charts/ethstats) - Web UI to track execution layer node status.
 - [`fauceth`](charts/fauceth) - EIP1559 compatible web faucet using Hcaptcha.
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
+- [`ipfs-cluster`](charts/ipfs-cluster) - IPFS Cluster
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
-- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
-- [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
-- [`ethereum-metrics-exporter`](charts/ethereum-metrics-exporter) - A prometheus exporter for Ethereum execution and consensus clients.
-- [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
-- [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
-- [`ethereum-validator-metrics-exporter`](charts/ethereum-validator-metrics-exporter) - A prometheus exporter for Ethereum validators.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
-- [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
+- [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
+- [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
 - [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.
