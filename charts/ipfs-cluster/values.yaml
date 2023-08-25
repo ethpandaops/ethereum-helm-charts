@@ -8,8 +8,7 @@ cluster:
   image:
     repository: ipfs/ipfs-cluster
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: "latest"
   imagePullSecrets: []
   nameOverride: ""
   podSecurityContext: {}
@@ -44,8 +43,7 @@ ipfs:
   image:
     repository: ipfs/go-ipfs
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is `latest`.
-    tag: ""
+    tag: "latest"
   imagePullSecrets: []
   nameOverride: ""
   podSecurityContext: {}

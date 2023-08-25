@@ -11,7 +11,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | cluster.affinity | object | `{}` |  |
 | cluster.image.pullPolicy | string | `"IfNotPresent"` |  |
 | cluster.image.repository | string | `"ipfs/ipfs-cluster"` |  |
-| cluster.image.tag | string | `""` |  |
+| cluster.image.tag | string | `"latest"` |  |
 | cluster.imagePullSecrets | list | `[]` |  |
 | cluster.nameOverride | string | `""` |  |
 | cluster.nodeSelector | object | `{}` |  |
@@ -32,7 +32,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | ipfs.affinity | object | `{}` |  |
 | ipfs.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ipfs.image.repository | string | `"ipfs/go-ipfs"` |  |
-| ipfs.image.tag | string | `""` |  |
+| ipfs.image.tag | string | `"latest"` |  |
 | ipfs.imagePullSecrets | list | `[]` |  |
 | ipfs.nameOverride | string | `""` |  |
 | ipfs.nodeSelector | object | `{}` |  |

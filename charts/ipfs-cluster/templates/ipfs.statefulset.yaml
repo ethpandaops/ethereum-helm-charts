@@ -24,7 +24,7 @@ spec:
         {{- toYaml .Values.ipfs.podSecurityContext | nindent 8 }}
       containers:
       - name: ipfs
-        image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag | default "latest" }}
+        image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
         ports:
         - containerPort: 4001
           name: swarm

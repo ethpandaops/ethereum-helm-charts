@@ -55,7 +55,7 @@ spec:
           - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
             value: "/ip4/0.0.0.0/tcp/8888"
 
-        image: "{{ $.Values.cluster.image.repository }}:{{ $.Values.cluster.image.tag | default $.Chart.AppVersion }}"
+        image: "{{ $.Values.cluster.image.repository }}:{{ $.Values.cluster.image.tag }}"
         ports:
         - containerPort: 9096
           name: p2p
