@@ -1,6 +1,6 @@
 # ipfs-cluster
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Run ipfs cluster along with kubo (go-ipfs)
 
@@ -9,6 +9,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | cluster.affinity | object | `{}` |  |
+| cluster.extraEnv | list | `[]` |  |
 | cluster.image.pullPolicy | string | `"IfNotPresent"` |  |
 | cluster.image.repository | string | `"ipfs/ipfs-cluster"` |  |
 | cluster.image.tag | string | `"latest"` |  |
@@ -30,6 +31,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | ipfs.affinity | object | `{}` |  |
+| ipfs.extraEnv | list | `[]` |  |
 | ipfs.image.pullPolicy | string | `"IfNotPresent"` |  |
 | ipfs.image.repository | string | `"ipfs/go-ipfs"` |  |
 | ipfs.image.tag | string | `"latest"` |  |

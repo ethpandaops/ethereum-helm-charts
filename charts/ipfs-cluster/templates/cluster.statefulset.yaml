@@ -40,6 +40,8 @@ spec:
 {{- end }}
           - name: CLUSTER_IPFSHTTP_NODEMULTIADDRESS
             value: /dns4/{{ include "helm-ipfs-cluster.ipfs-name" $ }}-{{ $i }}.{{ include "helm-ipfs-cluster.ipfs-name" $ }}.{{ $.Release.Namespace }}.svc.cluster.local/tcp/5001
+          - name: CLUSTER_IPFSPROXY_NODEMULTIADDRESS
+            value: /dns4/{{ include "helm-ipfs-cluster.ipfs-name" $ }}-{{ $i }}.{{ include "helm-ipfs-cluster.ipfs-name" $ }}.{{ $.Release.Namespace }}.svc.cluster.local/tcp/5001
           - name: CLUSTER_CRDT_TRUSTEDPEERS
             value: '*' # Trust all peers in Cluster
           # Expose APIs
@@ -54,7 +56,9 @@ spec:
             value: "true"
           - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
             value: "/ip4/0.0.0.0/tcp/8888"
-
+        {{- if $.Values.cluster.extraEnv }}
+          {{- toYaml $.Values.cluster.extraEnv | nindent 10 }}
+        {{- end }}
         image: "{{ $.Values.cluster.image.repository }}:{{ $.Values.cluster.image.tag }}"
         ports:
         - containerPort: 9096
