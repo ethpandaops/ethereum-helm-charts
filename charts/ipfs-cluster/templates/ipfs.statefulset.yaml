@@ -35,6 +35,10 @@ spec:
         - containerPort: 5353
           name: zeroconf
           protocol: UDP
+          {{- if .Values.ipfs.extraEnv }}
+        env:
+          {{- toYaml .Values.ipfs.extraEnv | nindent 10 }}
+          {{- end }}
 #        livenessProbe:
 #          httpGet:
 #            path: /
