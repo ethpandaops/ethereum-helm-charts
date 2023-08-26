@@ -56,9 +56,9 @@ spec:
             value: "true"
           - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
             value: "/ip4/0.0.0.0/tcp/8888"
-          {{- if .Values.cluster.extraEnv }}
-          {{- toYaml .Values.cluster.extraEnv | nindent 10 }}
-          {{- end }}
+        {{- if $.Values.cluster.extraEnv }}
+          {{- toYaml $.Values.cluster.extraEnv | nindent 10 }}
+        {{- end }}
         image: "{{ $.Values.cluster.image.repository }}:{{ $.Values.cluster.image.tag }}"
         ports:
         - containerPort: 9096
