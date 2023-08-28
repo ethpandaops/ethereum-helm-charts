@@ -1,0 +1,100 @@
+{{- range $i, $n := (until (int .Values.replicaCount)) -}}
+{{- if ne $i 0 }}
+---
+{{- end }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cluster-{{ $i }}-{{ include "helm-ipfs-cluster.name" $ }}
+spec:
+  serviceName: cluster-{{ $i }}-{{ include "helm-ipfs-cluster.name" $ }}
+  replicas: 1  # must be `1`.
+  selector:
+    matchLabels:
+      {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 6 }}
+      nodeType: cluster
+  template:
+    metadata:
+      labels:
+        {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 8 }}
+        nodeType: cluster
+    spec:
+      {{- with $.Values.cluster.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "helm-ipfs-cluster.serviceAccountName" $ }}
+      securityContext:
+        {{- toYaml $.Values.cluster.podSecurityContext | nindent 8 }}
+      containers:
+      - name: cluster
+        env:
+          - name: CLUSTER_PEERNAME
+            value: {{ printf "cluster-%d" $i }}
+{{- with $.Values.sharedSecret }}
+          - name: CLUSTER_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "helm-ipfs-cluster.fullname" $ }}
+                key: secret
+{{- end }}
+          - name: CLUSTER_IPFSHTTP_NODEMULTIADDRESS
+            value: /dns4/{{ include "helm-ipfs-cluster.ipfs-name" $ }}-{{ $i }}.{{ include "helm-ipfs-cluster.ipfs-name" $ }}.{{ $.Release.Namespace }}.svc.cluster.local/tcp/5001
+          - name: CLUSTER_IPFSPROXY_NODEMULTIADDRESS
+            value: /dns4/{{ include "helm-ipfs-cluster.ipfs-name" $ }}-{{ $i }}.{{ include "helm-ipfs-cluster.ipfs-name" $ }}.{{ $.Release.Namespace }}.svc.cluster.local/tcp/5001
+          - name: CLUSTER_CRDT_TRUSTEDPEERS
+            value: '*' # Trust all peers in Cluster
+          # Expose APIs
+          - name: CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS
+            value: /ip4/0.0.0.0/tcp/9094
+          - name: CLUSTER_IPFSPROXY_LISTENMULTIADDRESS
+            value: /ip4/0.0.0.0/tcp/9095
+          - name: CLUSTER_MONITORPINGINTERVAL
+            value: 2s # Speed up peer discovery
+          # Metrics
+          - name: CLUSTER_METRICS_ENABLESTATS
+            value: "true"
+          - name: CLUSTER_METRICS_PROMETHEUSENDPOINT
+            value: "/ip4/0.0.0.0/tcp/8888"
+        {{- if $.Values.cluster.extraEnv }}
+          {{- toYaml $.Values.cluster.extraEnv | nindent 10 }}
+        {{- end }}
+        image: "{{ $.Values.cluster.image.repository }}:{{ $.Values.cluster.image.tag }}"
+        ports:
+        - containerPort: 9096
+          name: p2p
+        - containerPort: 9094
+          name: api
+        - containerPort: 9095
+          name: ipfs-proxy
+        - containerPort: 8888
+          name: metrics
+        volumeMounts:
+        - name: data
+          mountPath: /data/ipfs-cluster
+        resources:
+          {{- toYaml $.Values.cluster.resources | nindent 12 }}
+      {{- with $.Values.cluster.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.cluster.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.cluster.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      {{- with $.Values.cluster.storage.storageClassName }}
+      storageClassName: {{ . }}
+      {{- end }}
+      resources:
+        requests:
+          storage: {{ $.Values.cluster.storage.volumeSize | default "1Gi" }}
+{{- end }}
