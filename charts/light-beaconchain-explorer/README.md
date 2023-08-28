@@ -112,14 +112,11 @@ Usage of ./explorer_linux_amd64:
 ```
 
 In order to name validators based on ranges the following file format can be provided YAML:
-```shell
-0-500 Nethermind lighthouse-0
-500-1000 Nethermind lighthouse-1
-1000-1500 Nethermind teku-0
-1500-2000 Nethermind teku-1
-2000-2500 Nethermind lodestar-0
-2500-3750 Gateway lh + nethermind
-3750-5000 Gateway lh + nethermind
+```yaml
+0-500: validator_set_A
+500-1000: validator_set_B
+1000-1500: validator_set_C
+...
 ```
 
 More details can be found [here](https://docs.rs/crate/light-beaconchain-explorer/0.1.1) or [here](https://github.com/dapplion/light-beaconchain-explorer).
