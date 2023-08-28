@@ -3462,6 +3462,28 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ipfs-cluster-0.1.1/ipfs-cluster-0.1.1.tgz
     version: 0.1.1
+  light-beaconchain-explorer:
+  - apiVersion: v2
+    created: "2023-08-28T07:30:27.06066244Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: A Beaconchain explorer is a tool that allows users to view and interact
+      with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer,
+      which allows users to view data on a blockchain such as the current state of
+      transactions and blocks - but focussed on exploring the beaconchain.
+    digest: 2e340e23798d2599169edf10c0b9144bf240ebd67aa3672becd76056fae5375b
+    home: https://github.com/pk910/light-beaconchain-explorer
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: light-beaconchain-explorer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/light-beaconchain-explorer-0.0.1/light-beaconchain-explorer-0.0.1.tgz
+    version: 0.0.1
   lighthouse:
   - apiVersion: v2
     created: "2023-07-14T09:44:51.814634185Z"
@@ -6348,4 +6370,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-08-26T14:06:11.906876812Z"
+generated: "2023-08-28T07:30:27.061318236Z"
