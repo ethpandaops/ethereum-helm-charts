@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "light-beaconchain-explorer.fullname" . }}-ranges
+  labels:
+    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+data:
+  ranges.yaml: |
+    {{- .Values.ranges | nindent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "light-beaconchain-explorer.fullname" . }}-config
+  labels:
+    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    {{- tpl .Values.config . | nindent 4 }}
