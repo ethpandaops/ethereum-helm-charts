@@ -133,6 +133,9 @@ spec:
             - name: ws-auth-rpc
               containerPort: {{ .Values.wsAuthPort }}
               protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.metricsPort }}
+              protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:

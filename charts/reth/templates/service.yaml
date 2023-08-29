@@ -35,6 +35,12 @@ spec:
       protocol: TCP
       name: ws-auth-rpc
     {{- end }}
+    {{- if .Values.metricsPort }}
+    - port: {{ .Values.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

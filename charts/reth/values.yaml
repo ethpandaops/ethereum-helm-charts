@@ -150,6 +150,9 @@ authPort: 8551
 # -- WS Engine Auth Port
 wsAuthPort: 8551
 
+# -- Metrics Port
+metricsPort: 9001
+
 # -- Node selector for pods
 nodeSelector: {}
 
