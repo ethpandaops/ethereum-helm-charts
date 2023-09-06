@@ -82,6 +82,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | readinessProbeRPCDaemon | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
+| resourcesRPCDaemon | object | `{}` | Resource requests and limits for the RPCDaemon, defaults to resources value |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
