@@ -339,8 +339,11 @@ extraVolumeMounts: []
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
 
-# -- Additional env variables
+# -- Additional env variables for erigon container
 extraEnv: []
+
+# -- Additional env variables for RPCDaemon container
+extraEnvRPCDaemon: []
 
 # -- Additional env variables injected via a created secret
 secretEnv: {}

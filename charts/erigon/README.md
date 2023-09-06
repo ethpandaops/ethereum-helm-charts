@@ -26,7 +26,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | extraArgs | list | `[]` | Extra args for the erigon container |
 | extraArgsRPCDaemon | list | `[]` | Extra args for the rpcdaemon container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables for erigon container|
+| extraEnvRPCDaemon | list | `[]` | Additional env variables for RPCDaemon container |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |

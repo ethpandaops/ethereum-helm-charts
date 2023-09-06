@@ -186,8 +186,8 @@ spec:
                   name: {{ include "erigon.fullname" $ }}-env
                   key: {{ $key }}
           {{- end }}
-          {{- if .Values.extraEnv }}
-            {{- toYaml .Values.extraEnv | nindent 12 }}
+          {{- if .Values.extraEnvRPCDaemon }}
+            {{- toYaml .Values.extraEnvRPCDaemon | nindent 12 }}
           {{- end }}
       {{- if .Values.extraContainers }}
         {{ tpl (toYaml .Values.extraContainers | nindent 8) $ }}
