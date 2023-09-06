@@ -173,7 +173,7 @@ spec:
           readinessProbe:
             {{- toYaml .Values.readinessProbeRPCDaemon | nindent 12 }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml (.Values.resourcesRPCDaemon | default .Values.resources) | nindent 12 }}
           env:
             - name: POD_IP
               valueFrom:
