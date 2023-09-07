@@ -1,7 +1,7 @@
 
 # erigon
 
-![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected implementation of Ethereum, currently written in Go but with implementations in other languages planned. Erigon's goal is to provide a faster, more modular, and more optimized implementation of Ethereum.
 
@@ -26,7 +26,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | extraArgs | list | `[]` | Extra args for the erigon container |
 | extraArgsRPCDaemon | list | `[]` | Extra args for the rpcdaemon container |
 | extraContainers | list | `[]` | Additional containers |
-| extraEnv | list | `[]` | Additional env variables |
+| extraEnv | list | `[]` | Additional env variables for erigon container |
+| extraEnvRPCDaemon | list | `[]` | Additional env variables for RPCDaemon container |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
@@ -81,7 +82,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | readinessProbeRPCDaemon | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
-| resources | object | `{}` | Resource requests and limits |
+| resources | object | `{}` | Resource requests and limits for the erigon container |
+| resourcesRPCDaemon | object | `{}` | Resource requests and limits for the RPC daemon container |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
