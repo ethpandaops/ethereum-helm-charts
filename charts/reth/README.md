@@ -106,7 +106,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 
 ```yaml
 extraArgs:
-  - --network=goerli
+  - --chain=goerli
 ```
 
 ## Exposing the P2P service via NodePort
