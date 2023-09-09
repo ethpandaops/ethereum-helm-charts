@@ -12,7 +12,7 @@ spec:
   ports:
   - port: 4001
     name: swarm
-    #  clusterIP: None
+    nodePort: {{ .Values.p2pNodePort.nodePort }}
   selector:
     {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
     nodeType: ipfs
