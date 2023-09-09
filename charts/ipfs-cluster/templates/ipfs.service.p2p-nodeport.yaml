@@ -12,6 +12,13 @@ spec:
   ports:
   - port: 4001
     name: swarm
+    targetPort: swarm
+    protocol: TCP
+    nodePort: {{ .Values.p2pNodePort.nodePort }}
+  - port: 4001
+    name: swarm-udp
+    targetPort: swarm-udp
+    protocol: UDP
     nodePort: {{ .Values.p2pNodePort.nodePort }}
   selector:
     {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
