@@ -22,6 +22,42 @@ spec:
       serviceAccountName: {{ include "helm-ipfs-cluster.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.ipfs.podSecurityContext | nindent 8 }}
+      initContainers:
+      {{- if .Values.p2pNodePort.enabled }}
+        - name: init-nodeport
+          image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"
+          imagePullPolicy: {{.Values.p2pNodePort.initContainer.image.pullPolicy }}
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          command:
+            - sh
+            - -c
+            - >
+              export EXTERNAL_PORT=$(kubectl get services -l "pod in (${POD_NAME}), type in (p2p)" -o jsonpath='{.items[0].spec.ports[0].nodePort}');
+              export EXTERNAL_IP=$(kubectl get nodes "${NODE_NAME}" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}');
+              echo "EXTERNAL_PORT=$EXTERNAL_PORT" >  /env/init-nodeport;
+              echo "EXTERNAL_IP=$EXTERNAL_IP"     >> /env/init-nodeport;
+              cat /env/init-nodeport;
+              echo "!/bin/sh" > /container-init.d/nodeport.sh;
+              echo "set -ex" >> /container-init.d/nodeport.sh;
+              echo "ipfs config Addresses.Announce /ip4/$EXTERNAL_IP/tcp/$EXTERNAL_PORT || true";
+              chmod +x /container-init.d/nodeport.sh;
+          volumeMounts:
+            - name: env-nodeport
+              mountPath: /env
+            - name: init-d
+              mountPath: /container-init.d
+      {{- end }}
       containers:
       - name: ipfs
         image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
@@ -50,6 +86,12 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /data/ipfs
+        {{- if .Values.p2pNodePort.enabled }}
+        - name: env-nodeport
+          mountPath: /env
+        - name: init-d
+          mountPath: /container-init.d
+        {{- end }}
         resources:
           {{- toYaml .Values.ipfs.resources | nindent 12 }}
       {{- with .Values.ipfs.nodeSelector }}
@@ -63,6 +105,13 @@ spec:
       {{- with .Values.ipfs.tolerations }}
       tolerations:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+      {{- if .Values.p2pNodePort.enabled }}
+        - name: env-nodeport
+          emptyDir: {}
+        - name: init-d
+          emptyDir: {}
       {{- end }}
   volumeClaimTemplates:
   - metadata:

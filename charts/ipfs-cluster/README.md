@@ -1,6 +1,6 @@
 # ipfs-cluster
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Run ipfs cluster along with kubo (go-ipfs)
 
@@ -44,7 +44,15 @@ Run ipfs cluster along with kubo (go-ipfs)
 | ipfs.storage.storageClassName | string | `""` |  |
 | ipfs.storage.volumeSize | string | `""` |  |
 | ipfs.tolerations | list | `[]` |  |
+| p2pNodePort.enabled | bool | `true` |  |
+| p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
+| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.nodePort | int | `32000` |  |
 | podAnnotations | object | `{}` |  |
+| rbac.clusterRules | list | See `values.yaml` | Required ClusterRole rules |
+| rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |
+| rbac.rules | list | See `values.yaml` | Required ClusterRole rules |
 | replicaCount | int | `1` |  |
 | securityContext | object | `{}` |  |
 | service.type | string | `"ClusterIP"` |  |
