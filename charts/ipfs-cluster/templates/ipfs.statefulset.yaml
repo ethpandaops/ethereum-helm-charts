@@ -48,9 +48,12 @@ spec:
               echo "EXTERNAL_PORT=$EXTERNAL_PORT" >  /env/init-nodeport;
               echo "EXTERNAL_IP=$EXTERNAL_IP"     >> /env/init-nodeport;
               cat /env/init-nodeport;
-              echo "!/bin/sh" > /container-init.d/nodeport.sh;
+              echo "#!/bin/sh" > /container-init.d/nodeport.sh;
               echo "set -ex" >> /container-init.d/nodeport.sh;
-              echo "ipfs config Addresses.Announce /ip4/$EXTERNAL_IP/tcp/$EXTERNAL_PORT || true";
+              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/tcp/$EXTERNAL_PORT\\\"]\" --json" >> /container-init.d/nodeport.sh;
+              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic\\\"]\" --json" >> /container-init.d/nodeport.sh;
+              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1\\\"]\" --json" >> /container-init.d/nodeport.sh;
+              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1/webtransport\\\"]\" --json" >> /container-init.d/nodeport.sh;
               chmod +x /container-init.d/nodeport.sh;
           volumeMounts:
             - name: env-nodeport
@@ -64,6 +67,10 @@ spec:
         ports:
         - containerPort: 4001
           name: swarm
+          protocol: TCP
+        - containerPort: 4001
+          name: swarm-udp
+          protocol: UDP
         - containerPort: 5001
           name: api
         - containerPort: 8080
