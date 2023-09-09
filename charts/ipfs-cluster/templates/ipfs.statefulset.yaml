@@ -43,7 +43,7 @@ spec:
             - sh
             - -c
             - >
-              export EXTERNAL_PORT=$(kubectl get services -l "pod in (${POD_NAME}), type in (p2p)" -o jsonpath='{.items[0].spec.ports[0].nodePort}');
+              export EXTERNAL_PORT=$(kubectl get services {{ include "helm-ipfs-cluster.ipfs-name" . }}-p2p-nodeport -o jsonpath='{.spec.ports[0].nodePort}');
               export EXTERNAL_IP=$(kubectl get nodes "${NODE_NAME}" -o jsonpath='{.status.addresses[?(@.type=="ExternalIP")].address}');
               echo "EXTERNAL_PORT=$EXTERNAL_PORT" >  /env/init-nodeport;
               echo "EXTERNAL_IP=$EXTERNAL_IP"     >> /env/init-nodeport;
