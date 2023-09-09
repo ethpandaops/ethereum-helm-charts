@@ -1,0 +1,19 @@
+{{- if .Values.p2pNodePort.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-p2p-nodeport
+  labels:
+    {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
+    nodeType: ipfs
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+  - port: 4001
+    name: swarm
+    #  clusterIP: None
+  selector:
+    {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
+    nodeType: ipfs
+{{- end }}

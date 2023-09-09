@@ -4,6 +4,18 @@
 
 replicaCount: 1
 
+p2pNodePort:
+  enabled: true
+  nodePort: 32000
+  initContainer:
+    image:
+      # -- Container image to fetch nodeport information
+      repository: lachlanevenson/k8s-kubectl
+      # -- Container tag
+      tag: v1.21.3
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+
 cluster:
   image:
     repository: ipfs/ipfs-cluster
@@ -118,3 +130,30 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+
+rbac:
+  # -- Specifies whether RBAC resources are to be created
+  create: true
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  clusterRules:
+     # Required to obtain the nodes external IP
+    - apiGroups: [""]
+      resources:
+      - "nodes"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  rules:
+    # Required to get information about the serices nodePort.
+    - apiGroups: [""]
+      resources:
+      - "services"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
