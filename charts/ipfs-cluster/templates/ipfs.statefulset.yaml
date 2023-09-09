@@ -50,10 +50,12 @@ spec:
               cat /env/init-nodeport;
               echo "#!/bin/sh" > /container-init.d/nodeport.sh;
               echo "set -ex" >> /container-init.d/nodeport.sh;
-              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/tcp/$EXTERNAL_PORT\\\"]\" --json" >> /container-init.d/nodeport.sh;
-              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic\\\"]\" --json" >> /container-init.d/nodeport.sh;
-              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1\\\"]\" --json" >> /container-init.d/nodeport.sh;
-              echo "ipfs config Addresses.Announce \"[\\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1/webtransport\\\"]\" --json" >> /container-init.d/nodeport.sh;
+              echo "ipfs config Addresses.Announce \"[
+              \\\"/ip4/$EXTERNAL_IP/tcp/$EXTERNAL_PORT\\\",
+              \\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic\\\",
+              \\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1\\\",
+              \\\"/ip4/$EXTERNAL_IP/udp/$EXTERNAL_PORT/quic-v1/webtransport\\\"
+              ]\" --json" >> /container-init.d/nodeport.sh;
               chmod +x /container-init.d/nodeport.sh;
           volumeMounts:
             - name: env-nodeport
