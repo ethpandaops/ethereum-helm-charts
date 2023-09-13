@@ -89,8 +89,16 @@ podLabels: {}
 # -- Pod annotations
 podAnnotations: {}
 
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
 # -- Pod priority class
 priorityClassName: null
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
 
 # -- Resource requests and limits
 resources: {}
