@@ -130,9 +130,6 @@ spec:
             - name: auth-rpc
               containerPort: {{ .Values.authPort }}
               protocol: TCP
-            - name: ws-auth-rpc
-              containerPort: {{ .Values.wsAuthPort }}
-              protocol: TCP
             - name: metrics
               containerPort: {{ .Values.metricsPort }}
               protocol: TCP
