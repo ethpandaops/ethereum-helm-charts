@@ -151,9 +151,6 @@ wsPort: 8546
 # -- Engine Port (Auth Port)
 authPort: 8551
 
-# -- WS Engine Auth Port
-wsAuthPort: 8551
-
 # -- Metrics Port
 metricsPort: 9001
 

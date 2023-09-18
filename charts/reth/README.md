@@ -97,8 +97,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsAuthPort | int | `8551` | WS Engine Auth Port |
-| wsPort | int | `8545` | WS Port |
+| wsPort | int | `8546` | WS Port |
 
 # Examples
 
