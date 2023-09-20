@@ -27,6 +27,7 @@ config:
   probeAddr: ":8080"
   name: example-instance
   ntpServer: time.google.com
+  captureDelay: 3m
   coordinator:
     type: static
     config:
