@@ -17,6 +17,12 @@ spec:
       protocol: TCP
       name: pprof
     {{- end }}
+    {{- if (include "xatu-mimicry.probePort" .) }}
+    - port: {{ include "xatu-mimicry.probePort" . }}
+      targetPort: probe
+      protocol: TCP
+      name: probe
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

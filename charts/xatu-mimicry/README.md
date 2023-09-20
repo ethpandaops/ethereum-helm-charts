@@ -1,7 +1,7 @@
 
 # xatu-mimicry
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects data from the execution layer.
 
@@ -29,6 +29,7 @@ Ethereum p2p monitoring tool that collects data from the execution layer.
 | config.outputs[0].config.maxQueueSize | int | `51200` |  |
 | config.outputs[0].name | string | `"basic"` |  |
 | config.outputs[0].type | string | `"http"` |  |
+| config.probeAddr | string | `":8080"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu container |
 | customCommand | list | `[]` | Command replacement for the xatu container |
