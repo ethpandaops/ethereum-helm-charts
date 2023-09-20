@@ -3461,6 +3461,18 @@ entries:
     version: 0.0.1
   ipfs-cluster:
   - apiVersion: v2
+    created: "2023-09-20T04:11:08.322017261Z"
+    description: Run ipfs cluster along with kubo (go-ipfs)
+    digest: 591d32674902d688c3fde6dc2eb2c3ed4bf908cf3aab05c46e2ef0cd3e5b99e5
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ipfs-cluster
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ipfs-cluster-0.1.8/ipfs-cluster-0.1.8.tgz
+    version: 0.1.8
+  - apiVersion: v2
     created: "2023-09-09T21:36:46.577740741Z"
     description: Run ipfs cluster along with kubo (go-ipfs)
     digest: b9c5ad677ef4a8449d685ec9b1dc7f20b2bcc664bac948b9071ebaa25f3b0031
@@ -6060,6 +6072,22 @@ entries:
     version: 0.0.1
   xatu-cannon:
   - apiVersion: v2
+    created: "2023-09-20T04:11:08.535471018Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: 1fee21bb9be6c2519b589796ba73843376840baf0ad7f9babe7b6fc653b2ab17
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cannon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.2.0/xatu-cannon-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2023-09-06T04:34:24.89266798Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
       client and collects data via the consensus client's Beacon API.
@@ -6152,6 +6180,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.1/xatu-discovery-0.0.1.tgz
     version: 0.0.1
   xatu-mimicry:
+  - apiVersion: v2
+    created: "2023-09-20T04:11:08.681231053Z"
+    description: Ethereum p2p monitoring tool that collects data from the execution
+      layer.
+    digest: 3d96d4dda0c4287b383507f6ccb6e49d5882f92fa2a6358fe68e50e42c19850d
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.6/xatu-mimicry-0.0.6.tgz
+    version: 0.0.6
   - apiVersion: v2
     created: "2023-05-10T18:22:09.342603242Z"
     description: Ethereum p2p monitoring tool that collects data from the execution
@@ -6490,4 +6534,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-09-09T21:36:46.57850013Z"
+generated: "2023-09-20T04:11:08.681877752Z"
