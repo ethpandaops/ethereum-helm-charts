@@ -70,3 +70,9 @@ Create the name of the service account to use
 {{ (split ":" .Values.config.pprofAddr)._1 | default "6060" }}
 {{- end -}}
 {{- end -}}
+
+{{- define "xatu-mimicry.probePort" -}}
+{{- if .Values.config.probeAddr -}}
+{{ (split ":" .Values.config.probeAddr)._1 | default "8080" }}
+{{- end -}}
+{{- end -}}

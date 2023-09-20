@@ -24,8 +24,10 @@ args: []
 config:
   logging: "info"
   metricsAddr: ":9090"
+  probeAddr: ":8080"
   name: example-instance
   ntpServer: time.google.com
+  captureDelay: 3m
   coordinator:
     type: static
     config:
@@ -67,16 +69,16 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: metrics
-  initialDelaySeconds: 60
+    port: probe
+  initialDelaySeconds: 180 # should match config.captureDelay
   periodSeconds: 120
 
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: metrics
-  initialDelaySeconds: 10
+    port: probe
+  initialDelaySeconds: 180 # should match config.captureDelay
   periodSeconds: 10
 
 # -- Node selector for pods

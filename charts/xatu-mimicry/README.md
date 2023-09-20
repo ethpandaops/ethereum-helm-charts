@@ -1,7 +1,7 @@
 
 # xatu-mimicry
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects data from the execution layer.
 
@@ -14,6 +14,7 @@ Ethereum p2p monitoring tool that collects data from the execution layer.
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| config.captureDelay | string | `"3m"` |  |
 | config.coordinator.config.nodeRecords[0] | string | `"enode://dd47aff4da11c82496fec9253a1d2dac8c4abdbf93ff7458cf7965447355c265907b41dbd8c4b1dded6ae28b5a4d2d6b4d3fdad2950e5b6ef56169958b80b450@127.0.0.1:30301"` |  |
 | config.coordinator.config.retryInterval | string | `"60s"` |  |
 | config.coordinator.type | string | `"static"` |  |
@@ -29,6 +30,7 @@ Ethereum p2p monitoring tool that collects data from the execution layer.
 | config.outputs[0].config.maxQueueSize | int | `51200` |  |
 | config.outputs[0].name | string | `"basic"` |  |
 | config.outputs[0].type | string | `"http"` |  |
+| config.probeAddr | string | `":8080"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu container |
 | customCommand | list | `[]` | Command replacement for the xatu container |
