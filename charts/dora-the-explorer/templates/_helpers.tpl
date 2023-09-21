@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "light-beaconchain-explorer.name" -}}
+{{- define "dora-the-explorer.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "light-beaconchain-explorer.fullname" -}}
+{{- define "dora-the-explorer.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "light-beaconchain-explorer.chart" -}}
+{{- define "dora-the-explorer.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "light-beaconchain-explorer.labels" -}}
-helm.sh/chart: {{ include "light-beaconchain-explorer.chart" . }}
-{{ include "light-beaconchain-explorer.selectorLabels" . }}
+{{- define "dora-the-explorer.labels" -}}
+helm.sh/chart: {{ include "dora-the-explorer.chart" . }}
+{{ include "dora-the-explorer.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "light-beaconchain-explorer.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "light-beaconchain-explorer.name" . }}
+{{- define "dora-the-explorer.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "dora-the-explorer.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "light-beaconchain-explorer.serviceAccountName" -}}
+{{- define "dora-the-explorer.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "light-beaconchain-explorer.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "dora-the-explorer.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

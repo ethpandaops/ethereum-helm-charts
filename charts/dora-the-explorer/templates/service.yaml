@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "light-beaconchain-explorer.fullname" . }}
+  name: {{ include "dora-the-explorer.fullname" . }}
   labels:
-    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+    {{- include "dora-the-explorer.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -15,4 +15,4 @@ spec:
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
   selector:
-    {{- include "light-beaconchain-explorer.selectorLabels" . | nindent 4 }}
+    {{- include "dora-the-explorer.selectorLabels" . | nindent 4 }}
