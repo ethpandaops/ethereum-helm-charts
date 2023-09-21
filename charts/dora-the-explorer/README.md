@@ -24,7 +24,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the dora-the-explorer container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
-| ethExplorerLink | string | `""` | Link to the eth explorer |
+| ethExplorerLink | string | `""` | Link to the el block explorer |
 | extraArgs | list | `[]` | Extra args for the dora-the-explorer container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -44,7 +44,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| name | string | `"mainnet"` | Name of the network ("mainnet", "prater", "sepolia") |
+| name | string | `"mainnet"` | Name of the network ("mainnet", "goerli", "sepolia", "holesky") |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
