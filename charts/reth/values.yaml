@@ -60,6 +60,7 @@ defaultCommandTemplate: |
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
     --authrpc.port={{ .Values.authPort }}
+    --log.max-files=0
   {{- if .Values.metricsPort }}
     --metrics={{ .Values.metricsPort }}
   {{- end }}
