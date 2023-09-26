@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.0.10
+version: 0.0.11
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -20,7 +20,7 @@ dependencies:
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.7"
+  version: "1.0.8"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
@@ -40,7 +40,7 @@ dependencies:
   repository: "file://../nethermind"
   condition: nethermind.enabled
 - name: reth
-  version: "0.0.5"
+  version: "0.0.6"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../reth"
   condition: reth.enabled

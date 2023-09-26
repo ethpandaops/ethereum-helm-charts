@@ -4,7 +4,7 @@ dependencies:
   version: 1.0.6
 - name: erigon
   repository: file://../erigon
-  version: 1.0.7
+  version: 1.0.8
 - name: ethereumjs
   repository: file://../ethereumjs
   version: 0.0.6
@@ -16,7 +16,7 @@ dependencies:
   version: 1.0.8
 - name: reth
   repository: file://../reth
-  version: 0.0.5
+  version: 0.0.6
 - name: grandine
   repository: file://../grandine
   version: 0.1.1
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.7
-digest: sha256:b9fb081b0522471a57d9517963117d45a79570a6f88158a8074ff591b9ad9228
-generated: "2023-07-14T11:12:33.761043+02:00"
+digest: sha256:543c2c4c01b61d535292f2e70fa8ba0508bf5ab99bc98ba7df47b5f3ec805f9b
+generated: "2023-09-25T11:01:34.733253039+10:00"

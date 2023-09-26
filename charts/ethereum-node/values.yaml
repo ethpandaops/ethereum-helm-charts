@@ -10,6 +10,7 @@ global:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
       goerli: https://checkpoint-sync.goerli.ethpandaops.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
+      holesky: https://checkpoint-sync.holesky.ethpandaops.io
   clientArgs:
     networks:
       mainnet:
@@ -81,6 +82,33 @@ global:
             - --sepolia
           teku:
             - --network=sepolia
+      holesky:
+        execution:
+          besu:
+            - --network=holesky
+          erigon:
+            - --chain=holesky
+          ethereumjs:
+            - --network=holesky
+          geth:
+            - --holesky
+          nethermind:
+            - --config=holesky
+          reth:
+            - --chain=holesky
+        consensus:
+          grandine:
+            - --network=holesky
+          lighthouse:
+            - --network=holesky
+          lodestar:
+            - --network=holesky
+          nimbus:
+            - --network=holesky
+          prysm:
+            - --holesky
+          teku:
+            - --network=holesky
 
 
 ########################

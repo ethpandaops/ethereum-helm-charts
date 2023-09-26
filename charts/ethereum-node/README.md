@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.10](https://img.shields.io/badge/Version-0.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.11](https://img.shields.io/badge/Version-0.0.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -15,7 +15,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../besu | besu | 1.0.6 |
-| file://../erigon | erigon | 1.0.7 |
+| file://../erigon | erigon | 1.0.8 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.4 |
 | file://../ethereumjs | ethereumjs | 0.0.6 |
 | file://../geth | geth | 1.0.7 |
@@ -25,7 +25,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../nethermind | nethermind | 1.0.8 |
 | file://../nimbus | nimbus | 1.1.1 |
 | file://../prysm | prysm | 1.1.1 |
-| file://../reth | reth | 0.0.5 |
+| file://../reth | reth | 0.0.6 |
 | file://../teku | teku | 1.1.1 |
 | file://../xatu-sentry | xatu-sentry | 0.0.7 |
 
@@ -40,6 +40,7 @@ The following networks are built into the chart and can be configured by just se
 - mainnet
 - goerli
 - sepolia
+- holesky
 
 ### Consensus layer checkpoint sync
 
@@ -53,6 +54,7 @@ global:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
       goerli: https://checkpoint-sync.goerli.ethpandaops.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
+      holesky: https://checkpoint-sync.holesky.ethpandaops.io
 ```
 
 ### Choosing the execution and consensus layer software
