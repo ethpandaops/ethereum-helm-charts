@@ -16,7 +16,7 @@ dependencies:
   version: 1.0.8
 - name: reth
   repository: file://../reth
-  version: 0.0.7
+  version: 0.0.8
 - name: grandine
   repository: file://../grandine
   version: 0.1.1
