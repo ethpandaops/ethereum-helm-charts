@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.8](https://img.shields.io/badge/Version-0.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -97,8 +97,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsAuthPort | int | `8551` | WS Engine Auth Port |
-| wsPort | int | `8545` | WS Port |
+| wsPort | int | `8546` | WS Port |
 
 # Examples
 
@@ -106,7 +105,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 
 ```yaml
 extraArgs:
-  - --network=goerli
+  - --chain=goerli
 ```
 
 ## Exposing the P2P service via NodePort

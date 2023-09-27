@@ -146,13 +146,10 @@ p2pPort: 30303
 httpPort: 8545
 
 # -- WS Port
-wsPort: 8545
+wsPort: 8546
 
 # -- Engine Port (Auth Port)
 authPort: 8551
-
-# -- WS Engine Auth Port
-wsAuthPort: 8551
 
 # -- Metrics Port
 metricsPort: 9001
