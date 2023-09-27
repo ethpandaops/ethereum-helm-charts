@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -105,7 +105,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 
 ```yaml
 extraArgs:
-  - --network=goerli
+  - --chain=goerli
 ```
 
 ## Exposing the P2P service via NodePort
