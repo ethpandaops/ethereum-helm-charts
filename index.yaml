@@ -859,6 +859,30 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
     version: 0.1.0
+  dora:
+  - apiVersion: v2
+    created: "2023-09-29T11:28:44.477961793Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: A Beaconchain explorer is a tool that allows users to view and interact
+      with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer,
+      which allows users to view data on a blockchain such as the current state of
+      transactions and blocks - but focussed on exploring the beaconchain.
+    digest: 9112701cf43a5d8cc92801b42bcf2495e78bdf52fd89ed4acdd0b9e215904380
+    home: https://github.com/pk910/dora
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: dora
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dora-0.0.1/dora-0.0.1.tgz
+    version: 0.0.1
   dshackle:
   - apiVersion: v2
     created: "2023-08-07T08:07:23.620554949Z"
@@ -6705,4 +6729,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-09-26T02:17:16.532755924Z"
+generated: "2023-09-29T11:28:44.478542434Z"
