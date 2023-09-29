@@ -8,12 +8,12 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- light-beaconchain-explorer container image repository
-  repository: pk910/light-beaconchain-explorer
-  # -- light-beaconchain-explorer container image tag
-  tag: latest
-  # -- light-beaconchain-explorer container pull policy
-  pullPolicy: IfNotPresent
+  # -- dora container image repository
+  repository: ethpandaops/dora
+  # -- dora container image tag
+  tag: master
+  # -- dora container pull policy
+  pullPolicy: Always
 
 # -- An array of endpoints to use for the explorer
 # -- url is the only required field
@@ -26,7 +26,7 @@ endpoints:
       "X-Test": "test"
       "Y-Test": "test2"
 
-# -- Name of the network ("mainnet", "prater", "sepolia")
+# -- Name of the network ("mainnet", "goerli", "sepolia", "holesky")
 name: mainnet
 
 # -- This can be a url here for example:
@@ -39,7 +39,7 @@ validatorNamesInventory: ""
 # -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml"
 configPath: ""
 
-# -- Link to the eth explorer
+# -- Link to the el block explorer
 ethExplorerLink: ""
 
 # -- Config file
@@ -70,7 +70,7 @@ config: |
       minimize: false # minimize html templates
 
       # Name of the site, displayed in the title tag
-      siteName: "Light Beaconchain Explorer"
+      siteName: "Dora the Explorer"
       siteSubtitle: "{{ .Values.name }}"
 
       # link to EL Explorer
@@ -111,14 +111,8 @@ config: |
 
     # indexer keeps track of the latest epochs in memory.
     indexer:
-      # number of epochs to load on startup
-      prepopulateEpochs: 2
-
       # max number of epochs to keep in memory
       inMemoryEpochs: 3
-
-      # epoch processing delay (should be >= 2)
-      epochProcessingDelay: 2
 
       # disable synchronizing and everything that writes to the db (indexer just maintains local cache)
       disableIndexWriter: false
@@ -138,13 +132,13 @@ config: |
 ranges: |
   0-1: test
 
-# - HTTP port for light-beaconchain-explorer interface
+# - HTTP port for dora interface
 httpPort: 8080
 
-# -- Extra args for the light-beaconchain-explorer container
+# -- Extra args for the dora container
 extraArgs: []
 
-# -- Command replacement for the light-beaconchain-explorer container
+# -- Command replacement for the dora container
 customCommand: []
 
 ingress:
@@ -346,7 +340,7 @@ postgresql:
   auth:
     enablePostgresUser: true
     postgresPassword: postgres
-    database: light-beaconchain-explorer
+    database: dora
     username: postgres
     password: postgres
   primary:
