@@ -5,7 +5,7 @@
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
-**Homepage:** <https://github.com/pk910/dora-the-explorer>
+**Homepage:** <https://github.com/pk910/dora>
 
 ## Requirements
 
@@ -34,7 +34,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | dora container pull policy |
-| image.repository | string | `"pk910/dora-the-explorer"` | dora container image repository |
+| image.repository | string | `"ethpandaops/dora"` | dora container image repository |
 | image.tag | string | `"latest"` | dora container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
@@ -119,4 +119,4 @@ In order to name validators based on ranges the following file format can be pro
 ...
 ```
 
-More details can be found [here](https://github.com/pk910/dora-the-explorer).
+More details can be found [here](https://github.com/pk910/dora).
