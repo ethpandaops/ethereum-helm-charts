@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dora-the-explorer.fullname" . }}
+  name: {{ include "dora.fullname" . }}
   labels:
-    {{- include "dora-the-explorer.labels" . | nindent 4 }}
+    {{- include "dora.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      {{- include "dora-the-explorer.selectorLabels" . | nindent 6 }}
+      {{- include "dora.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "dora-the-explorer.selectorLabels" . | nindent 8 }}
+        {{- include "dora.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -24,7 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "dora-the-explorer.serviceAccountName" . }}
+      serviceAccountName: {{ include "dora.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
@@ -103,7 +103,7 @@ spec:
       {{- end }}
         - name: config
           configMap:
-            name: {{ include "dora-the-explorer.fullname" . }}-config
+            name: {{ include "dora.fullname" . }}-config
         - name: ranges
           configMap: 
-            name: {{ include "dora-the-explorer.fullname" . }}-ranges
+            name: {{ include "dora.fullname" . }}-ranges

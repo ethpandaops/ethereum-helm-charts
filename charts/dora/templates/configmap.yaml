@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "dora.fullname" . }}-ranges
+  labels:
+    {{- include "dora.labels" . | nindent 4 }}
+data:
+  ranges.yaml: |
+    {{- .Values.ranges | nindent 4 }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "dora.fullname" . }}-config
+  labels:
+    {{- include "dora.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    {{- tpl .Values.config . | nindent 4 }}

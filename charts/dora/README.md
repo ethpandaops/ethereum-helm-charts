@@ -1,5 +1,5 @@
 
-# dora-the-explorer
+# dora
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
@@ -22,10 +22,10 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | config | string | See `values.yaml` | Config file |
 | configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the dora-the-explorer container |
+| customCommand | list | `[]` | Command replacement for the dora container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
 | ethExplorerLink | string | `""` | Link to the el block explorer |
-| extraArgs | list | `[]` | Extra args for the dora-the-explorer container |
+| extraArgs | list | `[]` | Extra args for the dora container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -33,9 +33,9 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` |  |
-| image.pullPolicy | string | `"IfNotPresent"` | dora-the-explorer container pull policy |
-| image.repository | string | `"pk910/dora-the-explorer"` | dora-the-explorer container image repository |
-| image.tag | string | `"latest"` | dora-the-explorer container image tag |
+| image.pullPolicy | string | `"IfNotPresent"` | dora container pull policy |
+| image.repository | string | `"pk910/dora-the-explorer"` | dora container image repository |
+| image.tag | string | `"latest"` | dora container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -58,7 +58,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql.auth.database | string | `"dora-the-explorer"` |  |
+| postgresql.auth.database | string | `"dora"` |  |
 | postgresql.auth.enablePostgresUser | bool | `true` |  |
 | postgresql.auth.password | string | `"postgres"` |  |
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |

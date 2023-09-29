@@ -8,11 +8,11 @@ fullnameOverride: ""
 replicas: 1
 
 image:
-  # -- dora-the-explorer container image repository
-  repository: pk910/dora-the-explorer
-  # -- dora-the-explorer container image tag
+  # -- dora container image repository
+  repository: ethpandaops/dora
+  # -- dora container image tag
   tag: latest
-  # -- dora-the-explorer container pull policy
+  # -- dora container pull policy
   pullPolicy: IfNotPresent
 
 # -- An array of endpoints to use for the explorer
@@ -132,13 +132,13 @@ config: |
 ranges: |
   0-1: test
 
-# - HTTP port for dora-the-explorer interface
+# - HTTP port for dora interface
 httpPort: 8080
 
-# -- Extra args for the dora-the-explorer container
+# -- Extra args for the dora container
 extraArgs: []
 
-# -- Command replacement for the dora-the-explorer container
+# -- Command replacement for the dora container
 customCommand: []
 
 ingress:
@@ -340,7 +340,7 @@ postgresql:
   auth:
     enablePostgresUser: true
     postgresPassword: postgres
-    database: dora-the-explorer
+    database: dora
     username: postgres
     password: postgres
   primary:
