@@ -1,11 +1,11 @@
 
-# light-beaconchain-explorer
+# dora
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
-**Homepage:** <https://github.com/pk910/light-beaconchain-explorer>
+**Homepage:** <https://github.com/pk910/dora>
 
 ## Requirements
 
@@ -22,10 +22,10 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | config | string | See `values.yaml` | Config file |
 | configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customCommand | list | `[]` | Command replacement for the light-beaconchain-explorer container |
+| customCommand | list | `[]` | Command replacement for the dora container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
-| ethExplorerLink | string | `""` | Link to the eth explorer |
-| extraArgs | list | `[]` | Extra args for the light-beaconchain-explorer container |
+| ethExplorerLink | string | `""` | Link to the el block explorer |
+| extraArgs | list | `[]` | Extra args for the dora container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -33,9 +33,9 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` |  |
-| image.pullPolicy | string | `"IfNotPresent"` | light-beaconchain-explorer container pull policy |
-| image.repository | string | `"pk910/light-beaconchain-explorer"` | light-beaconchain-explorer container image repository |
-| image.tag | string | `"latest"` | light-beaconchain-explorer container image tag |
+| image.pullPolicy | string | `"Always"` | dora container pull policy |
+| image.repository | string | `"ethpandaops/dora"` | dora container image repository |
+| image.tag | string | `"master"` | dora container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -44,7 +44,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| name | string | `"mainnet"` | Name of the network ("mainnet", "prater", "sepolia") |
+| name | string | `"mainnet"` | Name of the network ("mainnet", "goerli", "sepolia", "holesky") |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
@@ -58,7 +58,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql.auth.database | string | `"light-beaconchain-explorer"` |  |
+| postgresql.auth.database | string | `"dora"` |  |
 | postgresql.auth.enablePostgresUser | bool | `true` |  |
 | postgresql.auth.password | string | `"postgres"` |  |
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |
@@ -102,11 +102,11 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 
 # Example
 
-Usage: light-beaconchain-explorer -config config.yaml
+Usage: dora-explorer -config config.yaml
 
 Helper:
 ```shell
-Usage of ./explorer_linux_amd64:
+Usage of ./dora-explorer:
 -config string
     Path to the config file, if empty string defaults will be used
 ```
@@ -119,4 +119,4 @@ In order to name validators based on ranges the following file format can be pro
 ...
 ```
 
-More details can be found [here](https://docs.rs/crate/light-beaconchain-explorer/0.1.1) or [here](https://github.com/dapplion/light-beaconchain-explorer).
+More details can be found [here](https://github.com/pk910/dora).

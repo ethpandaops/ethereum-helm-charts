@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "light-beaconchain-explorer.fullname" . }}
+  name: {{ include "dora.fullname" . }}
   labels:
-    {{- include "light-beaconchain-explorer.labels" . | nindent 4 }}
+    {{- include "dora.labels" . | nindent 4 }}
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      {{- include "light-beaconchain-explorer.selectorLabels" . | nindent 6 }}
+      {{- include "dora.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "light-beaconchain-explorer.selectorLabels" . | nindent 8 }}
+        {{- include "dora.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -24,7 +24,7 @@ spec:
         {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
-      serviceAccountName: {{ include "light-beaconchain-explorer.serviceAccountName" . }}
+      serviceAccountName: {{ include "dora.serviceAccountName" . }}
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
@@ -46,7 +46,7 @@ spec:
           {{- if gt (len .Values.customCommand) 0 }}
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-              - ./explorer_linux_amd64
+              - ./dora-explorer
               - -config
               - /data/config.yaml
           {{- end }}
@@ -103,7 +103,7 @@ spec:
       {{- end }}
         - name: config
           configMap:
-            name: {{ include "light-beaconchain-explorer.fullname" . }}-config
+            name: {{ include "dora.fullname" . }}-config
         - name: ranges
           configMap: 
-            name: {{ include "light-beaconchain-explorer.fullname" . }}-ranges
+            name: {{ include "dora.fullname" . }}-ranges
