@@ -52,6 +52,7 @@ defaultCommandTemplate: |
     --http
     --http.addr=0.0.0.0
     --http.port={{ .Values.httpPort }}
+    --http.api=eth,net,web3,txpool
     --http.corsdomain=*
     --ws
     --ws.addr=0.0.0.0
@@ -60,7 +61,7 @@ defaultCommandTemplate: |
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
     --authrpc.port={{ .Values.authPort }}
-    --log.max-files=0
+    --log.directory=/data/logs
   {{- if .Values.metricsPort }}
     --metrics={{ .Values.metricsPort }}
   {{- end }}
