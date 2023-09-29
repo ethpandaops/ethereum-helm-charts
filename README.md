@@ -70,6 +70,7 @@ Tooling
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
+- [`dora`](charts/dora) - Lightweight Beaconchain explorer.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
 - [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
@@ -82,7 +83,6 @@ Tooling
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
-- [`dora`](charts/dora) - Lightweight Beaconchain explorer.
 - [`ipfs-cluster`](charts/ipfs-cluster) - IPFS Cluster
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
