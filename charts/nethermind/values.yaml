@@ -31,7 +31,7 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    exec /nethermind/Nethermind.Runner
+    exec /nethermind/nethermind
     --datadir=/data
     --KeyStore.KeyStoreDirectory=/data/keystore
     --Network.LocalIp=$(POD_IP)
