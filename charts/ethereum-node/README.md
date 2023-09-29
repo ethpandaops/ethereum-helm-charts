@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.14](https://img.shields.io/badge/Version-0.0.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.15](https://img.shields.io/badge/Version-0.0.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -22,7 +22,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../grandine | grandine | 0.1.1 |
 | file://../lighthouse | lighthouse | 1.1.1 |
 | file://../lodestar | lodestar | 1.1.1 |
-| file://../nethermind | nethermind | 1.0.8 |
+| file://../nethermind | nethermind | 1.0.9 |
 | file://../nimbus | nimbus | 1.1.1 |
 | file://../prysm | prysm | 1.1.1 |
 | file://../reth | reth | 0.0.8 |
