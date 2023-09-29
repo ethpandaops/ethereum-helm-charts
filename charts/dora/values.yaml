@@ -11,9 +11,9 @@ image:
   # -- dora container image repository
   repository: ethpandaops/dora
   # -- dora container image tag
-  tag: latest
+  tag: master
   # -- dora container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- An array of endpoints to use for the explorer
 # -- url is the only required field
