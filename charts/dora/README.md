@@ -33,9 +33,9 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` |  |
-| image.pullPolicy | string | `"IfNotPresent"` | dora container pull policy |
+| image.pullPolicy | string | `"Always"` | dora container pull policy |
 | image.repository | string | `"ethpandaops/dora"` | dora container image repository |
-| image.tag | string | `"latest"` | dora container image tag |
+| image.tag | string | `"master"` | dora container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
