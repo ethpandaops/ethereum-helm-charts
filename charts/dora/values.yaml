@@ -112,7 +112,7 @@ config: |
     # indexer keeps track of the latest epochs in memory.
     indexer:
       # max number of epochs to keep in memory
-      inMemoryEpochs: 3
+      inMemoryEpochs: 6
 
       # disable synchronizing and everything that writes to the db (indexer just maintains local cache)
       disableIndexWriter: false
