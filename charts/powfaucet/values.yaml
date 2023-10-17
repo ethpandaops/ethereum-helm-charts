@@ -43,9 +43,6 @@ service:
 # -- Affinity configuration for pods
 affinity: {}
 
-# -- Image pull secrets for Docker images
-imagePullSecrets: []
-
 # -- Annotations for the StatefulSet
 annotations: {}
 
