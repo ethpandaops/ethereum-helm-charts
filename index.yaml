@@ -5412,6 +5412,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
     version: 0.1.0
+  powfaucet:
+  - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2023-10-18T15:51:17.905473794Z"
+    description: 'PoW Faucet for EVM chains '
+    digest: 2ce2c50aec48839b8f4f576997394f258d0e10e406400765ef82492091ac7ba3
+    home: https://github.com/pk910/PoWFaucet
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: powfaucet
+    sources:
+    - https://github.com/pk910/PoWFaucet
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-0.0.1/powfaucet-0.0.1.tgz
+    version: 0.0.1
   prysm:
   - apiVersion: v2
     created: "2023-07-14T09:44:52.397393702Z"
@@ -7038,4 +7055,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-10-07T17:27:52.898250331Z"
+generated: "2023-10-18T15:51:17.906247099Z"
