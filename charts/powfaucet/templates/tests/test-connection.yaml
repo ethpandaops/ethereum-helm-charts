@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "powfaucet.fullname" . }}-test-connection"
+  labels:
+    {{- include "powfaucet.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "powfaucet.fullname" . }}:{{ include "powfaucet.httpPort" . }}/'
+  restartPolicy: Never

@@ -84,6 +84,7 @@ Tooling
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
 - [`ipfs-cluster`](charts/ipfs-cluster) - IPFS Cluster
+- [`powfaucet`](charts/powfaucet) - Modularized faucet for EVM chains with different protection methods (Captcha, PoW Mining, IP Limits, Wallet Balances and more)
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
