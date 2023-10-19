@@ -1,0 +1,33 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+## Example Configuration
+
+[Upstream docs](https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki)
+
+```yaml
+faucetTitle: "PoW Faucet"
+faucetPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
+faucetRpcUrl: "http://your-el-node:8545"
+faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
+faucetHomeHtml: ""
+
+faucetMaxDropWei: 50000000000000000000 # 50 ETH
+faucetPowEnabled: true
+faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
+```
+
+{{ template "chart.valuesSection" . }}
