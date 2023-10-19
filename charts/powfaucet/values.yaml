@@ -166,6 +166,9 @@ persistence:
 # - HTTP port for faucet interface
 httpPort: 8080
 
+# - number of HTTP proxies in front of the faucet
+httpProxyCount: 1
+
 # - powfaucet config
 faucetTitle: "PoW Faucet"
 faucetPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
@@ -251,6 +254,9 @@ config: |
 
   # faucet http/ws server port
   serverPort: {{ .Values.httpPort }}
+
+  # number of http proxies in front of this faucet
+  httpProxyCount: {{ .Values.httpProxyCount }}
 
   # title of the faucet
   faucetTitle: "{{ .Values.powfaucetTitle }}"
