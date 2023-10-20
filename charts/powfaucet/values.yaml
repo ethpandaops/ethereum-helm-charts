@@ -5,18 +5,18 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  # -- fauceth container image repository
+  # -- powfaucet container image repository
   repository: pk910/powfaucet
-  # -- fauceth container image tag
+  # -- powfaucet container image tag
   tag: "v2-stable"
-  # -- fauceth container pull policy
+  # -- powfaucet container pull policy
   pullPolicy: IfNotPresent
 
-# -- Custom args for the fauceth container
+# -- Custom args for the powfaucet container
 customArgs:
   - --datadir=/data
 
-# -- Command replacement for the fauceth container
+# -- Command replacement for the powfaucet container
 customCommand: [] # Only change this if you need to change the default command
 
 ingress:
@@ -163,71 +163,139 @@ persistence:
   #     app.kubernetes.io/name: something
 
 
-# - HTTP port for faucet interface
+# -- HTTP port for faucet interface
 httpPort: 8080
 
-# - powfaucet config
+# -- number of HTTP proxies in front of the faucet
+httpProxyCount: 1
+
+# -- Faucet title
 faucetTitle: "PoW Faucet"
+
+# -- Faucet wallet private key
 faucetPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
+
+# -- Faucet el node rpc
 faucetRpcUrl: "http://your-el-node:8545"
+
+# -- Link to el block explorer ({txid} as placeholder for transaction hash)
 faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
+
+# -- Additional html to show on the faucet page
 faucetHomeHtml: ""
 
+# -- Minimum drop amount in wei
 faucetMinDropWei: 1000000000000000000 # 1 ETH
+
+# -- Default/Maximum drop amount in wei
 faucetMaxDropWei: 50000000000000000000 # 50 ETH
 
-# captcha module (require captcha check)
+# -- Enable captcha module
 faucetCaptchaEnabled: false
+
+# -- Captcha module: provider (hcaptcha / recaptcha)
 faucetCaptchaProvider: "hcaptcha"
+
+# -- Captcha module: provider site key
 faucetCaptchaSitekey: "00000000-0000-0000-0000-000000000000"
+
+# -- Captcha module: provider secret
 faucetCaptchaSecret: "0xCensoredHCaptchaSecretKey"
 
-# ens module (allow/require ENS names)
+# -- Enable ENS module
 faucetEnsEnabled: true
+
+# -- ENS module: rpc url (mainnet)
 faucetEnsRpcUrl: "https://rpc.flashbots.net/"
+
+# -- ENS module: enforce ens name to use the faucet
 faucetEnsRequired: false
 
-# ipinfo module (check ip-api.com)
+# -- Enable ipinfo module (resolve ip infos from ip-api.com)
 faucetIpinfoEnabled: true
+
+# -- Ipinfo module: reward rate if ip is in a hosting range (in %)
 faucetIpinfoHostingRewards: 10 # 10%
+
+# -- Ipinfo module: reward rate if ip is in a proxy range (in %)
 faucetIpinfoProxyRewards: 10 # 10%
 
-# ethinfo module (check target wallet balance / type)
+# -- Enable ethinfo module (check target wallet balance / type)
 faucetEthinfoEnabled: true
+
+# -- Ethinfo module: check balance and deny session if balance exceeds the limit (in wei)
 faucetEthinfoMaxbalanceWei: 100000000000000000000 # 100 ETH
+
+# -- Ethinfo module: deny contract addresses
 faucetEthinfoDenyContract: true
 
-# outflow module (limit global faucet outflow)
+# -- Enable outflow module (limit global faucet outflow)
 faucetOutflowEnabled: false
+
+# -- Outflow module: allowed amount of ETH (amount/duration) (in wei)
 faucetOutflowAmountWei: 1000000000000000000000 # 1000 ETH
+
+# -- Outflow module: duration for the allowed amouunt (amount/duration) (in wei)
 faucetOutflowDuration: 86400 # 1 day
+
+# -- Outflow module: amount overflow buffer (in wei)
 faucetOutflowBufferWei: 500000000000000000000 # 500 ETH
 
-# github module (require login to github)
+# -- Enable github module (require login to github)
 faucetGithubEnabled: false
-faucetGithubClientid: "" # github app
-faucetGithubSecret: "" # github app
-faucetGithubMinAge: 604800 # 7 days
+
+# -- Github module: github app client id
+faucetGithubClientid: ""
+
+# -- Github module: github app client secret
+faucetGithubSecret: ""
+
+# -- Github module: minimum account age (in seconds)
+faucetGithubMinAge: 604800
+
+# -- Github module: minimum number of repositories
 faucetGithubMinRepos: 5
+
+# -- Github module: minimum number of followers
 faucetGithubMinFollowers: 5
+
+# -- Github module: max amount each github user is allowed to request in total
 faucetGithubLimitAmountWei: 100000000000000000000 # 100 ETH
+
+# -- Github module: aggregation duration for the max request amount check
 faucetGithubLimitDuration: 86400 # 1 day
 
-# mainnet module (check mainnet wallet balance / nonce)
+# -- Enable mainnet module (check mainnet wallet balance / nonce)
 faucetMainnetEnabled: false
+
+# -- Mainnet module: rpc url (mainnet)
 faucetMainnetRpcUrl: "https://rpc.flashbots.net/"
+
+# -- Mainnet module: min balance the user needs to hold in his mainnet wallet to use the faucet
 faucetMainnetMinBalanceWei: 10000000000000000 # 0.01 ETH
+
+# -- Mainnet module: min number of transactions the user needs to have sent from the mainnet wallet to use the faucet
 faucetMainnetMinTxCount: 5
 
-# recurring limits module (enforce limits for recurring users)
+# -- Enable recurring module (enforce limits for recurring users)
 faucetRecurringLimitsEnabled: true
+
+# -- Recurring module: max amount a recurring user is allowed to request in total
 faucetRecurringLimitsAmountWei: 100000000000000000000 # 100 ETH
+
+# -- Recurring module: aggregation duration for the max request amount check
 faucetRecurringLimitsDuration: 86400 # 1 day
 
-# pow module (require mining)
+# -- Enable PoW module (require mining)
 faucetPowEnabled: false
+
+# -- PoW module: drop amount per eligible hash
 faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
+
+# -- PoW module: max mining time (in seconds)
 faucetPowMaxDuration: 18000 # 5h
+
+# -- PoW module: mining difficulty (see https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#eligible-hashes)
 faucetPowDifficulty: 12
 
 # -- Config file
@@ -251,6 +319,9 @@ config: |
 
   # faucet http/ws server port
   serverPort: {{ .Values.httpPort }}
+
+  # number of http proxies in front of this faucet
+  httpProxyCount: {{ .Values.httpProxyCount }}
 
   # title of the faucet
   faucetTitle: "{{ .Values.powfaucetTitle }}"
