@@ -324,7 +324,7 @@ config: |
   httpProxyCount: {{ .Values.httpProxyCount }}
 
   # title of the faucet
-  faucetTitle: "{{ .Values.powfaucetTitle }}"
+  faucetTitle: "{{ .Values.faucetTitle }}"
 
   # url to image displayed on the startpage
   faucetImage: "/images/fauceth_420.jpg"
@@ -578,6 +578,8 @@ config: |
       # pow module settings have been trimmed for readability.
       # you can find all available settings on https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#module-pow
 
+      powPingInterval: 45
+      powPingTimeout: 90
 
   ### Fund Management
 
