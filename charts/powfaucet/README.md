@@ -78,6 +78,8 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetPowDifficulty | int | `12` | PoW module: mining difficulty (see https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#eligible-hashes) |
 | faucetPowEnabled | bool | `false` | Enable PoW module (require mining) |
 | faucetPowMaxDuration | int | `18000` | PoW module: max mining time (in seconds) |
+| faucetPowPingInterval | int | `45` | PoW module: ping interval for websocket connection |
+| faucetPowPingTimeout | int | `90` | PoW module: ping timeout for websocket connection |
 | faucetPowRewardPerHash | int | `500000000000000000` | PoW module: drop amount per eligible hash |
 | faucetPrivkey | string | `"feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"` | Faucet wallet private key |
 | faucetRecurringLimitsAmountWei | float | `100000000000000000000` | Recurring module: max amount a recurring user is allowed to request in total |

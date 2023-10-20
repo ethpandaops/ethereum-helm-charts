@@ -298,6 +298,12 @@ faucetPowMaxDuration: 18000 # 5h
 # -- PoW module: mining difficulty (see https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#eligible-hashes)
 faucetPowDifficulty: 12
 
+# -- PoW module: ping interval for websocket connection
+faucetPowPingInterval: 45
+
+# -- PoW module: ping timeout for websocket connection
+faucetPowPingTimeout: 90
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -578,8 +584,8 @@ config: |
       # pow module settings have been trimmed for readability.
       # you can find all available settings on https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#module-pow
 
-      powPingInterval: 45
-      powPingTimeout: 90
+      powPingInterval: {{ .Values.faucetPowPingInterval }}
+      powPingTimeout: {{ .Values.faucetPowPingTimeout }}
 
   ### Fund Management
 
