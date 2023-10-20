@@ -298,6 +298,12 @@ faucetPowMaxDuration: 18000 # 5h
 # -- PoW module: mining difficulty (see https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#eligible-hashes)
 faucetPowDifficulty: 12
 
+# -- PoW module: ping interval for websocket connection
+faucetPowPingInterval: 45
+
+# -- PoW module: ping timeout for websocket connection
+faucetPowPingTimeout: 90
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -324,7 +330,7 @@ config: |
   httpProxyCount: {{ .Values.httpProxyCount }}
 
   # title of the faucet
-  faucetTitle: "{{ .Values.powfaucetTitle }}"
+  faucetTitle: "{{ .Values.faucetTitle }}"
 
   # url to image displayed on the startpage
   faucetImage: "/images/fauceth_420.jpg"
@@ -578,6 +584,8 @@ config: |
       # pow module settings have been trimmed for readability.
       # you can find all available settings on https://github.com/pk910/PoWFaucet/wiki/Operator-Wiki#module-pow
 
+      powPingInterval: {{ .Values.faucetPowPingInterval }}
+      powPingTimeout: {{ .Values.faucetPowPingTimeout }}
 
   ### Fund Management
 
