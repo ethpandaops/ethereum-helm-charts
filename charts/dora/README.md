@@ -19,7 +19,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| callRateBurst | int | `10` | Page call burst limit per second per user |
+| callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
 | config | string | See `values.yaml` | Config file |
 | configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml" |
