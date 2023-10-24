@@ -42,6 +42,16 @@ configPath: ""
 # -- Link to the el block explorer
 ethExplorerLink: ""
 
+# -- Number of proxy servers in front of the explorer
+proxyCount: 1
+
+# -- Page call limit per second per user
+callRateLimit: 2
+
+# -- Page call burst limit per second per user
+callRateBurst: 10
+
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -79,6 +89,12 @@ config: |
       # file or inventory url to load validator names from
       validatorNamesYaml: "/data/ranges.yaml"
       validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
+
+    rateLimit:
+      enabled: true
+      proxyCount: {{ .Values.proxyCount }}
+      rate: {{ .Values.callRateLimit }}
+      burst: {{ .Values.callRateBurst }}
 
     beaconapi:
       # CL Client RPC
