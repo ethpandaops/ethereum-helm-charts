@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -19,6 +19,8 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| callRateBurst | int | `10` | Page call burst limit per user |
+| callRateLimit | int | `2` | Page call limit per second per user |
 | config | string | See `values.yaml` | Config file |
 | configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
@@ -73,6 +75,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
+| proxyCount | int | `1` | Number of proxy servers in front of the explorer |
 | ranges | string | `"0-1: test\n"` |  |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
