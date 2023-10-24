@@ -48,7 +48,7 @@ proxyCount: 1
 # -- Page call limit per second per user
 callRateLimit: 2
 
-# -- Page call burst limit per second per user
+# -- Page call burst limit per user
 callRateBurst: 10
 
 
