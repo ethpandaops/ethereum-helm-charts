@@ -1,7 +1,7 @@
 apiVersion: v2
 name: dugtrio
 description: >
-  Load balancer proxy for beacon chain rpc nodes 
+  Fault tolerant load balancer for beacon chain RPC apis
 home: https://github.com/ethpandaops/dugtrio
 sources:
   - https://github.com/ethpandaops/dugtrio
