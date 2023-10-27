@@ -3,7 +3,7 @@
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Load balancer proxy for beacon chain rpc nodes
+Fault tolerant load balancer for beacon chain RPC apis
 
 **Homepage:** <https://github.com/ethpandaops/dugtrio>
 
