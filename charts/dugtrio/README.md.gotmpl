@@ -1,0 +1,37 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+# Usage
+
+Usage: dora-explorer -config config.yaml
+
+Helper:
+```shell
+Usage of ./dora-explorer:
+-config string
+    Path to the config file, if empty string defaults will be used
+```
+
+Example Configuration:
+```yaml
+endpoints:
+  - name: node1
+    url: "http://beacon-node1:5052"
+  - name: node2
+    url: "http://beacon-node2:5052"
+```
+
+{{ template "chart.valuesSection" . }}

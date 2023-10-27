@@ -1,0 +1,262 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- dugtrio container image repository
+  repository: ethpandaops/dugtrio
+  # -- dugtrio container image tag
+  tag: "latest"
+  # -- dugtrio container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Custom args for the dugtrio container
+customArgs:
+  - -config=dugtrio-config.yaml
+
+# -- Command replacement for the dugtrio container
+customCommand: [] # Only change this if you need to change the default command
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+
+# -- HTTP port for dugtrio interface
+httpPort: 8080
+
+# -- An array of endpoints to use for dugtrio
+# -- url is the only required field
+endpoints:
+  - name: default-endpoint
+    url: "http://beacon-node:5052"
+    headers:
+      "X-Test": "test"
+      "Y-Test": "test2"
+
+# -- dugtrio pool scheduler mode
+dugtrioPoolScheduler: "rr"
+
+# -- number of blocks to keep in dugtrio cache to sort out forks
+dugtrioPoolFollowDistance: 10
+
+# -- max head distance for endpoints before not using them anymore
+dugtrioPoolMaxHeadDistance: 2
+
+# -- number of HTTP proxies in front of dugtrio
+dugtrioProxyCount: 1
+
+# -- timeout for dugtrio proxy calls
+dugtrioProxyCallTimeout: 10s
+
+# -- timeout for dugtrio sessions (used for rate limiting & endpoint stickiness)
+dugtrioProxySessionTimeout: 10m
+
+# -- reuse the same endpoint for sessions as long as available
+dugtrioProxyStickyEndpoint: true
+
+# -- dugtrio call rate limit (number of calls per second per ip)
+dugtrioProxyCallRateLimit: 100
+
+# -- dugtrio call rate burst (burst number of calls per ip)
+dugtrioProxyCallRateBurst: 1000
+
+# -- blocked proxy paths (regular expressions, eg. "^/eth/v[0-9]+/debug/.*")
+dugtrioProxyBlockedPaths: []
+
+# -- Enable dugtrio UI
+dugtrioFrontendEnabled: true
+
+# -- Dugtrio UI title
+dugtrioFrontendTitle: "Dugtrio"
+
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+  logging:
+    #outputLevel: "debug"
+    #filePath: "dugtrio.log"
+    #fileLevel: "warn"
+
+  # HTTP Server configuration
+  server:
+    host: "0.0.0.0"
+    port: "{{ .Values.httpPort }}" 
+
+  # Beacon Node Endpoints
+  endpoints:
+    {{- range .Values.endpoints }}
+    - url: {{ .url | quote }}
+      {{- if .name }}
+      name: {{ .name | quote }}
+      {{- end }}
+      {{- if .headers }}
+      headers:
+      {{- range $key, $value := .headers }}
+        {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+
+  # Pool configuration
+  pool:
+    schedulerMode: "{{ .Values.dugtrioPoolScheduler }}"
+    followDistance: {{ .Values.dugtrioPoolFollowDistance }}
+    maxHeadDistance: {{ .Values.dugtrioPoolMaxHeadDistance }}
+
+  # Proxy configuration
+  proxy:
+    # number of proxies in front of dugtrio
+    proxyCount: {{ .Values.dugtrioProxyCount }}
+
+    # proxy call timeout
+    callTimeout: {{ .Values.dugtrioProxyCallTimeout }}
+
+    # proxy session timeout
+    sessionTimeout: {{ .Values.dugtrioProxySessionTimeout }}
+
+    # reuse the same endpoint when possible
+    stickyEndpoint: {{ .Values.dugtrioProxyStickyEndpoint }}
+
+    # call rate limit (calls per second)
+    callRateLimit: {{ .Values.dugtrioProxyCallRateLimit }}
+
+    # call rate burst limit
+    callRateBurst: {{ .Values.dugtrioProxyCallRateBurst }}
+
+    {{- if .dugtrioProxyBlockedPaths }}
+    # blocked api paths (regex patterns)
+    blockedPaths:
+      {{- range $i, $value := .dugtrioProxyBlockedPaths }}
+      - {{ $value | quote }}
+      {{- end }}
+    {{- end }}
+
+  # Frontend configuration
+  frontend:
+    # Enable or disable to web frontend
+    enabled: {{ .Values.dugtrioFrontendEnabled }}
+    minify: true
+    siteName: "{{ .Values.dugtrioFrontendTitle }}"
+
