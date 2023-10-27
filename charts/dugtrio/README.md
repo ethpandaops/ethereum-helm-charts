@@ -13,13 +13,13 @@ Fault tolerant load balancer for beacon chain RPC apis
 
 # Usage
 
-Usage: dora-explorer -config config.yaml
+Usage: dugtrio-proxy -config config.yaml
 
 Helper:
 ```shell
-Usage of ./dora-explorer:
+Usage of ./dugtrio-proxy:
 -config string
-    Path to the config file, if empty string defaults will be used
+    Path to the dugtrio config file
 ```
 
 Example Configuration:
