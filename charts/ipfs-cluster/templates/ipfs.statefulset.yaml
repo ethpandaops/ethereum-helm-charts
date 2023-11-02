@@ -62,10 +62,26 @@ spec:
               mountPath: /env
             - name: init-d
               mountPath: /container-init.d
+          {{- range $key, $value := .Values.ipfs.initScripts }}
+            - name: init-d-{{ $key }}
+              subPath: {{ $key }}
+              mountPath: /container-init.d/{{ $key }}
+          {{- end }}
+          {{- if .Values.ipfs.extraVolumeMounts }}
+            {{ toYaml .Values.ipfs.extraVolumeMounts | nindent 12 }}
+          {{- end }}
       {{- end }}
       containers:
       - name: ipfs
         image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
+        {{- if gt (len .Values.ipfs.customCommand) 0 }}
+        command:
+          {{- toYaml .Values.ipfs.customCommand | nindent 10}}
+        {{- end }}
+        {{- if gt (len .Values.ipfs.extraArgs) 0 }}
+        args:
+          {{- toYaml .Values.ipfs.extraArgs | nindent 10}}
+        {{- end }}
         ports:
         - containerPort: 4001
           name: swarm
@@ -121,6 +137,13 @@ spec:
           emptyDir: {}
         - name: init-d
           emptyDir: {}
+        - name: init-d-configmap
+          configMap:
+            name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-init-d
+            defaultMode: 504
+      {{- end }}
+      {{- if .Values.ipfs.extraVolumes }}
+        {{ toYaml .Values.ipfs.extraVolumes | nindent 8}}
       {{- end }}
   volumeClaimTemplates:
   - metadata:
