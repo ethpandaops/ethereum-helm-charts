@@ -62,6 +62,11 @@ spec:
               mountPath: /env
             - name: init-d
               mountPath: /container-init.d
+          {{- range $key, $value := .Values.ipfs.initScripts }}
+            - name: init-d-{{ $key }}
+              subPath: {{ $key }}
+              mountPath: /container-init.d/{{ $key }}
+          {{- end }}
       {{- end }}
       containers:
       - name: ipfs
@@ -121,6 +126,10 @@ spec:
           emptyDir: {}
         - name: init-d
           emptyDir: {}
+        - name: init-d-configmap
+          configMap:
+            name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-init-d
+            defaultMode: 504
       {{- end }}
   volumeClaimTemplates:
   - metadata:
