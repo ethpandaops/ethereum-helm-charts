@@ -54,7 +54,7 @@ cluster:
 
 ipfs:
   image:
-    repository: ipfs/go-ipfs
+    repository: ipfs/kubo
     pullPolicy: IfNotPresent
     tag: "latest"
   imagePullSecrets: []
