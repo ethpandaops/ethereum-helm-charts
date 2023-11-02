@@ -167,7 +167,7 @@ dugtrioPoolMaxHeadDistance: 2
 dugtrioProxyCount: 1
 
 # -- timeout for dugtrio proxy calls
-dugtrioProxyCallTimeout: 10s
+dugtrioProxyCallTimeout: 55s
 
 # -- timeout for dugtrio sessions (used for rate limiting & endpoint stickiness)
 dugtrioProxySessionTimeout: 10m
@@ -190,6 +190,8 @@ dugtrioFrontendEnabled: true
 # -- Dugtrio UI title
 dugtrioFrontendTitle: "Dugtrio"
 
+# -- Enable dugtrio metrics endpoint
+dugtrioMetricsEnabled: true
 
 # -- Config file
 # @default -- See `values.yaml`
@@ -259,3 +261,6 @@ config: |
     enabled: {{ .Values.dugtrioFrontendEnabled }}
     minify: true
     siteName: "{{ .Values.dugtrioFrontendTitle }}"
+
+  metrics:
+    enabled: {{ .Values.dugtrioMetricsEnabled }}
