@@ -1106,6 +1106,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
+  dugtrio:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-11-02T21:09:09.224625045Z"
+    description: 'Fault tolerant load balancer for beacon chain RPC apis '
+    digest: d79cae75b6dcebb5f0c9f2a2ede66170f16fcb94667a5c2b0656750a19b1a1c5
+    home: https://github.com/ethpandaops/dugtrio
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: dugtrio
+    sources:
+    - https://github.com/ethpandaops/dugtrio
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dugtrio-0.0.1/dugtrio-0.0.1.tgz
+    version: 0.0.1
   eleel:
   - apiVersion: v2
     created: "2023-05-22T02:58:46.433534098Z"
@@ -7122,4 +7139,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-02T18:41:11.654024675Z"
+generated: "2023-11-02T21:09:09.22513671Z"
