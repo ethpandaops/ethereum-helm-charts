@@ -133,7 +133,7 @@ spec:
         - name: init-d-configmap
           configMap:
             name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-init-d
-            defaultMode: 504
+            defaultMode: 0777
       {{- if .Values.ipfs.extraVolumes }}
         {{ toYaml .Values.ipfs.extraVolumes | nindent 8}}
       {{- end }}
