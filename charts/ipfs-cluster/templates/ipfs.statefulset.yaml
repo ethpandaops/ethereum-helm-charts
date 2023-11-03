@@ -23,6 +23,9 @@ spec:
       securityContext:
         {{- toYaml .Values.ipfs.podSecurityContext | nindent 8 }}
       initContainers:
+      {{- if .Values.ipfs.initContainers }}
+        {{- toYaml .Values.ipfs.initContainers | nindent 8 }}
+      {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: init-nodeport
           image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"
