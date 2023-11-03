@@ -1,6 +1,6 @@
 # ipfs-cluster
 
-![Version: 0.1.11](https://img.shields.io/badge/Version-0.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Run ipfs cluster along with kubo (go-ipfs)
 
@@ -40,6 +40,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | ipfs.image.repository | string | `"ipfs/kubo"` |  |
 | ipfs.image.tag | string | `"latest"` |  |
 | ipfs.imagePullSecrets | list | `[]` |  |
+| ipfs.initContainers | list | `[]` | Additional init containers |
 | ipfs.initScripts."001-peers.sh" | string | See `values.yaml` | Scripts that will run in an init container before the ipfs node starts. This is useful to setup some configuration parameters |
 | ipfs.nameOverride | string | `""` |  |
 | ipfs.nodeSelector | object | `{}` |  |
