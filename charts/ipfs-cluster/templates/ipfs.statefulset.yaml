@@ -63,7 +63,7 @@ spec:
             - name: init-d
               mountPath: /container-init.d
           {{- range $key, $value := .Values.ipfs.initScripts }}
-            - name: init-d-{{ $key }}
+            - name: init-d-configmap
               subPath: {{ $key }}
               mountPath: /container-init.d/{{ $key }}
           {{- end }}
