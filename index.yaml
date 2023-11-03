@@ -3923,6 +3923,18 @@ entries:
     version: 0.0.1
   ipfs-cluster:
   - apiVersion: v2
+    created: "2023-11-03T17:07:13.743894376Z"
+    description: Run ipfs cluster along with kubo (go-ipfs)
+    digest: 5fefcd9c01162b447e97e88574a3616d09de5bf8a633882136ed9fff23521024
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ipfs-cluster
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ipfs-cluster-0.1.12/ipfs-cluster-0.1.12.tgz
+    version: 0.1.12
+  - apiVersion: v2
     created: "2023-11-03T15:57:11.22100548Z"
     description: Run ipfs cluster along with kubo (go-ipfs)
     digest: bb8768ca421ca380472062838e80d1046149642b70d8b53db910e0eb7ba6fda5
@@ -7163,4 +7175,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-03T15:57:11.221719391Z"
+generated: "2023-11-03T17:07:13.744423578Z"
