@@ -1,7 +1,7 @@
 
 # dugtrio
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Fault tolerant load balancer for beacon chain RPC apis
 
@@ -62,7 +62,7 @@ endpoints:
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` | HTTP port for dugtrio interface |
-| image.pullPolicy | string | `"IfNotPresent"` | dugtrio container pull policy |
+| image.pullPolicy | string | `"Always"` | dugtrio container pull policy |
 | image.repository | string | `"ethpandaops/dugtrio"` | dugtrio container image repository |
 | image.tag | string | `"latest"` | dugtrio container image tag |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
