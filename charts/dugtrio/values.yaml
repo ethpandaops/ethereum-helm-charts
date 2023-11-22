@@ -10,7 +10,7 @@ image:
   # -- dugtrio container image tag
   tag: "latest"
   # -- dugtrio container pull policy
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 # -- Custom args for the dugtrio container
 customArgs:
