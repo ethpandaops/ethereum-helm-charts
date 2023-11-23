@@ -6483,6 +6483,19 @@ entries:
     version: 0.1.0
   testnet-faucet:
   - apiVersion: v2
+    created: "2023-11-23T03:40:46.152448838Z"
+    description: Ethereum faucet used for testnets
+    digest: 3137cac5adcce68b1cfff8da636ccf2a229e5198f5b2dc2e859544ff9f049482
+    home: https://github.com/parithosh/testnet-faucet
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: testnet-faucet
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-faucet-0.1.3/testnet-faucet-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2023-05-10T18:22:08.801562144Z"
     description: Ethereum faucet used for testnets
     digest: 8c0d4ce5338d4c30ae1f0983ce76146442256cfa861303df782a939fb5c44a42
@@ -6522,6 +6535,20 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-faucet-0.1.0/testnet-faucet-0.1.0.tgz
     version: 0.1.0
   testnet-homepage:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:46.374486115Z"
+    description: Ethereum testnet homepage that is used to display testnet relevant
+      information
+    digest: 060185d22a1a04e6c4ff97bf82ae302a0abf5f1c317c591daf52592603fc4d82
+    home: https://github.com/skylenet/ethereum-testnet-homepage
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: testnet-homepage
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.2.3/testnet-homepage-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     created: "2023-05-10T18:22:08.941831806Z"
     description: Ethereum testnet homepage that is used to display testnet relevant
@@ -6579,6 +6606,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
   web3signer:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:46.595001468Z"
+    dependencies:
+    - alias: slashingprotectiondb
+      condition: slashingprotectiondb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: Web3Signer is capable of signing on multiple platforms using private
+      keys stored in an external vault, or encrypted on a disk.
+    digest: 7f04485f6783d292eaa1f4c25790d3c083fc8904fc9d73e7c18f86c11c7a6870
+    home: https://github.com/Consensys/web3signer/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: rafael@skyle.net
+      name: skylenet
+    name: web3signer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-1.0.4/web3signer-1.0.4.tgz
+    version: 1.0.4
   - apiVersion: v2
     created: "2023-08-25T08:57:44.397321676Z"
     dependencies:
@@ -6729,6 +6778,22 @@ entries:
     version: 0.0.1
   xatu-cannon:
   - apiVersion: v2
+    created: "2023-11-23T03:40:46.827189093Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: a4bd1fd5d8c7407f450a77aa7ff8be3577ff3b8939559a19a7fa71a96b8cb8b5
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cannon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.2.1/xatu-cannon-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2023-09-20T04:11:08.535471018Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
       client and collects data via the consensus client's Beacon API.
@@ -6761,6 +6826,21 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.0.1/xatu-cannon-0.0.1.tgz
     version: 0.0.1
   xatu-discovery:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:47.050157185Z"
+    description: Ethereum p2p monitoring tool that discovers node records.
+    digest: b474c846c30fc318d80ccc9650fee1a867ce72968b0104f1396c140891cd0a3b
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-discovery
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.6/xatu-discovery-0.0.6.tgz
+    version: 0.0.6
   - apiVersion: v2
     created: "2023-05-10T18:22:09.224848663Z"
     description: Ethereum p2p monitoring tool that discovers node records.
@@ -6837,6 +6917,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.1/xatu-discovery-0.0.1.tgz
     version: 0.0.1
   xatu-mimicry:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:47.265809786Z"
+    description: Ethereum p2p monitoring tool that collects data from the execution
+      layer.
+    digest: 359cfebc3dcd0cb59b6029d31b3bafc4bb102e58cea533476b27bb2b680e2f48
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.7/xatu-mimicry-0.0.7.tgz
+    version: 0.0.7
   - apiVersion: v2
     created: "2023-09-20T04:11:08.681231053Z"
     description: Ethereum p2p monitoring tool that collects data from the execution
@@ -6934,6 +7030,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.1/xatu-mimicry-0.0.1.tgz
     version: 0.0.1
   xatu-sentry:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:47.472343731Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: c02ee1001d9df952373b64a7426be59576bb2401063cd7752dcfeba3af6de3eb
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-sentry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-sentry-0.0.8/xatu-sentry-0.0.8.tgz
+    version: 0.0.8
   - apiVersion: v2
     created: "2023-05-10T18:22:09.477392636Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
@@ -7047,6 +7159,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-sentry-0.0.1/xatu-sentry-0.0.1.tgz
     version: 0.0.1
   xatu-server:
+  - apiVersion: v2
+    created: "2023-11-23T03:40:47.686355973Z"
+    description: Ethereum p2p monitoring tool that collects events from and controls
+      various Xatu clients.
+    digest: 64d0a1ff9c2dca8891c5bb91888e9c360add74943114a1f601c0720ee4c9fe91
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.11/xatu-server-0.0.11.tgz
+    version: 0.0.11
   - apiVersion: v2
     created: "2023-06-13T02:15:48.708677288Z"
     description: Ethereum p2p monitoring tool that collects events from and controls
@@ -7191,4 +7319,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-22T18:33:42.984970183Z"
+generated: "2023-11-23T03:40:47.687036522Z"
