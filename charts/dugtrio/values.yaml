@@ -8,9 +8,9 @@ image:
   # -- dugtrio container image repository
   repository: ethpandaops/dugtrio
   # -- dugtrio container image tag
-  tag: "latest"
+  tag: "1.0.0"
   # -- dugtrio container pull policy
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 
 # -- Custom args for the dugtrio container
 customArgs:
