@@ -11,7 +11,7 @@ Web3Signer is capable of signing on multiple platforms using private keys stored
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | slashingprotectiondb(postgresql) | 11.x.x |
+| https://charts.bitnami.com/bitnami | slashingprotectiondb(postgresql) | 12.x.x |
 
 ## Values
 
