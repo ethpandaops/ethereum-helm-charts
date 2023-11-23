@@ -30,7 +30,7 @@ jobs:
         uses: pre-commit/action@v3.0.0
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2.4.0
+        uses: helm/chart-testing-action@v2.6.1
         with:
           version: "v3.9.0"
 
