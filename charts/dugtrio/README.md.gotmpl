@@ -1,0 +1,37 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+# Usage
+
+Usage: dugtrio-proxy -config config.yaml
+
+Helper:
+```shell
+Usage of ./dugtrio-proxy:
+-config string
+    Path to the dugtrio config file
+```
+
+Example Configuration:
+```yaml
+endpoints:
+  - name: node1
+    url: "http://beacon-node1:5052"
+  - name: node2
+    url: "http://beacon-node2:5052"
+```
+
+{{ template "chart.valuesSection" . }}

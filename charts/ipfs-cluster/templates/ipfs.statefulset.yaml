@@ -23,6 +23,9 @@ spec:
       securityContext:
         {{- toYaml .Values.ipfs.podSecurityContext | nindent 8 }}
       initContainers:
+      {{- if .Values.ipfs.initContainers }}
+        {{- toYaml .Values.ipfs.initContainers | nindent 8 }}
+      {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: init-nodeport
           image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"
@@ -64,45 +67,53 @@ spec:
               mountPath: /container-init.d
       {{- end }}
       containers:
-      - name: ipfs
-        image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
-        ports:
-        - containerPort: 4001
-          name: swarm
-          protocol: TCP
-        - containerPort: 4001
-          name: swarm-udp
-          protocol: UDP
-        - containerPort: 5001
-          name: api
-        - containerPort: 8080
-          name: gateway
-        - containerPort: 5353
-          name: zeroconf
-          protocol: UDP
-          {{- if .Values.ipfs.extraEnv }}
-        env:
-          {{- toYaml .Values.ipfs.extraEnv | nindent 10 }}
+        - name: ipfs
+          image: {{ .Values.ipfs.image.repository }}:{{ .Values.ipfs.image.tag }}
+          {{- if gt (len .Values.ipfs.customCommand) 0 }}
+          command:
+            {{- toYaml .Values.ipfs.customCommand | nindent 12}}
           {{- end }}
-#        livenessProbe:
-#          httpGet:
-#            path: /
-#            port: gateway
-#        readinessProbe:
-#          httpGet:
-#            path: /
-#            port: gateway
-        volumeMounts:
-        - name: data
-          mountPath: /data/ipfs
-        {{- if .Values.p2pNodePort.enabled }}
-        - name: env-nodeport
-          mountPath: /env
-        - name: init-d
-          mountPath: /container-init.d
-        {{- end }}
-        resources:
-          {{- toYaml .Values.ipfs.resources | nindent 12 }}
+          {{- if gt (len .Values.ipfs.extraArgs) 0 }}
+          args:
+            {{- toYaml .Values.ipfs.extraArgs | nindent 12}}
+          {{- end }}
+          ports:
+            - containerPort: 4001
+              name: swarm
+              protocol: TCP
+            - containerPort: 4001
+              name: swarm-udp
+              protocol: UDP
+            - containerPort: 5001
+              name: api
+            - containerPort: 8080
+              name: gateway
+            - containerPort: 5353
+              name: zeroconf
+              protocol: UDP
+          {{- if .Values.ipfs.extraEnv }}
+          env:
+            {{- toYaml .Values.ipfs.extraEnv | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /data/ipfs
+          {{- if .Values.p2pNodePort.enabled }}
+            - name: env-nodeport
+              mountPath: /env
+            - name: init-d
+              mountPath: /container-init.d
+          {{- end }}
+          {{- range $key, $value := .Values.ipfs.initScripts }}
+            - name: init-d-configmap
+              subPath: {{ $key }}
+              mountPath: /container-init.d/{{ $key }}
+          {{- end }}
+          {{- if .Values.ipfs.extraVolumeMounts }}
+            {{ toYaml .Values.ipfs.extraVolumeMounts | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.ipfs.resources | nindent 12 }}
       {{- with .Values.ipfs.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -122,14 +133,21 @@ spec:
         - name: init-d
           emptyDir: {}
       {{- end }}
-  volumeClaimTemplates:
-  - metadata:
-      name: data
-    spec:
-      accessModes: [ "ReadWriteOnce" ]
-      {{- with .Values.ipfs.storage.storageClassName }}
-      storageClassName: {{ . }}
+        - name: init-d-configmap
+          configMap:
+            name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-init-d
+            defaultMode: 0777
+      {{- if .Values.ipfs.extraVolumes }}
+        {{ toYaml .Values.ipfs.extraVolumes | nindent 8}}
       {{- end }}
-      resources:
-        requests:
-          storage: {{ .Values.ipfs.storage.volumeSize | default "1Gi" }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        {{- with .Values.ipfs.storage.storageClassName }}
+        storageClassName: {{ . }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.ipfs.storage.volumeSize | default "1Gi" }}

@@ -1,6 +1,6 @@
 # ipfs-cluster
 
-![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.12](https://img.shields.io/badge/Version-0.1.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Run ipfs cluster along with kubo (go-ipfs)
 
@@ -31,11 +31,17 @@ Run ipfs cluster along with kubo (go-ipfs)
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
 | ipfs.affinity | object | `{}` |  |
-| ipfs.extraEnv | list | `[]` |  |
+| ipfs.customCommand | list | `[]` | Command replacement for the container |
+| ipfs.extraArgs | list | `[]` | Additional args for the container |
+| ipfs.extraEnv | list | `[]` | Additional env variables |
+| ipfs.extraVolumeMounts | list | `[]` | Additional volume mounts |
+| ipfs.extraVolumes | list | `[]` | Additional volumes |
 | ipfs.image.pullPolicy | string | `"IfNotPresent"` |  |
-| ipfs.image.repository | string | `"ipfs/go-ipfs"` |  |
+| ipfs.image.repository | string | `"ipfs/kubo"` |  |
 | ipfs.image.tag | string | `"latest"` |  |
 | ipfs.imagePullSecrets | list | `[]` |  |
+| ipfs.initContainers | list | `[]` | Additional init containers |
+| ipfs.initScripts."001-peers.sh" | string | See `values.yaml` | Scripts that will run in an init container before the ipfs node starts. This is useful to setup some configuration parameters |
 | ipfs.nameOverride | string | `""` |  |
 | ipfs.nodeSelector | object | `{}` |  |
 | ipfs.podSecurityContext | object | `{}` |  |

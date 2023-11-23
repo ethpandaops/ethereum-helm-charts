@@ -71,6 +71,7 @@ Tooling
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`dora`](charts/dora) - Lightweight Beaconchain explorer.
+- [`dugtrio`](charts/dugtrio) - Fault tolerant load balancer for beacon chain RPC apis.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
 - [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
