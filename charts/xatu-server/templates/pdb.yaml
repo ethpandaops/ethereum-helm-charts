@@ -1,0 +1,18 @@
+{{- if or .Values.podDisruptionBudget.minAvailable .Values.podDisruptionBudget.maxUnavailable -}}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "xatu-server.fullname" . }}
+  labels:
+    {{- include "xatu-server.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "xatu-server.selectorLabels" . | nindent 6 }}
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- end  }}
+  {{- if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- end  }}
+{{- end -}}

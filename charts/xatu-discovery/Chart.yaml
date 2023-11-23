@@ -3,7 +3,7 @@ name: xatu-discovery
 description: Ethereum p2p monitoring tool that discovers node records.
 home: https://github.com/ethpandaops/xatu
 type: application
-version: 0.0.5
+version: 0.0.6
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
