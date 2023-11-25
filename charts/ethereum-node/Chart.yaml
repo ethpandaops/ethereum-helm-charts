@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.0.16
+version: 0.0.17
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -40,7 +40,7 @@ dependencies:
   repository: "file://../nethermind"
   condition: nethermind.enabled
 - name: reth
-  version: "0.0.9"
+  version: "0.0.10"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../reth"
   condition: reth.enabled
@@ -82,7 +82,7 @@ dependencies:
   repository: "file://../ethereum-metrics-exporter"
   condition: ethereum-metrics-exporter.enabled
 - name: xatu-sentry
-  version: "0.0.7"
+  version: "0.0.8"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../xatu-sentry"
   condition: xatu-sentry.enabled
