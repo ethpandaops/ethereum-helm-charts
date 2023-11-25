@@ -152,7 +152,7 @@ wsPort: 8546
 authPort: 8551
 
 # -- WS Engine Auth Port
-wsAuthPort: 8551
+wsAuthPort: 8552
 
 # -- Node selector for pods
 nodeSelector: {}

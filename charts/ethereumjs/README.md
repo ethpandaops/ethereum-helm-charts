@@ -97,7 +97,7 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsAuthPort | int | `8551` | WS Engine Auth Port |
+| wsAuthPort | int | `8552` | WS Engine Auth Port |
 | wsPort | int | `8546` | WS Port |
 
 # Examples
