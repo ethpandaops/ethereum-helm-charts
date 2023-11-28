@@ -79,9 +79,25 @@ spec:
               containerPort: {{ .Values.healthPort }}
               protocol: TCP
           livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
+            {{- if .Values.livenessProbe.httpGet }}
+            httpGet:
+              {{- toYaml .Values.livenessProbe.httpGet | nindent 14 }}
+            {{- else if .Values.livenessProbe.tcpSocket }}
+            tcpSocket:
+              {{- toYaml .Values.livenessProbe.tcpSocket | nindent 14 }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
           readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
+            {{- if .Values.readinessProbe.httpGet }}
+            httpGet:
+              {{- toYaml .Values.readinessProbe.httpGet | nindent 14 }}
+            {{- else if .Values.readinessProbe.tcpSocket }}
+            tcpSocket:
+              {{- toYaml .Values.readinessProbe.tcpSocket | nindent 14 }}
+            {{- end }}
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
