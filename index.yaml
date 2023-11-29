@@ -1906,6 +1906,81 @@ entries:
     version: 0.1.0
   ethereum-node:
   - apiVersion: v2
+    created: "2023-11-29T08:20:48.079252139Z"
+    dependencies:
+    - condition: besu.enabled
+      name: besu
+      repository: file://../besu
+      version: 1.0.6
+    - condition: erigon.enabled
+      name: erigon
+      repository: file://../erigon
+      version: 1.0.8
+    - condition: ethereumjs.enabled
+      name: ethereumjs
+      repository: file://../ethereumjs
+      version: 0.0.6
+    - condition: geth.enabled
+      name: geth
+      repository: file://../geth
+      version: 1.0.7
+    - condition: nethermind.enabled
+      name: nethermind
+      repository: file://../nethermind
+      version: 1.0.9
+    - condition: reth.enabled
+      name: reth
+      repository: file://../reth
+      version: 0.0.11
+    - condition: grandine.enabled
+      name: grandine
+      repository: file://../grandine
+      version: 0.1.1
+    - condition: lighthouse.enabled
+      name: lighthouse
+      repository: file://../lighthouse
+      version: 1.1.1
+    - condition: teku.enabled
+      name: teku
+      repository: file://../teku
+      version: 1.1.1
+    - condition: prysm.enabled
+      name: prysm
+      repository: file://../prysm
+      version: 1.1.1
+    - condition: nimbus.enabled
+      name: nimbus
+      repository: file://../nimbus
+      version: 1.1.1
+    - condition: lodestar.enabled
+      name: lodestar
+      repository: file://../lodestar
+      version: 1.1.1
+    - condition: ethereum-metrics-exporter.enabled
+      name: ethereum-metrics-exporter
+      repository: file://../ethereum-metrics-exporter
+      version: 0.1.4
+    - condition: xatu-sentry.enabled
+      name: xatu-sentry
+      repository: file://../xatu-sentry
+      version: 0.0.8
+    description: 'This chart acts as an umbrella chart and allows to run a ethereum
+      execution and consensus layer client. It''s also able to deploy optional monitoring
+      applications. '
+    digest: fe6bb9cb23425a1433af28810883a919c40ac781c7c0fc7242fd9c51ef0dbd7a
+    home: https://ethereum.org
+    icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethereum-node
+    sources:
+    - https://github.com/ethpandaops/ethereum-helm-charts
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-node-0.0.18/ethereum-node-0.0.18.tgz
+    version: 0.0.18
+  - apiVersion: v2
     created: "2023-11-25T09:57:07.870542282Z"
     dependencies:
     - condition: besu.enabled
@@ -5947,6 +6022,27 @@ entries:
     version: 0.1.0
   reth:
   - apiVersion: v2
+    created: "2023-11-29T08:20:48.194411429Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: 8d47202cd73593bb074c734796f811da84ed00e3f8423bd70792800158559c38
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.0.11/reth-0.0.11.tgz
+    version: 0.0.11
+  - apiVersion: v2
     created: "2023-11-25T09:57:08.057403499Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
       full node implementation that is focused on being user-friendly, highly modular,
@@ -7431,4 +7527,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-11-25T09:57:08.057890287Z"
+generated: "2023-11-29T08:20:48.195136448Z"
