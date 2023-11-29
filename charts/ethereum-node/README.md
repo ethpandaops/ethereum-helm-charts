@@ -25,7 +25,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../nethermind | nethermind | 1.0.9 |
 | file://../nimbus | nimbus | 1.1.1 |
 | file://../prysm | prysm | 1.1.1 |
-| file://../reth | reth | 0.0.10 |
+| file://../reth | reth | 0.0.11 |
 | file://../teku | teku | 1.1.1 |
 | file://../xatu-sentry | xatu-sentry | 0.0.8 |
 

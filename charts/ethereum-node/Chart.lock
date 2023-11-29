@@ -16,7 +16,7 @@ dependencies:
   version: 1.0.9
 - name: reth
   repository: file://../reth
-  version: 0.0.10
+  version: 0.0.11
 - name: grandine
   repository: file://../grandine
   version: 0.1.1
@@ -40,6 +40,6 @@ dependencies:
   version: 0.1.4
 - name: xatu-sentry
   repository: file://../xatu-sentry
-  version: 0.0.8
-digest: sha256:36e3176dab073a5b342c26fc58dfef6cb3c1fe22b744cb2b4c84809e6820f149
-generated: "2023-11-25T11:02:18.239613+01:00"
+digest: sha256:37d120c4f388e17d8949db86ebffef2cfbf637f28aa1ac8173114a5818a74ce6
+generated: "2023-11-29T09:00:01.30803+01:00"
+

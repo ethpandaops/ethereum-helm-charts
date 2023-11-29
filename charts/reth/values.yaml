@@ -63,7 +63,7 @@ defaultCommandTemplate: |
     --authrpc.port={{ .Values.authPort }}
     --log.file.directory=/data/logs
   {{- if .Values.metricsPort }}
-    --metrics={{ .Values.metricsPort }}
+    --metrics=0.0.0.0:{{ .Values.metricsPort }}
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
