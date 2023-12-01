@@ -184,6 +184,15 @@ faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
 # -- Additional html to show on the faucet page
 faucetHomeHtml: ""
 
+# -- Transaction gas limit
+faucetTxGasLimit: 21000
+
+# -- Max transaction gas fee (in wei)
+faucetTxMaxFee: 100000000000
+
+# -- Max transaction priority fee (in wei)
+faucetTxMaxPrioFee: 2000000000
+
 # -- Minimum drop amount in wei
 faucetMinDropWei: 1000000000000000000 # 1 ETH
 
@@ -362,7 +371,7 @@ config: |
 
   # transaction gas limit
   # use 21000 to prevent transactions to contracts
-  ethTxGasLimit: 21000
+  ethTxGasLimit: {{ .Values.faucetTxGasLimit }}
 
   # use legacy (non-eip1559) transaction type
   # true: Type 0 (Legacy Transactions), false: Type 2 (EIP1559 Transactions)
@@ -370,10 +379,10 @@ config: |
 
   # max transaction gas fee (in wei)
   # used as limit for legacy transactions (faucet won't build transactions with higher gas price)
-  ethTxMaxFee: 100000000000  # 100 gwei
+  ethTxMaxFee: {{ .Values.faucetTxMaxFee }}
 
   # max transaction priority fee (in wei)
-  ethTxPrioFee: 2000000000  # 2 gwei
+  ethTxPrioFee: {{ .Values.faucetTxMaxPrioFee }}
 
   # max number of unconfirmed transactions to create simultaneously
   ethMaxPending: 12

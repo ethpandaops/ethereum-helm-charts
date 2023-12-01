@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -87,6 +87,9 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetRecurringLimitsEnabled | bool | `true` | Enable recurring module (enforce limits for recurring users) |
 | faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc |
 | faucetTitle | string | `"PoW Faucet"` | Faucet title |
+| faucetTxGasLimit | int | `21000` | Transaction gas limit |
+| faucetTxMaxFee | int | `100000000000` | Max transaction gas fee (in wei) |
+| faucetTxMaxPrioFee | int | `2000000000` | Max transaction priority fee (in wei) |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8080` | HTTP port for faucet interface |
 | httpProxyCount | int | `1` | number of HTTP proxies in front of the faucet |
