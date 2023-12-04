@@ -31,7 +31,7 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    /usr/local/bin/reth node
+    exec /usr/local/bin/reth node
     --datadir=/data
     --config=/data/config.toml
   {{- if .Values.p2pNodePort.enabled }}
