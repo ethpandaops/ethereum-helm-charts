@@ -25,7 +25,6 @@ config:
   logging: "info"
   metricsAddr: ":9090"
   name: example-instance
-  ntpServer: time.google.com
   armiarmaUrl: http://localhost:9099/events
   ethereum:
     beaconNodeAddress: http://localhost:5052

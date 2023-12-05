@@ -1,6 +1,6 @@
 apiVersion: v2
 name: xatu-sage
-description: Ethereum p2p monitoring tool that connects to an Armiarma instance and derives events 
+description: Ethereum p2p monitoring tool that connects to an Armiarma instance and derives events
 home: https://github.com/ethpandaops/xatu
 type: application
 version: 0.0.1

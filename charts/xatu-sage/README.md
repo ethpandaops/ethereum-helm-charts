@@ -19,7 +19,6 @@ Ethereum p2p monitoring tool that connects to an Armiarma instance and derives e
 | config.logging | string | `"info"` |  |
 | config.metricsAddr | string | `":9090"` |  |
 | config.name | string | `"example-instance"` |  |
-| config.ntpServer | string | `"time.google.com"` |  |
 | config.outputs[0].config.address | string | `"http://localhost:8080"` |  |
 | config.outputs[0].config.batchTimeout | string | `"5s"` |  |
 | config.outputs[0].config.exportTimeout | string | `"30s"` |  |
