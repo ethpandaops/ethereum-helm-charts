@@ -70,9 +70,9 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "armiarma.secretEnv" -}}
-CRAWLER_PORT: {{ tpl (.Values.p2pNodePort.port | toString) . |  b64enc }}
-CRAWLER_METRICS_PORT: {{ tpl (.Values.metricsPort | toString) . |  b64enc }}
-CRAWLER_SSE_PORT: {{ tpl (.Values.ssePort | toString) .  |  b64enc }}
+ARMIARMA_PORT: {{ tpl (.Values.p2pNodePort.port | toString) . |  b64enc }}
+ARMIARMA_METRICS_PORT: {{ tpl (.Values.metricsPort | toString) . |  b64enc }}
+ARMIARMA_SSE_PORT: {{ tpl (.Values.ssePort | toString) .  |  b64enc }}
 {{- range $key, $value := .Values.secretEnv }}
 {{ $key }}: {{ tpl (toString ($value | toYaml)) $ | b64enc }}
 {{- end -}}

@@ -20,7 +20,7 @@ A distributed p2p network monitoring tool
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["eth2","--log-level=${CRAWLER_LOG_LEVEL}","--psql-endpoint=${CRAWLER_PSQL_ENDP}","--peers-backup=${CRAWLER_PEERS_BACKUP}","--fork-digest=${CRAWLER_FORK_DIGEST}","--gossip-topic=${CRAWLER_GOSSIP_TOPIC}","--subnet=${CRAWLER_SUBNET}","--persist-connevents=${CRAWLER_PERSIST_CONNEVENTS}"]` | Custom args for the armiarma container |
+| customArgs | list | `["eth2"]` | Custom args for the armiarma container |
 | customCommand | list | `[]` | Command replacement for the armiarma container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -56,7 +56,7 @@ A distributed p2p network monitoring tool
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"CRAWLER_FORK_DIGEST":"0x4a26c58b","CRAWLER_GOSSIP_TOPIC":"beacon_block","CRAWLER_LOG_LEVEL":"info","CRAWLER_PEERS_BACKUP":"12h","CRAWLER_PERSIST_CONNEVENTS":"false\"","CRAWLER_PSQL_ENDP":"postgres://{{ $.Values.global.postgresql.auth.user }}:{{ $.Values.global.postgresql.auth.password }}@{{ include \"armiarma.fullname\" $ }}-postgresql:5432/{{ $.Values.global.postgresql.auth.database }}","CRAWLER_SUBNET":"all"}` | Env variables injected via a created secret |
+| secretEnv | object | `{"ARMIARMA_BACKUP_INTERVAL":"12h","ARMIARMA_FORK_DIGEST":"0x4a26c58b","ARMIARMA_GOSSIP_TOPICS":"beacon_block","ARMIARMA_LOG_LEVEL":"info","ARMIARMA_PERSIST_CONNEVENTS":"false\"","ARMIARMA_PSQL":"postgres://{{ $.Values.global.postgresql.auth.user }}:{{ $.Values.global.postgresql.auth.password }}@{{ include \"armiarma.fullname\" $ }}-postgresql:5432/{{ $.Values.global.postgresql.auth.database }}","ARMIARMA_SUBNETS":"all"}` | Env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
