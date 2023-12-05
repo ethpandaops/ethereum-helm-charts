@@ -1,5 +1,24 @@
 apiVersion: v1
 entries:
+  armiarma:
+  - apiVersion: v2
+    created: "2023-12-05T05:49:20.410748566Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.23
+    description: A distributed p2p network monitoring tool
+    digest: 5f71b0aff0fec325cc01871a62743ae86e5274af5ca07f608598640b2733697c
+    home: https://github.com/migalabs/armiarma
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: armiarma
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/armiarma-0.1.0/armiarma-0.1.0.tgz
+    version: 0.1.0
   beacon-metrics-gazer:
   - apiVersion: v2
     created: "2023-06-27T13:51:37.177708618Z"
@@ -7638,4 +7657,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-12-01T16:21:20.783749218Z"
+generated: "2023-12-05T05:49:20.411594426Z"
