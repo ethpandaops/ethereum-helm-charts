@@ -2,8 +2,9 @@
 global:
   postgresql:
     auth:
-      user: armiarma
-      password: armiarma
+      postgresqlPassword: postgres
+      user: postgres
+      password: postgres
       database: armiarmadb
 
 # -- Overrides the chart's name
@@ -204,7 +205,16 @@ extraEnv: []
 
 # -- Postgresql subchart configuration
 postgresql:
+  enabled: true
   nameOverride: "postgresql"
   image:
     repository: bitnami/postgresql
     tag: 14-debian-11
+
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi
+  postgresqlDatabase: armiarmadb
+  postgresqlUsername: postgres
+  postgresqlPassword: postgres

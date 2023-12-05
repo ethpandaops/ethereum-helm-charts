@@ -28,7 +28,7 @@ A distributed p2p network monitoring tool
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| global | object | `{"postgresql":{"auth":{"database":"armiarmadb","password":"armiarma","user":"armiarma"}}}` | Global values |
+| global | object | `{"postgresql":{"auth":{"database":"armiarmadb","password":"postgres","postgresqlPassword":"postgres","user":"postgres"}}}` | Global values |
 | image.pullPolicy | string | `"IfNotPresent"` | armiarma container pull policy |
 | image.repository | string | `"ethpandaops/armiarma"` | armiarma container image repository |
 | image.tag | string | `"master"` | armiarma container image tag |
@@ -52,7 +52,7 @@ A distributed p2p network monitoring tool
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql | object | `{"image":{"repository":"bitnami/postgresql","tag":"14-debian-11"},"nameOverride":"postgresql"}` | Postgresql subchart configuration |
+| postgresql | object | `{"enabled":true,"image":{"repository":"bitnami/postgresql","tag":"14-debian-11"},"nameOverride":"postgresql","postgresqlDatabase":"armiarmadb","postgresqlPassword":"postgres","postgresqlUsername":"postgres","primary":{"persistence":{"enabled":true,"size":"8Gi"}}}` | Postgresql subchart configuration |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
