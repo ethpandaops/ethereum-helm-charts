@@ -52,7 +52,7 @@ A distributed p2p network monitoring tool
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql | object | `{"image":{"repository":"bitnami/postgresql","tag":"14-debian-11"},"nameOverride":"armiarma-postgresql"}` | Postgresql subchart configuration |
+| postgresql | object | `{"image":{"repository":"bitnami/postgresql","tag":"14-debian-11"},"nameOverride":"postgresql"}` | Postgresql subchart configuration |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |

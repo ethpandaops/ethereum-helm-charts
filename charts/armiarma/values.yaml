@@ -204,7 +204,7 @@ extraEnv: []
 
 # -- Postgresql subchart configuration
 postgresql:
-  nameOverride: "armiarma-postgresql"
+  nameOverride: "postgresql"
   image:
     repository: bitnami/postgresql
     tag: 14-debian-11
