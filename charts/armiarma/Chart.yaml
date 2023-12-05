@@ -1,0 +1,14 @@
+apiVersion: v2
+name: armiarma
+description: A distributed p2p network monitoring tool
+home: https://github.com/migalabs/armiarma
+type: application
+version: 0.1.0
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+dependencies:
+- name: postgresql
+  version: 13.2.23
+  repository: "https://charts.bitnami.com/bitnami"
+  condition: postgresql.enabled
