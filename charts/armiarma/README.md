@@ -20,7 +20,7 @@ A distributed p2p network monitoring tool
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `[]` | Custom args for the armiarma container |
+| customArgs | list | `["eth2","--log-level=${CRAWLER_LOG_LEVEL}","--psql-endpoint=${CRAWLER_PSQL_ENDP}","--peers-backup=${CRAWLER_PEERS_BACKUP}","--fork-digest=${CRAWLER_FORK_DIGEST}","--gossip-topic=${CRAWLER_GOSSIP_TOPIC}","--subnet=${CRAWLER_SUBNET}","--persist-connevents=${CRAWLER_PERSIST_CONNEVENTS}"]` | Custom args for the armiarma container |
 | customCommand | list | `[]` | Command replacement for the armiarma container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
