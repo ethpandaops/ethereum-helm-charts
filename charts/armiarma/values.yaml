@@ -23,6 +23,8 @@ image:
 # -- Custom args for the armiarma container
 customArgs:
   - eth2
+  - --persist-connevents=false
+  - --persist-msgs=false
 
 # -- Command replacement for the armiarma container
 customCommand: []
@@ -35,7 +37,6 @@ secretEnv:
   ARMIARMA_FORK_DIGEST: "0x4a26c58b"
   ARMIARMA_GOSSIP_TOPICS: "beacon_block"
   ARMIARMA_SUBNETS: "all"
-  ARMIARMA_PERSIST_CONNEVENTS: "false"
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This will generate a service for each replica, with a port binding via NodePort.
