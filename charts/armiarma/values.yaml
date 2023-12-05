@@ -22,6 +22,7 @@ image:
 
 # -- Custom args for the armiarma container
 customArgs:
+  - eth2
   - --log-level=${CRAWLER_LOG_LEVEL}
   - --psql-endpoint=${CRAWLER_PSQL_ENDP}
   - --peers-backup=${CRAWLER_PEERS_BACKUP}
@@ -32,8 +33,7 @@ customArgs:
 
 
 # -- Command replacement for the armiarma container
-customCommand:
-  - eth2
+customCommand: []
 
 # -- Env variables injected via a created secret
 secretEnv:
