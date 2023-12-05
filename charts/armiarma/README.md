@@ -68,18 +68,3 @@ A distributed p2p network monitoring tool
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-
-# Examples
-
-## Setting the configuration via Env vars
-
-```yaml
-secretEnv:
-  HCAPTCHA_SECRET: "your_hcaptcha_secret"
-  HCAPTCHA_SITEKEY: "your_hcaptcha_site_key"
-  APP_ETHKEY: "key in hex format"
-  APP_AMOUNT: "1000000000000000000" # 1 ETH
-  APP_CHAINS: "5" # Comma separated chain IDs that you support
-  APP_TITLE: "%CHAINNAME armiarma"
-  #APP_IMAGEURL:
-```
