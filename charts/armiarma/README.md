@@ -56,7 +56,7 @@ A distributed p2p network monitoring tool
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{"ARMIARMA_BACKUP_INTERVAL":"12h","ARMIARMA_FORK_DIGEST":"0x4a26c58b","ARMIARMA_GOSSIP_TOPICS":"beacon_block","ARMIARMA_LOG_LEVEL":"info","ARMIARMA_PERSIST_CONNEVENTS":"false\"","ARMIARMA_PSQL":"postgres://{{ $.Values.global.postgresql.auth.user }}:{{ $.Values.global.postgresql.auth.password }}@{{ include \"armiarma.fullname\" $ }}-postgresql:5432/{{ $.Values.global.postgresql.auth.database }}","ARMIARMA_SUBNETS":"all"}` | Env variables injected via a created secret |
+| secretEnv | object | `{"ARMIARMA_BACKUP_INTERVAL":"12h","ARMIARMA_FORK_DIGEST":"0x4a26c58b","ARMIARMA_GOSSIP_TOPICS":"beacon_block","ARMIARMA_LOG_LEVEL":"info","ARMIARMA_PERSIST_CONNEVENTS":"false","ARMIARMA_PSQL":"postgres://{{ $.Values.global.postgresql.auth.user }}:{{ $.Values.global.postgresql.auth.password }}@{{ include \"armiarma.fullname\" $ }}-postgresql:5432/{{ $.Values.global.postgresql.auth.database }}","ARMIARMA_SUBNETS":"all"}` | Env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
