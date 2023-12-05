@@ -218,4 +218,3 @@ postgresql:
   postgresqlDatabase: armiarmadb
   postgresqlUsername: postgres
   postgresqlPassword: postgres
-  
