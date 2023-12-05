@@ -7367,6 +7367,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.1/xatu-mimicry-0.0.1.tgz
     version: 0.0.1
+  xatu-sage:
+  - apiVersion: v2
+    created: "2023-12-05T06:27:22.225433666Z"
+    description: Ethereum p2p monitoring tool that connects to an Armiarma instance
+      and derives events
+    digest: e45baa7f8da84ac504c0a0f7e73f05badf43aa723ac07af55b4b1c4a3782831b
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-sage
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-sage-0.0.1/xatu-sage-0.0.1.tgz
+    version: 0.0.1
   xatu-sentry:
   - apiVersion: v2
     created: "2023-11-23T03:40:47.472343731Z"
@@ -7657,4 +7674,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2023-12-05T05:49:20.411594426Z"
+generated: "2023-12-05T06:27:22.225930715Z"
