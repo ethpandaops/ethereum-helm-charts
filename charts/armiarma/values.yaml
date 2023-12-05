@@ -14,9 +14,9 @@ fullnameOverride: ""
 
 image:
   # -- armiarma container image repository
-  repository: migalabs/armiarma
+  repository: ethpandaops/armiarma
   # -- armiarma container image tag
-  tag: latest
+  tag: master
   # -- armiarma container pull policy
   pullPolicy: IfNotPresent
 

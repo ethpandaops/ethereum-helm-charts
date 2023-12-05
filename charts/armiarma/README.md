@@ -30,8 +30,8 @@ A distributed p2p network monitoring tool
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | global | object | `{"postgresql":{"auth":{"database":"armiarmadb","password":"armiarma","user":"armiarma"}}}` | Global values |
 | image.pullPolicy | string | `"IfNotPresent"` | armiarma container pull policy |
-| image.repository | string | `"migalabs/armiarma"` | armiarma container image repository |
-| image.tag | string | `"latest"` | armiarma container image tag |
+| image.repository | string | `"ethpandaops/armiarma"` | armiarma container image repository |
+| image.tag | string | `"master"` | armiarma container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for exposing the SSE port |
