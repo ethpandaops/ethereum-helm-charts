@@ -1,0 +1,11 @@
+apiVersion: v2
+name: xatu-sage
+description: Ethereum p2p monitoring tool that connects to an Armiarma instance and derives events
+home: https://github.com/ethpandaops/xatu
+type: application
+version: 0.0.1
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+  - name: savid
+    email: andrew.davis@ethereum.org
