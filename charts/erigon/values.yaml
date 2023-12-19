@@ -59,6 +59,8 @@ defaultCommandTemplate: |
     --authrpc.addr=0.0.0.0
     --authrpc.port={{ .Values.authPort }}
     --authrpc.vhosts=*
+    --ws
+    --ws.port={{ .Values.wsPort }}
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
@@ -182,6 +184,9 @@ p2pPort: 30303
 
 # -- HTTP Port
 httpPort: 8545
+
+# -- WS Port
+wsPort: 8546
 
 # -- Engine Port (Auth Port)
 authPort: 8551

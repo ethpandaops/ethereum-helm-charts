@@ -119,6 +119,12 @@ spec:
             - name: p2p-udp
               containerPort: {{ include "erigon.p2pPort" . }}
               protocol: UDP
+            - name: http-rpc
+              containerPort: {{ .Values.httpPort }}
+              protocol: TCP
+            - name: ws-rpc
+              containerPort: {{ .Values.wsPort }}
+              protocol: TCP
             - name: auth-rpc
               containerPort: {{ .Values.authPort }}
               protocol: TCP
