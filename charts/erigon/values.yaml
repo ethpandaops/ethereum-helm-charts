@@ -83,7 +83,6 @@ defaultCommandRPCDaemonTemplate: |
     --http.port={{ .Values.httpPort }}
     --http.vhosts=*
     --ws
-    --ws.port={{ .Values.wsPort }}
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPortRPCDaemon }}
