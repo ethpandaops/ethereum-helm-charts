@@ -60,7 +60,6 @@ defaultCommandTemplate: |
     --authrpc.port={{ .Values.authPort }}
     --authrpc.vhosts=*
     --ws
-    --ws.port={{ .Values.wsPort }}
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
