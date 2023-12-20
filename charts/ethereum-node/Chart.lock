@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.8
-digest: sha256:cfd33f31cbea354dfd71a57df5898db90188d5a8729828eacf94963d71832912
-generated: "2023-11-29T09:22:39.344937+01:00"
+digest: sha256:2404a973a2b049ac735226bfcfe71c7296e17cbe31137157916c414445d082b0
+generated: "2023-12-20T15:20:50.303429+01:00"
