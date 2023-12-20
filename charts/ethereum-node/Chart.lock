@@ -13,7 +13,7 @@ dependencies:
   version: 1.0.7
 - name: nethermind
   repository: file://../nethermind
-  version: 1.0.9
+  version: 1.0.10
 - name: reth
   repository: file://../reth
   version: 0.0.11
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.8
-digest: sha256:a8aec1686498a40fe5fc58a2baf2dc90aeaf53138c0beb58db8122b72f175eae
-generated: "2023-12-19T11:21:29.129286+01:00"
+digest: sha256:753396a57ff6bbccbb891586fee59cb43122c3832c9d5285f9cee25ee154b9bf
+generated: "2023-12-20T12:03:37.628397+01:00"

@@ -20,10 +20,10 @@ spec:
       protocol: TCP
       name: http-rpc
     {{- if ne .Values.httpPort .Values.wsPort }}  
-     - port: {{ .Values.wsPort }}
-       targetPort: ws-rpc
-       protocol: TCP
-       name: ws-rpc
+    - port: {{ .Values.wsPort }}
+      targetPort: ws-rpc
+      protocol: TCP
+      name: ws-rpc
      {{- end }}
     - port: {{ .Values.authPort }}
       targetPort: auth-rpc
