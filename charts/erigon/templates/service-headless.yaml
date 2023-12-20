@@ -19,10 +19,6 @@ spec:
       targetPort: http-rpc
       protocol: TCP
       name: http-rpc
-    - port: {{ .Values.wsPort }}
-      targetPort: ws-rpc
-      protocol: TCP
-      name: ws-rpc
     - port: {{ .Values.authPort }}
       targetPort: auth-rpc
       protocol: TCP

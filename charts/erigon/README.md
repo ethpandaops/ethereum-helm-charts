@@ -35,7 +35,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | erigon container pull policy |
 | image.repository | string | `"thorax/erigon"` | erigon container image repository |
-| image.tag | string | `"devel"` | erigon container image tag |
+| image.tag | string | `"stable"` | erigon container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
@@ -104,7 +104,6 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
-| wsPort | int | `8546` | WS Port |
 
 # Examples
 

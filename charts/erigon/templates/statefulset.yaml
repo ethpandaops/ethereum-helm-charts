@@ -122,9 +122,6 @@ spec:
             - name: http-rpc
               containerPort: {{ .Values.httpPort }}
               protocol: TCP
-            - name: ws-rpc
-              containerPort: {{ .Values.wsPort }}
-              protocol: TCP
             - name: auth-rpc
               containerPort: {{ .Values.authPort }}
               protocol: TCP
