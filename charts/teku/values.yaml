@@ -75,7 +75,9 @@ defaultBeaconCommandTemplate: |
     --metrics-host-allowlist=*
     --metrics-port={{ .Values.metricsPort }}
   {{- if .Values.checkpointSync.enabled }}
-    --initial-state={{ tpl .Values.checkpointSync.url $ }}/eth/v2/debug/beacon/states/finalized
+    --checkpoint-sync-url={{ tpl .Values.checkpointSync.url $ }}
+  {{- else }}
+    --ignore-weak-subjectivity-period-enabled
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $  }}

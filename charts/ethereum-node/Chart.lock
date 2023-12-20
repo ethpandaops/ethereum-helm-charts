@@ -25,7 +25,7 @@ dependencies:
   version: 1.1.1
 - name: teku
   repository: file://../teku
-  version: 1.1.1
+  version: 1.1.2
 - name: prysm
   repository: file://../prysm
   version: 1.1.1
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.8
-digest: sha256:bf2e7f54380d6dc58aeca7a48a48861d9f6f1aeb6b227035d5c8077d9d27f4f1
-generated: "2023-12-20T15:33:23.983767+01:00"
+digest: sha256:5c54889ab04466781dc05316e2ea743cb53deac1054a21afc8cb0c85723d34c4
+generated: "2023-12-20T15:50:18.772266+01:00"
