@@ -20,7 +20,7 @@ dependencies:
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.8"
+  version: "1.0.9"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
@@ -35,7 +35,7 @@ dependencies:
   repository: "file://../geth"
   condition: geth.enabled
 - name: nethermind
-  version: "1.0.9"
+  version: "1.0.10"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled

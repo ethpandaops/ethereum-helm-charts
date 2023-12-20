@@ -15,14 +15,14 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../besu | besu | 1.0.6 |
-| file://../erigon | erigon | 1.0.8 |
+| file://../erigon | erigon | 1.0.9 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.4 |
 | file://../ethereumjs | ethereumjs | 0.0.7 |
 | file://../geth | geth | 1.0.7 |
 | file://../grandine | grandine | 0.1.1 |
 | file://../lighthouse | lighthouse | 1.1.1 |
 | file://../lodestar | lodestar | 1.1.1 |
-| file://../nethermind | nethermind | 1.0.9 |
+| file://../nethermind | nethermind | 1.0.10 |
 | file://../nimbus | nimbus | 1.1.1 |
 | file://../prysm | prysm | 1.1.1 |
 | file://../reth | reth | 0.0.12 |

@@ -4,7 +4,7 @@ dependencies:
   version: 1.0.6
 - name: erigon
   repository: file://../erigon
-  version: 1.0.8
+  version: 1.0.9
 - name: ethereumjs
   repository: file://../ethereumjs
   version: 0.0.7
@@ -13,7 +13,7 @@ dependencies:
   version: 1.0.7
 - name: nethermind
   repository: file://../nethermind
-  version: 1.0.9
+  version: 1.0.10
 - name: reth
   repository: file://../reth
   version: 0.0.12
@@ -43,3 +43,4 @@ dependencies:
   version: 0.0.8
 digest: sha256:2404a973a2b049ac735226bfcfe71c7296e17cbe31137157916c414445d082b0
 generated: "2023-12-20T15:20:50.303429+01:00"
+
