@@ -4,7 +4,7 @@ dependencies:
   version: 1.0.6
 - name: erigon
   repository: file://../erigon
-  version: 1.0.8
+  version: 1.0.9
 - name: ethereumjs
   repository: file://../ethereumjs
   version: 0.0.7
@@ -41,5 +41,5 @@ dependencies:
 - name: xatu-sentry
   repository: file://../xatu-sentry
   version: 0.0.8
-digest: sha256:cfd33f31cbea354dfd71a57df5898db90188d5a8729828eacf94963d71832912
-generated: "2023-11-29T09:22:39.344937+01:00"
+digest: sha256:a8aec1686498a40fe5fc58a2baf2dc90aeaf53138c0beb58db8122b72f175eae
+generated: "2023-12-19T11:21:29.129286+01:00"
