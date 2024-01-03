@@ -17,6 +17,9 @@ spec:
     metadata:
       labels:
         {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 8 }}
+        {{- if $.Values.cluster.additionalLabels }}
+        {{- toYaml $.Values.cluster.additionalLabels | nindent 8 }}
+        {{- end }}
         nodeType: cluster
     spec:
       {{- with $.Values.cluster.imagePullSecrets }}

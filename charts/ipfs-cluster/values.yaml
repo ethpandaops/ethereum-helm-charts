@@ -41,6 +41,8 @@ cluster:
 
   nodeSelector: {}
 
+  additionalLabels: {}
+
   tolerations: []
 
   affinity: {}

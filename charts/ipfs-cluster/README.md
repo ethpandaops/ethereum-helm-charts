@@ -16,6 +16,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | cluster.imagePullSecrets | list | `[]` |  |
 | cluster.nameOverride | string | `""` |  |
 | cluster.nodeSelector | object | `{}` |  |
+| cluster.additionalLabels | object | `{}` |  |
 | cluster.podSecurityContext | object | `{}` |  |
 | cluster.resources | object | `{}` |  |
 | cluster.service.type | string | `""` |  |
