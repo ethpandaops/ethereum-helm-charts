@@ -1,7 +1,7 @@
 
 # eleel
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A multiplexer for Ethereum execution clients
 
@@ -14,9 +14,12 @@ A multiplexer for Ethereum execution clients
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
+| clientJWTSecrets | object | `{}` | Client JWT secrets map |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
+| controllerJWTSecret | string | `""` | Controller JWT secret |
 | customArgs | list | `[]` | Custom args for the eleel container |
 | customCommand | list | `[]` | Command replacement for the eleel container |
+| eeJWTSecret | string | `""` | Execution Engine JWT secret |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
@@ -34,7 +37,6 @@ A multiplexer for Ethereum execution clients
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
-| jwt | string | `""` | Execution Engine JWT secret |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |

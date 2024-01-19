@@ -25,7 +25,14 @@ args: []
   #- --ee-url=http://your-eth1-node:8551
 
 # -- Execution Engine JWT secret
-jwt: ""
+eeJWTSecret: ""
+# -- Controller JWT secret
+controllerJWTSecret: ""
+# -- Client JWT secrets map
+clientJWTSecrets: {}
+  ## Example
+  # node1: c259fb249f7fa1882b1d4150ace73c1023aba4f6267b29a871ad5c9adc7a543a
+  # node2: fb6073f77160f9a7ce11190d3612e841daea2e7319a59e1d82a8804e9fa193ee
 
 ingress:
   # -- Ingress resource for the HTTP API
