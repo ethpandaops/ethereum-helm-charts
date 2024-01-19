@@ -64,3 +64,13 @@ Create the name of the service account to use
 {{- define "eleel.httpPort" -}}
 {{ default 8552 }}
 {{- end }}
+
+{{/*
+Generate TOML format for client JWT secrets
+*/}}
+{{- define "eleel.clientJWTSecretsToToml" -}}
+[secrets]
+{{- range $key, $value := .Values.clientJWTSecrets }}
+{{ $key }} = "{{ $value }}"
+{{- end }}
+{{- end -}}
