@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -68,6 +68,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | redis.enabled | bool | `false` |  |
 | redis.replica.replicaCount | int | `1` |  |
+| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
