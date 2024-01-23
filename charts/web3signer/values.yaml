@@ -294,6 +294,7 @@ slashingprotectiondb:
                 "V00009__upsert_validators.sql"
                 "V00010__validator_enabled_status.sql"
                 "V00011__bigint_indexes.sql"
+                "V00012__add_highwatermark_metadata.sql"
             )
             for MIGRATION in "${MIGRATIONS[@]}"; do
                 if [ ! -f "/sql-scripts/$MIGRATION" ]; then
