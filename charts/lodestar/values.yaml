@@ -96,6 +96,9 @@ defaultValidatorCommandTemplate: |
     node /usr/app/node_modules/.bin/lodestar
     validator
     --dataDir=/data
+    --metrics
+    --metrics.address=0.0.0.0
+    --metrics.port={{ .Values.metricsPort }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -161,6 +164,23 @@ readinessProbe:
     port: http-api
   initialDelaySeconds: 10
   periodSeconds: 10
+
+# -- Validator Liveness probe
+# @default -- See `values.yaml`
+validatorLivenessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Validator Readiness probe
+# @default -- See `values.yaml`
+validatorReadinessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
 
 # -- P2P Port
 p2pPort: 9000
