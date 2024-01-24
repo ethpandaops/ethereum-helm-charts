@@ -6,7 +6,7 @@ icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe
 sources:
   - https://github.com/prysmaticlabs/prysm
 type: application
-version: 1.1.1
+version: 1.1.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

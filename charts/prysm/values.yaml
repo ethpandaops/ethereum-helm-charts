@@ -171,6 +171,22 @@ readinessProbe:
   initialDelaySeconds: 10
   periodSeconds: 10
 
+# -- Validator Liveness probe
+# @default -- See `values.yaml`
+validatorLivenessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Validator Readiness probe
+# @default -- See `values.yaml`
+validatorReadinessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
 # -- P2P Port
 p2pPort: 13000
 

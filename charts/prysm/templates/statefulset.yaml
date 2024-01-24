@@ -121,21 +121,27 @@ spec:
             - name: p2p-udp
               containerPort: {{ include "prysm.p2pPort" . }}
               protocol: UDP
-          {{- end }}
-          {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
             - name: http-api
               containerPort: {{ .Values.httpPort }}
               protocol: TCP
             - name: rpc
               containerPort: {{ .Values.rpcPort }}
               protocol: TCP
+          {{- end }}
             - name: metrics
               containerPort: {{ .Values.metricsPort }}
-          {{- end }}
+              protocol: TCP
+          {{- if eq .Values.mode "beacon" }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- else if eq .Values.mode "validator" }}
+          livenessProbe:
+            {{- toYaml .Values.validatorLivenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.validatorReadinessProbe | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
