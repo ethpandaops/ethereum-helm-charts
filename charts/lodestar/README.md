@@ -95,6 +95,8 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
+| validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
 
 # Examples
 
