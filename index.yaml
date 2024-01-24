@@ -4754,6 +4754,24 @@ entries:
     version: 0.0.1
   lighthouse:
   - apiVersion: v2
+    created: "2024-01-24T13:25:55.645565907Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 2c879f361920e403c615ef7b58e554b889bb389943f4c99c332d89e16921e874
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.1.2/lighthouse-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2023-07-14T09:44:51.814634185Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: 6aab42adff0328c177acaf98722cdcd541498310d78dbfb1dad736a6787bdf39
@@ -5042,6 +5060,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2024-01-24T13:25:55.852310302Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: 52c428c0be1975e938e810604f01016aff6d99dedaf172cd5b2519569c0979c5
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-1.1.2/lodestar-1.1.2.tgz
+    version: 1.1.2
   - apiVersion: v2
     created: "2023-07-14T09:44:51.983966401Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -6249,6 +6286,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-0.0.1/powfaucet-0.0.1.tgz
     version: 0.0.1
   prysm:
+  - apiVersion: v2
+    created: "2024-01-24T13:25:56.047229847Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 78fb6da6631aac46aab27d22d2c0ff3d2cf6ca012248b039d8f9edcbdbfa8fe8
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.1.2/prysm-1.1.2.tgz
+    version: 1.1.2
   - apiVersion: v2
     created: "2023-07-14T09:44:52.397393702Z"
     description: An open-source Ethereum 2.0 client, written in Go
@@ -8143,4 +8198,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-01-24T10:44:10.622172111Z"
+generated: "2024-01-24T13:25:56.04803908Z"
