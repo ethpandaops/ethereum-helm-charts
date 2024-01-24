@@ -52,7 +52,6 @@ defaultCommandTemplate: |
     --http
     --http.addr=0.0.0.0
     --http.port={{ .Values.httpPort }}
-    --http.api=eth,net,web3,txpool
     --http.corsdomain=*
     --ws
     --ws.addr=0.0.0.0
