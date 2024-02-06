@@ -1,7 +1,7 @@
 
 # prysm
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Go
 
@@ -31,8 +31,8 @@ An open-source Ethereum 2.0 client, written in Go
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `3500` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | Prysm container pull policy |
-| image.repository | string | `"ethpandaops/prysm"` | Prysm container image repository |
-| image.tag | string | `"master"` |  |
+| image.repository | string | `"gcr.io/prysmaticlabs/prysm/beacon-chain"` | Prysm container image repository Multi-Arch (arm64/amd64) image Official image |
+| image.tag | string | `"latest"` |  |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
