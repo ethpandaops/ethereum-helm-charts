@@ -96,7 +96,7 @@ defaultBeaconCommandTemplate: |
 # -- Template used for the default validator command
 # @default -- See `values.yaml`
 defaultValidatorCommandTemplate: |
-  - sh
+  - /bin/bash
   - -ac
   - >-
     exec /app/cmd/validator/validator
