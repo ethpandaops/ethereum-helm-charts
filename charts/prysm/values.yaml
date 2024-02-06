@@ -322,7 +322,7 @@ updateStrategy:
 initContainers: []
 # - name: my-init-container
 #   image: busybox:latest
-#   command: ['sh', '-c', 'echo hello']
+#   command: ['/bin/bash', '-c', 'echo hello']
 
 # -- Additional containers
 extraContainers: []
