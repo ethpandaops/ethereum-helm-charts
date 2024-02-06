@@ -6287,6 +6287,24 @@ entries:
     version: 0.0.1
   prysm:
   - apiVersion: v2
+    created: "2024-02-06T15:03:31.035079856Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 174ce03532210f9b144d0b0ac89f907d90d9d8ac8b2067f68c39770038cf8f5d
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.1.3/prysm-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     created: "2024-01-24T13:25:56.047229847Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 78fb6da6631aac46aab27d22d2c0ff3d2cf6ca012248b039d8f9edcbdbfa8fe8
@@ -8198,4 +8216,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-01-24T13:25:56.04803908Z"
+generated: "2024-02-06T15:03:31.035762726Z"
