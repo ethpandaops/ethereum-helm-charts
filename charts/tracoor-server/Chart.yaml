@@ -1,0 +1,11 @@
+apiVersion: v2
+name: tracoor-server
+description: Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
+home: https://github.com/ethpandaops/tracoor
+type: application
+version: 0.0.11
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+  - name: savid
+    email: andrew.davis@ethereum.org
