@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tracoor-server.fullname" . }}
+  labels:
+    {{- include "tracoor-server.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "tracoor-server.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ include "tracoor-server.grpcPort" . }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    - port: {{ include "tracoor-server.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- if (include "tracoor-server.pprofPort" .) }}
+    - port: {{ include "tracoor-server.pprofPort" . }}
+      targetPort: pprof
+      protocol: TCP
+      name: pprof
+    {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "tracoor-server.selectorLabels" . | nindent 4 }}
