@@ -7560,6 +7560,21 @@ entries:
     version: 0.0.1
   tracoor-server:
   - apiVersion: v2
+    created: "2024-02-12T02:55:33.213146547Z"
+    description: Ethereum debug data capture and indexer
+    digest: 7effbb271f6fe9bd15f6f60c46890815bf3f4f0e09cc2355435a966d6d1a0b40
+    home: https://github.com/ethpandaops/tracoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: tracoor-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/tracoor-server-0.0.2/tracoor-server-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2024-02-11T23:34:06.014159352Z"
     description: Ethereum debug data capture and indexer
     digest: ae2f532153ac75eb935ab7613e4c9aa2df4fe175171efeae3049c3504620f0a5
@@ -8327,4 +8342,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-02-12T00:49:09.68469915Z"
+generated: "2024-02-12T02:55:33.2137814Z"
