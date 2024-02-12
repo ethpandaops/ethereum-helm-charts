@@ -40,7 +40,7 @@ dependencies:
   repository: "file://../nethermind"
   condition: nethermind.enabled
 - name: reth
-  version: "0.0.12"
+  version: "0.0.13"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../reth"
   condition: reth.enabled
@@ -51,7 +51,7 @@ dependencies:
   repository: "file://../grandine"
   condition: grandine.enabled
 - name: lighthouse
-  version: "1.1.1"
+  version: "1.1.2"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lighthouse"
   condition: lighthouse.enabled
@@ -61,7 +61,7 @@ dependencies:
   repository: "file://../teku"
   condition: teku.enabled
 - name: prysm
-  version: "1.1.1"
+  version: "1.1.3"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../prysm"
   condition: prysm.enabled
@@ -71,7 +71,7 @@ dependencies:
   repository: "file://../nimbus"
   condition: nimbus.enabled
 - name: lodestar
-  version: "1.1.1"
+  version: "1.1.2"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lodestar"
   condition: lodestar.enabled
@@ -86,3 +86,8 @@ dependencies:
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../xatu-sentry"
   condition: xatu-sentry.enabled
+- name: tracoor-agent
+  version: "0.0.1"
+  #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  repository: "file://../tracoor-agent"
+  condition: tracoor-agent.enabled
