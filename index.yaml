@@ -7463,6 +7463,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/testnet-homepage-0.1.0/testnet-homepage-0.1.0.tgz
     version: 0.1.0
+  tracoor-agent:
+  - apiVersion: v2
+    created: "2024-02-12T00:20:21.478903291Z"
+    description: Ethereum debug data capture and indexer
+    digest: 5deeb158d4dacf2cd9da96def515db642743c7fc959b79bac92f43bea5c3db07
+    home: https://github.com/ethpandaops/tracoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: tracoor-agent
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/tracoor-agent-0.0.1/tracoor-agent-0.0.1.tgz
+    version: 0.0.1
   tracoor-server:
   - apiVersion: v2
     created: "2024-02-11T23:34:06.014159352Z"
@@ -8232,4 +8248,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-02-11T23:34:06.01468946Z"
+generated: "2024-02-12T00:20:21.479484315Z"
