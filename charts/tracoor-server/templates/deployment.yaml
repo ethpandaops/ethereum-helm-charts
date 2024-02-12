@@ -75,6 +75,9 @@ spec:
           - name: metrics
             containerPort: {{ include "tracoor-server.metricsPort" . }}
             protocol: TCP
+          - name: grpc
+            containerPort: {{ include "tracoor-server.grpcPort" . }}
+            protocol: TCP
           {{- if (include "tracoor-server.pprofPort" .) }}
           - name: pprof
             containerPort: {{ include "tracoor-server.pprofPort" . }}
