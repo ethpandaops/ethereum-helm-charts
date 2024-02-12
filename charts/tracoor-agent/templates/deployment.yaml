@@ -48,7 +48,7 @@ spec:
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
           - "/tracoor"
-          - "sentry"
+          - "agent"
           - --config=/config.yaml
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
