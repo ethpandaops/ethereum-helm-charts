@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+HTTP port
+*/}}
+{{- define "dshackle.httpPort" -}}
+{{- default 8545 .Values.httpPort }}
+{{- end }}
