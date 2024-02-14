@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/49622339?s=200&v=4
 sources:
   - https://github.com/emeraldpay/dshackle
 type: application
-version: 0.1.7
+version: 0.1.8
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
