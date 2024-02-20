@@ -53,7 +53,7 @@ config: |
   print_profile = false
   # Frequency of flushes in ms
   flush_every_ms = 24000
-  
+
   [merkle]
   url = "https://eth.merkle.io"
   ws_url = "wss://eth.merkle.io"

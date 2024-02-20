@@ -25,11 +25,10 @@ customCommand: [] # Only change this if you need to change the default command
 
 # -- RPC list for the blutgang container
 #  CSV list of rpcs [default: ]
-rpcList: 
-  - name: goerli-geth-teku
-    url: http://goerli-geth-teku:8545
-    # ws_url: ws://goerli-geth-teku:8545
-  # http://geth:8545,http://nethermind:8545
+rpcList: []
+  #- name: goerli-geth-teku
+  #  url: http://goerli-geth-teku:8545
+  #  ws_url: ws://goerli-geth-teku:8545
 
 # -- Config file
 # @default -- See `values.yaml`
@@ -88,7 +87,7 @@ config: |
   print_profile = false
   # Frequency of flushes in ms
   flush_every_ms = 24000
-  
+
   # Add seperate RPCs as TOML tables
   # DO NOT name an rpc `blutgang`, `admin`, or `sled`
   {{- range .Values.rpcList }}
@@ -246,7 +245,7 @@ extraVolumeMounts: []
 extraPorts: []
 
 # -- Additional env variables
-extraEnv: 
+extraEnv:
   - name: RUST_BACKTRACE
     value: "1"
 
