@@ -57,7 +57,7 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| rpcList | list | `[{"name":"goerli-geth-teku","url":"http://goerli-geth-teku:8545"}]` | RPC list for the blutgang container  CSV list of rpcs [default: ] |
+| rpcList | list | `[]` | RPC list for the blutgang container  CSV list of rpcs [default: ] |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
