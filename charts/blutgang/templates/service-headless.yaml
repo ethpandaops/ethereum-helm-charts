@@ -11,10 +11,12 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
-    - port: {{ .Values.adminPort }}
+    {{- if .Values.adminNamespace.enabled }}
+    - port: {{ .Values.adminNamespace.adminPort }}
       targetPort: admin
       protocol: TCP
       name: admin
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

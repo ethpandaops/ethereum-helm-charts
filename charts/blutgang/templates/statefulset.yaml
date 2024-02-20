@@ -71,9 +71,11 @@ spec:
             - name: http
               containerPort: {{ .Values.httpPort }}
               protocol: TCP
+            {{- if .Values.adminNamespace.enabled }}
             - name: admin
-              containerPort: {{ .Values.adminPort }}
+              containerPort: {{ .Values.adminNamespace.adminPort }}
               protocol: TCP
+            {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
