@@ -231,7 +231,7 @@ config: |
 
   globalVars:
     {{- toYaml .globalVariables | nindent 2 }}
-  
+
   # Test definitions
   externalTests:
     {{- range .Values.assertoorTests }}
@@ -251,4 +251,3 @@ config: |
         {{- toYaml .schedule | nindent 6 }}
       {{- end }}
     {{- end }}
-
