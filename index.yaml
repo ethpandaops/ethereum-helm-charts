@@ -819,6 +819,24 @@ entries:
     version: 0.1.0
   blutgang:
   - apiVersion: v2
+    created: "2024-02-21T08:47:00.382500131Z"
+    description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
+      designed with Ethereum''s JSON-RPC in mind. Historical RPC queries are cached
+      in a local database, bypassing the need for slow, repeating calls to your node. '
+    digest: 08c38b633e7054ca7dbb47201557961a094275d40608b84c9977561dda80f4bb
+    home: https://github.com/rainshowerLabs/blutgang
+    icon: https://github.com/rainshowerLabs/blutgang/assets/55022497/ec668c7a-5f56-4b26-8386-f112c2f176ce
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: blutgang
+    sources:
+    - https://github.com/rainshowerLabs/blutgang
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.2/blutgang-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2024-02-20T14:49:20.844055093Z"
     description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
       designed with Ethereum''s JSON-RPC in mind. Historical RPC queries are cached
@@ -8361,4 +8379,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-02-20T14:49:20.844624111Z"
+generated: "2024-02-21T08:47:00.38307751Z"
