@@ -33,6 +33,15 @@ globalVariables:
   walletPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
 
 assertoorTests:
+  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/block-proposal-check.yaml"
+    name: "Custom Block proposal check"
+    timeout: 48h
+    config:
+      validatorPairNames: ["geth", "besu"]
+    schedule:
+      cron:
+        - "0 */2 * * *" # every 2 hours
+      startup: true
   - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/stability-check.yaml"
   - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/all-opcodes-test.yaml"
   - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/validator-lifecycle-test-small.yaml"
@@ -47,7 +56,7 @@ assertoorTests:
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | assertoorApiEnabled | bool | `true` | Enable assertoor API |
 | assertoorFrontendEnabled | bool | `true` | Enable assertoor UI |
-| assertoorTests | list | `[{"config":{"validatorPairNames":["geth","besu"]},"file":"https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/block-proposal-check.yaml","name":"Block proposal check","schedule":{"cron":["0 */2 * * *"],"startup":true},"timeout":"48h"}]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed. |
+| assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["--config=/data/assertoor-config.yaml"]` | Custom args for the assertoor container |
