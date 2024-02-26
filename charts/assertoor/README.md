@@ -84,7 +84,6 @@ assertoorTests:
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
-| podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | priorityClassName | string | `nil` | Pod priority class |
 | resources | object | `{}` | Resource requests and limits |
 | securityContext | object | See `values.yaml` | The security context for pods |
@@ -95,7 +94,5 @@ assertoorTests:
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 | validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section |
 | validatorNamesRanges | string | `"0-1: test\n"` |  |

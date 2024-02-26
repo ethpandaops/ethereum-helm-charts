@@ -11,9 +11,6 @@ spec:
   selector:
     matchLabels:
       {{- include "assertoor.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "assertoor.fullname" . }}-headless
-  updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:

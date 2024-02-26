@@ -55,9 +55,6 @@ podLabels: {}
 # -- Pod annotations
 podAnnotations: {}
 
-# -- Pod management policy
-podManagementPolicy: OrderedReady
-
 # -- Pod priority class
 priorityClassName: null
 
@@ -114,11 +111,6 @@ topologySpreadConstraints: []
 podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
-
-# -- Update stategy for the Statefulset
-updateStrategy:
-  # -- Update stategy type
-  type: RollingUpdate
 
 # -- Additional init containers
 initContainers: []
