@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "assertoor.fullname" . }}
   labels:
@@ -7,7 +7,6 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: 1
   selector:
     matchLabels:
