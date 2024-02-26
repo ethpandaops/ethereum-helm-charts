@@ -108,6 +108,28 @@ config: |
   max_per_second = {{ .max_per_second | default 200 }}
   {{- end }}
 
+# -- Bluethang Namespace
+# @default -- See `values.yaml`
+blutgangNamespace:
+  do_clear: false
+  ma_length: 10
+  sort_on_startup: true
+  health_check: true
+  ttl: 30
+  max_retries: 32
+  expected_block_time: 13000
+  health_check_ttl: 400
+  supress_rpc_check: false
+
+# -- Admin Namespace
+# @default -- See `values.yaml`
+adminNamespace:
+  enabled: false
+  adminPort: 5715
+  jwt_enabled: false
+  jwt_key: ""
+  readOnly: true
+
 ingress:
   # -- Ingress resource for the HTTP API
   enabled: false

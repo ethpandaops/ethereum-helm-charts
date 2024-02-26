@@ -15,8 +15,10 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| adminNamespace | object | See `values.yaml` | Admin Namespace |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| blutgangNamespace | object | See `values.yaml` | Bluethang Namespace |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blutgang container |
