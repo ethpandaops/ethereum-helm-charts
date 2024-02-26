@@ -11,7 +11,7 @@ image:
   # -- blutgang container image repository
   repository: makemake1337/blutgang
   # -- blutgang container image tag
-  tag: "0.3.0"
+  tag: "latest"
   # -- blutgang container pull policy
   pullPolicy: IfNotPresent
 
@@ -40,21 +40,25 @@ config: |
   # Config for blutgang goes here
   [blutgang]
   # Clear the cache DB on startup
-  do_clear = false
+  do_clear = {{ .Values.blutgangNamespace.do_clear | default false }}
   # Where to bind blutgang to
   address = "0.0.0.0:{{ .Values.httpPort }}"
   # Moving average length for the latency
-  ma_length = 100
+  ma_length = {{ .Values.blutgangNamespace.ma_length | default 10 }}
   # Sort RPCs by latency on startup. Recommended to leave on.
-  sort_on_startup = true
+  sort_on_startup = {{ .Values.blutgangNamespace.sort_on_startup | default true }}
   # Enable health checking
-  health_check = true
+  health_check = {{ .Values.blutgangNamespace.health_check | default true }}
   # Acceptable time to wait for a response in ms
-  ttl = 30
+  ttl = {{ .Values.blutgangNamespace.ttl | default 30 }}
   # How many times to retry a request before giving up
-  max_retries = 32
+  max_retries = {{ .Values.blutgangNamespace.max_retries | default 32 }}
+  # Block time in ms, used as a sanity check when not receiving subscriptions
+  expected_block_time = {{ .Values.blutgangNamespace.expected_block_time | default 13000 }}
   # Time between health checks in ms
-  health_check_ttl = 1250
+  health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 400 }}
+  # Supress the health check running info messages
+  supress_rpc_check = {{ .Values.blutgangNamespace.supress_rpc_check | default false }}
 
   # Note: the admin namespace contains volatile functions and
   # should not be exposed publicly.
@@ -103,6 +107,19 @@ config: |
   # Max ammount of querries per second.
   max_per_second = {{ .max_per_second | default 200 }}
   {{- end }}
+
+# -- Blutgang Namespace
+# @default -- See `values.yaml`
+blutgangNamespace:
+  do_clear: false
+  sort_on_startup: true
+  ma_length: 10
+  health_check: true
+  ttl: 30
+  max_retries: 32
+  expected_block_time: 13000
+  health_check_ttl: 400
+  supress_rpc_check: false
 
 # -- Admin Namespace
 # @default -- See `values.yaml`

@@ -1,7 +1,7 @@
 
 # blutgang
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blutgang is a blazing fast, caching, minimalistic load balancer designed with Ethereum's JSON-RPC in mind. Historical RPC queries are cached in a local database, bypassing the need for slow, repeating calls to your node.
 
@@ -18,6 +18,7 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 | adminNamespace | object | See `values.yaml` | Admin Namespace |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| blutgangNamespace | object | See `values.yaml` | Blutgang Namespace |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the blutgang container |
@@ -31,7 +32,7 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 | httpPort | int | See `values.yaml` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | blutgang container pull policy |
 | image.repository | string | `"makemake1337/blutgang"` | blutgang container image repository |
-| image.tag | string | `"0.3.0"` | blutgang container image tag |
+| image.tag | string | `"latest"` | blutgang container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
