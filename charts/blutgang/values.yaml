@@ -44,7 +44,7 @@ config: |
   # Where to bind blutgang to
   address = "0.0.0.0:{{ .Values.httpPort }}"
   # Moving average length for the latency
-  ma_length = {{ .Values.blutgangNamespace.ma_length | default 10 }}
+  ma_length = {{ .Values.blutgangNamespace.ma_length | default 100 }}
   # Sort RPCs by latency on startup. Recommended to leave on.
   sort_on_startup = {{ .Values.blutgangNamespace.sort_on_startup | default true }}
   # Enable health checking
@@ -112,7 +112,7 @@ config: |
 # @default -- See `values.yaml`
 blutgangNamespace:
   do_clear: false
-  ma_length: 10
+  ma_length: 100
   sort_on_startup: true
   health_check: true
   ttl: 30
