@@ -19,6 +19,24 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/armiarma-0.1.0/armiarma-0.1.0.tgz
     version: 0.1.0
+  assertoor:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-02-27T11:26:21.122294228Z"
+    description: 'Testing tool that is capable of doing actions and checking conditions
+      on ethereum pos networks. '
+    digest: a325819ba7768866f7811331c90a880e44139daddf62ab8a9bc2e725e5ca01c7
+    home: https://github.com/ethpandaops/assertoor
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: assertoor
+    sources:
+    - https://github.com/ethpandaops/assertoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/assertoor-0.0.1/assertoor-0.0.1.tgz
+    version: 0.0.1
   beacon-metrics-gazer:
   - apiVersion: v2
     created: "2023-06-27T13:51:37.177708618Z"
@@ -8397,4 +8415,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-02-26T17:13:27.094982376Z"
+generated: "2024-02-27T11:26:21.123019413Z"
