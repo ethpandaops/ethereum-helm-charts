@@ -64,7 +64,7 @@ config: |
   # should not be exposed publicly.
   [admin]
   # Enable the admin namespace
-  enabled = {{ .Values.adminNamespace.enabled | default false }}
+  enabled = {{ .Values.adminNamespace.enabled | default true }}
   # Address for the admin RPC
   address = "0.0.0.0:{{ .Values.adminNamespace.adminPort | default 5715 }}"
   # Only allow read-only methods
