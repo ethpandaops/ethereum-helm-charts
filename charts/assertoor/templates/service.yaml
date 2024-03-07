@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "assertoor.fullname" . }}
+  labels:
+    {{- include "assertoor.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "assertoor.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "assertoor.selectorLabels" . | nindent 4 }}
