@@ -1,0 +1,236 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- assertoor container image repository
+  repository: ethpandaops/assertoor
+  # -- assertoor container image tag
+  tag: "latest"
+  # -- assertoor container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Custom args for the assertoor container
+customArgs:
+  - --config=/data/assertoor-config.yaml
+
+# -- Command replacement for the assertoor container
+customCommand: [] # Only change this if you need to change the default command
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+
+# -- HTTP port for assertoor interface
+httpPort: 8080
+
+# -- An array of endpoints to use for assertoor
+# -- executionUrl & consensusUrl are the only required fields
+endpoints:
+  - name: default-endpoint
+    executionUrl: "http://execution-node:8545"
+    executionHeaders:
+      "X-Test": "test"
+      "Y-Test": "test2"
+    consensusUrl: "http://beacon-node:5052"
+    consensusHeaders:
+      "X-Test": "test"
+      "Y-Test": "test2"
+
+# -- This can be a url here for example:
+# -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
+# -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section
+validatorNamesInventory: ""
+
+validatorNamesRanges: |
+  0-1: test
+
+# -- Enable assertoor UI
+assertoorFrontendEnabled: true
+
+# -- Enable assertoor API
+assertoorApiEnabled: true
+
+# -- global assertoor variables
+# -- global variables are passed to all tests.
+globalVariables:
+  walletPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
+
+# -- assertoor test configurations
+# -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed.
+assertoorTests: []
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+  web:
+    server:
+      host: "0.0.0.0"
+      port: {{ .Values.httpPort }}
+    frontend:
+      enabled: {{ .Values.assertoorFrontendEnabled }}
+    api:
+      enabled: {{ .Values.assertoorApiEnabled }}
+
+  # Endpoints
+  endpoints:
+    {{- range .Values.endpoints }}
+    - executionUrl: {{ .executionUrl | quote }}
+      consensusUrl: {{ .consensusUrl | quote }}
+      {{- if .name }}
+      name: {{ .name | quote }}
+      {{- end }}
+      {{- if .consensusHeaders }}
+      consensusHeaders:
+      {{- range $key, $value := .consensusHeaders }}
+        {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+      {{- end }}
+      {{- end }}
+      {{- if .executionHeaders }}
+      executionHeaders:
+      {{- range $key, $value := .executionHeaders }}
+        {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+      {{- end }}
+      {{- end }}
+    {{- end }}
+
+  # Validator names
+  validatorNames:
+    inventoryYaml: "/data/ranges.yaml"
+    inventoryUrl: "{{ .Values.validatorNamesInventory }}"
+
+  globalVars:
+    {{- toYaml .globalVariables | nindent 2 }}
+
+  # Test definitions
+  externalTests:
+    {{- range .Values.assertoorTests }}
+    - file: {{ .file | quote }}
+      {{- if .name }}
+      name: {{ .name | quote }}
+      {{- end }}
+      {{- if .timeout }}
+      timeout: {{ .timeout | quote }}
+      {{- end }}
+      {{- if .config }}
+      config:
+        {{- toYaml .config | nindent 6 }}
+      {{- end }}
+      {{- if .schedule }}
+      schedule:
+        {{- toYaml .schedule | nindent 6 }}
+      {{- end }}
+    {{- end }}

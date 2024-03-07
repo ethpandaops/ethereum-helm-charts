@@ -1,0 +1,13 @@
+apiVersion: v2
+name: assertoor
+description: >
+  Testing tool that is capable of doing actions and checking conditions on ethereum pos networks.
+home: https://github.com/ethpandaops/assertoor
+sources:
+  - https://github.com/ethpandaops/assertoor
+type: application
+version: 0.0.1
+appVersion: "1.0.0"
+maintainers:
+  - name: pk910
+    email: philipp@pk910.de
