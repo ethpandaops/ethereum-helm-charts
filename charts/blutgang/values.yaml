@@ -50,13 +50,13 @@ config: |
   # Enable health checking
   health_check = {{ .Values.blutgangNamespace.health_check | default true }}
   # Acceptable time to wait for a response in ms
-  ttl = {{ .Values.blutgangNamespace.ttl | default 30 }}
+  ttl = {{ .Values.blutgangNamespace.ttl | default 300 }}
   # How many times to retry a request before giving up
   max_retries = {{ .Values.blutgangNamespace.max_retries | default 32 }}
   # Block time in ms, used as a sanity check when not receiving subscriptions
   expected_block_time = {{ .Values.blutgangNamespace.expected_block_time | default 13000 }}
   # Time between health checks in ms
-  health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 400 }}
+  health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 2000 }}
   # Supress the health check running info messages
   supress_rpc_check = {{ .Values.blutgangNamespace.supress_rpc_check | default false }}
 
@@ -115,10 +115,10 @@ blutgangNamespace:
   ma_length: 100
   sort_on_startup: true
   health_check: true
-  ttl: 30
+  ttl: 300
   max_retries: 32
   expected_block_time: 13000
-  health_check_ttl: 400
+  health_check_ttl: 2000
   supress_rpc_check: false
 
 # -- Admin Namespace

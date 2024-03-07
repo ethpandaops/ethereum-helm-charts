@@ -14,17 +14,21 @@ config: |
   # Enable health checking
   health_check = true
   # Acceptable time to wait for a response in ms
-  ttl = 30
+  ttl = 300
   # How many times to retry a request before giving up
   max_retries = 32
+  # Block time in ms, used as a sanity check when not receiving subscriptions
+  expected_block_time = 13000
   # Time between health checks in ms
-  health_check_ttl = 1250
+  health_check_ttl = 2000
+  # Supress the health check running info messages
+  supress_rpc_check = false
 
   # Note: the admin namespace contains volatile functions and
   # should not be exposed publicly.
   [admin]
   # Enable the admin namespace
-  enabled = false
+  enabled = true
   # Address for the admin RPC
   address = "0.0.0.0:5715"
   # Only allow read-only methods
