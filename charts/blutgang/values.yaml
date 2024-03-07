@@ -11,7 +11,7 @@ image:
   # -- blutgang container image repository
   repository: makemake1337/blutgang
   # -- blutgang container image tag
-  tag: "latest"
+  tag: latest
   # -- blutgang container pull policy
   pullPolicy: IfNotPresent
 
@@ -124,7 +124,7 @@ blutgangNamespace:
 # -- Admin Namespace
 # @default -- See `values.yaml`
 adminNamespace:
-  enabled: false
+  enabled: true
   adminPort: 5715
   jwt_enabled: false
   jwt_key: ""
@@ -168,16 +168,18 @@ httpPort: 3000
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  tcpSocket:
-    port: http
-  initialDelaySeconds: 60
-  periodSeconds: 30
+  httpGet:
+    path: /health
+    port: admin
+  initialDelaySeconds: 10
+  periodSeconds: 10
 
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
-  tcpSocket:
-    port: http
+  httpGet:
+    path: /ready
+    port: admin
   initialDelaySeconds: 10
   periodSeconds: 10
 
