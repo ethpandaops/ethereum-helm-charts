@@ -63,3 +63,5 @@ jobs:
           --excluded-charts eth-faucet
           --excluded-charts genesis-generator
           --excluded-charts beacon-metrics-gazer
+          --excluded-charts tracoor-server
+          --excluded-charts tracoor-agent

@@ -68,6 +68,7 @@ Tooling
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
+- [`blutgang`](charts/blutgang) - The wd40 of ethereum load balancers.
 - [`checkpointz`](charts/checkpointz) - A beacon chain Checkpoint Sync provider.
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`dora`](charts/dora) - Lightweight Beaconchain explorer.

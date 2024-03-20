@@ -367,3 +367,27 @@ xatu-sentry:
         address: http://localhost:8080
         headers:
           authorization: Someb64Value
+
+tracoor-agent:
+  enabled: false
+  nameOverride: tracoor-agent
+  config:
+    logging: "info"
+    metricsAddr: ":9090"
+    pprofAddr: ":6065"
+    name: "{{ .Release.Name }}"
+    ethereum:
+      beacon:
+        nodeAddress: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+      execution:
+        nodeAddress: "{{ tpl  .Values.global.main.rpcEndpoint . }}"
+
+    indexer:
+      address: localhost:8081 # GRPC port of tracoor-server
+
+    store:
+      type: s3
+      config:
+        region: "us-east-1"
+        endpoint: http://localhost:9000
+        bucket_name: tracoor

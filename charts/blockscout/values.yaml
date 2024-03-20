@@ -12,6 +12,9 @@ image:
   # -- blockscout container pull policy
   pullPolicy: IfNotPresent
 
+# -- Number of replicas
+replicas: 1
+
 # -- Custom args for the blockscout container
 customArgs: []
   #- -config-file=/somehwere-else.yaml

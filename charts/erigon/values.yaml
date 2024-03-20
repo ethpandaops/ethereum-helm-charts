@@ -59,6 +59,7 @@ defaultCommandTemplate: |
     --authrpc.addr=0.0.0.0
     --authrpc.port={{ .Values.authPort }}
     --authrpc.vhosts=*
+    --ws
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
@@ -80,6 +81,7 @@ defaultCommandRPCDaemonTemplate: |
     --http.addr=0.0.0.0
     --http.port={{ .Values.httpPort }}
     --http.vhosts=*
+    --ws
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPortRPCDaemon }}

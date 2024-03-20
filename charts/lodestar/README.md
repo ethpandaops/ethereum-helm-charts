@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -95,6 +95,8 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
+| validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
 
 # Examples
 

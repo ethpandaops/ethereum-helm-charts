@@ -1,0 +1,327 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- blutgang container image repository
+  repository: makemake1337/blutgang
+  # -- blutgang container image tag
+  tag: latest
+  # -- blutgang container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Custom args for the blutgang container
+customArgs: []
+  #- -config-file=/somehwere-else.yaml
+  #- -output-dir=public
+
+# -- Command replacement for the blutgang container
+customCommand: [] # Only change this if you need to change the default command
+
+# -- RPC list for the blutgang container
+#  CSV list of rpcs [default: ]
+rpcList: []
+  # - name: goerli-geth-teku
+  #   url: http://goerli-geth-teku:8545
+  #   ws_url: ws://goerli-geth-teku:8545 # Optional
+  #   max_consecutive: 150 # Optional
+  #   max_per_second: 200 # Optional
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+  # To use the config file, use the -c/--config option pointing to the path of a config file
+
+  # Config for blutgang goes here
+  [blutgang]
+  # Clear the cache DB on startup
+  do_clear = {{ .Values.blutgangNamespace.do_clear | default false }}
+  # Where to bind blutgang to
+  address = "0.0.0.0:{{ .Values.httpPort }}"
+  # Moving average length for the latency
+  ma_length = {{ .Values.blutgangNamespace.ma_length | default 100 }}
+  # Sort RPCs by latency on startup. Recommended to leave on.
+  sort_on_startup = {{ .Values.blutgangNamespace.sort_on_startup | default true }}
+  # Enable health checking
+  health_check = {{ .Values.blutgangNamespace.health_check | default true }}
+  # Acceptable time to wait for a response in ms
+  ttl = {{ .Values.blutgangNamespace.ttl | default 300 }}
+  # How many times to retry a request before giving up
+  max_retries = {{ .Values.blutgangNamespace.max_retries | default 32 }}
+  # Block time in ms, used as a sanity check when not receiving subscriptions
+  expected_block_time = {{ .Values.blutgangNamespace.expected_block_time | default 13000 }}
+  # Time between health checks in ms
+  health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 2000 }}
+  # Supress the health check running info messages
+  supress_rpc_check = {{ .Values.blutgangNamespace.supress_rpc_check | default false }}
+
+  # Note: the admin namespace contains volatile functions and
+  # should not be exposed publicly.
+  [admin]
+  # Enable the admin namespace
+  enabled = {{ .Values.adminNamespace.enabled | default true }}
+  # Address for the admin RPC
+  address = "0.0.0.0:{{ .Values.adminNamespace.adminPort | default 5715 }}"
+  # Only allow read-only methods
+  # Recommended `true` unless you 100% need write methods
+  readonly = {{ .Values.adminNamespace.readOnly | default true }}
+  # Enable the use of JWT for auth
+  # Should be on if exposing to the internet
+  jwt = {{ .Values.adminNamespace.jwt_enabled | default false }}
+  # jwt token
+  key = {{ .Values.adminNamespace.jwt_key | quote | default "" }}
+
+  # Sled config
+  # Sled is the database we use for our cache, for more info check their docs
+  [sled]
+  # Path to db
+  db_path = "/data/blutgang-cache"
+  # sled mode. Can be HighThroughput/LowSpace
+  mode = "HighThroughput"
+  # Cache size in bytes.
+  cache_capacity = 1000000000
+  # Use zstd compression. Reduces size 60-70%,
+  # and increases CPU and latency by around 10% for db writes and 2% for reads.
+  # If storage constrained, it's fine to have it be on.
+  compression = false
+  # Print DB profile when dropped. Doesn't do anything for now.
+  print_profile = false
+  # Frequency of flushes in ms
+  flush_every_ms = 24000
+
+  # Add seperate RPCs as TOML tables
+  # DO NOT name an rpc `blutgang`, `admin`, or `sled`
+  {{- range .Values.rpcList }}
+  [{{ .name }}]
+  url = {{ .url | quote }}
+  {{- if .ws_url }}
+  ws_url = {{ .ws_url | quote }}
+  {{- end }}
+  # The maximum ammount of time we can use this rpc in a row.
+  max_consecutive = {{ .max_consecutive | default 150 }}
+  # Max ammount of querries per second.
+  max_per_second = {{ .max_per_second | default 200 }}
+  {{- end }}
+
+# -- Bluethang Namespace
+# @default -- See `values.yaml`
+blutgangNamespace:
+  do_clear: false
+  ma_length: 100
+  sort_on_startup: true
+  health_check: true
+  ttl: 300
+  max_retries: 32
+  expected_block_time: 13000
+  health_check_ttl: 2000
+  supress_rpc_check: false
+
+# -- Admin Namespace
+# @default -- See `values.yaml`
+adminNamespace:
+  enabled: true
+  adminPort: 5715
+  jwt_enabled: false
+  jwt_key: ""
+  readOnly: true
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- HTTP Port
+# @default -- See `values.yaml`
+httpPort: 3000
+
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  httpGet:
+    path: /health
+    port: admin
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  httpGet:
+    path: /ready
+    port: admin
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv:
+  - name: RUST_BACKTRACE
+    value: "1"
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 1Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
