@@ -49,6 +49,9 @@ config: |
   sort_on_startup = {{ .Values.blutgangNamespace.sort_on_startup | default true }}
   # Enable health checking
   health_check = {{ .Values.blutgangNamespace.health_check | default true }}
+  # Enable content type header checking. Set this to `true` if you want
+  # Blutgang to be JSON-RPC compliant.
+  header_check = {{ .Values.blutgangNamespace.header_check | default true}}
   # Acceptable time to wait for a response in ms
   ttl = {{ .Values.blutgangNamespace.ttl | default 300 }}
   # How many times to retry a request before giving up
@@ -92,7 +95,7 @@ config: |
   # Print DB profile when dropped. Doesn't do anything for now.
   print_profile = false
   # Frequency of flushes in ms
-  flush_every_ms = 24000
+  flush_every_ms = 240
 
   # Add seperate RPCs as TOML tables
   # DO NOT name an rpc `blutgang`, `admin`, or `sled`
@@ -102,9 +105,9 @@ config: |
   {{- if .ws_url }}
   ws_url = {{ .ws_url | quote }}
   {{- end }}
-  # The maximum ammount of time we can use this rpc in a row.
+  # The maximum amount of time we can use this rpc in a row.
   max_consecutive = {{ .max_consecutive | default 150 }}
-  # Max ammount of querries per second.
+  # Max amount of querries per second.
   max_per_second = {{ .max_per_second | default 200 }}
   {{- end }}
 
@@ -115,6 +118,7 @@ blutgangNamespace:
   ma_length: 100
   sort_on_startup: true
   health_check: true
+  header_check: true
   ttl: 300
   max_retries: 32
   expected_block_time: 13000
