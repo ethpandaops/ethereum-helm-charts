@@ -44,7 +44,7 @@ initContainers:
 
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596

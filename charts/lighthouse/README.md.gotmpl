@@ -16,13 +16,13 @@
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
@@ -43,7 +43,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the goerli network that targets a pre-existing `lighthouse-beacon` service:
+This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
 
 ```yaml
 replicas: 1
@@ -51,7 +51,7 @@ replicas: 1
 mode: validator
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --enable-doppelganger-protection
   - --beacon-nodes=http://lighthouse-beacon:5052
 ```

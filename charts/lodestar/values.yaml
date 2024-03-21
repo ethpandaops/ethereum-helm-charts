@@ -21,12 +21,12 @@ mode: "beacon"
 # -- Extra args for the lodestar container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=goerli
+  #- --network=holesky
   #- --execution.urls=http://your-eth1-node:8551
-  #- --checkpointSyncUrl=https://goerli.checkpoint-sync.ethdevops.io
+  #- --checkpointSyncUrl=https://holesky.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
-  #- --network=goerli
+  #- --network=holesky
   #- --server=http://lodestar-beacon:9596
 
 # -- JWT secret used by client as a secret. Change this value.

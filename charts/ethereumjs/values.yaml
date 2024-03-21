@@ -17,7 +17,7 @@ image:
 
 # -- Extra args for the ethereumjs container
 extraArgs: []
-  #- --network=goerli
+  #- --network=holesky
 
 # -- JWT secret is attached as a secret object. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a

@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.24](https://img.shields.io/badge/Version-0.0.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.25](https://img.shields.io/badge/Version-0.0.25-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -14,19 +14,19 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 ## Subcharts
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../besu | besu | 1.0.6 |
-| file://../erigon | erigon | 1.0.9 |
+| file://../besu | besu | 1.0.7 |
+| file://../erigon | erigon | 1.0.10 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.1.4 |
-| file://../ethereumjs | ethereumjs | 0.0.7 |
-| file://../geth | geth | 1.0.7 |
-| file://../grandine | grandine | 0.1.1 |
-| file://../lighthouse | lighthouse | 1.1.2 |
-| file://../lodestar | lodestar | 1.1.2 |
-| file://../nethermind | nethermind | 1.0.10 |
-| file://../nimbus | nimbus | 1.1.1 |
-| file://../prysm | prysm | 1.1.3 |
-| file://../reth | reth | 0.0.13 |
-| file://../teku | teku | 1.1.2 |
+| file://../ethereumjs | ethereumjs | 0.0.8 |
+| file://../geth | geth | 1.0.8 |
+| file://../grandine | grandine | 0.1.2 |
+| file://../lighthouse | lighthouse | 1.1.3 |
+| file://../lodestar | lodestar | 1.1.3 |
+| file://../nethermind | nethermind | 1.0.12 |
+| file://../nimbus | nimbus | 1.1.3 |
+| file://../prysm | prysm | 1.1.4 |
+| file://../reth | reth | 0.0.14 |
+| file://../teku | teku | 1.1.3 |
 | file://../tracoor-agent | tracoor-agent | 0.0.1 |
 | file://../xatu-sentry | xatu-sentry | 0.0.8 |
 
@@ -39,7 +39,6 @@ Ideally you should have a look at the default [values.yaml](values.yaml) to get 
 The following networks are built into the chart and can be configured by just setting the `global.main.network` variable:
 
 - mainnet
-- goerli
 - sepolia
 - holesky
 
@@ -53,7 +52,6 @@ global:
     enabled: true
     addresses:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
-      goerli: https://checkpoint-sync.goerli.ethpandaops.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
       holesky: https://checkpoint-sync.holesky.ethpandaops.io
 ```
@@ -82,12 +80,12 @@ Run lighthouse/geth combo on the Sepolia network with metrics-exporter enabled:
 
 ```yaml
 ##
-## $ helm install goerli-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
+## $ helm install holesky-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
 ##
 
 global:
   main:
-    network: sepolia
+    network: holesky
   checkpointSync:
     enabled: true
 

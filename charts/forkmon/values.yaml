@@ -21,7 +21,7 @@ extraArgs: []
 # -- Command replacement for the forkmon container
 customCommand: [] # Only change this if you need to change the default command
 
-# -- Set a network name such as mainnet, goerli, sepolia
+# -- Set a network name such as mainnet, holesky, sepolia
 network: ""
 
 # -- Config file

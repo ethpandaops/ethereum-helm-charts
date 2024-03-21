@@ -21,12 +21,12 @@ mode: "beacon"
 # -- Extra args for the lighthouse container
 extraArgs: []
   ## Example for beacon mode
-  #- --network=goerli
+  #- --network=holesky
   #- --execution.urls=http://your-eth1-node:8551
-  #- --checkpoint-sync-url=https://goerli.checkpoint-sync.ethdevops.io
+  #- --checkpoint-sync-url=https://holesky.checkpoint-sync.ethdevops.io
   ##
   ## Example for validator mode
-  #- --network=goerli
+  #- --network=holesky
   #- --enable-doppelganger-protection
   #- --beacon-nodes=http://lighthouse-beacon:5052
 

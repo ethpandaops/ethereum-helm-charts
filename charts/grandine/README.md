@@ -1,7 +1,7 @@
 
 # grandine
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
@@ -52,7 +52,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
-| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
@@ -96,13 +96,13 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --ee-endpoint=<EXECUTION-ENDPOINT>
 ```
 
@@ -123,7 +123,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the goerli network that targets a pre-existing `grandine-beacon`
+This example runs a validator on the holesky network that targets a pre-existing `grandine-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 

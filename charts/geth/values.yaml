@@ -17,7 +17,7 @@ image:
 
 # -- Extra args for the geth container
 extraArgs: []
-  #- --goerli
+  #- --holesky
 
 # -- TOML config file
 # @default -- See `values.yaml` for example
