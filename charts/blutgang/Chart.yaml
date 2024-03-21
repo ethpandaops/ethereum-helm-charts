@@ -1,0 +1,13 @@
+apiVersion: v2
+name: blutgang
+description: >
+  Blutgang is a blazing fast, caching, minimalistic load balancer designed with Ethereum's JSON-RPC in mind. Historical RPC queries are cached in a local database, bypassing the need for slow, repeating calls to your node.
+home: https://github.com/rainshowerLabs/blutgang
+icon: https://github.com/rainshowerLabs/blutgang/assets/55022497/ec668c7a-5f56-4b26-8386-f112c2f176ce
+sources:
+  - https://github.com/rainshowerLabs/blutgang
+type: application
+version: 0.0.4
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com

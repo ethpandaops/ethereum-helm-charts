@@ -1,7 +1,10 @@
 replicas: 1
 
 mode: validator
-
+image:
+  repository: gcr.io/prysmaticlabs/prysm/validator
+  tag: latest
+  pullPolicy: IfNotPresent
 initContainers:
   - name: init-keystore
     image: bash:latest

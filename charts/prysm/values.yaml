@@ -9,15 +9,14 @@ replicas: 1
 
 image:
   # -- Prysm container image repository
-  #repository: gcr.io/prysmaticlabs/prysm/beacon-chain
-  repository: ethpandaops/prysm
-  # Note: The official beacon-chain image from prysmaticlabs doesn't contain any shell (`sh`)
-  #       which is required to detect the NodePorts when using `p2pNodePort.enabled=true`. See
-  #       the following example on how to create your own: https://github.com/skylenet/prysm-debian-docker/blob/master/Dockerfile
+  # Multi-Arch (arm64/amd64) image
+  #repository: gcr.io/prylabs-dev/prysm/beacon-chain
+  # Official image
+  repository: gcr.io/prysmaticlabs/prysm/beacon-chain
   # When using a validator:
   # repository: gcr.io/prysmaticlabs/prysm/validator
   # -- Prysm container image tag
-  tag: master
+  tag: latest
   # -- Prysm container pull policy
   pullPolicy: IfNotPresent
 
@@ -49,7 +48,7 @@ checkpointSync:
 # -- Template used for the default beacon command
 # @default -- See `values.yaml`
 defaultBeaconCommandTemplate: |
-  - sh
+  - /bin/bash
   - -ac
   - >
   {{- if .Values.p2pNodePort.enabled }}
@@ -97,7 +96,7 @@ defaultBeaconCommandTemplate: |
 # -- Template used for the default validator command
 # @default -- See `values.yaml`
 defaultValidatorCommandTemplate: |
-  - sh
+  - /bin/bash
   - -ac
   - >-
     exec /app/cmd/validator/validator
@@ -323,7 +322,7 @@ updateStrategy:
 initContainers: []
 # - name: my-init-container
 #   image: busybox:latest
-#   command: ['sh', '-c', 'echo hello']
+#   command: ['/bin/bash', '-c', 'echo hello']
 
 # -- Additional containers
 extraContainers: []

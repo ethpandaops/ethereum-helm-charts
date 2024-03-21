@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.23](https://img.shields.io/badge/Version-0.0.23-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.24](https://img.shields.io/badge/Version-0.0.24-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -20,13 +20,14 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../ethereumjs | ethereumjs | 0.0.7 |
 | file://../geth | geth | 1.0.7 |
 | file://../grandine | grandine | 0.1.1 |
-| file://../lighthouse | lighthouse | 1.1.1 |
-| file://../lodestar | lodestar | 1.1.1 |
+| file://../lighthouse | lighthouse | 1.1.2 |
+| file://../lodestar | lodestar | 1.1.2 |
 | file://../nethermind | nethermind | 1.0.10 |
 | file://../nimbus | nimbus | 1.1.1 |
-| file://../prysm | prysm | 1.1.1 |
-| file://../reth | reth | 0.0.12 |
+| file://../prysm | prysm | 1.1.3 |
+| file://../reth | reth | 0.0.13 |
 | file://../teku | teku | 1.1.2 |
+| file://../tracoor-agent | tracoor-agent | 0.0.1 |
 | file://../xatu-sentry | xatu-sentry | 0.0.8 |
 
 # Details

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "assertoor.fullname" . }}-test-connection"
+  labels:
+    {{- include "assertoor.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "assertoor.fullname" . }}:{{ include "assertoor.httpPort" . }}/'
+  restartPolicy: Never

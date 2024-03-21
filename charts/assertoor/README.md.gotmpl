@@ -1,0 +1,54 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+# Usage
+
+Usage: assertoor --config config.yaml
+
+Helper:
+```shell
+Usage of ./assertoor:
+--config string
+    Path to the assertoor config file
+```
+
+Example Configuration:
+```yaml
+endpoints:
+  - name: node1
+    executionUrl: "http://execution-node:8545"
+    consensusUrl: "http://beacon-node:5052"
+
+globalVariables:
+  walletPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
+
+assertoorTests:
+  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/block-proposal-check.yaml"
+    name: "Custom Block proposal check"
+    timeout: 48h
+    config:
+      validatorPairNames: ["geth", "besu"]
+    schedule:
+      cron:
+        - "0 */2 * * *" # every 2 hours
+      startup: true
+  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/stability-check.yaml"
+  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/all-opcodes-test.yaml"
+  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/validator-lifecycle-test-small.yaml"
+
+```
+
+{{ template "chart.valuesSection" . }}
