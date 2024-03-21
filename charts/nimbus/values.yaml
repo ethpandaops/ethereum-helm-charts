@@ -21,7 +21,7 @@ defaultBinaryPath: /home/user/nimbus-eth2/build/nimbus_beacon_node
 
 # -- Extra args for the nimbus container
 extraArgs: []
-  #- --network=goerli
+  #- --network=holesky
   #- --web3-url=http://your-eth1-node:8551
   # Nimbus requires trustedNodeSync command to be run before the beacon is launched.
   # Read more here: https://nimbus.guide/trusted-node-sync.html
