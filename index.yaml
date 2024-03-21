@@ -1250,6 +1250,22 @@ entries:
   dugtrio:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-03-21T10:31:40.263453369Z"
+    description: 'Fault tolerant load balancer for beacon chain RPC apis '
+    digest: 6129ff6f4c5779785a909b48c2c79d8a39460130799c1d49b57eab4205a972a6
+    home: https://github.com/ethpandaops/dugtrio
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: dugtrio
+    sources:
+    - https://github.com/ethpandaops/dugtrio
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dugtrio-0.0.4/dugtrio-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-11-23T12:12:55.698418458Z"
     description: 'Fault tolerant load balancer for beacon chain RPC apis '
     digest: 78222c0387816c9e53dcf6d9a421ecde446c416682be9bb9c4483379150b462d
@@ -8452,4 +8468,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-21T10:21:25.955084176Z"
+generated: "2024-03-21T10:31:40.263932692Z"
