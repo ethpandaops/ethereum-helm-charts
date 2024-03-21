@@ -1,9 +1,9 @@
 
 # nimbus
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-An open-source Ethereum consensus layer client, written in Java
+An open-source Ethereum consensus layer client, written in Nim
 
 **Homepage:** <https://nimbus.guide/>
 
@@ -100,11 +100,11 @@ An open-source Ethereum consensus layer client, written in Java
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --web3-url=<EXECUTION-ENDPOINT>
 ```
 
@@ -126,15 +126,15 @@ p2pNodePort:
 
 ## Validator node
 
-This example runs a validator on the goerli network and injects the keystores via a secret ENV var. You could use a similar
+This example runs a validator on the holesky network and injects the keystores via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
 ```yaml
 replicas: 1
 
 extraArgs:
-  - --network=goerli
-  - --web3-url=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=holesky
+  - --web3-url=https://holesky.infura.io/v3/<YOUR_API_SECRET>
   - --validators-dir=/data/validator/keys
   - --secrets-dir=/data/validator/secrets
 
