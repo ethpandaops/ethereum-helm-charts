@@ -1,3 +1,4 @@
 # Leave empty so that CT tests with default values
 extraArgs:
   - --ee-endpoint=http://localhost:8551
+  - --ignore-weak-subjectivity-period-enabled
