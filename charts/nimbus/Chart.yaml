@@ -1,12 +1,12 @@
 apiVersion: v2
 name: nimbus
-description: An open-source Ethereum consensus layer client, written in Java
+description: An open-source Ethereum consensus layer client, written in Nim
 home: https://nimbus.guide/
 icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
 sources:
   - https://github.com/status-im/nimbus-eth2
 type: application
-version: 1.1.1
+version: 1.1.2
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
