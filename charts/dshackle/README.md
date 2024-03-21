@@ -1,7 +1,7 @@
 
 # dshackle
 
-![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.8](https://img.shields.io/badge/Version-0.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket.
 
@@ -71,6 +71,7 @@ Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain API. Support f
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{"INFURA_USER":"your-infura-secret","REDIS_PASSWORD":"yourRedisSecret"}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
+| service.annotations | object | `{}` | Annotations for the Service |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
