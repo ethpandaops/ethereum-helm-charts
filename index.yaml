@@ -6024,6 +6024,24 @@ entries:
     version: 0.1.0
   nimbus:
   - apiVersion: v2
+    created: "2024-03-21T10:34:34.645035788Z"
+    description: An open-source Ethereum consensus layer client, written in Nim
+    digest: eda67b9fd79222e5956477986ef49cada9a28e638f4b689f358a59d0d7343fad
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-1.1.2/nimbus-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2023-07-14T09:44:52.267772041Z"
     description: An open-source Ethereum consensus layer client, written in Java
     digest: a3049cc115b4a839973a452a188cd98bda5b082a10fa2cf167a1ec3d32f465c2
@@ -8468,4 +8486,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-21T10:31:40.263932692Z"
+generated: "2024-03-21T10:34:34.645647031Z"
