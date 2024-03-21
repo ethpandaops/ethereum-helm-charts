@@ -22,7 +22,6 @@ Ideally you should have a look at the default [values.yaml](values.yaml) to get 
 The following networks are built into the chart and can be configured by just setting the `global.main.network` variable:
 
 - mainnet
-- goerli
 - sepolia
 - holesky
 
@@ -36,7 +35,6 @@ global:
     enabled: true
     addresses:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
-      goerli: https://checkpoint-sync.goerli.ethpandaops.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
       holesky: https://checkpoint-sync.holesky.ethpandaops.io
 ```
@@ -65,12 +63,12 @@ Run lighthouse/geth combo on the Sepolia network with metrics-exporter enabled:
 
 ```yaml
 ##
-## $ helm install goerli-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
+## $ helm install holesky-lighthouse-geth-0 ethereum-helm-charts/ethereum-node -f values.yaml
 ##
 
 global:
   main:
-    network: sepolia
+    network: holesky
   checkpointSync:
     enabled: true
 

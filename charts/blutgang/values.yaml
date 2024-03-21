@@ -26,9 +26,9 @@ customCommand: [] # Only change this if you need to change the default command
 # -- RPC list for the blutgang container
 #  CSV list of rpcs [default: ]
 rpcList: []
-  # - name: goerli-geth-teku
-  #   url: http://goerli-geth-teku:8545
-  #   ws_url: ws://goerli-geth-teku:8545 # Optional
+  # - name: holesky-geth-teku
+  #   url: http://holesky-geth-teku:8545
+  #   ws_url: ws://holesky-geth-teku:8545 # Optional
   #   max_consecutive: 150 # Optional
   #   max_per_second: 200 # Optional
 

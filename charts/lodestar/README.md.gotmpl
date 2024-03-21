@@ -16,13 +16,13 @@
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --execution.urls=<EXECUTION-ENDPOINT>
 ```
 
@@ -43,7 +43,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the goerli network that targets a pre-existing `lodestar-beacon`
+This example runs a validator on the holesky network that targets a pre-existing `lodestar-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
@@ -101,7 +101,7 @@ initContainers:
             key: NODE_0_KEY_0
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596

@@ -1,5 +1,5 @@
 global:
   main:
-    network: "goerli"
+    network: "holesky"
   checkpointSync:
     enabled: true

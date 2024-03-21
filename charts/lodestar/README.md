@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -54,7 +54,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
-| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
@@ -100,13 +100,13 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --execution.urls=<EXECUTION-ENDPOINT>
 ```
 
@@ -127,7 +127,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the goerli network that targets a pre-existing `lodestar-beacon`
+This example runs a validator on the holesky network that targets a pre-existing `lodestar-beacon`
 service by injecting the all-accounts.keystore.json` file via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
@@ -185,7 +185,7 @@ initContainers:
             key: NODE_0_KEY_0
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --keystoresDir=/data/validator/keys
   - --secretsDir=/data/validator/secrets
   - --server=http://lodestar-beacon:9596

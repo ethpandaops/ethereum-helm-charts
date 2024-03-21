@@ -21,7 +21,7 @@ secretEnv: {}
 # -- Command arguments
 args: []
   ## Example
-  #- --network=goerli
+  #- --network=holesky
   #- --ee-url=http://your-eth1-node:8551
 
 # -- Execution Engine JWT secret

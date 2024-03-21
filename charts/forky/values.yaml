@@ -55,17 +55,17 @@ config:
         #   slots_per_epoch: 32
         #   genesis_time: 1606824023
 
-        # name: "goerli"
-        # spec:
-        #   seconds_per_slot: 12
-        #   slots_per_epoch: 32
-        #   genesis_time: 1616508000
-
         # name: "sepolia"
         # spec:
         #   seconds_per_slot: 12
         #   slots_per_epoch: 32
         #   genesis_time: 1655733600
+
+        # name: "holesky"
+        # spec:
+        #   seconds_per_slot: 12
+        #   slots_per_epoch: 32
+        #   genesis_time: 1695902400
 
 ingress:
   # -- Ingress resource for the HTTP API
