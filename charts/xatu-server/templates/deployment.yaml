@@ -7,6 +7,10 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
+  {{- if .Values.strategy }}
+  strategy:
+    {{- toYaml .Values.strategy | nindent 4 }}
+  {{- end }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
@@ -29,10 +33,6 @@ spec:
     {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
     {{- end }}
-      {{- if .Values.strategy }}
-      strategy:
-        {{- toYaml .Values.strategy | nindent 8 }}
-      {{- end }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       initContainers:
