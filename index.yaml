@@ -8816,6 +8816,22 @@ entries:
     version: 0.0.1
   xatu-server:
   - apiVersion: v2
+    created: "2024-04-04T03:12:36.225060383Z"
+    description: Ethereum p2p monitoring tool that collects events from and controls
+      various Xatu clients.
+    digest: ff55b6b9b6190585fffe80d71e48802f9d2377c24406e8fecd96a510dfa473d3
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.12/xatu-server-0.0.12.tgz
+    version: 0.0.12
+  - apiVersion: v2
     created: "2023-11-23T03:40:47.686355973Z"
     description: Ethereum p2p monitoring tool that collects events from and controls
       various Xatu clients.
@@ -8975,4 +8991,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-03-21T18:56:25.530151267Z"
+generated: "2024-04-04T03:12:36.225745821Z"
