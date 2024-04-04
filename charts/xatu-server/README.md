@@ -1,7 +1,7 @@
 
 # xatu-server
 
-![Version: 0.0.11](https://img.shields.io/badge/Version-0.0.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.12](https://img.shields.io/badge/Version-0.0.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
@@ -86,6 +86,9 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
+| strategy.rollingUpdate.maxSurge | string | `"25%"` |  |
+| strategy.rollingUpdate.maxUnavailable | string | `"25%"` |  |
+| strategy.type | string | `"RollingUpdate"` |  |
 | terminationGracePeriodSeconds | int | `90` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
