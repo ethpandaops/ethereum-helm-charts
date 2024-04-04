@@ -214,6 +214,7 @@ extraPorts: []
 # -- Additional env variables
 extraEnv: []
 
+# -- Deployment rollout strategy
 strategy:
   type: RollingUpdate
   rollingUpdate:

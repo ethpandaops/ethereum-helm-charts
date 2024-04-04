@@ -86,9 +86,7 @@ Ethereum p2p monitoring tool that collects events from and controls various Xatu
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| strategy.rollingUpdate.maxSurge | string | `"25%"` |  |
-| strategy.rollingUpdate.maxUnavailable | string | `"25%"` |  |
-| strategy.type | string | `"RollingUpdate"` |  |
+| strategy | object | `{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"}` | Deployment rollout strategy |
 | terminationGracePeriodSeconds | int | `90` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
