@@ -152,7 +152,7 @@ ingress:
   #      - chart-example.local
 
 # When NodePort is enabled, your port will be exposed via service type NodePort.
-# This is useful if you want to expose the load balancer to the Internet, or other machines on your network. 
+# This is useful if you want to expose the load balancer to the Internet, or other machines on your network.
 # Limitation: You can only one have one replica when exposing via NodePort.
 #             Check the chart README.md for more details
 NodePort:
