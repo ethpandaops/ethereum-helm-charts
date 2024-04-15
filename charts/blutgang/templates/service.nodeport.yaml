@@ -1,0 +1,23 @@
+{{- if .Values.NodePort.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "blutgang.fullname" $ }}-nodeport-0
+  labels:
+    {{- include "blutgang.labels" $ | nindent 4 }}
+    pod: {{ include "blutgang.fullname" $ }}-0
+    type: nodeport
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: nodeport-tcp
+      port: {{ .Values.httpPort }}
+      protocol: TCP
+      targetPort: http
+      nodePort: {{ .Values.NodePort.port }}
+  selector:
+    {{- include "blutgang.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: "{{ include "blutgang.fullname" $ }}-0"
+{{- end }}

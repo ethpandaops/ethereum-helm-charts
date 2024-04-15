@@ -1,7 +1,7 @@
 
 # blutgang
 
-![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Blutgang is a blazing fast, caching, minimalistic load balancer designed with Ethereum's JSON-RPC in mind. Historical RPC queries are cached in a local database, bypassing the need for slow, repeating calls to your node.
 
@@ -15,6 +15,14 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| NodePort.enabled | bool | `false` | Expose P2P port via NodePort |
+| NodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| NodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
+| NodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
+| NodePort.port | int | `31000` | NodePort to be used |
+| NodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| NodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
+| NodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
 | adminNamespace | object | See `values.yaml` | Admin Namespace |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
@@ -61,7 +69,6 @@ Blutgang is a blazing fast, caching, minimalistic load balancer designed with Et
 | rpcList | list | `[]` | RPC list for the blutgang container  CSV list of rpcs [default: ] |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
-| service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
