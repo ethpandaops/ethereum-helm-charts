@@ -897,6 +897,24 @@ entries:
     version: 0.1.0
   blutgang:
   - apiVersion: v2
+    created: "2024-04-16T13:14:33.694261838Z"
+    description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
+      designed with Ethereum''s JSON-RPC in mind. Historical RPC queries are cached
+      in a local database, bypassing the need for slow, repeating calls to your node. '
+    digest: cea93ae6fa538fe9d8b2cd3c654b382578d333b8ab09b071f8491c5ae84302c1
+    home: https://github.com/rainshowerLabs/blutgang
+    icon: https://github.com/rainshowerLabs/blutgang/assets/55022497/ec668c7a-5f56-4b26-8386-f112c2f176ce
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: blutgang
+    sources:
+    - https://github.com/rainshowerLabs/blutgang
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.7/blutgang-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2024-03-21T16:47:43.089142435Z"
     description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
       designed with Ethereum''s JSON-RPC in mind. Historical RPC queries are cached
@@ -1389,6 +1407,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.0/dshackle-0.1.0.tgz
     version: 0.1.0
   dugtrio:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-04-16T13:14:33.805275142Z"
+    description: 'Fault tolerant load balancer for beacon chain RPC apis '
+    digest: 96690e24117494f3bde1d9846ccdf214ebcb982b6080c95cc20786f7741f9ac8
+    home: https://github.com/ethpandaops/dugtrio
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: dugtrio
+    sources:
+    - https://github.com/ethpandaops/dugtrio
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dugtrio-0.0.5/dugtrio-0.0.5.tgz
+    version: 0.0.5
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2024-03-21T10:31:40.263453369Z"
@@ -8991,4 +9025,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-04-04T03:12:36.225745821Z"
+generated: "2024-04-16T13:14:33.805871769Z"
