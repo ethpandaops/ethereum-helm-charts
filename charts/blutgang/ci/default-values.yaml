@@ -13,6 +13,9 @@ config: |
   sort_on_startup = true
   # Enable health checking
   health_check = true
+  # Enable content type header checking. Set this to `true` if you want
+  # Blutgang to be JSON-RPC compliant.
+  header_check = true
   # Acceptable time to wait for a response in ms
   ttl = 300
   # How many times to retry a request before giving up
