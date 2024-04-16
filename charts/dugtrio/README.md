@@ -1,7 +1,7 @@
 
 # dugtrio
 
-![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Fault tolerant load balancer for beacon chain RPC apis
 
@@ -35,6 +35,14 @@ endpoints:
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
+| NodePort.enabled | bool | `false` | Expose P2P port via NodePort |
+| NodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| NodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
+| NodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
+| NodePort.port | int | `31000` | NodePort to be used |
+| NodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
+| NodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
+| NodePort.portForwardContainer.image.tag | string | `"latest"` | Container tag |
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | config | string | See `values.yaml` | Config file |
@@ -80,7 +88,6 @@ endpoints:
 | priorityClassName | string | `nil` | Pod priority class |
 | resources | object | `{}` | Resource requests and limits |
 | securityContext | object | See `values.yaml` | The security context for pods |
-| service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |

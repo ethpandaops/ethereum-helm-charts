@@ -36,9 +36,31 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-service:
-  # -- Service type
-  type: ClusterIP
+# When NodePort is enabled, your port will be exposed via service type NodePort.
+# This is useful if you want to expose the load balancer to the Internet, or other machines on your network.
+# Limitation: You can only one have one replica when exposing via NodePort.
+#             Check the chart README.md for more details
+NodePort:
+  # -- Expose P2P port via NodePort
+  enabled: false
+  # -- NodePort to be used
+  port: 31000
+  initContainer:
+    image:
+      # -- Container image to fetch nodeport information
+      repository: lachlanevenson/k8s-kubectl
+      # -- Container tag
+      tag: v1.25.4
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+  portForwardContainer:
+    image:
+      # -- Container image for the port forwarder
+      repository: alpine/socat
+      # -- Container tag
+      tag: latest
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
 
 # -- Affinity configuration for pods
 affinity: {}

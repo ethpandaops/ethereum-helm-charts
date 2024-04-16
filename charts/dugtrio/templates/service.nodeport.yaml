@@ -1,0 +1,23 @@
+{{- if .Values.NodePort.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "dugtrio.fullname" $ }}-nodeport-0
+  labels:
+    {{- include "dugtrio.labels" $ | nindent 4 }}
+    pod: {{ include "dugtrio.fullname" $ }}-0
+    type: nodeport
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: nodeport-tcp
+      port: {{ .Values.httpPort }}
+      protocol: TCP
+      targetPort: http
+      nodePort: {{ .Values.NodePort.port }}
+  selector:
+    {{- include "dugtrio.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: "{{ include "dugtrio.fullname" $ }}-0"
+{{- end }}

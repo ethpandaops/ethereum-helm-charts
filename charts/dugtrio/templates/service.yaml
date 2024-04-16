@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "dugtrio.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
     - port: {{ include "dugtrio.httpPort" . }}
       targetPort: http
