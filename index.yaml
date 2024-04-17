@@ -8498,6 +8498,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.0.1/xatu-cannon-0.0.1.tgz
     version: 0.0.1
+  xatu-cl-mimicry:
+  - apiVersion: v2
+    created: "2024-04-17T03:30:22.915239781Z"
+    description: Ethereum p2p monitoring tool that collects data from the consensus
+      layer.
+    digest: 9cba76415ec2828e6f4e8e50b540bada13d94fa736fbf762219d37f5a1c65fac
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cl-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cl-mimicry-0.0.1/xatu-cl-mimicry-0.0.1.tgz
+    version: 0.0.1
   xatu-discovery:
   - apiVersion: v2
     created: "2023-11-23T03:40:47.050157185Z"
@@ -9025,4 +9042,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-04-16T13:14:33.805871769Z"
+generated: "2024-04-17T03:30:22.91581239Z"
