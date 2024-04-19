@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "rpc-snooper.httpPort" -}}
-{{- printf "8545" -}}
+{{ .Values.httpPort }}
 {{- end -}}
