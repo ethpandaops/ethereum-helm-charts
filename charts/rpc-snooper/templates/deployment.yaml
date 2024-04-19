@@ -46,6 +46,7 @@ spec:
           {{- if gt (len .Values.customCommand) 0 }}
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
+            - ./json_rpc_snoop
             - --bind-address=0.0.0.0
             - --port={{ .Values.httpPort }}
             - "{{ .Values.url }}"
@@ -57,10 +58,6 @@ spec:
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
-            - name: config
-              mountPath: "/config.toml"
-              subPath: config.toml
-              readOnly: true
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
@@ -101,6 +98,3 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
-        - name: config
-          configMap:
-            name: {{ include "rpc-snooper.fullname" . }}
