@@ -88,6 +88,7 @@ Tooling
 - [`ipfs-cluster`](charts/ipfs-cluster) - IPFS Cluster
 - [`powfaucet`](charts/powfaucet) - Modularized faucet for EVM chains with different protection methods (Captcha, PoW Mining, IP Limits, Wallet Balances and more)
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
+- [`rpc-snooper`](charts/rpc-snooper) - A tool to snoop on RPC calls and log them to stdout.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: rpc-snooper
+description: Lightweight RPC proxy tool designed for debugging and monitoring RPC calls between Ethereum clients
+home: https://github.com/ethpandaops/rpc-snooper
+type: application
+version: 0.0.1
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com
+  - name: pk910
+    email: philipp@pk910.de
