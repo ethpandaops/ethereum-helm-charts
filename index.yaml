@@ -7652,6 +7652,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
+  rpc-snooper:
+  - apiVersion: v2
+    created: "2024-04-19T13:21:13.706721747Z"
+    description: Lightweight RPC proxy tool designed for debugging and monitoring
+      RPC calls between Ethereum clients
+    digest: 52b80f85e89144dbbe8ccc525da1743b2dc53cd8d9e5db58d7836b9664d617e9
+    home: https://github.com/ethpandaops/rpc-snooper
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: philipp@pk910.de
+      name: pk910
+    name: rpc-snooper
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-snooper-0.0.1/rpc-snooper-0.0.1.tgz
+    version: 0.0.1
   smart-contract-verifier-http:
   - apiVersion: v2
     created: "2023-05-10T18:22:08.319099481Z"
@@ -9042,4 +9059,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-04-17T03:30:22.91581239Z"
+generated: "2024-04-19T13:21:13.707317247Z"
