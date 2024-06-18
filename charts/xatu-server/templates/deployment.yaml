@@ -11,7 +11,7 @@ spec:
   strategy:
     {{- toYaml .Values.strategy | nindent 4 }}
   {{- end }}
-  {{- if .Values.replicas }}
+  {{- if ne .Values.replicas nil }}
   replicas: {{ .Values.replicas }}
   {{- end }}
   selector:
