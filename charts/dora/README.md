@@ -27,7 +27,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | customCommand | list | `[]` | Command replacement for the dora container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
 | ethExplorerLink | string | `""` | Link to the el block explorer |
-| executionEndpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://execution-node:8545"}]` | An array of execution endpoints to use for the explorer -- url is the only required field |
+| executionEndpoints | list | `[]` | An array of execution endpoints to use for the explorer -- url is the only required field |
 | extraArgs | list | `[]` | Extra args for the dora container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -47,7 +47,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| mevRelays | list | `[{"blockLimit":200,"index":0,"name":"default-relay","url":"http://mev-relay"}]` | An array of mev relays to crawl mev data from (optional) -- index must be a unique id for the relay (0-62) |
+| mevRelays | list | `[]` | An array of mev relays to crawl mev data from (optional) -- index must be a unique id for the relay (0-62) -- {} |
 | name | string | `"mainnet"` | Name of the network ("mainnet", "sepolia", "holesky") |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
