@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "blutgang.fullname" . }}
   labels:
@@ -53,7 +53,7 @@ spec:
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
           args:
-            {{- toYaml .Values.customArgs | nindent 12}}  
+            {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
