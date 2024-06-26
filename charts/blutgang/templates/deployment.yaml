@@ -7,14 +7,10 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "blutgang.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "blutgang.fullname" . }}-headless
-  updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
