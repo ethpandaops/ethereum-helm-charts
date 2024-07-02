@@ -54,10 +54,6 @@ spec:
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
-            - name: yarn-cache
-              mountPath: /.cache
-            - name: yarn
-              mountPath: /.yarn
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
@@ -98,10 +94,6 @@ spec:
         {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
-        - name: yarn-cache
-          emptyDir: {}
-        - name: yarn
-          emptyDir: {}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}

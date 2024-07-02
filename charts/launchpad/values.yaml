@@ -70,7 +70,7 @@ annotations: {}
 
 # -- HTTP Port
 # @default -- See `values.yaml`
-httpPort: 3000
+httpPort: 8080
 
 # -- Liveness probe
 # @default -- See `values.yaml`
