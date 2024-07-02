@@ -5,5 +5,5 @@ metadata:
   labels:
     {{- include "launchpad.labels" . | nindent 4 }}
 data:
-  configEnv: |
-    {{- tpl .Values.configEnv . | nindent 4 }}
+  .env: |
+    {{- .Values.configEnv | nindent 4 }}

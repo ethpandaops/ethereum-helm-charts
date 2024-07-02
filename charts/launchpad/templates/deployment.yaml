@@ -54,6 +54,9 @@ spec:
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
+            - name: config-env
+              mountPath: /app/.env
+              subPath: .env
             {{- if .Values.extraVolumeMounts }}
               {{ toYaml .Values.extraVolumeMounts | nindent 12}}
             {{- end }}
@@ -67,9 +70,6 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          envFrom:
-            - configMapRef:
-                name: {{ include "launchpad.fullname" . }}
           env:
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
@@ -94,6 +94,9 @@ spec:
         {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        - name: config-env
+          configMap:
+            name: {{ include "launchpad.fullname" . }}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
