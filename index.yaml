@@ -2300,6 +2300,20 @@ entries:
     version: 0.0.1
   ethereum-metrics-exporter:
   - apiVersion: v2
+    created: "2024-07-04T12:29:57.153689001Z"
+    description: A Prometheus metrics exporter for Ethereum consensus & execution
+      nodes
+    digest: efeb3a86482e9d73eefa74247b4cd36f55ad146b11a7559f33f1ab8369a6f47c
+    home: https://github.com/samcm/ethereum-metrics-exporter
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.1.5/ethereum-metrics-exporter-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     created: "2023-05-10T18:22:05.836551149Z"
     description: A Prometheus metrics exporter for Ethereum consensus & execution
       nodes
@@ -9134,4 +9148,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-06-26T13:05:47.875036744Z"
+generated: "2024-07-04T12:29:57.154294172Z"
