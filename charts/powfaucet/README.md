@@ -125,5 +125,5 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
