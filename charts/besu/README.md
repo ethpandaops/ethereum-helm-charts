@@ -114,7 +114,7 @@ This will make your node accessible via the Internet using a service of type [No
 When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
 
 **Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`.If you need N nodes, simply deploy the chart N times.
-Currently besu doesn't allow you to announce a a different discovery port, which would be a requirement to run multiple replicas within the same chart.
+Currently besu doesn't allow you to announce a different discovery port, which would be a requirement to run multiple replicas within the same chart.
 
 ```yaml
 replicas: 1
