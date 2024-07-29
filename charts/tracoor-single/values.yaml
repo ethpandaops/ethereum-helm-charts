@@ -7,12 +7,22 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+autoscaling:
+  # -- Autoscaling configuration
+  enabled: false
+  # -- Minimum number of replicas
+  minReplicas: 2
+  # -- Maximum number of replicas
+  maxReplicas: 3
+  # -- Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 85
+
 image:
-  # -- ethereum-metrics-exporter container image repository
-  repository: samcm/ethereum-metrics-exporter
-  # -- ethereum-metrics-exporter container image tag
+  # -- tracoor container image repository
+  repository: ethpandaops/tracoor
+  # -- tracoor container image tag
   tag: latest
-  # -- ethereum-metrics-exporter container pull policy
+  # -- tracoor container pull policy
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
@@ -22,41 +32,105 @@ secretEnv: {}
 args: []
 
 config:
-  consensus:
-    enabled: true
-    url: "http://localhost:5053"
-    name: "consensus-client"
-  execution:
-    enabled: true
-    url: "http://localhost:8545"
-    name: "execution-client"
-    modules:
-      - "eth"
-      - "net"
-      - "web3"
-      - "txpool"
+  shared:
+    metricsAddr: ":9091"
+    logging: "debug"
+    indexer:
+      address: localhost:8081
+    store:
+      type: fs
+      config:
+        base_path: "/tmp/tracoor"
+
+  server:
+    addr: ":8081"
+    gatewayAddr: ":8080"
+    pprofAddr: ":6060"
+    preStopSleepSeconds: 1
+    ntpServer: time.google.com
+
+    persistence:
+      dsn: "file:/tmp/tracoor.db"
+      driver_name: sqlite
+
+    services:
+      indexer:
+        retention:
+          beaconStates: 30m
+          executionBlockTraces: 30m
+          beaconBlocks: 30m
+
+  agents:
+    - name: instance-1
+      ethereum:
+        overrideNetworkName: mainnet
+        # features:
+        #   fetchBeaconState: true
+        #   fetchBeaconBlock: true
+        #   fetchBeaconBadBlock: true
+        #   fetchBeaconBadBlob: true
+        #   fetchExecutionBlockTrace: true
+        #   fetchExecutionBadBlock: true
+        beacon:
+          nodeAddress: http://localhost:5052
+          # Prysm
+          # requires --save-invalid-block-temp and --save-invalid-blob-temp flags enabled
+          # Always stored in os.tmpdir(), eg. /tmp
+          # invalidGossipVerifiedBlocksPath: /tmp
+          # invalidGossipVerifiedBlobsPath: /tmp
+
+          # Nimbus
+          # requires --dump flag enabled
+          # replace data-dir with the --data-dir flag value
+          # invalidGossipVerifiedBlocksPath: /data-dir/dump/invalid
+
+          # Lighthouse
+          # requires --invalid-gossip-verified-blocks-path flag set eg. =/data/invalid
+          # invalidGossipVerifiedBlocksPath: /data/invalid
+        execution:
+          nodeAddress: http://localhost:8545
+          traceDisableMemory: true
+          traceDisableStack: true
+          traceDisableStorage: true
 
 ingress:
-  # -- Ingress resource for the HTTP API
-  enabled: false
-  # -- Annotations for Ingress
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  # -- Ingress host
-  hosts:
-    - host: chart-example.local
-      paths: []
-  # -- Ingress TLS
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  grpc:
+    # -- Ingress resource for GRPC
+    enabled: false
+    # -- Annotations for Ingress
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    # -- Ingress host
+    hosts:
+      - host: chart-example.local
+        paths: []
+    # -- Ingress TLS
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  http:
+    # -- Ingress resource for the HTTP API
+    enabled: false
+    # -- Annotations for Ingress
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    # -- Ingress host
+    hosts:
+      - host: chart-example.local
+        paths: []
+    # -- Ingress TLS
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
-# -- Custom args for the ethereum-metrics-exporter container
+# -- Custom args for the tracoor container
 customArgs: []
 
-# -- Command replacement for the ethereum-metrics-exporter container
+# -- Command replacement for the tracoor container
 customCommand: [] # Only change this if you need to change the default command
 
 service:
@@ -76,7 +150,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: http
+    port: grpc
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -84,7 +158,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: http
+    port: grpc
   initialDelaySeconds: 10
   periodSeconds: 10
 
@@ -96,6 +170,9 @@ podLabels: {}
 
 # -- Pod annotations
 podAnnotations: {}
+
+# -- Extra Pod ports
+extraPodPorts: []
 
 # -- Pod priority class
 priorityClassName: null
@@ -136,8 +213,17 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
 # -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
+terminationGracePeriodSeconds: 90
 
 # -- Tolerations for pods
 ## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -187,12 +273,12 @@ serviceMonitor:
   # -- Additional ServiceMonitor annotations
   annotations: {}
   # -- ServiceMonitor scrape interval
-  interval: 30s
+  interval: 15s
   # -- ServiceMonitor scheme
   scheme: http
   # -- ServiceMonitor TLS configuration
   tlsConfig: {}
   # -- ServiceMonitor scrape timeout
-  scrapeTimeout: 15s
+  scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []

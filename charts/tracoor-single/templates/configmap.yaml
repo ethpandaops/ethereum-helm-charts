@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "tracoor-single.fullname" . }}
+  labels:
+    {{- include "tracoor-single.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{ toYaml .Values.config | nindent 4 }}
