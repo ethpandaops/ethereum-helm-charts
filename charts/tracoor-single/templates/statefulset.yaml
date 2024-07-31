@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "tracoor-single.fullname" . }}
   labels:
@@ -7,7 +7,11 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
+  serviceName: {{ include "tracoor-single.fullname" . }}
   replicas: {{ .Values.replicas }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy:
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "tracoor-single.selectorLabels" . | nindent 6 }}
@@ -66,7 +70,7 @@ spec:
             subPath: config.yaml
             readOnly: true
           {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 10 }}
+            {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
         ports:
           - name: http
