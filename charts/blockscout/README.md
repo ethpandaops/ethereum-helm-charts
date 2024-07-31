@@ -90,8 +90,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | terminationGracePeriodSeconds | int | `60` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 
 # Examples
 
