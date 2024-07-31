@@ -1,7 +1,7 @@
 
 # tracoor-single
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum debug data capture and indexer
 
@@ -29,7 +29,7 @@ Ethereum debug data capture and indexer
 | config.server.gatewayAddr | string | `":8080"` |  |
 | config.server.ntpServer | string | `"time.google.com"` |  |
 | config.server.persistence.driver_name | string | `"sqlite"` |  |
-| config.server.persistence.dsn | string | `"file:/tmp/tracoor.db"` |  |
+| config.server.persistence.dsn | string | `"file:/data/tracoor.db"` |  |
 | config.server.pprofAddr | string | `":6060"` |  |
 | config.server.preStopSleepSeconds | int | `1` |  |
 | config.server.services.indexer.retention.beaconBlocks | string | `"30m"` |  |
@@ -38,7 +38,7 @@ Ethereum debug data capture and indexer
 | config.shared.indexer.address | string | `"localhost:8081"` |  |
 | config.shared.logging | string | `"debug"` |  |
 | config.shared.metricsAddr | string | `":9091"` |  |
-| config.shared.store.config.base_path | string | `"/tmp/tracoor"` |  |
+| config.shared.store.config.base_path | string | `"/data/store"` |  |
 | config.shared.store.type | string | `"fs"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the tracoor container |
@@ -69,6 +69,13 @@ Ethereum debug data capture and indexer
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
+| persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
+| persistence.annotations | object | `{}` | Annotations for volume claim template |
+| persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
+| persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
+| persistence.selector | object | `{}` | Selector for volume claim template |
+| persistence.size | string | `"20Gi"` | Requested size for volume claim template |
+| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
