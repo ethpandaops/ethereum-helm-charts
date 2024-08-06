@@ -261,7 +261,7 @@ postgresql:
       max_connections = 1024
     persistence:
       enabled: true
-      size: 100Gi
+      size: 8Gi
 
 redis:
   enabled: false
