@@ -62,7 +62,7 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
 | postgresql.primary.persistence.enabled | bool | `true` |  |
-| postgresql.primary.persistence.size | string | `"100Gi"` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
