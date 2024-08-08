@@ -40,6 +40,23 @@ entries:
   assertoor:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2024-08-08T15:16:27.522625875Z"
+    description: 'Testing tool that is capable of doing actions and checking conditions
+      on ethereum pos networks. '
+    digest: 340fdc68de5ecb1ce6a64dfa45d977d9d12b6932094b412e6f96b52640c184d6
+    home: https://github.com/ethpandaops/assertoor
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: assertoor
+    sources:
+    - https://github.com/ethpandaops/assertoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/assertoor-0.0.3/assertoor-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-08-08T11:54:49.583782486Z"
     description: 'Testing tool that is capable of doing actions and checking conditions
       on ethereum pos networks. '
@@ -9242,4 +9259,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-08T11:54:49.584262695Z"
+generated: "2024-08-08T15:16:27.523605442Z"
