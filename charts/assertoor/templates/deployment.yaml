@@ -64,6 +64,9 @@ spec:
             - name: http
               containerPort: {{ include "assertoor.httpPort" . }}
               protocol: TCP
+            - name: public-http
+              containerPort: {{ include "assertoor.publicHttpPort" . }}
+              protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
