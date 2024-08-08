@@ -69,7 +69,8 @@ assertoorTests:
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | globalVariables | object | `{"walletPrivkey":"feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"}` | global assertoor variables -- global variables are passed to all tests. |
-| httpPort | int | `8080` | HTTP port for assertoor interface |
+| httpPort | int | `8082` | HTTP port for assertoor interface |
+| httpPortAdmin | int | `8080` | HTTP port for assertoor admin interface |
 | image.pullPolicy | string | `"IfNotPresent"` | assertoor container pull policy |
 | image.repository | string | `"ethpandaops/assertoor"` | assertoor container image repository |
 | image.tag | string | `"latest"` | assertoor container image tag |
@@ -77,9 +78,12 @@ assertoorTests:
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
-| ingress.hosts[1].host | string | `"chart-example-admin.local"` |  |
-| ingress.hosts[1].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
+| ingressAdmin.annotations | object | `{}` | Annotations for Ingress |
+| ingressAdmin.enabled | bool | `false` | Ingress resource for the HTTP API -- This is the admin interface -- Please ensure you put this behind authorization |
+| ingressAdmin.hosts[0].host | string | `"chart-example-admin.local"` |  |
+| ingressAdmin.hosts[0].paths | list | `[]` |  |
+| ingressAdmin.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
@@ -87,7 +91,6 @@ assertoorTests:
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
-| publicHttpPort | int | `8082` | HTTP port for assertoor public interface |
 | resources | object | `{}` | Resource requests and limits |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |

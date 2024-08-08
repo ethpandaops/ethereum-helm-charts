@@ -26,12 +26,27 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  # -- Ingress host
-  # -- if you set "admin" in the hostname it will use the admin service (8080)
-  # -- if you do not set admin in the hostname it will use the public service (8082)
+  # -- Ingress host for public service
   hosts:
     - host: chart-example.local
       paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+ingressAdmin:
+  # -- Ingress resource for the HTTP API
+  # -- This is the admin interface
+  # -- Please ensure you put this behind authorization
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host for admin service
+  hosts:
     - host: chart-example-admin.local
       paths: []
   # -- Ingress TLS
@@ -139,10 +154,10 @@ extraEnv: []
 
 
 # -- HTTP port for assertoor interface
-httpPort: 8080
+httpPort: 8082
 
-# -- HTTP port for assertoor public interface
-publicHttpPort: 8082
+# -- HTTP port for assertoor admin interface
+httpPortAdmin: 8080
 
 # -- An array of endpoints to use for assertoor
 # -- executionUrl & consensusUrl are the only required fields
@@ -186,10 +201,10 @@ config: |
   web:
     server:
       host: "0.0.0.0"
-      port: {{ .Values.httpPort }}
+      port: {{ .Values.httpPortAdmin }}
     publicServer:
       host: "0.0.0.0"
-      port: {{ .Values.publicHttpPort }}
+      port: {{ .Values.httpPort }}
     frontend:
       enabled: {{ .Values.assertoorFrontendEnabled }}
     api:
