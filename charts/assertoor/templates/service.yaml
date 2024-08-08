@@ -11,6 +11,10 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ include "assertoor.publicHttpPort" . }}
+      targetPort: public-http
+      protocol: TCP
+      name: public-http
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

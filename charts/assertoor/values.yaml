@@ -137,6 +137,9 @@ extraEnv: []
 # -- HTTP port for assertoor interface
 httpPort: 8080
 
+# -- HTTP port for assertoor public interface
+publicHttpPort: 8082
+
 # -- An array of endpoints to use for assertoor
 # -- executionUrl & consensusUrl are the only required fields
 endpoints:
@@ -180,6 +183,9 @@ config: |
     server:
       host: "0.0.0.0"
       port: {{ .Values.httpPort }}
+    publicServer:
+      host: "0.0.0.0"
+      port: {{ .Values.publicHttpPort }}
     frontend:
       enabled: {{ .Values.assertoorFrontendEnabled }}
     api:
