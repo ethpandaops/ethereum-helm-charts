@@ -1,7 +1,7 @@
 
 # assertoor
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Testing tool that is capable of doing actions and checking conditions on ethereum pos networks.
 
@@ -77,6 +77,8 @@ assertoorTests:
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
+| ingress.hosts[1].host | string | `"chart-example-admin.local"` |  |
+| ingress.hosts[1].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |

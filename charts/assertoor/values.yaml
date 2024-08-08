@@ -27,8 +27,12 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   # -- Ingress host
+  # -- if you set "admin" in the hostname it will use the admin service (8080)
+  # -- if you do not set admin in the hostname it will use the public service (8082)
   hosts:
     - host: chart-example.local
+      paths: []
+    - host: chart-example-admin.local
       paths: []
   # -- Ingress TLS
   tls: []

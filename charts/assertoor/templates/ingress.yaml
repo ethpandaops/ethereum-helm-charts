@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "assertoor.fullname" . -}}
-{{- $svcPort := include "assertoor.httpPort" . -}}
+{{- $svcPortAdmin := include "assertoor.httpPort" . -}}
+{{- $svcPortPublic := include "assertoor.publicHttpPort" . -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -38,6 +39,7 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
+    {{- if and (contains "admin" .host) (semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion) }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -51,11 +53,32 @@ spec:
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $svcPort }}
+                  number: {{ $svcPortAdmin }}
               {{- else }}
               serviceName: {{ $fullName }}
-              servicePort: {{ $svcPort }}
+              servicePort: {{ $svcPortAdmin }}
               {{- end }}
           {{- end }}
+    {{- else }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          {{- range .paths }}
+          - path: {{ .path }}
+            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ .pathType }}
+            {{- end }}
+            backend:
+              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: {{ $svcPortPublic }}
+              {{- else }}
+              serviceName: {{ $fullName }}
+              servicePort: {{ $svcPortPublic }}
+              {{- end }}
+          {{- end }}
+      {{- end }}
     {{- end }}
 {{- end }}
