@@ -77,7 +77,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-admin
   labels:
     {{- include "assertoor.labels" . | nindent 4 }}
   {{- with .Values.ingressAdmin.annotations }}
