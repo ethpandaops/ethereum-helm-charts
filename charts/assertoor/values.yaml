@@ -238,7 +238,7 @@ config: |
     inventoryUrl: "{{ .Values.validatorNamesInventory }}"
 
   globalVars:
-    {{- toYaml .globalVariables | nindent 2 }}
+    {{- toYaml .Values.globalVariables | nindent 2 }}
 
   # Test definitions
   externalTests:
