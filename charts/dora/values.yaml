@@ -54,11 +54,6 @@ name: mainnet
 # -- If you want to use a local range file define it in the values.yaml ranges section
 validatorNamesInventory: ""
 
-# -- Path to the network config file
-# -- This can be a url or a local path
-# -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml"
-configPath: ""
-
 # -- Link to the el block explorer
 ethExplorerLink: ""
 
@@ -70,6 +65,9 @@ callRateLimit: 2
 
 # -- Page call burst limit per user
 callRateBurst: 10
+
+# -- Maximum number of epochs to keep in memory
+maxInMemoryEpochs: 4
 
 
 # -- Config file
@@ -84,9 +82,6 @@ config: |
 
     # Chain network configuration
     chain:
-      # use built in config by name ("mainnet", "prater", "sepolia")
-      name: "{{ .Values.name }}"
-      configPath: "{{ .Values.configPath }}"
       displayName: "{{ .Values.name }}"
 
     # HTTP Server configuration
@@ -166,7 +161,7 @@ config: |
           {{- end }}
           {{- end }}
         {{- end }}
-      depositLogBatchSize: 10000
+      depositLogBatchSize: 1000
 
     mevIndexer:
       # list of mev relays to crawl mev blocks from
@@ -181,13 +176,13 @@ config: |
     # indexer keeps track of the latest epochs in memory.
     indexer:
       # max number of epochs to keep in memory
-      inMemoryEpochs: 6
-
-      # disable synchronizing and everything that writes to the db (indexer just maintains local cache)
-      disableIndexWriter: false
+      inMemoryEpochs: {{ .Values.maxInMemoryEpochs }}
 
       # number of seconds to wait between each epoch (don't overload CL client)
       syncEpochCooldown: 2
+
+      # max number of parallel state requests to make to the CL clients
+      maxParallelValidatorSetRequests: 2
 
     database:
       engine: "pgsql"
