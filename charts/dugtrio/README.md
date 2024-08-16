@@ -1,7 +1,7 @@
 
 # dugtrio
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Fault tolerant load balancer for beacon chain RPC apis
 
@@ -50,7 +50,7 @@ endpoints:
 | dugtrioProxyBlockedPaths | list | `[]` | blocked proxy paths (regular expressions, eg. "^/eth/v[0-9]+/debug/.*") |
 | dugtrioProxyCallRateBurst | int | `1000` | dugtrio call rate burst (burst number of calls per ip) |
 | dugtrioProxyCallRateLimit | int | `100` | dugtrio call rate limit (number of calls per second per ip) |
-| dugtrioProxyCallTimeout | string | `"55s"` | timeout for dugtrio proxy calls |
+| dugtrioProxyCallTimeout | string | `"10m"` | timeout for dugtrio proxy calls |
 | dugtrioProxyCount | int | `1` | number of HTTP proxies in front of dugtrio |
 | dugtrioProxySessionTimeout | string | `"10m"` | timeout for dugtrio sessions (used for rate limiting & endpoint stickiness) |
 | dugtrioProxyStickyEndpoint | bool | `true` | reuse the same endpoint for sessions as long as available |
