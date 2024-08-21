@@ -110,7 +110,8 @@ spec:
             name: {{ include "blutgang.fullname" . }}
   {{- if not .Values.persistence.enabled }}
         - name: storage
-          emptyDir: {}
+          emptyDir:
+            medium: Memory
   {{- else if .Values.persistence.existingClaim }}
         - name: storage
           persistentVolumeClaim:
