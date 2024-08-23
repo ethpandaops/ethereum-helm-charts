@@ -50,9 +50,8 @@ config:
     ntpServer: time.google.com
 
     persistence:
-      dsn: "file:/data/tracoor.db"
-      driver_name: sqlite
-
+      dsn: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ tpl .Values.postgresql.name $ }}:5432/{{ .Values.postgresql.auth.database }}?sslmode=disable"
+      driver_name: postgres
     services:
       indexer:
         retention:
@@ -303,3 +302,25 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+postgresql:
+  # -- If enabled a postgres chart will be deployed as a dependency
+  name: "{{ .Release.Name }}-postgresql"
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 16.4.0-debian-12-r2
+  pullPolicy: IfNotPresent
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+    database: tracoor
+    username: postgres
+    password: postgres
+  primary:
+    extendedConfiguration: |
+      max_connections = 1024
+  persistence:
+    enabled: true
+    size: 8Gi
