@@ -34,8 +34,7 @@ Ethereum debug data capture and indexer
 | config.server.addr | string | `":8081"` |  |
 | config.server.gatewayAddr | string | `":8080"` |  |
 | config.server.ntpServer | string | `"time.google.com"` |  |
-| config.server.persistence.driver_name | string | `"sqlite"` |  |
-| config.server.persistence.dsn | string | `"file:/data/tracoor.db"` |  |
+| config.server.persistence | object | `{}` |  |
 | config.server.pprofAddr | string | `":6060"` |  |
 | config.server.preStopSleepSeconds | int | `1` |  |
 | config.server.services.indexer.retention.beaconBlocks | string | `"30m"` |  |

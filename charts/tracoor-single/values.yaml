@@ -48,10 +48,11 @@ config:
     pprofAddr: ":6060"
     preStopSleepSeconds: 1
     ntpServer: time.google.com
-    # If postgres is enabled, this block will be overwritten
-    persistence:
-      dsn: "file:/data/tracoor.db"
-      driver_name: sqlite
+    persistence: {}
+      # If postgres.enabled = true, this block will be overwritten.
+      # Example sqlite:
+      # dsn: "file:/data/tracoor.db"
+      # driver_name: sqlite
     services:
       indexer:
         retention:
