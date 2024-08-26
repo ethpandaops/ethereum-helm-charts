@@ -1,0 +1,11 @@
+apiVersion: v2
+name: tracoor-single
+description: Ethereum debug data capture and indexer
+home: https://github.com/ethpandaops/tracoor
+type: application
+version: 0.0.3
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+  - name: savid
+    email: andrew.davis@ethereum.org

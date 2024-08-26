@@ -93,6 +93,9 @@ Tooling
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
 - [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
+- [`tracoor-single`](charts/tracoor-single) - An Ethereum beacon data and execution trace explorer in single mode.
+- [`tracoor-server`](charts/tracoor-server) - An Ethereum beacon data and execution trace explorer in server mode.
+- [`tracoor-agent`](charts/tracoor-agent) - An Ethereum beacon data and execution trace explorer in agent mode.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
 - [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.

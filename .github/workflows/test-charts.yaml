@@ -66,4 +66,5 @@ jobs:
           --excluded-charts beacon-metrics-gazer
           --excluded-charts tracoor-server
           --excluded-charts tracoor-agent
+          --excluded-charts tracoor-single
           --excluded-charts xatu-cl-mimicry
