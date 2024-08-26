@@ -85,17 +85,11 @@ config: |
   # Path to db
   db_path = "/data/blutgang-cache"
   # sled mode. Can be HighThroughput/LowSpace
-  mode = "HighThroughput"
   # Cache size in bytes.
-  cache_capacity = 1000000000
-  # Use zstd compression. Reduces size 60-70%,
-  # and increases CPU and latency by around 10% for db writes and 2% for reads.
-  # If storage constrained, it's fine to have it be on.
-  compression = false
-  # Print DB profile when dropped. Doesn't do anything for now.
-  print_profile = false
-  # Frequency of flushes in ms
-  flush_every_ms = 240
+  cache_capacity = 400000 # Cache size in bytes
+  # Select zstd compression level, goes from 1-12 where 12 is the most.
+  compression = 1
+  flush_every_ms = 325 # Frequency of flushes in ms
 
   # Add seperate RPCs as TOML tables
   # DO NOT name an rpc `blutgang`, `admin`, or `sled`
