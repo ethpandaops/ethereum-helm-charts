@@ -180,7 +180,7 @@ serviceMonitor:
   # -- Additional ServiceMonitor annotations
   annotations: {}
   # -- ServiceMonitor scrape interval
-  interval: 15s
+  interval: 1m
   # -- ServiceMonitor scheme
   scheme: http
   # -- ServiceMonitor TLS configuration

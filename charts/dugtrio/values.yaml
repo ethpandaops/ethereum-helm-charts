@@ -189,7 +189,7 @@ dugtrioPoolMaxHeadDistance: 2
 dugtrioProxyCount: 1
 
 # -- timeout for dugtrio proxy calls
-dugtrioProxyCallTimeout: 55s
+dugtrioProxyCallTimeout: 10m
 
 # -- timeout for dugtrio sessions (used for rate limiting & endpoint stickiness)
 dugtrioProxySessionTimeout: 10m

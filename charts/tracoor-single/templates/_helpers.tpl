@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "assertoor.name" -}}
+{{- define "tracoor-single.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "assertoor.fullname" -}}
+{{- define "tracoor-single.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "assertoor.chart" -}}
+{{- define "tracoor-single.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "assertoor.labels" -}}
-helm.sh/chart: {{ include "assertoor.chart" . }}
-{{ include "assertoor.selectorLabels" . }}
+{{- define "tracoor-single.labels" -}}
+helm.sh/chart: {{ include "tracoor-single.chart" . }}
+{{ include "tracoor-single.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,26 +45,36 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "assertoor.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "assertoor.name" . }}
+{{- define "tracoor-single.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "tracoor-single.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "assertoor.serviceAccountName" -}}
+{{- define "tracoor-single.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "assertoor.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "tracoor-single.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
-{{- define "assertoor.httpPort" -}}
-{{- printf "8082" -}}
+{{- define "tracoor-single.httpPort" -}}
+{{ (split ":" .Values.config.server.gatewayAddr)._1 | default "8080" }}
+{{- end }}
+
+{{- define "tracoor-single.grpcPort" -}}
+{{ (split ":" .Values.config.server.addr)._1 | default "8081" }}
+{{- end }}
+
+{{- define "tracoor-single.metricsPort" -}}
+{{ (split ":" .Values.config.shared.metricsAddr)._1 | default "9090" }}
 {{- end -}}
 
-{{- define "assertoor.httpPortAdmin" -}}
-{{- printf "8080" -}}
+{{- define "tracoor-single.pprofPort" -}}
+{{- if .Values.config.server.pprofAddr -}}
+{{ (split ":" .Values.config.server.pprofAddr)._1 | default "6060" }}
+{{- end -}}
 {{- end -}}
