@@ -1,11 +1,17 @@
 
 # tracoor-single
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethereum debug data capture and indexer
 
 **Homepage:** <https://github.com/ethpandaops/tracoor>
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.bitnami.com/bitnami | postgresql | 15.x.x |
 
 ## Values
 
@@ -28,8 +34,7 @@ Ethereum debug data capture and indexer
 | config.server.addr | string | `":8081"` |  |
 | config.server.gatewayAddr | string | `":8080"` |  |
 | config.server.ntpServer | string | `"time.google.com"` |  |
-| config.server.persistence.driver_name | string | `"sqlite"` |  |
-| config.server.persistence.dsn | string | `"file:/data/tracoor.db"` |  |
+| config.server.persistence | object | `{}` |  |
 | config.server.pprofAddr | string | `":6060"` |  |
 | config.server.preStopSleepSeconds | int | `1` |  |
 | config.server.services.indexer.retention.beaconBlocks | string | `"30m"` |  |
@@ -79,6 +84,20 @@ Ethereum debug data capture and indexer
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
+| postgresql.auth.database | string | `"tracoor"` |  |
+| postgresql.auth.enablePostgresUser | bool | `true` |  |
+| postgresql.auth.password | string | `"postgres"` |  |
+| postgresql.auth.postgresPassword | string | `"postgres"` |  |
+| postgresql.auth.username | string | `"postgres"` |  |
+| postgresql.enabled | bool | `true` |  |
+| postgresql.image.registry | string | `"docker.io"` |  |
+| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
+| postgresql.image.tag | string | `"16.4.0-debian-12-r2"` |  |
+| postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
+| postgresql.persistence.enabled | bool | `true` |  |
+| postgresql.persistence.size | string | `"8Gi"` |  |
+| postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
