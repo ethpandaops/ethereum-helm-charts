@@ -64,8 +64,8 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | thirdparty_endpoints | list | `[{"kind":"infura","name":"mainnet-infura","rate_limit":5},{"kind":"alchemy","name":"mainnet-alchemy","rate_limit":5},{"kind":"etherscan","name":"mainnet-etherscan","rate_limit":5}]` | Third party endpoints that you would like to monitor |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 
 # Examples
 
