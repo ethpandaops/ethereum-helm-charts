@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xatu-relay-monitor.fullname" . }}
+  labels:
+    {{- include "xatu-relay-monitor.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "xatu-relay-monitor.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- if (include "xatu-relay-monitor.pprofPort" .) }}
+    - port: {{ include "xatu-relay-monitor.pprofPort" . }}
+      targetPort: pprof
+      protocol: TCP
+      name: pprof
+    {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "xatu-relay-monitor.selectorLabels" . | nindent 4 }}
