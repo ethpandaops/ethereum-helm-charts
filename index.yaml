@@ -9023,6 +9023,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.1/xatu-mimicry-0.0.1.tgz
     version: 0.0.1
+  xatu-relay-monitor:
+  - apiVersion: v2
+    created: "2024-09-02T02:00:07.86196801Z"
+    description: Xatu Relay Monitor
+    digest: dc9b948b06ea6b5eef8c3f595481118af42ee37cf49778656d23dd3f25aafa39
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-relay-monitor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-relay-monitor-0.0.1/xatu-relay-monitor-0.0.1.tgz
+    version: 0.0.1
   xatu-sage:
   - apiVersion: v2
     created: "2023-12-05T06:27:22.225433666Z"
@@ -9362,4 +9378,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-08-28T07:45:34.5666593Z"
+generated: "2024-09-02T02:00:07.863739387Z"
