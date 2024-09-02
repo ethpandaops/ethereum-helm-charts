@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xatu-relay-monitor.fullname" . }}
+  labels:
+    {{- include "xatu-relay-monitor.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{ tpl (toYaml .Values.config | nindent 4) $ }}
