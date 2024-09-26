@@ -259,9 +259,9 @@ postgresql:
   primary:
     extendedConfiguration: |
       max_connections = 1024
-  persistence:
-    enabled: true
-    size: 8Gi
+    persistence:
+      enabled: true
+      size: 8Gi
 
 redis:
   enabled: false

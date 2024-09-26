@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -60,9 +60,9 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | postgresql.image.registry | string | `"docker.io"` |  |
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.primary.persistence.enabled | bool | `true` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |

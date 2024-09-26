@@ -17,8 +17,8 @@ image:
 
 # -- Extra args for the grandine container
 extraArgs: []
-  ## Example for connecting to a goerli testnet
-  #- --network=goerli
+  ## Example for connecting to a holesky testnet
+  #- --network=holesky
   #- --eth1-rpc-urls=http://your-eth1-node:8051
 
 # -- JWT secret used by client as a secret. Change this value.
@@ -91,7 +91,7 @@ p2pNodePort:
       # -- Container image to fetch nodeport information
       repository: lachlanevenson/k8s-kubectl
       # -- Container tag
-      tag: v1.21.3
+      tag: v1.25.4
       # -- Container pull policy
       pullPolicy: IfNotPresent
 

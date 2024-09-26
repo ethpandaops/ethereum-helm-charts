@@ -26,7 +26,27 @@ endpoints:
       "X-Test": "test"
       "Y-Test": "test2"
 
-# -- Name of the network ("mainnet", "goerli", "sepolia", "holesky")
+# -- An array of execution endpoints to use for the explorer
+# -- url is the only required field
+executionEndpoints: []
+  #- name: default-endpoint
+  #  url: "http://execution-node:8545"
+  #  priority: 1
+  #  archive: false
+  #  headers:
+  #    "X-Test": "test"
+  #    "Y-Test": "test2"
+
+# -- An array of mev relays to crawl mev data from (optional)
+# -- index must be a unique id for the relay (0-62)
+# -- {}
+mevRelays: []
+  #- index: 0
+  #  name: default-relay
+  #  url: "http://mev-relay"
+  #  blockLimit: 200
+
+# -- Name of the network ("mainnet", "sepolia", "holesky")
 name: mainnet
 
 # -- This can be a url here for example:
@@ -124,6 +144,39 @@ config: |
       # remote cache for page models
       redisCacheAddr: ""
       redisCachePrefix: ""
+
+    executionapi:
+      # CL Client RPC
+      endpoints: {{ if not .Values.executionEndpoints }}[]{{ end }}
+        {{- range .Values.executionEndpoints }}
+        - url: {{ .url | quote }}
+          {{- if .name }}
+          name: {{ .name | quote }}
+          {{- end }}
+          {{- if .priority }}
+          priority: {{ .priority }}
+          {{- end }}
+          {{- if .archive }}
+          archive: {{ .archive }}
+          {{- end }}
+          {{- if .headers }}
+          headers:
+          {{- range $key, $value := .headers }}
+            {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+          {{- end }}
+          {{- end }}
+        {{- end }}
+      depositLogBatchSize: 10000
+
+    mevIndexer:
+      # list of mev relays to crawl mev blocks from
+      relays: {{ if not .Values.mevRelays }}[]{{ end }}
+        {{- range .Values.mevRelays }}
+        - index: {{ .index }}
+          name: {{ .name | quote }}
+          url: {{ .url | quote }}
+        {{- end }}
+      refreshInterval: 5m
 
     # indexer keeps track of the latest epochs in memory.
     indexer:

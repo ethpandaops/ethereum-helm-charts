@@ -15,5 +15,5 @@ spec:
        - --location
        - --request
        - GET
-       - '{{ include "assertoor.fullname" . }}:{{ include "assertoor.httpPort" . }}/'
+       - '{{ include "assertoor.fullname" . }}:{{ include "assertoor.httpPortAdmin" . }}/'
   restartPolicy: Never

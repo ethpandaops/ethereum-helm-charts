@@ -11,6 +11,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.nodePort }}
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}

@@ -1,7 +1,7 @@
 
 # forkmon
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This is a little tool to keep track on a set of nodes, and see if they keep in step or if they go out of consensus.
 
@@ -37,7 +37,7 @@ This is a little tool to keep track on a set of nodes, and see if they keep in s
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
-| network | string | `""` | Set a network name such as mainnet, goerli, sepolia |
+| network | string | `""` | Set a network name such as mainnet, holesky, sepolia |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |

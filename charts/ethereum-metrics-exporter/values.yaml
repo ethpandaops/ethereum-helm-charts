@@ -187,12 +187,12 @@ serviceMonitor:
   # -- Additional ServiceMonitor annotations
   annotations: {}
   # -- ServiceMonitor scrape interval
-  interval: 15s
+  interval: 30s
   # -- ServiceMonitor scheme
   scheme: http
   # -- ServiceMonitor TLS configuration
   tlsConfig: {}
   # -- ServiceMonitor scrape timeout
-  scrapeTimeout: 30s
+  scrapeTimeout: 15s
   # -- ServiceMonitor relabelings
   relabelings: []

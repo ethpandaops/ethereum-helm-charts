@@ -1,9 +1,9 @@
 
 # nimbus
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-An open-source Ethereum consensus layer client, written in Java
+An open-source Ethereum consensus layer client, written in Nim
 
 **Homepage:** <https://nimbus.guide/>
 
@@ -53,7 +53,7 @@ An open-source Ethereum consensus layer client, written in Java
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
-| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pNodePort.portForwardContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.portForwardContainer.image.repository | string | `"alpine/socat"` | Container image for the port forwarder |
@@ -100,11 +100,11 @@ An open-source Ethereum consensus layer client, written in Java
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --web3-url=<EXECUTION-ENDPOINT>
 ```
 
@@ -126,15 +126,15 @@ p2pNodePort:
 
 ## Validator node
 
-This example runs a validator on the goerli network and injects the keystores via a secret ENV var. You could use a similar
+This example runs a validator on the holesky network and injects the keystores via a secret ENV var. You could use a similar
 approach to fetch your secrets from some external secret management system (Hashicorp Vault, Azure key vault, etc.):
 
 ```yaml
 replicas: 1
 
 extraArgs:
-  - --network=goerli
-  - --web3-url=https://goerli.infura.io/v3/<YOUR_API_SECRET>
+  - --network=holesky
+  - --web3-url=https://holesky.infura.io/v3/<YOUR_API_SECRET>
   - --validators-dir=/data/validator/keys
   - --secrets-dir=/data/validator/secrets
 

@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -55,7 +55,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
-| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
@@ -101,13 +101,13 @@ An open-source Ethereum 2.0 client, written in Rust
 
 # Examples
 
-## Beacon node on the Goerli testnet connected to Goerli via Infura
+## Beacon node on the Holesky testnet connected to Holesky via Infura
 
 ```yaml
 mode: "beacon"
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --execution-endpoint=<EXECUTION-ENDPOINT>
 ```
 
@@ -128,7 +128,7 @@ p2pNodePort:
 
 ## Validator node targeting a beacon node service
 
-This example runs a validator on the goerli network that targets a pre-existing `lighthouse-beacon` service:
+This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
 
 ```yaml
 replicas: 1
@@ -136,7 +136,7 @@ replicas: 1
 mode: validator
 
 extraArgs:
-  - --network=goerli
+  - --network=holesky
   - --enable-doppelganger-protection
   - --beacon-nodes=http://lighthouse-beacon:5052
 ```

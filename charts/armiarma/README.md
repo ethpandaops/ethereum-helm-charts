@@ -1,7 +1,7 @@
 
 # armiarma
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A distributed p2p network monitoring tool
 
@@ -46,7 +46,7 @@ A distributed p2p network monitoring tool
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
-| p2pNodePort.initContainer.image.tag | string | `"v1.21.3"` | Container tag |
+| p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |

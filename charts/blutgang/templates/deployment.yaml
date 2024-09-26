@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "blutgang.fullname" . }}
   labels:
@@ -7,14 +7,10 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       {{- include "blutgang.selectorLabels" . | nindent 6 }}
-  serviceName: {{ include "blutgang.fullname" . }}-headless
-  updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
@@ -53,7 +49,7 @@ spec:
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
           args:
-            {{- toYaml .Values.customArgs | nindent 12}}  
+            {{- toYaml .Values.customArgs | nindent 12}}
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
@@ -114,7 +110,8 @@ spec:
             name: {{ include "blutgang.fullname" . }}
   {{- if not .Values.persistence.enabled }}
         - name: storage
-          emptyDir: {}
+          emptyDir:
+            medium: Memory
   {{- else if .Values.persistence.existingClaim }}
         - name: storage
           persistentVolumeClaim:

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "tracoor-single.fullname" . }}
+  labels:
+    {{- include "tracoor-single.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- $config := deepCopy .Values.config -}}
+    {{- if .Values.postgresql.enabled -}}
+    {{- $_ := set $config.server.persistence "dsn" (printf "postgres://%s:%s@%s:5432/%s?sslmode=disable" .Values.postgresql.auth.username .Values.postgresql.auth.password (tpl .Values.postgresql.name $) .Values.postgresql.auth.database) -}}
+    {{- $_ := set $config.server.persistence "driver_name" "postgres" -}}
+    {{- end -}}
+    {{ toYaml $config | nindent 4 }}

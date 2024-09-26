@@ -6,7 +6,7 @@ home: https://github.com/ethpandaops/dugtrio
 sources:
   - https://github.com/ethpandaops/dugtrio
 type: application
-version: 0.0.3
+version: 0.0.6
 appVersion: "1.0.0"
 maintainers:
   - name: pk910

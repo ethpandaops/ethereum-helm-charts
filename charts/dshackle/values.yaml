@@ -95,6 +95,8 @@ ingress:
 service:
   # -- Service type
   type: ClusterIP
+  # -- Annotations for the Service
+  annotations: {}
 
 # -- Affinity configuration for pods
 affinity: {}

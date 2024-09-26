@@ -62,5 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "assertoor.httpPort" -}}
+{{- printf "8082" -}}
+{{- end -}}
+
+{{- define "assertoor.httpPortAdmin" -}}
 {{- printf "8080" -}}
 {{- end -}}

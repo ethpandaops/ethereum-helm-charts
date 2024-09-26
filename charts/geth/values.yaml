@@ -17,7 +17,7 @@ image:
 
 # -- Extra args for the geth container
 extraArgs: []
-  #- --goerli
+  #- --holesky
 
 # -- TOML config file
 # @default -- See `values.yaml` for example
@@ -92,7 +92,7 @@ p2pNodePort:
       # -- Container image to fetch nodeport information
       repository: lachlanevenson/k8s-kubectl
       # -- Container tag
-      tag: v1.21.3
+      tag: v1.25.4
       # -- Container pull policy
       pullPolicy: IfNotPresent
   portForwardContainer:
