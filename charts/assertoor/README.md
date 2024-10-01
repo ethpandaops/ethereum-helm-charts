@@ -57,7 +57,7 @@ assertoorTests:
 | assertoorApiEnabled | bool | `true` | Enable assertoor API |
 | assertoorFrontendEnabled | bool | `true` | Enable assertoor UI |
 | assertoorMaxConcurrentTests | int | `1` | Maximum number of concurrent tests |
-| assertoorTestRetentionTime | string | `"30d"` | Test retention time |
+| assertoorTestRetentionTime | string | `"720h"` | Test retention time |
 | assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
