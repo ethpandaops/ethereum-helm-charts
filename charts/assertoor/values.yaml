@@ -218,7 +218,7 @@ assertoorApiEnabled: true
 assertoorMaxConcurrentTests: 1
 
 # -- Test retention time
-assertoorTestRetentionTime: 30d
+assertoorTestRetentionTime: 720h
 
 # -- global assertoor variables
 # -- global variables are passed to all tests.
