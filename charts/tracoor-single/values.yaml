@@ -306,8 +306,9 @@ serviceMonitor:
 
 postgresql:
   # -- If enabled a postgres chart will be deployed as a dependency
-  name: "{{ .Release.Name }}-postgresql"
   enabled: true
+  fullnameOverride: "{{ .Release.Name }}-postgresql"
+  architecture: "standalone"
   image:
     registry: docker.io
     repository: bitnami/postgresql
@@ -322,6 +323,8 @@ postgresql:
   primary:
     extendedConfiguration: |
       max_connections = 1024
-  persistence:
-    enabled: true
-    size: 8Gi
+    primary:
+      persistence:
+        enabled: true
+        size: 8Gi
+      resources: {}
