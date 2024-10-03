@@ -8,7 +8,7 @@ data:
   config.yaml: |-
     {{- $config := deepCopy .Values.config -}}
     {{- if .Values.postgresql.enabled -}}
-    {{- $_ := set $config.server.persistence "dsn" (printf "postgres://%s:%s@%s:5432/%s?sslmode=disable" .Values.postgresql.auth.username .Values.postgresql.auth.password (tpl .Values.postgresql.fullnameOverride $) .Values.postgresql.auth.database) -}}
+    {{- $_ := set $config.server.persistence "dsn" (printf "postgres://%s:%s@%s:5432/%s?sslmode=disable" .Values.postgresql.auth.username .Values.postgresql.auth.password (include "tracoor-single.postgresql.fullname" $)  .Values.postgresql.auth.database) -}}
     {{- $_ := set $config.server.persistence "driver_name" "postgres" -}}
     {{- end -}}
     {{ toYaml $config | nindent 4 }}

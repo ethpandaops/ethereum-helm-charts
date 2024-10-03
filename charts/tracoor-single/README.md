@@ -91,14 +91,15 @@ Ethereum debug data capture and indexer
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |
 | postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.fullnameOverride | string | `"{{ .Release.Name }}-postgresql"` |  |
+| postgresql.fullnameOverride | string | `""` |  |
 | postgresql.image.registry | string | `"docker.io"` |  |
 | postgresql.image.repository | string | `"bitnami/postgresql"` |  |
 | postgresql.image.tag | string | `"16.4.0-debian-12-r2"` |  |
+| postgresql.nameOverride | string | `""` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
-| postgresql.primary.primary.persistence.enabled | bool | `true` |  |
-| postgresql.primary.primary.persistence.size | string | `"8Gi"` |  |
-| postgresql.primary.primary.resources | object | `{}` |  |
+| postgresql.primary.persistence.enabled | bool | `true` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
+| postgresql.primary.resources | object | `{}` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
