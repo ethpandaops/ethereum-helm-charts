@@ -8496,6 +8496,26 @@ entries:
     version: 0.0.1
   tracoor-single:
   - apiVersion: v2
+    created: "2024-10-03T12:37:03.209085748Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x.x
+    description: Ethereum debug data capture and indexer
+    digest: 38db880e54d2c094dd7b9fd07aaabf97627786878d987996e1b90db913b36e69
+    home: https://github.com/ethpandaops/tracoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: tracoor-single
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/tracoor-single-0.0.5/tracoor-single-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
     created: "2024-08-28T07:45:34.565758538Z"
     dependencies:
     - condition: postgresql.enabled
@@ -9378,4 +9398,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-02T02:00:07.863739387Z"
+generated: "2024-10-03T12:37:03.209680469Z"
