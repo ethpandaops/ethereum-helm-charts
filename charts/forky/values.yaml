@@ -34,9 +34,11 @@ config:
     store:
       type: memory
 
-    indexer:
-      dsn: ":memory:"
-      driver_name: sqlite
+    indexer: {}
+      # If postgresql.enabled = true, this block will be overwritten.
+      # Example sqlite:
+      # dsn: "file:/data/tracoor.db"
+      # driver_name: sqlite
 
     sources:
       - name: "example"
@@ -230,3 +232,28 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+postgresql:
+  # -- If enabled a postgres chart will be deployed as a dependency
+  enabled: false
+  nameOverride: ""
+  fullnameOverride: ""
+  architecture: "standalone"
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 16.4.0-debian-12-r2
+  pullPolicy: IfNotPresent
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+    database: tracoor
+    username: postgres
+    password: postgres
+  primary:
+    extendedConfiguration: |
+      max_connections = 1024
+    persistence:
+      enabled: true
+      size: 8Gi
+    resources: {}

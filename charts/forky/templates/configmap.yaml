@@ -6,4 +6,9 @@ metadata:
     {{- include "forky.labels" . | nindent 4 }}
 data:
   config.yaml: |-
-    {{ toYaml .Values.config | nindent 4 }}
+    {{- $config := deepCopy .Values.config -}}
+    {{- if .Values.postgresql.enabled -}}
+    {{- $_ := set $config.forky.indexer "dsn" (printf "postgres://%s:%s@%s:5432/%s?sslmode=disable" .Values.postgresql.auth.username .Values.postgresql.auth.password (include "forky.postgresql.fullname" $)  .Values.postgresql.auth.database) -}}
+    {{- $_ := set $config.forky.indexer "driver_name" "postgres" -}}
+    {{- end -}}
+    {{ toYaml $config | nindent 4 }}

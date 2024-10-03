@@ -1,11 +1,17 @@
 
 # forky
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A beacon chain fork choice viewer
 
 **Homepage:** <https://github.com/ethpandaops/forky>
+
+## Requirements
+
+| Repository | Name | Version |
+|------------|------|---------|
+| https://charts.bitnami.com/bitnami | postgresql | 15.x.x |
 
 ## Values
 
@@ -15,8 +21,7 @@ A beacon chain fork choice viewer
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | config.forky.ethereum.network | string | `nil` |  |
-| config.forky.indexer.driver_name | string | `"sqlite"` |  |
-| config.forky.indexer.dsn | string | `":memory:"` |  |
+| config.forky.indexer | object | `{}` |  |
 | config.forky.retention_period | string | `"30m"` |  |
 | config.forky.sources[0].config.address | string | `"http://localhost:5052"` |  |
 | config.forky.sources[0].config.labels[0] | string | `"example_label"` |  |
@@ -54,6 +59,23 @@ A beacon chain fork choice viewer
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
+| postgresql.architecture | string | `"standalone"` |  |
+| postgresql.auth.database | string | `"tracoor"` |  |
+| postgresql.auth.enablePostgresUser | bool | `true` |  |
+| postgresql.auth.password | string | `"postgres"` |  |
+| postgresql.auth.postgresPassword | string | `"postgres"` |  |
+| postgresql.auth.username | string | `"postgres"` |  |
+| postgresql.enabled | bool | `false` | If enabled a postgres chart will be deployed as a dependency |
+| postgresql.fullnameOverride | string | `""` |  |
+| postgresql.image.registry | string | `"docker.io"` |  |
+| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
+| postgresql.image.tag | string | `"16.4.0-debian-12-r2"` |  |
+| postgresql.nameOverride | string | `""` |  |
+| postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.primary.persistence.enabled | bool | `true` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
+| postgresql.primary.resources | object | `{}` |  |
+| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
