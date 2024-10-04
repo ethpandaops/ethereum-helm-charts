@@ -1,7 +1,7 @@
 
 # assertoor
 
-![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Testing tool that is capable of doing actions and checking conditions on ethereum pos networks.
 
@@ -56,10 +56,12 @@ assertoorTests:
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | assertoorApiEnabled | bool | `true` | Enable assertoor API |
 | assertoorFrontendEnabled | bool | `true` | Enable assertoor UI |
+| assertoorMaxConcurrentTests | int | `1` | Maximum number of concurrent tests |
+| assertoorTestRetentionTime | string | `"720h"` | Test retention time |
 | assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["--config=/data/assertoor-config.yaml"]` | Custom args for the assertoor container |
+| customArgs | list | `["--config=/config/assertoor-config.yaml"]` | Custom args for the assertoor container |
 | customCommand | list | `[]` | Command replacement for the assertoor container |
 | endpoints | list | `[{"consensusHeaders":{"X-Test":"test","Y-Test":"test2"},"consensusUrl":"http://beacon-node:5052","executionHeaders":{"X-Test":"test","Y-Test":"test2"},"executionUrl":"http://execution-node:8545","name":"default-endpoint"}]` | An array of endpoints to use for assertoor -- executionUrl & consensusUrl are the only required fields |
 | extraContainers | list | `[]` | Additional containers |
@@ -87,9 +89,17 @@ assertoorTests:
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
+| persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
+| persistence.annotations | object | `{}` | Annotations for volume claim template |
+| persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
+| persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
+| persistence.selector | object | `{}` | Selector for volume claim template |
+| persistence.size | string | `"5Gi"` | Requested size for volume claim template |
+| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
+| podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | priorityClassName | string | `nil` | Pod priority class |
 | resources | object | `{}` | Resource requests and limits |
 | securityContext | object | See `values.yaml` | The security context for pods |
@@ -100,5 +110,7 @@ assertoorTests:
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 | validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section |
 | validatorNamesRanges | string | `"0-1: test\n"` |  |
