@@ -34,10 +34,12 @@ config:
     store:
       type: memory
 
-    indexer: {}
-      # If postgresql.enabled = true, this block will be overwritten.
-      # Example sqlite:
-      # dsn: "file:/data/tracoor.db"
+    # If postgresql.enabled = true, this block will be overwritten.
+    indexer:
+      dsn: ":memory:"
+      driver_name: sqlite
+      # Example file sqlite:
+      # dsn: "file:/data/forky.db"
       # driver_name: sqlite
 
     sources:

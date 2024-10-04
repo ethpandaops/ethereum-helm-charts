@@ -21,7 +21,8 @@ A beacon chain fork choice viewer
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
 | config.forky.ethereum.network | string | `nil` |  |
-| config.forky.indexer | object | `{}` |  |
+| config.forky.indexer.driver_name | string | `"sqlite"` |  |
+| config.forky.indexer.dsn | string | `":memory:"` |  |
 | config.forky.retention_period | string | `"30m"` |  |
 | config.forky.sources[0].config.address | string | `"http://localhost:5052"` |  |
 | config.forky.sources[0].config.labels[0] | string | `"example_label"` |  |
