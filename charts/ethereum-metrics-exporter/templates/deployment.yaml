@@ -61,13 +61,13 @@ spec:
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 12 }}
         volumeMounts:
-          - name: config
-            mountPath: "/config.yaml"
-            subPath: config.yaml
-            readOnly: true
-          {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 12}}
-          {{- end }}
+        - name: config
+          mountPath: "/config.yaml"
+          subPath: config.yaml
+          readOnly: true
+        {{- if .Values.extraVolumeMounts }}
+          {{ toYaml .Values.extraVolumeMounts | nindent 8}}
+        {{- end }}
         ports:
           - name: http
             containerPort: {{ include "ethereum-metrics-exporter.httpPort" . }}
@@ -103,8 +103,8 @@ spec:
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
       {{- if .Values.extraVolumes }}
-        {{ toYaml .Values.extraVolumes | nindent 8}}
+        {{ toYaml .Values.extraVolumes | nindent 6}}
       {{- end }}
-        - name: config
-          configMap:
-            name: {{ include "ethereum-metrics-exporter.fullname" . }}
+      - name: config
+        configMap:
+          name: {{ include "ethereum-metrics-exporter.fullname" . }}
