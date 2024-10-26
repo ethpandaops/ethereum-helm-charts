@@ -14,7 +14,7 @@ image:
 
 # -- Custom args for the assertoor container
 customArgs:
-  - --config=/data/assertoor-config.yaml
+  - --config=/config/assertoor-config.yaml
 
 # -- Command replacement for the assertoor container
 customCommand: [] # Only change this if you need to change the default command
@@ -74,6 +74,9 @@ podLabels: {}
 # -- Pod annotations
 podAnnotations: {}
 
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
 # -- Pod priority class
 priorityClassName: null
 
@@ -104,6 +107,26 @@ containerSecurityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 5Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -130,6 +153,11 @@ topologySpreadConstraints: []
 podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
 
 # -- Additional init containers
 initContainers: []
@@ -186,6 +214,12 @@ assertoorFrontendEnabled: true
 # -- Enable assertoor API
 assertoorApiEnabled: true
 
+# -- Maximum number of concurrent tests
+assertoorMaxConcurrentTests: 1
+
+# -- Test retention time
+assertoorTestRetentionTime: 720h
+
 # -- global assertoor variables
 # -- global variables are passed to all tests.
 globalVariables:
@@ -209,6 +243,15 @@ config: |
       enabled: {{ .Values.assertoorFrontendEnabled }}
     api:
       enabled: {{ .Values.assertoorApiEnabled }}
+
+  database:
+    engine: "sqlite"
+    sqlite:
+      file: "/data/assertoor.sqlite"
+
+  coordinator:
+    maxConcurrentTests: {{ .Values.assertoorMaxConcurrentTests }}
+    testRetentionTime: {{ .Values.assertoorTestRetentionTime }}
 
   # Endpoints
   endpoints:
@@ -234,7 +277,7 @@ config: |
 
   # Validator names
   validatorNames:
-    inventoryYaml: "/data/ranges.yaml"
+    inventoryYaml: "/config/ranges.yaml"
     inventoryUrl: "{{ .Values.validatorNamesInventory }}"
 
   globalVars:

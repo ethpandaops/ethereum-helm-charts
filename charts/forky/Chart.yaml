@@ -3,9 +3,14 @@ name: forky
 description: A beacon chain fork choice viewer
 home: https://github.com/ethpandaops/forky
 type: application
-version: 0.1.2
+version: 0.2.0
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
   - name: savid
     email: andrew.davis@ethereum.org
+dependencies:
+  - name: postgresql
+    version: "15.x.x"
+    repository: "https://charts.bitnami.com/bitnami"
+    condition: postgresql.enabled
