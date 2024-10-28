@@ -1,0 +1,438 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- erpc container image repository
+  repository: ghcr.io/erpc/erpc
+  # -- erpc container image tag
+  tag: 0.0.26
+  # -- erpc container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+    # Log level helps in debugging or error detection:
+    # - debug: information down to actual request and responses, and decisions about rate-liming etc.
+    # - info: usually prints happy paths and might print 1 log per request indicating of success or failure.
+    # - warn: these problems do not cause end-user problems, but might indicate degredataion or an issue such as cache databse being down.
+    # - error: these are problems that have end-user impact, such as misconfigurations.
+    logLevel: warn
+    
+    # There are various use-cases of database in erpc, such as caching, dynamic configs, rate limit persistence, etc.
+    database:
+      # `evmJsonRpcCache` defines the destination for caching JSON-RPC cals towards any EVM architecture upstream.
+      # This database is non-blocking on critical path, and is used as best-effort.
+      # Make sure the storage requirements meet your usage, for example caching 70m blocks + 10m txs + 10m traces on Arbitrum needs 200GB of storage.
+      evmJsonRpcCache:
+        # Refer to "Database" section for more details.
+        # Note that table, schema and indexes will be created automatically if they don't exist.
+        driver: postgresql
+        postgresql:
+          connectionUri: >-
+            postgres://YOUR_USERNAME_HERE:YOUR_PASSWORD_HERE@your.postgres.hostname.here.com:5432/your_database_name
+          table: rpc_cache
+    
+    # The main server for eRPC to listen for requests.
+    server:
+      listenV4: true
+      httpHostV4: "0.0.0.0"
+      listenV6: false
+      httpHostV6: "[::]"
+      httpPort: 4000
+      maxTimeout: 30s
+    
+    # Optional Prometheus metrics server.
+    metrics:
+      enabled: true
+      listenV4: true
+      hostV4: "0.0.0.0"
+      listenV6: false
+      hostV6: "[::]"
+      port: 4001
+    
+    # Each project is a collection of networks and upstreams.
+    # For example "backend", "indexer", "frontend", and you want to use only 1 project you can name it "main"
+    # The main purpose of multiple projects is different failsafe policies (more aggressive and costly, or less costly and more error-prone)
+    projects:
+      - id: main
+    
+        # Optionally you can define a self-imposed rate limite budget for each project
+        # This is useful if you want to limit the number of requests per second or daily allowance.
+        rateLimitBudget: frontend-budget
+    
+        # This array configures network-specific (a.k.a chain-specific) features.
+        # For each network "architecture" and corresponding network id (e.g. evm.chainId) is required.
+        # Remember defining networks is OPTIONAL, so only provide these only if you want to override defaults.
+        networks:
+          - architecture: evm
+            evm:
+              chainId: 1
+            # Refer to "Failsafe" section for more details.
+            # On network-level "timeout" is applied for the whole lifecycle of the request (including however many retries)
+            failsafe:
+              timeout:
+                duration: 30s
+              retry:
+                maxCount: 3
+                delay: 500ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 500ms
+              # Defining a "hedge" is highly-recommended on network-level because if upstream A is being slow for
+              # a specific request, it can start a new parallel hedged request to upstream B, for whichever responds faster.
+              hedge:
+                delay: 3000ms
+                maxCount: 2
+              circuitBreaker:
+                failureThresholdCount: 30
+                failureThresholdCapacity: 100
+                halfOpenAfter: 60s
+                successThresholdCount: 8
+                successThresholdCapacity: 10
+          - architecture: evm
+            evm:
+              chainId: 42161
+            failsafe:
+              timeout:
+                duration: 30s
+              retry:
+                maxCount: 5
+                delay: 500ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 200ms
+              hedge:
+                delay: 1000ms
+                maxCount: 2
+    
+        # Each upstream supports 1 or more networks (chains)
+        upstreams:
+          - id: blastapi-chain-42161
+            type: evm
+            endpoint: https://arbitrum-one.blastapi.io/xxxxxxx-xxxxxx-xxxxxxx
+            # Defines which budget to use when hadnling requests of this upstream.
+            rateLimitBudget: global-blast
+            # chainId is optional and will be detected from the endpoint (eth_chainId) but it is recommended to set it explicitly, for faster initialization.
+            evm:
+              chainId: 42161
+            # Which methods must never be sent to this upstream:
+            ignoreMethods:
+              - "alchemy_*"
+              - "eth_traceTransaction"
+            # Refer to "Failsafe" section for more details:
+            failsafe:
+              timeout:
+                duration: 15s
+              retry:
+                maxCount: 2
+                delay: 1000ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 500ms
+          - id: blastapi-chain-1
+            type: evm
+            endpoint: https://eth-mainnet.blastapi.io/xxxxxxx-xxxxxx-xxxxxxx
+            rateLimitBudget: global-blast
+            evm:
+              chainId: 1
+            failsafe:
+              timeout:
+                duration: 15s
+              retry:
+                maxCount: 2
+                delay: 1000ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 500ms
+          - id: quiknode-chain-42161
+            type: evm
+            endpoint: https://xxxxxx-xxxxxx.arbitrum-mainnet.quiknode.pro/xxxxxxxxxxxxxxxxxxxxxxxx/
+            rateLimitBudget: global-quicknode
+            # You can disable auto-ignoring unsupported methods, and instead define them explicitly.
+            # This is useful if provider (e.g. dRPC) is not consistent with "unsupported method" responses.
+            autoIgnoreUnsupportedMethods: false
+            # To allow auto-batching requests towards the upstream, use these settings.
+            # Remember if "supportsBatch" is false, you still can send batch requests to eRPC
+            # but they will be sent to upstream as individual requests.
+            jsonRpc:
+              supportsBatch: true
+              batchMaxSize: 10
+              batchMaxWait: 100ms
+            evm:
+              chainId: 42161
+            failsafe:
+              timeout:
+                duration: 15s
+              retry:
+                maxCount: 2
+                delay: 1000ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 500ms
+    
+            # "id" is a unique identifier to distinguish in logs and metrics.
+          - id: alchemy-multi-chain-example
+            # For certain known providers (such as Alchemy) you use a custom protocol name
+            # which allows a single upstream to import "all chains" supported by that provider.
+            # Note that these chains are hard-coded in the repo, so if they support a new chain eRPC must be updated.
+            endpoint: alchemy://XXXX_YOUR_ALCHEMY_API_KEY_HERE_XXXX
+            rateLimitBudget: global
+            failsafe:
+              timeout:
+                duration: 15s
+              retry:
+                maxCount: 2
+                delay: 1000ms
+                backoffMaxDelay: 10s
+                backoffFactor: 0.3
+                jitter: 500ms
+    
+    # Rate limiter allows you to create "shared" budgets for upstreams.
+    # For example upstream A and B can use the same budget, which means both of them together must not exceed the defined limits.
+    rateLimiters:
+      budgets:
+        - id: default-budget
+          rules:
+            - method: "*"
+              maxCount: 10000
+              period: 1s
+        - id: global-blast
+          rules:
+            - method: "*"
+              maxCount: 1000
+              period: 1s
+        - id: global-quicknode
+          rules:
+            - method: "*"
+              maxCount: 300
+              period: 1s
+        - id: frontend-budget
+          rules:
+            - method: "*"
+              maxCount: 500
+              period: 1s
+
+# - HTTP port for erpc interface
+httpPort: 4000
+
+# -- Extra args for the erpc container
+extraArgs: []
+
+# -- Command replacement for the erpc container
+customCommand: []
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 1Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
+
+postgresql:
+  # -- If enabled a postgres chart will be deployed as a dependency
+  name: "{{ .Release.Name }}-postgresql"
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/postgresql
+    tag: 15.3.0-debian-11-r7
+  pullPolicy: IfNotPresent
+  auth:
+    enablePostgresUser: true
+    postgresPassword: postgres
+    database: erpc
+    username: postgres
+    password: postgres
+  primary:
+    extendedConfiguration: |
+      max_connections = 1024
+  persistence:
+    enabled: true
+    size: 8Gi
