@@ -24,13 +24,6 @@ config: |
       evmJsonRpcCache:
         driver: memory
 
-        ### example postgres configs ###
-        # driver: postgresql
-        # postgresql:
-        #   connectionUri: >-
-        #     postgres://YOUR_USERNAME_HERE:YOUR_PASSWORD_HERE@{{ .Release.Name }}-postgresql:5432/rpc_cache
-        #   table: rpc_cache
-
     server:
       httpHostV4: "0.0.0.0"
       listenV6: true
@@ -246,21 +239,3 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
-
-postgresql:
-  # -- If enabled a postgres chart will be deployed as a dependency
-  name: "{{ .Release.Name }}-postgresql"
-  enabled: false
-  pullPolicy: IfNotPresent
-  auth:
-    enablePostgresUser: true
-    postgresPassword: postgres
-    database: rpc_cache
-    username: postgres
-    password: postgres
-  primary:
-    extendedConfiguration: |
-      max_connections = 1024
-  persistence:
-    enabled: true
-    size: 8Gi

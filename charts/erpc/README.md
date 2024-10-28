@@ -7,12 +7,6 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 
 **Homepage:** <https://github.com/erpc/erpc>
 
-## Requirements
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 16.0.6 |
-
 ## Values
 
 | Key | Type | Default | Description |
@@ -55,17 +49,6 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql.auth.database | string | `"rpc_cache"` |  |
-| postgresql.auth.enablePostgresUser | bool | `true` |  |
-| postgresql.auth.password | string | `"postgres"` |  |
-| postgresql.auth.postgresPassword | string | `"postgres"` |  |
-| postgresql.auth.username | string | `"postgres"` |  |
-| postgresql.enabled | bool | `false` |  |
-| postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
-| postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
-| postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
