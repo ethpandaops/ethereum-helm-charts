@@ -11,6 +11,9 @@ maintainers:
     email: pk910@pk910.de
 dependencies:
   - name: postgresql
-    version: "13.4.x"
+    # unclear if version 13.4 (3 years old) is a strict requirement
+    # https://github.com/erpc/erpc/blob/main/docker-compose.yml#L30
+    # since bitnami does not package a chart compatible with that version, default to 16.0.6 with postgres 17.0.0
+    version: "16.0.6"
     repository: "https://charts.bitnami.com/bitnami"
     condition: postgresql.enabled

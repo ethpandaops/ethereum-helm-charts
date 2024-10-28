@@ -11,7 +11,7 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 13.4.x |
+| https://charts.bitnami.com/bitnami | postgresql | 16.0.6 |
 
 ## Values
 
@@ -41,6 +41,7 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| metricsPort | int | `4001` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
@@ -54,15 +55,12 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
-| postgresql.auth.database | string | `"erpc"` |  |
+| postgresql.auth.database | string | `"rpc_cache"` |  |
 | postgresql.auth.enablePostgresUser | bool | `true` |  |
 | postgresql.auth.password | string | `"postgres"` |  |
 | postgresql.auth.postgresPassword | string | `"postgres"` |  |
 | postgresql.auth.username | string | `"postgres"` |  |
-| postgresql.enabled | bool | `true` |  |
-| postgresql.image.registry | string | `"docker.io"` |  |
-| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
-| postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
+| postgresql.enabled | bool | `false` |  |
 | postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
 | postgresql.persistence.enabled | bool | `true` |  |
 | postgresql.persistence.size | string | `"8Gi"` |  |

@@ -58,12 +58,8 @@ spec:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: config
-              mountPath: "/data/config.yaml"
-              subPath: config.yaml
-              readOnly: true
-            - name: ranges
-              mountPath: "/data/ranges.yaml"
-              subPath: ranges.yaml
+              mountPath: /root/erpc.yaml"
+              subPath: erpc.yaml
               readOnly: true
             {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
@@ -71,6 +67,9 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.httpPort }}
+              protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.metricsPort }}
               protocol: TCP
             {{- if .Values.extraPodPorts }}
             {{ toYaml .Values.extraPodPorts | nindent 12 }}

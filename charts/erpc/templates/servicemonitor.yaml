@@ -22,9 +22,9 @@ spec:
     scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
     {{- end }}
     honorLabels: true
-    port: http
-    path: {{ .Values.serviceMonitor.path }}
-    scheme: {{ .Values.serviceMonitor.scheme }}
+    port: metrics
+    path: {{ . Values.serviceMonitor.path }}
+    scheme: {{.Values.serviceMonitor.scheme }}
     {{- if .Values.serviceMonitor.tlsConfig }}
     tlsConfig:
     {{- toYaml .Values.serviceMonitor.tlsConfig | nindent 6 }}
