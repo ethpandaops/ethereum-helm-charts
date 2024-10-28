@@ -5683,6 +5683,24 @@ entries:
     version: 0.0.1
   lighthouse:
   - apiVersion: v2
+    created: "2024-10-28T12:59:47.368412747Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 80233c271af8e10ed28f1466a3db7d04f112641cff378e00da2f7be05c778409
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.1.4/lighthouse-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     created: "2024-03-21T18:56:24.747681494Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: ed4fecf319f94f7b9b542d29e7c1a8590f63989098a729e6694b8421ce62f971
@@ -6387,6 +6405,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
+  - apiVersion: v2
+    created: "2024-10-28T12:59:47.481210124Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 502622af6f3c897a6071e664d91e9e015cada12dcd570e01b0bb58c4f03c0bb6
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-1.0.13/nethermind-1.0.13.tgz
+    version: 1.0.13
   - apiVersion: v2
     created: "2024-03-21T18:56:25.024092352Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
@@ -9528,4 +9565,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-10T03:14:57.65517082Z"
+generated: "2024-10-28T12:59:47.481928475Z"
