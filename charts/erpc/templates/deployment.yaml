@@ -46,9 +46,7 @@ spec:
           {{- if gt (len .Values.customCommand) 0 }}
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
-              - ./erpc-explorer
-              - -config
-              - /data/config.yaml
+              - ./erpc-server
           {{- end }}
           {{- if gt (len .Values.extraArgs) 0 }}
           args:
@@ -103,6 +101,3 @@ spec:
         - name: config
           configMap:
             name: {{ include "erpc.fullname" . }}-config
-        - name: ranges
-          configMap: 
-            name: {{ include "erpc.fullname" . }}-ranges
