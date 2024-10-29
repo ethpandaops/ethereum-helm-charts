@@ -125,11 +125,11 @@ resources: {}
 
 # -- The security context for pods
 # @default -- See `values.yaml`
-securityContext:
-  fsGroup: 10001
-  runAsGroup: 10001
-  runAsNonRoot: true
-  runAsUser: 10001
+securityContext: {}
+#  fsGroup: 10001
+#  runAsGroup: 10001
+#  runAsNonRoot: true
+#  runAsUser: 10001
 
 # -- The security context for containers
 # @default -- See `values.yaml`
