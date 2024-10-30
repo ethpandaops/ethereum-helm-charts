@@ -75,23 +75,10 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
 
-# Example
+# Getting Started
 
-Usage: dora-explorer -config config.yaml
+Update the `config` field to configure the various upstreams that you want to proxy with eRPC.
 
-Helper:
-```shell
-Usage of ./dora-explorer:
--config string
-    Path to the config file, if empty string defaults will be used
-```
+The `secretEnv` field can be used to securely add API keys to your configuration.
 
-In order to name validators based on ranges the following file format can be provided YAML:
-```yaml
-0-500: validator_set_A
-500-1000: validator_set_B
-1000-1500: validator_set_C
-...
-```
-
-More details can be found [here](https://github.com/pk910/dora).
+For more information, check out the [eRPC repository](https://github.com/erpc/erpc).
