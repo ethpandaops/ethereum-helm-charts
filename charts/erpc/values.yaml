@@ -39,7 +39,12 @@ config: |
     projects:
       - id: main
         upstreams:
-          - endpoint: alchemy://XXXXXXXXXXX
+          - endpoint: alchemy://${ALCHEMY_API_KEY}
+
+# -- Secret env variables injected via a created secret
+# These env variables can be used to populate the erpc config file with sensitive data such as RPC API keys
+secretEnv:
+  ALCHEMY_API_KEY: XXXXXXXXXX
 
 # - HTTP port for erpc
 httpPort: 4000
@@ -192,9 +197,6 @@ extraPorts: []
 
 # -- Additional env variables
 extraEnv: []
-
-# -- Additional env variables injected via a created secret
-secretEnv: {}
 
 persistence:
   # -- Uses an EmptyDir when not enabled

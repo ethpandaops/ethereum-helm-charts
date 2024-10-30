@@ -55,6 +55,9 @@ spec:
           {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+          envFrom:
+          - secretRef:
+              name: {{ include "erpc.fullname" . }}-envs
           volumeMounts:
             - name: config
               mountPath: /erpc.yaml
