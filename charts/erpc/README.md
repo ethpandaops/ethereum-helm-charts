@@ -53,7 +53,7 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Additional env variables injected via a created secret |
+| secretEnv | object | `{"ALCHEMY_API_KEY":"XXXXXXXXXX"}` | Secret env variables injected via a created secret These env variables can be used to populate the erpc config file with sensitive data such as RPC API keys |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
