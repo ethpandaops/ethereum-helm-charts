@@ -47,6 +47,7 @@ spec:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- else }}
               - ./erpc-server
+              - /erpc.yaml
           {{- end }}
           {{- if gt (len .Values.extraArgs) 0 }}
           args:
@@ -56,7 +57,7 @@ spec:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: config
-              mountPath: /root/erpc.yaml
+              mountPath: /erpc.yaml
               subPath: erpc.yaml
               readOnly: true
             {{- if .Values.extraVolumeMounts }}
