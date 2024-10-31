@@ -75,6 +75,7 @@ Tooling
 - [`dugtrio`](charts/dugtrio) - Fault tolerant load balancer for beacon chain RPC apis.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
 - [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
+- [`erpc`](charts/erpc) - EVM RPC proxy.
 - [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
 - [`eth2-fork-mon`](charts/eth2-fork-mon) - Fork monitor for a configurable set of beacon nodes.
 - [`ethereum-address-metrics-exporter`](charts/ethereum-address-metrics-exporter) - A prometheus exporter for Ethereum externally owned account and contract addresses.
