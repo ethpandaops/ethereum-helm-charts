@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "erpc.fullname" . }}-test-connection"
+  labels:
+    {{- include "erpc.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "erpc.fullname" . }}:{{ .Values.httpPort }}/healthcheck']
+  restartPolicy: Never

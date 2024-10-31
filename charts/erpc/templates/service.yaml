@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "erpc.fullname" . }}
+  labels:
+    {{- include "erpc.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "erpc.selectorLabels" . | nindent 4 }}
