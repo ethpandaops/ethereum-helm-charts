@@ -20,12 +20,12 @@ dependencies:
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.10"
+  version: "1.0.11"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
 - name: ethereumjs
-  version: "0.0.8"
+  version: "0.0.9"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled

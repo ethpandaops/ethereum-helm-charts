@@ -6,7 +6,7 @@ icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.
 sources:
   - https://github.com/ledgerwatch/erigon
 type: application
-version: 1.0.10
+version: 1.0.11
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

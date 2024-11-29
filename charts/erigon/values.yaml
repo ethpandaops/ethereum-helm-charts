@@ -9,9 +9,9 @@ replicas: 1
 
 image:
   # -- erigon container image repository
-  repository: thorax/erigon
+  repository: erigontech/erigon
   # -- erigon container image tag
-  tag: devel
+  tag: latest
   # -- erigon container pull policy
   pullPolicy: IfNotPresent
 
