@@ -1,7 +1,7 @@
 
 # ethereumjs
 
-![Version: 0.0.8](https://img.shields.io/badge/Version-0.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.9](https://img.shields.io/badge/Version-0.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract language Ethereum dApp developers are most familiar with. It is targeted to be a client for research and development and not meant to be used in production on mainnet for the foreseeable future (out of resource and security considerations).
 
@@ -20,7 +20,7 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | authPort | int | `8551` | Engine Port (Auth Port) |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
-| defaultBinaryPath | string | `"node /usr/app/node_modules/.bin/ethereumjs"` | Path within the container to the beacon node binary |
+| defaultBinaryPath | string | `"node /usr/app/packages/client/dist/esm/bin/cli.js"` | Path within the container to the beacon node binary |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
 | extraArgs | list | `[]` | Extra args for the ethereumjs container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
