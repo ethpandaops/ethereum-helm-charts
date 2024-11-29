@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.0.26
+version: 0.0.27
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -20,12 +20,12 @@ dependencies:
   repository: "file://../besu"
   condition: besu.enabled
 - name: erigon
-  version: "1.0.10"
+  version: "1.0.11"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../erigon"
   condition: erigon.enabled
 - name: ethereumjs
-  version: "0.0.8"
+  version: "0.0.9"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../ethereumjs"
   condition: ethereumjs.enabled
@@ -35,7 +35,7 @@ dependencies:
   repository: "file://../geth"
   condition: geth.enabled
 - name: nethermind
-  version: "1.0.12"
+  version: "1.0.13"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../nethermind"
   condition: nethermind.enabled
@@ -51,7 +51,7 @@ dependencies:
   repository: "file://../grandine"
   condition: grandine.enabled
 - name: lighthouse
-  version: "1.1.3"
+  version: "1.1.4"
   #repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   repository: "file://../lighthouse"
   condition: lighthouse.enabled

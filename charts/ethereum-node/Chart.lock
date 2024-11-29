@@ -4,16 +4,16 @@ dependencies:
   version: 1.0.7
 - name: erigon
   repository: file://../erigon
-  version: 1.0.10
+  version: 1.0.11
 - name: ethereumjs
   repository: file://../ethereumjs
-  version: 0.0.8
+  version: 0.0.9
 - name: geth
   repository: file://../geth
   version: 1.0.8
 - name: nethermind
   repository: file://../nethermind
-  version: 1.0.12
+  version: 1.0.13
 - name: reth
   repository: file://../reth
   version: 0.0.14
@@ -22,7 +22,7 @@ dependencies:
   version: 0.1.2
 - name: lighthouse
   repository: file://../lighthouse
-  version: 1.1.3
+  version: 1.1.4
 - name: lodestar
   repository: file://../lodestar
   version: 1.1.3
@@ -44,5 +44,5 @@ dependencies:
 - name: tracoor-agent
   repository: file://../tracoor-agent
   version: 0.0.1
-digest: sha256:73378194a52810152edf2c4fc108ecf43c4375907f942f19b9eb7877188711d9
-generated: "2024-10-10T12:53:23.85313+10:00"
+digest: sha256:3086525e579dab1ac0a581b85f55be8af22912f3181951ab9cd259a7c32ce7b0
+generated: "2024-11-29T13:28:33.718182+01:00"

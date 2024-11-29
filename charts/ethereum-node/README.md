@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.0.26](https://img.shields.io/badge/Version-0.0.26-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.27](https://img.shields.io/badge/Version-0.0.27-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -15,14 +15,14 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../besu | besu | 1.0.7 |
-| file://../erigon | erigon | 1.0.10 |
+| file://../erigon | erigon | 1.0.11 |
 | file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.2.0 |
-| file://../ethereumjs | ethereumjs | 0.0.8 |
+| file://../ethereumjs | ethereumjs | 0.0.9 |
 | file://../geth | geth | 1.0.8 |
 | file://../grandine | grandine | 0.1.2 |
-| file://../lighthouse | lighthouse | 1.1.3 |
+| file://../lighthouse | lighthouse | 1.1.4 |
 | file://../lodestar | lodestar | 1.1.3 |
-| file://../nethermind | nethermind | 1.0.12 |
+| file://../nethermind | nethermind | 1.0.13 |
 | file://../nimbus | nimbus | 1.1.3 |
 | file://../prysm | prysm | 1.1.4 |
 | file://../reth | reth | 0.0.14 |

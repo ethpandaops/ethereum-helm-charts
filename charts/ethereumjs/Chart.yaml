@@ -7,7 +7,7 @@ icon: https://user-images.githubusercontent.com/47108/78779352-d0839500-796a-11e
 sources:
   - https://github.com/ethereumjs/ethereumjs-monorepo
 type: application
-version: 0.0.8
+version: 0.0.9
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
