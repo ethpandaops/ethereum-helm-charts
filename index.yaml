@@ -2295,6 +2295,23 @@ entries:
     version: 0.1.0
   erpc:
   - apiVersion: v2
+    created: "2024-12-09T10:40:11.286709488Z"
+    description: eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent
+      caching solution. It is built with read-heavy use-cases in mind such as data
+      indexing and high-load frontend usage.
+    digest: 27526c6f0b003bedf73a676bb4c52c6fef0fcd05de136cd0abf239e7e3696d3e
+    home: https://github.com/erpc/erpc
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: erpc
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erpc-0.0.2/erpc-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2024-10-31T13:18:42.363166988Z"
     description: eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent
       caching solution. It is built with read-heavy use-cases in mind such as data
@@ -9704,4 +9721,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-11-29T13:11:18.315802798Z"
+generated: "2024-12-09T10:40:11.287695465Z"
