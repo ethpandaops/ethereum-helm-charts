@@ -61,6 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "erpc.httpPort" -}}
+{{- define "erpc.http-port" -}}
 {{- print .Values.httpPort }}
 {{- end }}
