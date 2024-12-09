@@ -61,6 +61,9 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-{{- define "erpc.http-port" -}}
-{{- print .Values.httpPort }}
+{{/*
+Get the HTTP port from values or default to 4000
+*/}}
+{{- define "erpc.http" -}}
+{{- default 4000 .Values.httpPort }}
 {{- end }}

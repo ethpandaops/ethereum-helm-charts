@@ -93,7 +93,7 @@ annotations: {}
 livenessProbe:
   httpGet:
     path: /healthcheck
-    port: http-port
+    port: http
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -102,7 +102,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /healthcheck
-    port: http-port
+    port: http
   initialDelaySeconds: 10
   periodSeconds: 10
 
