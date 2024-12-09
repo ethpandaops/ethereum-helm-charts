@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Get the HTTP port from values or default to 4000
+*/}}
+{{- define "erpc.http" -}}
+{{- default 4000 .Values.httpPort }}
+{{- end }}
