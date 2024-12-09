@@ -28,13 +28,13 @@ config: |
       httpHostV4: "0.0.0.0"
       listenV6: true
       httpHostV6: "[::]"
-      httpPort: 4000
+      httpPort: {{ .Values.httpPort }}
 
     metrics:
       enabled: true
       hostV4: "0.0.0.0"
       hostV6: "[::]"
-      port: 4001
+      port: {{ .Values.metricsPort }}
 
     projects:
       - id: main
@@ -91,16 +91,18 @@ annotations: {}
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  tcpSocket:
-    port: http
+  httpGet:
+    path: /healthcheck
+    port: httpPort
   initialDelaySeconds: 60
   periodSeconds: 120
 
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
-  tcpSocket:
-    port: http
+  httpGet:
+    path: /healthcheck
+    port: httpPort
   initialDelaySeconds: 10
   periodSeconds: 10
 
