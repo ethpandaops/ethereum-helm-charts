@@ -107,9 +107,9 @@ priorityClassName: null
 # -- Pod management policy
 podManagementPolicy: OrderedReady
 
-# -- Update stategy for the Statefulset
+# -- Update strategy for the Statefulset
 updateStrategy:
-  # -- Update stategy type
+  # -- Update strategy type
   type: RollingUpdate
 
 # -- Resource requests and limits
