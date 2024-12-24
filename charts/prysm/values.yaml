@@ -251,7 +251,7 @@ rbac:
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   rules:
-    # Required to get information about the serices nodePort.
+    # Required to get information about the services nodePort.
     - apiGroups: [""]
       resources:
       - "services"
