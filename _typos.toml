@@ -1,0 +1,5 @@
+[default]
+extend-ignore-re = [
+    # Ignore Ethereum Node Records (ENR)
+    "enr:-.*"
+]
