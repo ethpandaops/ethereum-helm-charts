@@ -154,9 +154,9 @@ podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
 
-# -- Update stategy for the Statefulset
+# -- Update strategy for the Statefulset
 updateStrategy:
-  # -- Update stategy type
+  # -- Update strategy type
   type: RollingUpdate
 
 # -- Additional init containers
@@ -226,7 +226,7 @@ globalVariables:
   walletPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
 
 # -- assertoor test configurations
-# -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed.
+# -- file is the only required field. All other fields default to the values provided in the test file, but can be overridden if needed.
 assertoorTests: []
 
 # -- Config file

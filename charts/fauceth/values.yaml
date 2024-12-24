@@ -14,7 +14,7 @@ image:
 
 # -- Custom args for the fauceth container
 customArgs: []
-  #- -config-file=/somehwere-else.yaml
+  #- -config-file=/somewhere-else.yaml
   #- -output-dir=public
 
 # -- Command replacement for the fauceth container
@@ -146,9 +146,9 @@ podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
 
-# -- Update stategy for the Statefulset
+# -- Update strategy for the Statefulset
 updateStrategy:
-  # -- Update stategy type
+  # -- Update strategy type
   type: RollingUpdate
 
 # -- Additional init containers

@@ -58,7 +58,7 @@ assertoorTests:
 | assertoorFrontendEnabled | bool | `true` | Enable assertoor UI |
 | assertoorMaxConcurrentTests | int | `1` | Maximum number of concurrent tests |
 | assertoorTestRetentionTime | string | `"720h"` | Test retention time |
-| assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overriden if needed. |
+| assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overridden if needed. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["--config=/config/assertoor-config.yaml"]` | Custom args for the assertoor container |
@@ -110,7 +110,7 @@ assertoorTests:
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 | validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section |
 | validatorNamesRanges | string | `"0-1: test\n"` |  |
