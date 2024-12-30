@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geth-genesis
+data:
+  genesis.json: |
+{{ .Files.Get "files/init-dbs.sql" | indent 4 }}
