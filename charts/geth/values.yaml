@@ -16,8 +16,12 @@ image:
   pullPolicy: IfNotPresent
 
 # -- Extra args for the geth container
-extraArgs: []
-  #- --holesky
+extraArgs:
+  - --networkid=999999
+  - --verbosity=4
+  - --ipcpath=/tmp/geth.ipc
+  - --maxpeers=10
+
 
 # -- TOML config file
 # @default -- See `values.yaml` for example
@@ -25,8 +29,21 @@ config: |
   [Node.P2P]
   DialRatio = 3
 
+  [P2P]
+  StaticNodes = [
+    "enode:"enode://b4b4596373fb880c342295d71d5ca566a183577bc3d258faf29379830f7e6e93fd32c01560190cb6744173efc002f5c375d5430147d9d973589d20a9f113dad2@10.244.4.77:30303?discport=0",
+    "enode:","enode://1c5bb09c945c386cf8f61f298ff2805c82861dd5b711a79cc769382aaff05adee4c2cd3a781f47c59a86c7341a49e3025dbbc7192a548286fb23189c9fb015fb@10.244.4.78:30303?discport=0"
+  ]
+
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
+PVCConfigs:
+  genesis:
+    enabled: false
+    pvcName: genesis-data-pvc
+    storageClassName: azurefile
+
 
 # -- Template used for the default command
 # @default -- See `values.yaml`
@@ -38,7 +55,7 @@ defaultCommandTemplate: |
     . /env/init-nodeport;
   {{- end }}
     exec geth
-    --datadir=/data
+    --datadir=/data/network/$HOSTNAME
     --config=/config/geth.toml
   {{- if .Values.p2pNodePort.enabled }}
     {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
@@ -71,6 +88,7 @@ defaultCommandTemplate: |
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
+    --bootnodes="enode://8135b2f290485445a95557538c35dfd0121b8f8fbbb43f5782aca49b8dbfa297c7c48ec610a0fe3a5424a5acc458c116aba0c30f800f8cee662fae06140a14da@10.244.4.169:0?discport=30303"
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -109,8 +127,8 @@ ingress:
   enabled: false
   # -- Annotations for Ingress
   annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
   # -- Ingress host
   hosts:
     - host: chart-example.local
@@ -149,11 +167,13 @@ readinessProbe:
 # -- P2P Port
 p2pPort: 30303
 
+p2pUdpPort: 30303
+
 # -- HTTP Port
 httpPort: 8545
 
 # -- WS Port
-wsPort: 8545
+wsPort: 8546
 
 # -- Engine Port (Auth Port)
 authPort: 8551
@@ -166,18 +186,18 @@ nodeSelector: {}
 
 persistence:
   # -- Uses an EmptyDir when not enabled
-  enabled: false
+  enabled: true
   # -- Use an existing PVC when persistence.enabled
-  existingClaim: null
+  existingClaim: genesis-data-pvc
   # -- Access mode for the volume claim template
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteMany
   # -- Requested size for volume claim template
   size: 20Gi
   # -- Use a specific storage class
   # E.g 'local-path' for local storage to achieve best performance
   # Read more (https://github.com/rancher/local-path-provisioner)
-  storageClassName: null
+  storageClassName: azurefile
   # -- Annotations for volume claim template
   annotations: {}
   # -- Selector for volume claim template
@@ -203,25 +223,25 @@ rbac:
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   clusterRules:
-     # Required to obtain the nodes external IP
+    # Required to obtain the nodes external IP
     - apiGroups: [""]
       resources:
-      - "nodes"
+        - "nodes"
       verbs:
-      - "get"
-      - "list"
-      - "watch"
+        - "get"
+        - "list"
+        - "watch"
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   rules:
     # Required to get information about the serices nodePort.
     - apiGroups: [""]
       resources:
-      - "services"
+        - "services"
       verbs:
-      - "get"
-      - "list"
-      - "watch"
+        - "get"
+        - "list"
+        - "watch"
 
 # -- Resource requests and limits
 resources: {}
@@ -247,8 +267,8 @@ containerSecurityContext: {}
   #   drop:
   #   - ALL
   # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# runAsNonRoot: true
+# runAsUser: 1000
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -314,9 +334,8 @@ initChownData:
   enabled: true
   image:
     # -- Container repository
-    repository: busybox
-    # -- Container tag
-    tag: "1.34.0"
+    repository: "mqubeosscluster.azurecr.io/mqube-geth"
+    tag: 0.0.6
     # -- Container pull policy
     pullPolicy: IfNotPresent
   # -- Resource requests and limits
@@ -327,6 +346,13 @@ initChownData:
   #  requests:
   #    cpu: 100m
   #    memory: 128Mi
+  command:
+    - sh
+    - -c
+    - |
+      cp /config/init-script.sh /tmp/init-script.sh
+      chmod +x /tmp/init-script.sh
+      /tmp/init-script.sh
 
 serviceMonitor:
   # -- If true, a ServiceMonitor CRD is created for a prometheus operator

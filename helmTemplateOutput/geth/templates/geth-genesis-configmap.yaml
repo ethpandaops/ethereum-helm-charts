@@ -1,0 +1,55 @@
+---
+# Source: geth/templates/geth-genesis-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: geth-genesis
+data:
+  genesis.json: |
+    {
+        "config": {
+            "chainId": 32382,
+            "homesteadBlock": 0,
+            "daoForkSupport": true,
+            "eip150Block": 0,
+            "eip155Block": 0,
+            "eip158Block": 0,
+            "byzantiumBlock": 0,
+            "constantinopleBlock": 0,
+            "petersburgBlock": 0,
+            "istanbulBlock": 0,
+            "muirGlacierBlock": 0,
+            "berlinBlock": 0,
+            "londonBlock": 0,
+            "arrowGlacierBlock": 0,
+            "grayGlacierBlock": 0,
+            "shanghaiTime": 1695897038,
+            "cancunTime": 1695897038,
+            "terminalTotalDifficulty": 0,
+            "terminalTotalDifficultyPassed": true
+        },
+        "nonce": "0x0",
+        "timestamp": "0x651555ce",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000123463a4b065722e99115d6c222f267d9cabb5240000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0x1c9c380",
+        "difficulty": "0x1",
+        "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "alloc": {
+            "0xa4Ea2002Ced0207D2Ac60C55EFEe7Be3b6b23d5B": {
+                "balance": "99999999999"
+            },
+            "0xAC39540199340CD8254bFe53981606Ca011ABe5F": {
+                "balance": "99999999999"
+            }
+        },
+        "number": "0x0",
+        "gasUsed": "0x0",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "baseFeePerGas": null,
+        "excessBlobGas": null,
+        "blobGasUsed": null
+    }
+  geth.toml: |
+    [Node.P2P]
+    DialRatio = 3

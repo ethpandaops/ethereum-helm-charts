@@ -1,0 +1,28 @@
+---
+# Source: geth/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "manual-geth-test-connection"
+  labels:
+    helm.sh/chart: geth-1.0.8
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+        - --location
+        - --request
+        - POST
+        - 'manual-geth:8545/'
+        - --header
+        - 'Content-Type: application/json'
+        - --data-raw
+        - '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}'
+  restartPolicy: Never

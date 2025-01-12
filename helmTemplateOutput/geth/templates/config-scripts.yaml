@@ -1,0 +1,27 @@
+---
+# Source: geth/templates/config-scripts.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: init-scripts-genesis-config
+data:
+  init-script.sh: |
+    #!/bin/sh
+    
+    echo "running script init-config"
+    
+    echo "HOSTNAME: $HOSTNAME"
+    
+    rm -rf /data/network/$HOSTNAME
+    mkdir -p /data/network/$HOSTNAME
+    
+    curl -L https://github.com/prysmaticlabs/prysm/releases/download/v5.2.0/prysmctl-v5.2.0-linux-amd64 -o /usr/local/bin/prysmctl
+    chmod +x /usr/local/bin/prysmctl
+    
+    ls -lrt /usr/local/bin/
+    ls -lrt /usr/local/bin/prysmctl
+    
+    
+    /usr/local/bin/prysmctl testnet generate-genesis --fork=deneb --num-validators=1 --chain-config-file=/config/config.yml --geth-genesis-json-in=/config/genesis.json --output-ssz=/data/network/$HOSTNAME/genesis.ssz --geth-genesis-json-out=/data/network/$HOSTNAME/genesis-out.json
+    
+    geth init --datadir=/data/network/$HOSTNAME /data/network/$HOSTNAME/genesis-out.json

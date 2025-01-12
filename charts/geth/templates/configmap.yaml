@@ -1,9 +1,19 @@
+{{- if .Values.PVCConfigs.genesis.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "geth.fullname" . }}
-  labels:
-    {{- include "geth.labels" . | nindent 4 }}
+  name: geth-config
 data:
   geth.toml: |
     {{- .Values.config | nindent 4 }}
+  config.yml: |
+  {{- .Files.Get "files/config.yml" | nindent 4 }}
+  genesis.json: |
+  {{- .Files.Get "files/genesis.json" | nindent 4 }}
+  init-script.sh: |
+  {{- .Files.Get "files/init-script.sh" | nindent 4 }}
+  init-beacon-script.sh: |
+  {{- .Files.Get "files/init-beacon-script.sh" | nindent 4 }}
+  init-script-bootnode.sh: |
+  {{- .Files.Get "files/init-script-bootnode.sh" | nindent 4 }}
+  {{- end }}

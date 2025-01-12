@@ -1,0 +1,13 @@
+---
+# Source: geth/templates/genesis-data-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  genesis-ssz-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: azurefile

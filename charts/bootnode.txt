@@ -1,0 +1,24 @@
+./geth/bootnode-values.yaml:nameOverride: "bootnode"
+./geth/bootnode-values.yaml:  repository: mqube-blockchain.ngrok.dev/mqube/bootnode
+./geth/bootnode-values.yaml:#  - /data/bootnode/nodekey
+./geth/files/init-script.sh:#kubectl cp ~/blockchain/ethereum-pos-testnet-backup/network/bootnode/nodekey geth-node-0:/data/bootnode/nodekey -c init-chown-data
+./geth/values.yaml:    --bootnodes=enode://e0d9647a8ca2b9136d13d12ac7fa9baf8820a1f91fca74f79be7920f3dc8677fd4ee19498ff536169e4efc4eafc546cd0f8ac9dd12495437aeeb2c37c5647bc1@geth-bootnode:30303
+./validator.txt:./lighthouse/README.md:| mode | string | `"beacon"` | Mode can be 'beacon','validator' or 'bootnode' |
+./validator.txt:./lighthouse/values.yaml:# -- Mode can be 'beacon','validator' or 'bootnode'
+./Dockerfile:#COPY --from=builder /go-ethereum/build/bin/bootnode /usr/local/bin/bootnode
+./Dockerfile:#ENTRYPOINT ["bootnode"]
+./Dockerfile:COPY bootnode /usr/local/bin/bootnode
+./Dockerfile:ENTRYPOINT ["/usr/local/bin/bootnode"]
+./Dockerfile:CMD ["-nodekey", "/data/bootnode/nodekey", "-addr", "0.0.0.0:30303", "-verbosity", "5"]
+Binary file ./bootnode matches
+./lighthouse/ci/bootnode-values.yaml:mode: bootnode
+./lighthouse/README.md:| mode | string | `"beacon"` | Mode can be 'beacon','validator' or 'bootnode' |
+./lighthouse/templates/tests/test-connection.yaml:{{- if not (eq .Values.mode "bootnode") }}
+./lighthouse/templates/_cmd.tpl:{{- define "lighthouse.bootnodeCommand" -}}
+./lighthouse/templates/service.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
+./lighthouse/templates/service-headless.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
+./lighthouse/templates/statefulset.yaml:          {{- else if eq .Values.mode "bootnode" }}
+./lighthouse/templates/statefulset.yaml:            {{- include "lighthouse.bootnodeCommand" . | nindent 12 }}
+./lighthouse/templates/statefulset.yaml:          {{- if or (eq .Values.mode "beacon") (eq .Values.mode "bootnode") }}
+./lighthouse/values.yaml:# -- Mode can be 'beacon','validator' or 'bootnode'
+./prysm/beacon-values.yaml:  - --bootstrap-node="enode://e0d9647a8ca2b9136d13d12ac7fa9baf8820a1f91fca74f79be7920f3dc8677fd4ee19498ff536169e4efc4eafc546cd0f8ac9dd12495437aeeb2c37c5647bc1@geth-bootnode:30303?discport=30303"

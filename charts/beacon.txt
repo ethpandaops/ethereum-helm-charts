@@ -1,0 +1,4 @@
+./prysm/README.md:| image.repository | string | `"gcr.io/prysmaticlabs/prysm/beacon-chain"` | Prysm container image repository Multi-Arch (arm64/amd64) image Official image |
+./prysm/values.yaml:  #repository: gcr.io/prylabs-dev/prysm/beacon-chain
+./prysm/values.yaml:  repository: gcr.io/prysmaticlabs/prysm/beacon-chain
+./prysm/values.yaml:    exec /app/cmd/beacon-chain/beacon-chain

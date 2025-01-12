@@ -75,12 +75,14 @@ spec:
           securityContext:
             runAsNonRoot: false
             runAsUser: 0
-          command: ["chown", "-R", "{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsGroup }}", "/data"]
+          command: {{ toYaml .Values.initChownData.command | nindent 12 }}
           resources:
       {{ toYaml .Values.initChownData.resources | nindent 12 }}
           volumeMounts:
             - name: storage
               mountPath: "/data"
+            - name: config
+              mountPath: "/config"
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -123,7 +125,7 @@ spec:
               containerPort: {{ include "geth.p2pPort" . }}
               protocol: TCP
             - name: p2p-udp
-              containerPort: {{ include "geth.p2pPort" . }}
+              containerPort: {{ include "geth.p2pUdpPort" . }}
               protocol: UDP
             - name: http-rpc
               containerPort: {{ .Values.httpPort }}
@@ -183,7 +185,7 @@ spec:
       {{- end }}
         - name: config
           configMap:
-            name: {{ include "geth.fullname" . }}
+            name: geth-config
   {{- if not .Values.persistence.enabled }}
         - name: storage
           emptyDir: {}

@@ -74,12 +74,14 @@ spec:
           securityContext:
             runAsNonRoot: false
             runAsUser: 0
-          command: ["chown", "-R", "{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsGroup }}", "/data"]
+          command: {{ toYaml .Values.initChownData.command | nindent 12 }}
           resources:
       {{ toYaml .Values.initChownData.resources | nindent 12 }}
           volumeMounts:
             - name: storage
               mountPath: "/data"
+            - name: config
+              mountPath: "/config"
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -112,6 +114,9 @@ spec:
             - name: jwt
               mountPath: "/data/jwt.hex"
               subPath: jwt.hex
+              readOnly: true
+            - name: config
+              mountPath: "/config"
               readOnly: true
           ports:
           {{- if eq .Values.mode "beacon" }}
@@ -182,6 +187,9 @@ spec:
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
+        - name: config
+          configMap:
+            name: geth-config
   {{- if not .Values.persistence.enabled }}
         - name: storage
           emptyDir: {}

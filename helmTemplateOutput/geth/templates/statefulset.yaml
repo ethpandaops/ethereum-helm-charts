@@ -1,0 +1,135 @@
+---
+# Source: geth/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: manual-geth
+  labels:
+    helm.sh/chart: geth-1.0.8
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    {}
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: geth
+      app.kubernetes.io/instance: manual-geth
+  serviceName: manual-geth-headless
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: geth
+        app.kubernetes.io/instance: manual-geth
+      annotations:
+        checksum/config: 3f69cfc08ef327548ef79f9ee9ff255547de5822eb49f020f8dd515aee28159d
+        checksum/secrets: c2e70917bbd978ba4c22eec35c186842faca40fe90aeb34d619245d50466ee6a
+    spec:
+      serviceAccountName: manual-geth
+      securityContext:
+        fsGroup: 10001
+        runAsGroup: 10001
+        runAsNonRoot: true
+        runAsUser: 10001
+      initContainers:
+        - name: init-chown-data
+          image: "mqubeosscluster.azurecr.io/mqube-geth:0.0.6"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          command: 
+            - sh
+            - -c
+            - |
+              cp /config/init-script-bootnode.sh /tmp/init-script-bootnode.sh
+              chmod +x /tmp/init-script-bootnode.sh
+              /tmp/init-script-bootnode.sh
+          resources:
+      
+            {}
+          volumeMounts:
+            - name: storage
+              mountPath: "/data"
+            - name: config
+              mountPath: "/config"
+      containers:
+        - name: geth
+          image: "mqubeosscluster.azurecr.io/mqube-geth:0.0.6"
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - /data/scripts/$HOSTNAME/init-script-bootnode.sh
+            
+          securityContext:
+            {}
+          volumeMounts:
+            - name: storage
+              mountPath: "/data"
+            - name: jwt
+              mountPath: "/data/jwt.hex"
+              subPath: jwt.hex
+              readOnly: true
+            - name: config
+              mountPath: "/config"
+              readOnly: true
+          ports:
+            - name: p2p-tcp
+              containerPort: 30303
+              protocol: TCP
+            - name: p2p-udp
+              containerPort: 30303
+              protocol: UDP
+            - name: http-rpc
+              containerPort: 8545
+              protocol: TCP
+            - name: ws-rpc
+              containerPort: 8546
+              protocol: TCP
+            - name: auth-rpc
+              containerPort: 8551
+              protocol: TCP
+            - name: metrics
+              containerPort: 6060
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 60
+            periodSeconds: 120
+            tcpSocket:
+              port: http-rpc
+          readinessProbe:
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            tcpSocket:
+              port: http-rpc
+          resources:
+            {}
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+      nodeSelector:
+        {}
+      affinity:
+        {}
+      tolerations:
+        []
+      topologySpreadConstraints:
+        []
+      terminationGracePeriodSeconds: 300
+      volumes:
+        - name: jwt
+          secret:
+            secretName: manual-geth-jwt
+        - name: config
+          configMap:
+            name: geth-config
+        - name: storage
+          persistentVolumeClaim:
+            claimName: genesis-data-pvc
