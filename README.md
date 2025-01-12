@@ -1,5 +1,76 @@
 Forked Repo but also going to include runnign a local test net instuctions so will add more code than would expect to be Pulled into the main Repo 
 
+for ease the binaries are in the binaries directory 
+
+but for production use you should build and deploy from the official repo's
+
+
+in binaries there are 
+https://github.com/prysmaticlabs/prysm for prysmctl , validator 
+https://github.com/ethereum/beacon_chain for beacon-chain
+https://github.com/ethereum for bootnode , geth
+
+you can look at how to build these using this repo where all the testnest scripts and dependencies build scripts are located here
+
+https://github.com/spring-financial-group/ethereum-pos-testnet
+
+and that will build all the binaries in the binaries folder
+
+to run the build-depenancies.sh script you might need to upgrade a few tools and there are git submodules under the directories 
+
+Because there were so many tools and conflicts I ran the build on a Docker container instead and then copied the files to the bianries directory 
+I run geth and bootnode on my Mac but not the other's as they use a lot of libraires you'll have installed (especially on the Mac) for other toolign and will probably have conflicts 
+
+There is a Dockerfile setup in the repo 
+
+so I just used that and ran 
+
+docker build -t custom-bazel-image .
+docker run -it --rm custom-bazel-go-image bash
+
+git clone https://github.com/prysmaticlabs/prysm
+cd in then run the bazel commands at the bottom of build-depenancies.sh 
+
+i.e.
+bazel build //cmd/prysmctl:prysmctl
+
+the copy them onto the host into the bianries directory of the helm charts 
+
+docker cp e3ff40ed0a40://root/.cache/bazel/_bazel_root/d53767d395e223ee7ad0e8dcc2f1c5bd/execroot/_main/bazel-out/k8-fastbuild/bin/cmd/prysmctl/prysmctl_/prysmctl binaries/.
+
+For the Config Files i tend to load them using Files.Get and then keep them ina Files directory as the standard Files , so it makes it cleaner and easier to test locally usign the same files 
+
+so as the same as the test net for now we'll generate a Genesis.json file and add it ot he files folder here under templates
+
+in the pos-testnet repo use the command (the whole build of the testnet is in testnet.sh) so you can see what we are replicating here in that shell script
+
+$PRYSM_CTL_BINARY testnet generate-genesis \
+--fork=deneb \
+--num-validators=$NUM_NODES \
+--chain-config-file=./config.yml \
+--geth-genesis-json-in=./genesis.json \
+--output-ssz=$NETWORK_DIR/genesis.ssz \
+--geth-genesis-json-out=$NETWORK_DIR/genesis.json
+
+as part of testnet.sh we run this , so for the helm test new we'll just generate it and copy it to the template/files directory that our configmap will use 
+so as an exmaple 
+
+../prysmctl testnet generate-genesis --fork capella --num-validators 64 --genesis-time-delay 90 --chain-config-file config.yml --geth-genesis-json-in ../execution/genesis.json  --geth-genesis-json-out ../execution/genesis.json --output-ssz genesis.ssz
+
+(Remember if you built the binaries using the Docker image they won't run on your mac they are the binaries used for the helm chart release )
+
+you can download the binaries directly to use them locally for the test chain from the above repos for the Mac i've done that in downloadedBianreisMac in the above repo so you can always run the testnet.sh locally 
+
+
+
+
+
+:
+
+
+
+
+
 
 # Ethereum Helm Charts
 

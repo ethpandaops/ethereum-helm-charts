@@ -1,0 +1,277 @@
+./rpc-snooper/README.md.gotmpl:#### Beacon snooper configuration (lives between validator and consensus clients)
+./rpc-snooper/README.md:#### Beacon snooper configuration (lives between validator and consensus clients)
+./teku/ci/validator-values.yaml:mode: validator
+./teku/ci/validator-values.yaml:      mkdir -p /data/validator/keys;
+./teku/ci/validator-values.yaml:      mkdir -p /data/validator/secrets;
+./teku/ci/validator-values.yaml:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./teku/ci/validator-values.yaml:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./teku/ci/validator-values.yaml:  - --validator-keys=/data/validator/keys:/data/validator/secrets
+./teku/ci/validator-values.yaml:  - --validators-proposer-default-fee-recipient=0x0000000000000000000000000000000000000000
+./teku/README.md.gotmpl:This example runs a validator on the holesky network that targets a pre-existing `teku-beacon`
+./teku/README.md.gotmpl:mode: validator
+./teku/README.md.gotmpl:      mkdir -p /data/validator/keys;
+./teku/README.md.gotmpl:      mkdir -p /data/validator/secrets;
+./teku/README.md.gotmpl:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./teku/README.md.gotmpl:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./teku/README.md.gotmpl:  - --validator-keys=/data/validator/keys:/data/validator/secrets
+./teku/README.md:| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+./teku/README.md:| mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
+./teku/README.md:This example runs a validator on the holesky network that targets a pre-existing `teku-beacon`
+./teku/README.md:mode: validator
+./teku/README.md:      mkdir -p /data/validator/keys;
+./teku/README.md:      mkdir -p /data/validator/secrets;
+./teku/README.md:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./teku/README.md:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./teku/README.md:  - --validator-keys=/data/validator/keys:/data/validator/secrets
+./teku/templates/servicemonitor.yaml:{{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./teku/templates/_cmd.tpl:{{- define "teku.validatorCommand" -}}
+./teku/templates/service.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./teku/templates/service-headless.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./teku/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./teku/templates/statefulset.yaml:            {{- include "teku.validatorCommand" . | nindent 12 }}
+./teku/templates/statefulset.yaml:          {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./teku/values.yaml:# -- Mode can be 'beacon' or 'validator'
+./teku/values.yaml:  ## Example for validator mode
+./teku/values.yaml:# -- Template used for the default validator command
+./teku/values.yaml:    exec /opt/teku/bin/teku validator-client
+./web3signer/README.md:| slashingprotectiondb.primary.initContainers[0].command[2] | string | `"cd /sql-scripts\nBASE_URL=\"https://raw.githubusercontent.com/ConsenSys/web3signer/master/slashing-protection/src/main/resources/migrations/postgresql\"\nMIGRATIONS=(\n    \"V00001__initial.sql\"\n    \"V00002__removeUniqueConstraints.sql\"\n    \"V00003__addLowWatermark.sql\"\n    \"V00004__addGenesisValidatorsRoot.sql\"\n    \"V00005__xnor_source_target_low_watermark.sql\"\n    \"V00006__signed_data_indexes.sql\"\n    \"V00007__add_db_version.sql\"\n    \"V00008__signed_data_unique_constraints.sql\"\n    \"V00009__upsert_validators.sql\"\n    \"V00010__validator_enabled_status.sql\"\n    \"V00011__bigint_indexes.sql\"\n    \"V00012__add_highwatermark_metadata.sql\"\n)\nfor MIGRATION in \"${MIGRATIONS[@]}\"; do\n    if [ ! -f \"/sql-scripts/$MIGRATION\" ]; then\n        wget \"$BASE_URL/$MIGRATION\"\n    fi\ndone\n"` |  |
+./web3signer/values.yaml:                "V00009__upsert_validators.sql"
+./web3signer/values.yaml:                "V00010__validator_enabled_status.sql"
+./dora/README.md.gotmpl:In order to name validators based on ranges the following file format can be provided YAML:
+./dora/README.md.gotmpl:0-500: validator_set_A
+./dora/README.md.gotmpl:500-1000: validator_set_B
+./dora/README.md.gotmpl:1000-1500: validator_set_C
+./dora/README.md:| validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml ranges section |
+./dora/README.md:In order to name validators based on ranges the following file format can be provided YAML:
+./dora/README.md:0-500: validator_set_A
+./dora/README.md:500-1000: validator_set_B
+./dora/README.md:1000-1500: validator_set_C
+./dora/values.yaml:# -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
+./dora/values.yaml:validatorNamesInventory: ""
+./dora/values.yaml:      # file or inventory url to load validator names from
+./dora/values.yaml:      validatorNamesYaml: "/data/ranges.yaml"
+./dora/values.yaml:      validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
+./lodestar/ci/validator-values.yaml:mode: validator
+./lodestar/ci/validator-values.yaml:      mkdir -p /data/validator/keys;
+./lodestar/ci/validator-values.yaml:      mkdir -p /data/validator/secrets;
+./lodestar/ci/validator-values.yaml:        mkdir "/data/validator/keys/0x${PUBKEY}";
+./lodestar/ci/validator-values.yaml:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/voting-keystore.json";
+./lodestar/ci/validator-values.yaml:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./lodestar/ci/validator-values.yaml:  - --keystoresDir=/data/validator/keys
+./lodestar/ci/validator-values.yaml:  - --secretsDir=/data/validator/secrets
+./lodestar/README.md.gotmpl:This example runs a validator on the holesky network that targets a pre-existing `lodestar-beacon`
+./lodestar/README.md.gotmpl:mode: validator
+./lodestar/README.md.gotmpl:      mkdir -p /data/validator/keys;
+./lodestar/README.md.gotmpl:      mkdir -p /data/validator/secrets;
+./lodestar/README.md.gotmpl:        mkdir "/data/validator/keys/0x${PUBKEY}";
+./lodestar/README.md.gotmpl:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/voting-keystore.json";
+./lodestar/README.md.gotmpl:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./lodestar/README.md.gotmpl:  - --keystoresDir=/data/validator/keys
+./lodestar/README.md.gotmpl:  - --secretsDir=/data/validator/secrets
+./lodestar/README.md:| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+./lodestar/README.md:| mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
+./lodestar/README.md:| validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
+./lodestar/README.md:| validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
+./lodestar/README.md:This example runs a validator on the holesky network that targets a pre-existing `lodestar-beacon`
+./lodestar/README.md:mode: validator
+./lodestar/README.md:      mkdir -p /data/validator/keys;
+./lodestar/README.md:      mkdir -p /data/validator/secrets;
+./lodestar/README.md:        mkdir "/data/validator/keys/0x${PUBKEY}";
+./lodestar/README.md:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/voting-keystore.json";
+./lodestar/README.md:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./lodestar/README.md:  - --keystoresDir=/data/validator/keys
+./lodestar/README.md:  - --secretsDir=/data/validator/secrets
+./lodestar/templates/_cmd.tpl:{{- define "lodestar.validatorCommand" -}}
+./lodestar/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./lodestar/templates/statefulset.yaml:            {{- include "lodestar.validatorCommand" . | nindent 12 }}
+./lodestar/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./lodestar/templates/statefulset.yaml:            {{- toYaml .Values.validatorLivenessProbe | nindent 12 }}
+./lodestar/templates/statefulset.yaml:            {{- toYaml .Values.validatorReadinessProbe | nindent 12 }}
+./lodestar/values.yaml:# -- Mode can be 'beacon' or 'validator'
+./lodestar/values.yaml:  ## Example for validator mode
+./lodestar/values.yaml:# -- Template used for the default validator command
+./lodestar/values.yaml:    validator
+./lodestar/values.yaml:validatorLivenessProbe:
+./lodestar/values.yaml:validatorReadinessProbe:
+./grandine/ci/validator-values.yaml:      mkdir -p /data/validator/keys;
+./grandine/ci/validator-values.yaml:      mkdir -p /data/validator/secrets;
+./grandine/ci/validator-values.yaml:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./grandine/ci/validator-values.yaml:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./grandine/ci/validator-values.yaml:  - --keystore-dir=/data/validator/keys
+./grandine/ci/validator-values.yaml:  - --keystore-password-file=/data/validator/secrets
+./grandine/README.md.gotmpl:This example runs a validator on the holesky network that targets a pre-existing `grandine-beacon`
+./grandine/README.md.gotmpl:mode: validator
+./grandine/README.md.gotmpl:      mkdir -p /data/validator/keys;
+./grandine/README.md.gotmpl:      mkdir -p /data/validator/secrets;
+./grandine/README.md.gotmpl:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./grandine/README.md.gotmpl:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./grandine/README.md.gotmpl:  - --validator-keys=/data/validator/keys:/data/validator/secrets
+./grandine/README.md:This example runs a validator on the holesky network that targets a pre-existing `grandine-beacon`
+./grandine/README.md:mode: validator
+./grandine/README.md:      mkdir -p /data/validator/keys;
+./grandine/README.md:      mkdir -p /data/validator/secrets;
+./grandine/README.md:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}.json";
+./grandine/README.md:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}.txt";
+./grandine/README.md:  - --validator-keys=/data/validator/keys:/data/validator/secrets
+./beacon-metrics-gazer/README.md:| ranges | string | See `values.yaml` | Config file - defaults are set to the sepolia validator set |
+./beacon-metrics-gazer/values.yaml:# -- Config file - defaults are set to the sepolia validator set
+./nimbus/ci/validator-values.yaml:      mkdir -p /data/validator/keys;
+./nimbus/ci/validator-values.yaml:      mkdir -p /data/validator/secrets;
+./nimbus/ci/validator-values.yaml:        mkdir -p "/data/validator/keys/0x${PUBKEY}";
+./nimbus/ci/validator-values.yaml:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/keystore.json";
+./nimbus/ci/validator-values.yaml:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./nimbus/ci/validator-values.yaml:  - --validators-dir=/data/validator/keys
+./nimbus/ci/validator-values.yaml:  - --secrets-dir=/data/validator/secrets
+./nimbus/README.md.gotmpl:This example runs a validator on the holesky network and injects the keystores via a secret ENV var. You could use a similar
+./nimbus/README.md.gotmpl:  - --validators-dir=/data/validator/keys
+./nimbus/README.md.gotmpl:  - --secrets-dir=/data/validator/secrets
+./nimbus/README.md.gotmpl:      mkdir -p /data/validator/keys;
+./nimbus/README.md.gotmpl:      mkdir -p /data/validator/secrets;
+./nimbus/README.md.gotmpl:        mkdir -p "/data/validator/keys/0x${PUBKEY}";
+./nimbus/README.md.gotmpl:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/keystore.json";
+./nimbus/README.md.gotmpl:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./nimbus/README.md:This example runs a validator on the holesky network and injects the keystores via a secret ENV var. You could use a similar
+./nimbus/README.md:  - --validators-dir=/data/validator/keys
+./nimbus/README.md:  - --secrets-dir=/data/validator/secrets
+./nimbus/README.md:      mkdir -p /data/validator/keys;
+./nimbus/README.md:      mkdir -p /data/validator/secrets;
+./nimbus/README.md:        mkdir -p "/data/validator/keys/0x${PUBKEY}";
+./nimbus/README.md:        echo ${!key} > "/data/validator/keys/0x${PUBKEY}/keystore.json";
+./nimbus/README.md:        echo ${!secret} > "/data/validator/secrets/0x${PUBKEY}";
+./lighthouse/README.md.gotmpl:This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
+./lighthouse/README.md.gotmpl:mode: validator
+./lighthouse/README.md:| defaultBootnodeCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+./lighthouse/README.md:| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+./lighthouse/README.md:| mode | string | `"beacon"` | Mode can be 'beacon','validator' or 'bootnode' |
+./lighthouse/README.md:| validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
+./lighthouse/README.md:| validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
+./lighthouse/README.md:This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
+./lighthouse/README.md:mode: validator
+./lighthouse/templates/servicemonitor.yaml:{{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./lighthouse/templates/NOTES.txt:{{- if (eq .Values.mode "validator") }}
+./lighthouse/templates/NOTES.txt:Get your validator API keys using:
+./lighthouse/templates/NOTES.txt:  export VALIDATOR_API_KEY_{{$i}}=$(kubectl -n {{ $.Release.Namespace }} exec {{ include "lighthouse.fullname" $ }}-{{$i}} -c lighthouse -- cat /data/validators/api-token.txt)
+./lighthouse/templates/tests/test-connection.yaml:      {{- else if eq .Values.mode "validator" }}
+./lighthouse/templates/_cmd.tpl:{{- define "lighthouse.validatorCommand" -}}
+./lighthouse/templates/service.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./lighthouse/templates/service-headless.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./lighthouse/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./lighthouse/templates/statefulset.yaml:            {{- include "lighthouse.validatorCommand" . | nindent 12 }}
+./lighthouse/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./lighthouse/templates/statefulset.yaml:            {{- toYaml .Values.validatorLivenessProbe | nindent 12 }}
+./lighthouse/templates/statefulset.yaml:            {{- toYaml .Values.validatorReadinessProbe | nindent 12 }}
+./lighthouse/values.yaml:# -- Mode can be 'beacon','validator' or 'bootnode'
+./lighthouse/values.yaml:  ## Example for validator mode
+./lighthouse/values.yaml:# -- Template used for the default validator command
+./lighthouse/values.yaml:    validator
+./lighthouse/values.yaml:# -- Template used for the default validator command
+./lighthouse/values.yaml:validatorLivenessProbe:
+./lighthouse/values.yaml:validatorReadinessProbe:
+./assertoor/README.md.gotmpl:      validatorPairNames: ["geth", "besu"]
+./assertoor/README.md.gotmpl:  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/validator-lifecycle-test-small.yaml"
+./assertoor/README.md:      validatorPairNames: ["geth", "besu"]
+./assertoor/README.md:  - file: "https://raw.githubusercontent.com/ethpandaops/assertoor-test/master/assertoor-tests/validator-lifecycle-test-small.yaml"
+./assertoor/README.md:| validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section |
+./assertoor/README.md:| validatorNamesRanges | string | `"0-1: test\n"` |  |
+./assertoor/templates/configmap.yaml:    {{- .Values.validatorNamesRanges | nindent 4 }}
+./assertoor/values.yaml:# -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges"
+./assertoor/values.yaml:# -- If you want to use a local range file define it in the values.yaml validatorNamesRanges section
+./assertoor/values.yaml:validatorNamesInventory: ""
+./assertoor/values.yaml:validatorNamesRanges: |
+./assertoor/values.yaml:  validatorNames:
+./assertoor/values.yaml:    inventoryUrl: "{{ .Values.validatorNamesInventory }}"
+./ethereum-validator-metrics-exporter/Chart.yaml:name: ethereum-validator-metrics-exporter
+./ethereum-validator-metrics-exporter/Chart.yaml:description: A prometheus exporter for Ethereum validators
+./ethereum-validator-metrics-exporter/Chart.yaml:home: https://github.com/ethpandaops/ethereum-validator-metrics-exporter
+./ethereum-validator-metrics-exporter/README.md:# ethereum-validator-metrics-exporter
+./ethereum-validator-metrics-exporter/README.md:A prometheus exporter for Ethereum validators
+./ethereum-validator-metrics-exporter/README.md:**Homepage:** <https://github.com/ethpandaops/ethereum-validator-metrics-exporter>
+./ethereum-validator-metrics-exporter/README.md:| config.global.namespace | string | `"eth_validator"` |  |
+./ethereum-validator-metrics-exporter/README.md:| customArgs | list | `[]` | Custom args for the ethereum-validator-metrics-exporter container |
+./ethereum-validator-metrics-exporter/README.md:| customCommand | list | `[]` | Command replacement for the ethereum-validator-metrics-exporter container |
+./ethereum-validator-metrics-exporter/README.md:| image.pullPolicy | string | `"IfNotPresent"` | ethereum-validator-metrics-exporter container pull policy |
+./ethereum-validator-metrics-exporter/README.md:| image.repository | string | `"ethpandaops/ethereum-validator-metrics-exporter"` | ethereum-validator-metrics-exporter container image repository |
+./ethereum-validator-metrics-exporter/README.md:| image.tag | string | `"latest"` | ethereum-validator-metrics-exporter container image tag |
+./ethereum-validator-metrics-exporter/templates/servicemonitor.yaml:  name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}
+./ethereum-validator-metrics-exporter/templates/servicemonitor.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/servicemonitor.yaml:      {{- include "ethereum-validator-metrics-exporter.selectorLabels" . | nindent 8 }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:  name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:      {{- include "ethereum-validator-metrics-exporter.selectorLabels" . | nindent 6 }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:        {{- include "ethereum-validator-metrics-exporter.selectorLabels" . | nindent 8 }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:      serviceAccountName: {{ include "ethereum-validator-metrics-exporter.serviceAccountName" . }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:          - "/ethereum-validator-metrics-exporter"
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:            containerPort: {{ include "ethereum-validator-metrics-exporter.http" . }}
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:                name: {{ include "ethereum-validator-metrics-exporter.fullname" $ }}-env
+./ethereum-validator-metrics-exporter/templates/deployment.yaml:            name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}
+./ethereum-validator-metrics-exporter/templates/NOTES.txt:  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "ethereum-validator-metrics-exporter.fullname" . }})
+./ethereum-validator-metrics-exporter/templates/NOTES.txt:           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "ethereum-validator-metrics-exporter.fullname" . }}'
+./ethereum-validator-metrics-exporter/templates/NOTES.txt:  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "ethereum-validator-metrics-exporter.fullname" . }} --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+./ethereum-validator-metrics-exporter/templates/NOTES.txt:  echo http://$SERVICE_IP:{{ include "ethereum-validator-metrics-exporter.metricsPort" . }}
+./ethereum-validator-metrics-exporter/templates/NOTES.txt:  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "ethereum-validator-metrics-exporter.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+./ethereum-validator-metrics-exporter/templates/ingress.yaml:{{- $fullName := include "ethereum-validator-metrics-exporter.fullname" . -}}
+./ethereum-validator-metrics-exporter/templates/ingress.yaml:{{- $svcPort := include "ethereum-validator-metrics-exporter.http" . -}}
+./ethereum-validator-metrics-exporter/templates/ingress.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/service.yaml:  name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}
+./ethereum-validator-metrics-exporter/templates/service.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/service.yaml:    - port: {{ include "ethereum-validator-metrics-exporter.http" . }}
+./ethereum-validator-metrics-exporter/templates/service.yaml:    {{- include "ethereum-validator-metrics-exporter.selectorLabels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/serviceaccount.yaml:  name: {{ include "ethereum-validator-metrics-exporter.serviceAccountName" . }}
+./ethereum-validator-metrics-exporter/templates/serviceaccount.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/configmap.yaml:  name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}
+./ethereum-validator-metrics-exporter/templates/configmap.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.name" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.fullname" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.chart" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.labels" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:helm.sh/chart: {{ include "ethereum-validator-metrics-exporter.chart" . }}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{ include "ethereum-validator-metrics-exporter.selectorLabels" . }}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.selectorLabels" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:app.kubernetes.io/name: {{ include "ethereum-validator-metrics-exporter.name" . }}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.serviceAccountName" -}}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- default (include "ethereum-validator-metrics-exporter.fullname" .) .Values.serviceAccount.name }}
+./ethereum-validator-metrics-exporter/templates/_helpers.tpl:{{- define "ethereum-validator-metrics-exporter.http" -}}
+./ethereum-validator-metrics-exporter/templates/secret.yaml:  name: {{ include "ethereum-validator-metrics-exporter.fullname" . }}-env
+./ethereum-validator-metrics-exporter/templates/secret.yaml:    {{- include "ethereum-validator-metrics-exporter.labels" . | nindent 4 }}
+./ethereum-validator-metrics-exporter/values.yaml:  # -- ethereum-validator-metrics-exporter container image repository
+./ethereum-validator-metrics-exporter/values.yaml:  repository: ethpandaops/ethereum-validator-metrics-exporter
+./ethereum-validator-metrics-exporter/values.yaml:  # -- ethereum-validator-metrics-exporter container image tag
+./ethereum-validator-metrics-exporter/values.yaml:  # -- ethereum-validator-metrics-exporter container pull policy
+./ethereum-validator-metrics-exporter/values.yaml:    namespace: eth_validator
+./ethereum-validator-metrics-exporter/values.yaml:# -- Custom args for the ethereum-validator-metrics-exporter container
+./ethereum-validator-metrics-exporter/values.yaml:# -- Command replacement for the ethereum-validator-metrics-exporter container
+./prysm/ci/validator-values.yaml:mode: validator
+./prysm/ci/validator-values.yaml:  repository: gcr.io/prysmaticlabs/prysm/validator
+./prysm/ci/validator-values.yaml:      - /app/cmd/validator/validator
+./prysm/ci/validator-values.yaml:      - /app/cmd/validator/validator
+./prysm/README.md.gotmpl:This example runs a validator on the holesky network that targets a pre-existing `prysm-beacon`
+./prysm/README.md.gotmpl:mode: validator
+./prysm/README.md.gotmpl:  repository: gcr.io/prysmaticlabs/prysm/validator
+./prysm/README.md.gotmpl:      - /app/cmd/validator/validator
+./prysm/README.md.gotmpl:      - /app/cmd/validator/validator
+./prysm/README.md:| defaultValidatorCommandTemplate | string | See `values.yaml` | Template used for the default validator command |
+./prysm/README.md:| mode | string | `"beacon"` | Mode can be 'beacon' or 'validator' |
+./prysm/README.md:| validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
+./prysm/README.md:| validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
+./prysm/README.md:This example runs a validator on the holesky network that targets a pre-existing `prysm-beacon`
+./prysm/README.md:mode: validator
+./prysm/README.md:  repository: gcr.io/prysmaticlabs/prysm/validator
+./prysm/README.md:      - /app/cmd/validator/validator
+./prysm/README.md:      - /app/cmd/validator/validator
+./prysm/templates/servicemonitor.yaml:{{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./prysm/templates/_cmd.tpl:{{- define "prysm.validatorCommand" -}}
+./prysm/templates/service.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./prysm/templates/service-headless.yaml:  {{- if or (eq .Values.mode "beacon") (eq .Values.mode "validator") }}
+./prysm/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./prysm/templates/statefulset.yaml:            {{- include "prysm.validatorCommand" . | nindent 12 }}
+./prysm/templates/statefulset.yaml:          {{- else if eq .Values.mode "validator" }}
+./prysm/templates/statefulset.yaml:            {{- toYaml .Values.validatorLivenessProbe | nindent 12 }}
+./prysm/templates/statefulset.yaml:            {{- toYaml .Values.validatorReadinessProbe | nindent 12 }}
+./prysm/values.yaml:  # When using a validator:
+./prysm/values.yaml:  # repository: gcr.io/prysmaticlabs/prysm/validator
+./prysm/values.yaml:# -- Mode can be 'beacon' or 'validator'
+./prysm/values.yaml:  ## Example for validator mode
+./prysm/values.yaml:# -- Template used for the default validator command
+./prysm/values.yaml:    exec /app/cmd/validator/validator
+./prysm/values.yaml:validatorLivenessProbe:
+./prysm/values.yaml:validatorReadinessProbe:

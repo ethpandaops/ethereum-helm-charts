@@ -1,0 +1,36 @@
+---
+# Source: geth/templates/job-genesis-loader.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: genesis-loader
+  labels:
+    app: genesis-loader
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      containers:
+        - name: file-loader
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo "Copying genesis.ssz to volume"
+              mkdir -p /mnt/genesis &&
+              cp /chart-files/genesis.ssz /mnt/genesis/genesis.ssz
+          volumeMounts:
+            - name: genesis-volume
+              mountPath: /mnt/genesis
+            - name: chart-files
+              mountPath: /chart-files
+      restartPolicy: OnFailure
+      volumes:
+        - name: genesis-volume
+          persistentVolumeClaim:
+            claimName: genesis-ssz-pvc
+        - name: chart-files
+          hostPath:
+            path: /tmp/chart-files # Temporary location for Helm to extract files
+            type: DirectoryOrCreate

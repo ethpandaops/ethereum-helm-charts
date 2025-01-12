@@ -1,0 +1,18 @@
+---
+# Source: geth/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: manual-geth
+  labels:
+    helm.sh/chart: geth-1.0.8
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: manual-geth
+subjects:
+  - kind: ServiceAccount
+    name: manual-geth

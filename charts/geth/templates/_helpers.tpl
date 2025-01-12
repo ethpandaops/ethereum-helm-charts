@@ -69,6 +69,14 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{ .Release.Namespace }}-{{ include "geth.fullname" . }}
 {{- end }}
 
+{{- define "geth.p2pUdpPort" -}}
+{{- if .Values.p2pNodePort.enabled }}
+{{- print .Values.p2pNodePort.enabled }}
+{{- else }}
+{{- print .Values.p2pUdpPort }}
+{{- end }}
+{{- end -}}
+
 {{- define "geth.p2pPort" -}}
 {{- if .Values.p2pNodePort.enabled }}
 {{- print .Values.p2pNodePort.port }}

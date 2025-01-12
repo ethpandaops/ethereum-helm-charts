@@ -1,0 +1,392 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- Prysm container image repository
+  # Multi-Arch (arm64/amd64) image
+  repository: gcr.io/prysmaticlabs/prysm/validator
+  # -- Prysm container image tag
+  tag: latest
+  # -- Prysm container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Mode can be 'beacon' or 'validator'
+mode: "validator"
+
+# -- Extra args for the prysm container
+extraArgs:
+    - --beacon-rpc-provider=beacon-node-prysm:4000
+    - --datadir=/data/validator
+    - --accept-terms-of-use
+    - --interop-num-validators=1
+    - --interop-start-index=0
+    - --rpc-port=4000
+    - --grpc-gateway-port=3500
+    - --monitoring-port=8080
+    - --graffiti="node-0"
+    - --chain-config-file=/config/config.yml
+
+# -- JWT secret used by client as a secret. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
+# -- Checkpoint Sync
+checkpointSync:
+  enabled: false
+  url: ""
+
+# -- Template used for the default beacon command
+# @default -- See `values.yaml`
+defaultBeaconCommandTemplate: |
+  - /bin/bash
+  - -ac
+  - >
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- end }}
+    exec /app/cmd/beacon-chain/beacon-chain
+    --accept-terms-of-use=true
+    --datadir=/data
+  {{- if .Values.p2pNodePort.enabled }}
+    {{- if not (contains "--p2p-host-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-host-ip=$EXTERNAL_IP
+    {{- end }}
+    {{- if not (contains "--p2p-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-tcp-port=$EXTERNAL_PORT
+    {{- end }}
+    {{- if not (contains "--p2p-udp-port" (.Values.extraArgs | join ",")) }}
+    --p2p-udp-port=$EXTERNAL_PORT
+    {{- end }}
+  {{- else }}
+    {{- if not (contains "--p2p-host-ip=" (.Values.extraArgs | join ",")) }}
+    --p2p-host-ip=$(POD_IP)
+    {{- end }}
+    {{- if not (contains "--p2p-tcp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-tcp-port={{ include "prysm.p2pPort" . }}
+    {{- end }}
+    {{- if not (contains "--p2p-udp-port=" (.Values.extraArgs | join ",")) }}
+    --p2p-udp-port={{ include "prysm.p2pPort" . }}
+    {{- end }}
+  {{- end }}
+    --rpc-host=0.0.0.0
+    --rpc-port={{ .Values.rpcPort }}
+    --jwt-secret=/jwt/jwt.hex
+    --grpc-gateway-host=0.0.0.0
+    --grpc-gateway-port={{ .Values.httpPort }}
+    --monitoring-host=0.0.0.0
+    --monitoring-port={{ .Values.metricsPort }}
+  {{- if .Values.checkpointSync.enabled }}
+    --checkpoint-sync-url={{ tpl .Values.checkpointSync.url $ }}
+    --genesis-beacon-api-url={{ tpl .Values.checkpointSync.url $ }}
+  {{- end }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Template used for the default validator command
+# @default -- See `values.yaml`
+defaultValidatorCommandTemplate: |
+  - /bin/bash
+  - -ac
+  - >-
+    exec /app/cmd/validator/validator
+    --accept-terms-of-use=true
+    --datadir=/data/network/validator
+    --monitoring-host=0.0.0.0
+    --monitoring-port={{ .Values.metricsPort }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
+customCommand: []
+
+# When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
+# This will generate a service for each replica, with a port binding via NodePort.
+# This is useful if you want to expose and announce your node to the Internet.
+p2pNodePort:
+  # -- Expose P2P port via NodePort
+  enabled: false
+  # -- NodePort to be used
+  port: 31000
+  initContainer:
+    image:
+      # -- Container image to fetch nodeport information
+      repository: lachlanevenson/k8s-kubectl
+      # -- Container tag
+      tag: v1.25.4
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http-api
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http-api
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Validator Liveness probe
+# @default -- See `values.yaml`
+validatorLivenessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Validator Readiness probe
+# @default -- See `values.yaml`
+validatorReadinessProbe:
+  tcpSocket:
+    port: metrics
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- P2P Port
+p2pPort: 13000
+
+# -- HTTP Port
+httpPort: 3500
+
+# -- Metrics Port
+metricsPort: 8080
+
+# -- RPC Port
+rpcPort: 4000
+
+# -- Node selector for pods
+nodeSelector: {}
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 20Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+rbac:
+  # -- Specifies whether RBAC resources are to be created
+  create: true
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  clusterRules:
+     # Required to obtain the nodes external IP
+    - apiGroups: [""]
+      resources:
+      - "nodes"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  rules:
+    # Required to get information about the serices nodePort.
+    - apiGroups: [""]
+      resources:
+      - "services"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 300
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update stategy for the Statefulset
+updateStrategy:
+  # -- Update stategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['/bin/bash', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+# -- Additional volumes
+extraVolumes:
+  - name: config-storage
+    configMap:
+      name: geth-genesis-config
+  - name: genesis-storage
+    persistentVolumeClaim:
+      claimName: genesis-ssz-pvc
+
+# -- Additional volume mounts
+extraVolumeMounts:
+  - name: config-storage
+    mountPath: /config # Mount location inside the container
+  - name: genesis-storage
+    mountPath: /data # Mount location inside the container
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+# MY_PASSWORD: supersecret
+
+initChownData:
+  # -- Init container to set the correct permissions to access data directories
+  enabled: true
+  image:
+    # -- Container repository
+    repository: busybox
+    # -- Container tag
+    tag: "1.34.0"
+    # -- Container pull policy
+    pullPolicy: IfNotPresent
+  # -- Resource requests and limits
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

@@ -1,0 +1,13 @@
+{{- if .Values.PVCConfigs.genesis.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name:  {{ .Values.PVCConfigs.genesis.pvcName }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: {{ .Values.PVCConfigs.genesis.storageClassName }}
+{{- end }}

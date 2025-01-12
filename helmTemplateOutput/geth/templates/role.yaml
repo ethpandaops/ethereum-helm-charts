@@ -1,0 +1,20 @@
+---
+# Source: geth/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: manual-geth
+  labels:
+    helm.sh/chart: geth-1.0.8
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - get
+  - list
+  - watch

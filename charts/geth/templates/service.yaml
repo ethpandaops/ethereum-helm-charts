@@ -11,7 +11,7 @@ spec:
       targetPort: p2p-tcp
       protocol: TCP
       name: p2p-tcp
-    - port: {{ include "geth.p2pPort" . }}
+    - port: {{ include "geth.p2pUdpPort" . }}
       targetPort: p2p-udp
       protocol: UDP
       name: p2p-udp

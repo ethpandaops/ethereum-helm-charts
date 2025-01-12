@@ -1,0 +1,41 @@
+---
+# Source: geth/templates/service-headless.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: manual-geth-headless
+  labels:
+    helm.sh/chart: geth-1.0.8
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
+    app.kubernetes.io/managed-by: Helm
+spec:
+  clusterIP: None
+  ports:
+    - port: 30303
+      targetPort: p2p-tcp
+      protocol: TCP
+      name: p2p-tcp
+    - port: 30303
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+    - port: 8545
+      targetPort: http-rpc
+      protocol: TCP
+      name: http-rpc  
+    - port: 8546
+      targetPort: ws-rpc
+      protocol: TCP
+      name: ws-rpc
+    - port: 8551
+      targetPort: auth-rpc
+      protocol: TCP
+      name: auth-rpc
+    - port: 6060
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+  selector:
+    app.kubernetes.io/name: geth
+    app.kubernetes.io/instance: manual-geth
