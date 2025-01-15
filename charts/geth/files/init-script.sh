@@ -5,11 +5,17 @@ echo "running script init-config"
 echo "HOSTNAME: $HOSTNAME"
 
 rm -rf /data/network/$HOSTNAME
+echo "Removed /data/network/$HOSTNAME"
 mkdir -p /data/network/$HOSTNAME
+echo "Created /data/network/$HOSTNAME"
+mkdir -p /data/stateFiles
+echo "Created /data/stateFiles"
 
+ls -lrt /data
 
 # Create the genesis state only if it doesn't already exist
 if [ ! -f /data/stateFiles/genesis.ssz ] || [ ! -f /data/stateFiles/genesis-out.json ]; then
+  echo "Genesis state files not found. Creating..."
 
   # Download prysmctl if not already available
   if [ ! -f /usr/local/bin/prysmctl ]; then

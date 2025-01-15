@@ -43,31 +43,15 @@ ls -lrt /data/scripts/$HOSTNAME/bootnode
 
 echo "Starting bootnode on port 30303..."
 
+geth init --datadir "/data/network/${HOSTNAME}" /config/genesis.json
+
 # Get the pod's IP
 POD_IP=$(hostname -i)
 
-# Generate the enode URL with the correct IP address
-ENODE_URL=$(/data/scripts/$HOSTNAME/bootnode \
-  -nodekey "$NODEKEY_PATH" \
-  -addr "$POD_IP:30303" \
-  -writeaddress)
-
-echo "enode://${ENODE_URL}@${POD_IP}:30303" > "$ENODE_URL_PATH"
-echo "Bootnode started with enode: $(cat $ENODE_URL_PATH)"
-
-POD_IP=$(hostname -i)
-
-exec /data/scripts/$HOSTNAME/bootnode \
-  -nodekey "$NODEKEY_PATH" \
-  -addr "${POD_IP}:30303" \
-  -nat "extip:${POD_IP}" \
-  -verbosity 5
-
-# Wait for stop file to gracefully exit
-echo "Waiting for stop file at $STOP_FILE..."
-while [ ! -f "$STOP_FILE" ]; do
-  sleep 5
-done
-
-echo "Stop file detected. Shutting down bootnode."
-kill $(jobs -p)
+geth --datadir "/data/network/${HOSTNAME}" \
+  --nodekey "${NODEKEY_PATH}" \
+  --networkid 999999 \
+  --nat "extip:${POD_IP}" \
+  --port 30303 \
+  --verbosity 5 \
+  --ipcpath /tmp/geth.ipc

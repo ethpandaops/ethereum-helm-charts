@@ -35,7 +35,11 @@ PVCConfigs:
 # this will shut down as soon as it starts as the init container is waiting for a stop file and runnign the boot node
 defaultCommandTemplate: |
   - sh
-  - /data/scripts/$HOSTNAME/init-script-bootnode.sh
+  - -c
+  - |
+    cp /config/init-script-bootnode.sh /tmp/init-script-bootnode.sh
+    chmod +x /tmp/init-script-bootnode.sh
+    /tmp/init-script-bootnode.sh
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
 customCommand: []
@@ -132,7 +136,7 @@ persistence:
   # -- Uses an EmptyDir when not enabled
   enabled: true
   # -- Use an existing PVC when persistence.enabled
-  existingClaim: genesis-data-pvc
+  existingClaim:
   # -- Access mode for the volume claim template
   accessModes:
     - ReadWriteMany
@@ -294,9 +298,8 @@ initChownData:
     - sh
     - -c
     - |
-      cp /config/init-script-bootnode.sh /tmp/init-script-bootnode.sh
-      chmod +x /tmp/init-script-bootnode.sh
-      /tmp/init-script-bootnode.sh
+      echo "Hello world."
+      
 
 serviceMonitor:
   # -- If true, a ServiceMonitor CRD is created for a prometheus operator

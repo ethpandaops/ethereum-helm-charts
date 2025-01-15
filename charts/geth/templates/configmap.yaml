@@ -1,8 +1,8 @@
-{{- if .Values.PVCConfigs.genesis.enabled }}
+{{- if .Values.gethconfig.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: geth-config
+  name: {{ include "geth.fullname" . }}
 data:
   geth.toml: |
     {{- .Values.config | nindent 4 }}

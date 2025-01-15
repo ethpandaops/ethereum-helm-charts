@@ -18,10 +18,13 @@ image:
 # -- Extra args for the geth container
 extraArgs:
   - --networkid=999999
-  - --verbosity=4
+  - --verbosity=5
   - --ipcpath=/tmp/geth.ipc
   - --maxpeers=10
 
+gethconfig:
+  # -- ConfigMap for geth
+  enabled: true
 
 # -- TOML config file
 # @default -- See `values.yaml` for example
@@ -29,11 +32,6 @@ config: |
   [Node.P2P]
   DialRatio = 3
 
-  [P2P]
-  StaticNodes = [
-    "enode:"enode://b4b4596373fb880c342295d71d5ca566a183577bc3d258faf29379830f7e6e93fd32c01560190cb6744173efc002f5c375d5430147d9d973589d20a9f113dad2@10.244.4.77:30303?discport=0",
-    "enode:","enode://1c5bb09c945c386cf8f61f298ff2805c82861dd5b711a79cc769382aaff05adee4c2cd3a781f47c59a86c7341a49e3025dbbc7192a548286fb23189c9fb015fb@10.244.4.78:30303?discport=0"
-  ]
 
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
@@ -88,7 +86,7 @@ defaultCommandTemplate: |
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
-    --bootnodes="enode://8135b2f290485445a95557538c35dfd0121b8f8fbbb43f5782aca49b8dbfa297c7c48ec610a0fe3a5424a5acc458c116aba0c30f800f8cee662fae06140a14da@10.244.4.169:0?discport=30303"
+    --bootnodes=enode://e34b7d87a57a07c84451ff566cdd0e891829aebe1a4f47ad66a75c2dc053b7390ac718d56b1019666b9cd1df242019b477c436fbcfc65245a0c1bceedfbffad6@10.244.4.184:30303
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -188,7 +186,7 @@ persistence:
   # -- Uses an EmptyDir when not enabled
   enabled: true
   # -- Use an existing PVC when persistence.enabled
-  existingClaim: genesis-data-pvc
+  existingClaim:
   # -- Access mode for the volume claim template
   accessModes:
     - ReadWriteMany
