@@ -1,7 +1,7 @@
 
 # blockscout
 
-![Version: 0.2.2](https://img.shields.io/badge/Version-0.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 BlockScout provides a comprehensive, easy-to-use interface for users to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine) blockchains
 
@@ -90,8 +90,8 @@ BlockScout provides a comprehensive, easy-to-use interface for users to view, co
 | terminationGracePeriodSeconds | int | `60` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| updateStrategy | object | `{"type":"RollingUpdate"}` | Update stategy for the Statefulset |
-| updateStrategy.type | string | `"RollingUpdate"` | Update stategy type |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
+| updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 
 # Examples
 

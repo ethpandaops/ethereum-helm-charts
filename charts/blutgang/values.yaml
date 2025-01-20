@@ -17,7 +17,7 @@ image:
 
 # -- Custom args for the blutgang container
 customArgs: []
-  #- -config-file=/somehwere-else.yaml
+  #- -config-file=/somewhere-else.yaml
   #- -output-dir=public
 
 # -- Command replacement for the blutgang container
@@ -60,7 +60,7 @@ config: |
   expected_block_time = {{ .Values.blutgangNamespace.expected_block_time | default 13000 }}
   # Time between health checks in ms
   health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 2000 }}
-  # Supress the health check running info messages
+  # Suppress the health check running info messages
   supress_rpc_check = {{ .Values.blutgangNamespace.supress_rpc_check | default false }}
 
   # Note: the admin namespace contains volatile functions and
@@ -97,7 +97,7 @@ config: |
   # Frequency of flushes in ms
   flush_every_ms = 240
 
-  # Add seperate RPCs as TOML tables
+  # Add separate RPCs as TOML tables
   # DO NOT name an rpc `blutgang`, `admin`, or `sled`
   {{- range .Values.rpcList }}
   [{{ .name }}]
@@ -107,7 +107,7 @@ config: |
   {{- end }}
   # The maximum amount of time we can use this rpc in a row.
   max_consecutive = {{ .max_consecutive | default 150 }}
-  # Max amount of querries per second.
+  # Max amount of queries per second.
   max_per_second = {{ .max_per_second | default 200 }}
   {{- end }}
 
@@ -255,9 +255,9 @@ podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
 
-# -- Update stategy for the Statefulset
+# -- Update strategy for the Statefulset
 updateStrategy:
-  # -- Update stategy type
+  # -- Update strategy type
   type: RollingUpdate
 
 # -- Additional init containers

@@ -207,7 +207,7 @@ rbac:
   # -- Required ClusterRole rules
   # @default -- See `values.yaml`
   rules:
-    # Required to get information about the serices nodePort.
+    # Required to get information about the services nodePort.
     - apiGroups: [""]
       resources:
       - services
@@ -269,9 +269,9 @@ podDisruptionBudget: {}
 # minAvailable: 1
 # maxUnavailable: 1
 
-# -- Update stategy for the Statefulset
+# -- Update strategy for the Statefulset
 updateStrategy:
-  # -- Update stategy type
+  # -- Update strategy type
   type: RollingUpdate
 
 # -- Additional init containers

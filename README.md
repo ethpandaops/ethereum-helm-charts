@@ -64,7 +64,7 @@ Tooling
 
 - [`beacon-metrics-gazer`](charts/beacon-metrics-gazer) - A prometheus exporter for Ethereum validator clients.
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
-- [`blob-me-baby`](charts/blob-me-baby) - Send arbitary blob data in well-formatted blobs
+- [`blob-me-baby`](charts/blob-me-baby) - Send arbitrary blob data in well-formatted blobs
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
 - [`blockscout`](charts/blockscout) - Execution layer block explorer.
