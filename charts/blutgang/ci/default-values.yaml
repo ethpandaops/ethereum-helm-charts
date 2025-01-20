@@ -25,7 +25,7 @@ config: |
   # Time between health checks in ms
   health_check_ttl = 2000
   # Suppress the health check running info messages
-  suppress_rpc_check = false
+  supress_rpc_check = false
 
   # Note: the admin namespace contains volatile functions and
   # should not be exposed publicly.

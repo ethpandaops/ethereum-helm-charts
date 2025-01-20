@@ -61,7 +61,7 @@ config: |
   # Time between health checks in ms
   health_check_ttl = {{ .Values.blutgangNamespace.health_check_ttl | default 2000 }}
   # Suppress the health check running info messages
-  suppress_rpc_check = {{ .Values.blutgangNamespace.suppress_rpc_check | default false }}
+  supress_rpc_check = {{ .Values.blutgangNamespace.supress_rpc_check | default false }}
 
   # Note: the admin namespace contains volatile functions and
   # should not be exposed publicly.
@@ -123,7 +123,7 @@ blutgangNamespace:
   max_retries: 32
   expected_block_time: 13000
   health_check_ttl: 2000
-  suppress_rpc_check: false
+  supress_rpc_check: false
 
 # -- Admin Namespace
 # @default -- See `values.yaml`
