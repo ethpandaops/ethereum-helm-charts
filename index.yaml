@@ -2,6 +2,24 @@ apiVersion: v1
 entries:
   armiarma:
   - apiVersion: v2
+    created: "2025-01-20T12:32:53.126419624Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.23
+    description: A distributed p2p network monitoring tool
+    digest: 4a47ad2fe2176d35a81acfe6d6ac56bbd6f4b95ead3c4f5d3b8e204a9beaff11
+    home: https://github.com/migalabs/armiarma
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: armiarma
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/armiarma-0.1.2/armiarma-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2024-03-21T18:56:22.990543101Z"
     dependencies:
     - condition: postgresql.enabled
@@ -38,6 +56,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/armiarma-0.1.0/armiarma-0.1.0.tgz
     version: 0.1.0
   assertoor:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-20T12:32:53.234625194Z"
+    description: 'Testing tool that is capable of doing actions and checking conditions
+      on ethereum pos networks. '
+    digest: 379d2b72b8fb83df5300964e98b8a0cbd5e03e649991d224065f00e5091d0a26
+    home: https://github.com/ethpandaops/assertoor
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: assertoor
+    sources:
+    - https://github.com/ethpandaops/assertoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/assertoor-1.0.1/assertoor-1.0.1.tgz
+    version: 1.0.1
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2024-10-04T13:14:03.556053278Z"
@@ -125,6 +160,19 @@ entries:
     version: 0.0.1
   beacon-metrics-gazer:
   - apiVersion: v2
+    created: "2025-01-20T12:32:53.33444766Z"
+    description: Collects network wide participation metrics given a range of indexes
+    digest: b2dc078404b158f844f6259ca19e0662ecdb3f9eae751a95c8ad99363588d371
+    home: https://github.com/dapplion/beacon-metrics-gazer
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: beacon-metrics-gazer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beacon-metrics-gazer-0.1.4/beacon-metrics-gazer-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2023-06-27T13:51:37.177708618Z"
     description: Collects network wide participation metrics given a range of indexes
     digest: db8c622cc4e961ba77d2b1e666926575cd79f31c6ff9434388b1df8a9e30f609
@@ -177,6 +225,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beacon-metrics-gazer-0.1.0/beacon-metrics-gazer-0.1.0.tgz
     version: 0.1.0
   beaconchain-explorer:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:53.473149972Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: 'Beacon chain explorer built using golang and using a PostgreSQL
+      database for storing and indexing data. '
+    digest: e639d620a705619f290c65bc0c2c2d8ea63b7563b0c1e42f8456c3342c23e59c
+    home: https://beaconcha.in/
+    icon: https://pbs.twimg.com/profile_images/1274442538057961474/-cZGkGhP_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: beaconchain-explorer
+    sources:
+    - https://github.com/gobitfly/eth2-beaconchain-explorer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.6/beaconchain-explorer-0.1.6.tgz
+    version: 0.1.6
   - apiVersion: v2
     created: "2024-03-21T18:56:23.138456544Z"
     dependencies:
@@ -310,6 +380,26 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.0/beaconchain-explorer-0.1.0.tgz
     version: 0.1.0
   besu:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:53.590700275Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 8d67d8ca2915bee311f6270d8621d40c33c780fefc787aa03773377b888f3fa3
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-1.0.8/besu-1.0.8.tgz
+    version: 1.0.8
   - apiVersion: v2
     created: "2024-03-21T18:56:23.26324947Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
@@ -706,6 +796,18 @@ entries:
     version: 0.1.0
   blob-me-baby:
   - apiVersion: v2
+    created: "2025-01-20T12:32:53.720557638Z"
+    description: Send arbitrary blob data in well-formatted blobs
+    digest: f537128c7da7c6575c413f0e79dbebe9b027aa951804cec8081f137ccbba1aa4
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: blob-me-baby
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blob-me-baby-0.1.2/blob-me-baby-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2023-05-26T12:21:06.61511667Z"
     description: Send arbitary blob data in well-formatted blobs
     digest: 945f0cc3e51c3f7b4892ad094a6716acb313457214493f5473d63aa1a19ade21
@@ -786,6 +888,37 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blobscan-indexer-0.1.0/blobscan-indexer-0.1.0.tgz
     version: 0.1.0
   blockscout:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:53.868878197Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 17.x.x
+    - condition: smart-contract-verifier-http.enabled
+      name: smart-contract-verifier-http
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.2
+    description: 'BlockScout provides a comprehensive, easy-to-use interface for users
+      to view, confirm, and inspect transactions on EVM (Ethereum Virtual Machine)
+      blockchains '
+    digest: 439c6eab6c1be896f51a1a48c94de88094bb8eda4379e38766c591d5e3c7cb40
+    home: https://docs.blockscout.com/
+    icon: https://github.com/blockscout/blockscout/raw/master/apps/block_scout_web/assets/static/apple-touch-icon.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: blockscout
+    sources:
+    - https://github.com/blockscout/blockscout/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.2.3/blockscout-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     created: "2024-08-06T09:14:33.854056842Z"
     dependencies:
@@ -995,6 +1128,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blockscout-0.1.0/blockscout-0.1.0.tgz
     version: 0.1.0
   blutgang:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:53.99514136Z"
+    description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
+      designed with Ethereum''s JSON-RPC in mind. Historical RPC queries are cached
+      in a local database, bypassing the need for slow, repeating calls to your node. '
+    digest: 76bd9c029ed40153fd0d4513d6e8d06fb8ff5c4e3b140e038681b9e925ff43ca
+    home: https://github.com/rainshowerLabs/blutgang
+    icon: https://github.com/rainshowerLabs/blutgang/assets/55022497/ec668c7a-5f56-4b26-8386-f112c2f176ce
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: blutgang
+    sources:
+    - https://github.com/rainshowerLabs/blutgang
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.12/blutgang-0.0.12.tgz
+    version: 0.0.12
   - apiVersion: v2
     created: "2024-08-26T14:17:01.482893698Z"
     description: 'Blutgang is a blazing fast, caching, minimalistic load balancer
@@ -1235,6 +1386,23 @@ entries:
     version: 0.1.1
   consensus-monitor:
   - apiVersion: v2
+    created: "2025-01-20T12:32:54.140206026Z"
+    description: 'Web UI to monitor the ethereum consensus nodes via their beaconchain
+      APIs. '
+    digest: 5ea3dd4eaf087de6346b6c44eeffb3eccdffc7d3596c4a17cdf541a8ec7050ea
+    home: https://github.com/ralexstokes/ethereum_consensus_monitor/
+    icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: consensus-monitor
+    sources:
+    - https://github.com/ralexstokes/ethereum_consensus_monitor/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.3/consensus-monitor-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2023-05-10T18:22:04.847865861Z"
     description: 'Web UI to monitor the ethereum consensus nodes via their beaconchain
       APIs. '
@@ -1286,6 +1454,29 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
     version: 0.1.0
   dora:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:54.272892189Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: A Beaconchain explorer is a tool that allows users to view and interact
+      with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer,
+      which allows users to view data on a blockchain such as the current state of
+      transactions and blocks - but focussed on exploring the beaconchain.
+    digest: aa2eb41a371b8756b7e9d2f000e33b9aea48d7dec28c1b2cab5013d22af2571a
+    home: https://github.com/pk910/dora
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: dora
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dora-0.0.6/dora-0.0.6.tgz
+    version: 0.0.6
   - apiVersion: v2
     created: "2024-06-18T09:18:09.076185368Z"
     dependencies:
@@ -1402,6 +1593,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dora-0.0.1/dora-0.0.1.tgz
     version: 0.0.1
   dshackle:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:54.401718915Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.x.x
+    description: 'Emerald Dshackle is a Fault Tolerant Load Balancer for Blockchain
+      API. Support for standard Bitcoin and Ethereum JSON RPC API over HTTP and WebSocket. '
+    digest: a33d1c79e43092276d10716a58fb746df06fc42c7a5d433d7745b809c25dcc96
+    home: https://github.com/emeraldpay/dshackle
+    icon: https://avatars.githubusercontent.com/u/49622339?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: dshackle
+    sources:
+    - https://github.com/emeraldpay/dshackle
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dshackle-0.1.9/dshackle-0.1.9.tgz
+    version: 0.1.9
   - apiVersion: v2
     created: "2024-03-21T11:23:15.66934432Z"
     dependencies:
@@ -1603,6 +1816,22 @@ entries:
   dugtrio:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2025-01-20T12:32:54.512666343Z"
+    description: 'Fault tolerant load balancer for beacon chain RPC apis '
+    digest: 297a4c92614510ee287f758b0dd9b63da30825ef7572a665566fe57e4c8ab603
+    home: https://github.com/ethpandaops/dugtrio
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: dugtrio
+    sources:
+    - https://github.com/ethpandaops/dugtrio
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dugtrio-0.0.7/dugtrio-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2024-08-16T11:08:49.224886719Z"
     description: 'Fault tolerant load balancer for beacon chain RPC apis '
     digest: 1f1fae0adde3bc137a2347b61938a6feb3d50108df067b2d1f8b634e98c0b71c
@@ -1789,6 +2018,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.0/eleel-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:54.634569025Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: da35e2d4c3f85834fa51943c2a99b5f0fb60add93a1d7c490a67e721cdc16250
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-1.0.12/erigon-1.0.12.tgz
+    version: 1.0.12
   - apiVersion: v2
     created: "2024-11-29T13:11:18.056398376Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -2295,6 +2546,23 @@ entries:
     version: 0.1.0
   erpc:
   - apiVersion: v2
+    created: "2025-01-20T12:32:54.749972859Z"
+    description: eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent
+      caching solution. It is built with read-heavy use-cases in mind such as data
+      indexing and high-load frontend usage.
+    digest: 52072be6819b0a365e616b1f46122eb730ae3d54b86e044caa576197f4476358
+    home: https://github.com/erpc/erpc
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: erpc
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erpc-0.0.3/erpc-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     created: "2024-12-09T10:40:11.286709488Z"
     description: eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent
       caching solution. It is built with read-heavy use-cases in mind such as data
@@ -2356,6 +2624,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth-faucet-0.1.0/eth-faucet-0.1.0.tgz
     version: 0.1.0
   eth2-fork-mon:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:54.852057961Z"
+    description: 'Simple client/server to track the (real-time) status of a (configurable)
+      set of eth2 beacon nodes. '
+    digest: 3c14b16e9375394f208eabf4dc26eb1834ed0d2a5313b320829003a036652a0b
+    home: https://github.com/ralexstokes/eth2-fork-mon
+    icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: eth2-fork-mon
+    sources:
+    - https://github.com/ralexstokes/eth2-fork-mon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.3/eth2-fork-mon-0.1.3.tgz
+    version: 0.1.3
   - apiVersion: v2
     created: "2023-05-10T18:22:05.584408009Z"
     description: 'Simple client/server to track the (real-time) status of a (configurable)
@@ -4566,6 +4851,26 @@ entries:
     version: 0.0.1
   ethereumjs:
   - apiVersion: v2
+    created: "2025-01-20T12:32:54.99690091Z"
+    description: 'The EthereumJS Client is an Ethereum Execution Client (similar to
+      go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract
+      language Ethereum dApp developers are most familiar with. It is targeted to
+      be a client for research and development and not meant to be used in production
+      on mainnet for the foreseeable future (out of resource and security considerations). '
+    digest: 669c503f482a4af7976e228d8989f04fe1bef68cd0542e0fcd5da6fa60bad284
+    home: https://ethereumjs.readthedocs.io/en/latest/
+    icon: https://user-images.githubusercontent.com/47108/78779352-d0839500-796a-11ea-9468-fd2a0b3fe1ef.png
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: ethereumjs
+    sources:
+    - https://github.com/ethereumjs/ethereumjs-monorepo
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereumjs-0.0.10/ethereumjs-0.0.10.tgz
+    version: 0.0.10
+  - apiVersion: v2
     created: "2024-11-29T13:11:18.314415304Z"
     description: 'The EthereumJS Client is an Ethereum Execution Client (similar to
       go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract
@@ -4828,6 +5133,22 @@ entries:
     version: 0.1.0
   fauceth:
   - apiVersion: v2
+    created: "2025-01-20T12:32:55.119518975Z"
+    description: 'Faucet for EVM chains '
+    digest: 25512a3bec8c30f6580b5c087dd6ecac0c6bf7a9aa4957d50cc67949aed8b220
+    home: https://github.com/komputing/fauceth
+    icon: https://avatars.githubusercontent.com/u/48826811?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: fauceth
+    sources:
+    - https://github.com/komputing/fauceth
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/fauceth-0.2.4/fauceth-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
     created: "2023-05-10T18:22:06.468915376Z"
     description: 'Faucet for EVM chains '
     digest: a29b721e635be492c222c63cb2f46bd99648bbd8c2c10df3d0f332eaaadb87fb
@@ -4908,6 +5229,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/fauceth-0.1.0/fauceth-0.1.0.tgz
     version: 0.1.0
   forkmon:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:55.230685378Z"
+    description: This is a little tool to keep track on a set of nodes, and see if
+      they keep in step or if they go out of consensus.
+    digest: aef7d52a54571deee7e6db2240f28af8c9d86bf57c0e0402b6d9ff668c7b4dea
+    home: https://github.com/ethereum/nodemonitor
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: forkmon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forkmon-0.1.6/forkmon-0.1.6.tgz
+    version: 0.1.6
   - apiVersion: v2
     created: "2024-03-21T18:56:24.139049291Z"
     description: This is a little tool to keep track on a set of nodes, and see if
@@ -5067,6 +5404,26 @@ entries:
   ganache:
   - apiVersion: v2
     appVersion: 6.12.2
+    created: "2025-01-20T12:32:55.33833009Z"
+    description: 'Ganache is an Ethereum simulator that makes developing Ethereum
+      applications faster, easier, and safer. It includes all popular RPC functions
+      and features (like events) and can be run deterministically to make development
+      a breeze. '
+    digest: 9762960bc73f7d1743deaf71f116188122f3896e3f5f1cca852d2673b4b6d523
+    home: https://www.trufflesuite.com/ganache
+    icon: https://www.trufflesuite.com/img/ganache-logomark.svg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ganache
+    sources:
+    - https://github.com/trufflesuite/ganache
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ganache-0.1.3/ganache-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: 6.12.2
     created: "2023-05-10T18:22:06.894132777Z"
     description: 'Ganache is an Ethereum simulator that makes developing Ethereum
       applications faster, easier, and safer. It includes all popular RPC functions
@@ -5126,6 +5483,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ganache-0.1.0/ganache-0.1.0.tgz
     version: 0.1.0
   genesis-generator:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:55.445798432Z"
+    description: Generate testnet genesis files for the execution and consensus layer
+      clients
+    digest: f50253891d13a84f9f34ff9082e25e6c0439cb0ee0267f23d3c72a7980884354
+    home: https://github.com/skylenet/ethereum-genesis-generator
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: genesis-generator
+    sources:
+    - https://github.com/skylenet/ethereum-genesis-generator
+    - https://github.com/protolambda/eth2-testnet-genesis
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.2.3/genesis-generator-0.2.3.tgz
+    version: 0.2.3
   - apiVersion: v2
     created: "2023-05-10T18:22:07.044951934Z"
     description: Generate testnet genesis files for the execution and consensus layer
@@ -5195,6 +5569,27 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
     version: 0.1.0
   geth:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:55.571301061Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: b104c9bc1e02c9ce2ffec70abde3f95677d89f6691416ce1e48b1cd2042c5650
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-1.0.9/geth-1.0.9.tgz
+    version: 1.0.9
   - apiVersion: v2
     created: "2024-03-21T18:56:24.376852778Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
@@ -5557,6 +5952,23 @@ entries:
     version: 0.1.0
   grandine:
   - apiVersion: v2
+    created: "2025-01-20T12:32:55.70016747Z"
+    description: A currently closed source, but hopefully soon to be open-source Ethereum
+      Consensus layer client, written in Rust.
+    digest: a028630e3b5e6a0883079e204d621df7f00422416f07a0e5f5c6621a30e32bb0
+    home: https://sifrai.com
+    icon: https://github.com/sifraitech/grandine/blob/master/gui.png
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: grandine
+    sources:
+    - https://github.com/sifraitech/grandine
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.1.3/grandine-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
     created: "2024-03-21T18:56:24.499493918Z"
     description: A currently closed source, but hopefully soon to be open-source Ethereum
       Consensus layer client, written in Rust.
@@ -5659,6 +6071,18 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.0.1/grandine-0.0.1.tgz
     version: 0.0.1
   ipfs-cluster:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:55.82444333Z"
+    description: Run ipfs cluster along with kubo (go-ipfs)
+    digest: 4e9f8c72a012ec1e44b380314c43f184118c4ada46f631d5cdb78e70d34e5b8f
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ipfs-cluster
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ipfs-cluster-0.1.14/ipfs-cluster-0.1.14.tgz
+    version: 0.1.14
   - apiVersion: v2
     created: "2024-03-21T18:56:24.620416688Z"
     description: Run ipfs cluster along with kubo (go-ipfs)
@@ -5838,6 +6262,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/light-beaconchain-explorer-0.0.1/light-beaconchain-explorer-0.0.1.tgz
     version: 0.0.1
   lighthouse:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:55.953746707Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 066bb5ea21b0bde71e59f278cf8841b26d5c3a53ec1ea1f62b23edfc62007c03
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.1.5/lighthouse-1.1.5.tgz
+    version: 1.1.5
   - apiVersion: v2
     created: "2024-10-28T12:59:47.368412747Z"
     description: An open-source Ethereum 2.0 client, written in Rust
@@ -6181,6 +6623,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-0.1.0/lighthouse-0.1.0.tgz
     version: 0.1.0
   lodestar:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:56.120966571Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: 87ed3dbe97fd5c08582342630d54f0e55ad0d21fdffd7025130074e98c210120
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-1.1.4/lodestar-1.1.4.tgz
+    version: 1.1.4
   - apiVersion: v2
     created: "2024-03-21T18:56:24.875633948Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
@@ -6561,6 +7022,25 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-0.1.0/lodestar-0.1.0.tgz
     version: 0.1.0
   nethermind:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:56.236953924Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: 8568d237cfc714dac05f4597c8cb6053c71312be6987fe781bb4cfe01db94dec
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-1.0.14/nethermind-1.0.14.tgz
+    version: 1.0.14
   - apiVersion: v2
     created: "2024-10-28T12:59:47.481210124Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
@@ -7016,6 +7496,24 @@ entries:
     version: 0.1.0
   nimbus:
   - apiVersion: v2
+    created: "2025-01-20T12:32:56.347032702Z"
+    description: An open-source Ethereum consensus layer client, written in Nim
+    digest: 270575f82f2504bcb56fd3e556777755dee4f649c9cb4f3ef3b990a46e615d58
+    home: https://nimbus.guide/
+    icon: https://launchpad.ethereum.org/static/media/nimbus-circle.2752d77b.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-1.1.4/nimbus-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     created: "2024-03-21T18:56:25.142988013Z"
     description: An open-source Ethereum consensus layer client, written in Nim
     digest: c7a044b44f78c8eff78605d3874761795fb26352fbd81b9c5f602583cbe1d36e
@@ -7456,6 +7954,22 @@ entries:
   powfaucet:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2025-01-20T12:32:56.534760335Z"
+    description: 'PoW Faucet for EVM chains '
+    digest: 55f98aac4d32cecf56683804510a2d490dddc77fcd53eae42551b6ac78f5896e
+    home: https://github.com/pk910/PoWFaucet
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: powfaucet
+    sources:
+    - https://github.com/pk910/PoWFaucet
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-0.0.5/powfaucet-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2023-12-01T16:21:20.783150288Z"
     description: 'PoW Faucet for EVM chains '
     digest: e50ef4a82607be39f2b1baa9ecd480d0af64f3c9e5261ff2572e5c142fab64c0
@@ -7519,6 +8033,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-0.0.1/powfaucet-0.0.1.tgz
     version: 0.0.1
   prysm:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:56.630298813Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: 141a8d12e313e5b4e2bdc225bc32d64e03314729f2bda4206b1c5ffceabf4746
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.1.5/prysm-1.1.5.tgz
+    version: 1.1.5
   - apiVersion: v2
     created: "2024-03-21T18:56:25.256498135Z"
     description: An open-source Ethereum 2.0 client, written in Go
@@ -7862,6 +8394,27 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
     version: 0.1.0
   reth:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:56.7445213Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: d1eb5a295d955f9db6614cbaa9544574b89c445c8e3e9aecbf0f4f2e7865a6fa
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.0.15/reth-0.0.15.tgz
+    version: 0.0.15
   - apiVersion: v2
     created: "2024-03-21T18:56:25.40597285Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
@@ -8215,6 +8768,22 @@ entries:
     version: 0.0.1
   smart-contract-verifier-http:
   - apiVersion: v2
+    created: "2025-01-20T12:32:56.860861682Z"
+    description: 'Smart-contract verification service. Runs as an HTTP server and
+      allows making verification requests through REST API. '
+    digest: b9ccd525961713f25fa81fbd34bc8e0ea14ea47d8ef0ead72c58faa48b454b86
+    home: https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: smart-contract-verifier-http
+    sources:
+    - https://github.com/blockscout/blockscout-rs/tree/main/smart-contract-verifier-http
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/smart-contract-verifier-http-0.1.4/smart-contract-verifier-http-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2023-05-10T18:22:08.319099481Z"
     description: 'Smart-contract verification service. Runs as an HTTP server and
       allows making verification requests through REST API. '
@@ -8306,6 +8875,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/stubbies-0.0.1/stubbies-0.0.1.tgz
     version: 0.0.1
   teku:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:56.969660097Z"
+    description: An open-source Ethereum 2.0 client, written in Java
+    digest: ce908bdb355145f6f1c078e639d01256ef83369fa8b61a5a19b77089ec80701a
+    home: https://consensys.net/knowledge-base/ethereum-2/teku/
+    icon: https://launchpad.ethereum.org/static/media/pegasys-teku-circle.4147bb69.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: teku
+    sources:
+    - https://github.com/Consensys/teku/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/teku-1.1.4/teku-1.1.4.tgz
+    version: 1.1.4
   - apiVersion: v2
     created: "2024-03-21T18:56:25.528754259Z"
     description: An open-source Ethereum 2.0 client, written in Java
@@ -8905,6 +9492,28 @@ entries:
     version: 0.0.1
   web3signer:
   - apiVersion: v2
+    created: "2025-01-20T12:32:57.10539409Z"
+    dependencies:
+    - alias: slashingprotectiondb
+      condition: slashingprotectiondb.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: Web3Signer is capable of signing on multiple platforms using private
+      keys stored in an external vault, or encrypted on a disk.
+    digest: b81025d93d4f15262f3193b8a2c5e4322e796b221a4440d8ae275c80cd91f29d
+    home: https://github.com/Consensys/web3signer/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: rafael@skyle.net
+      name: skylenet
+    name: web3signer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/web3signer-1.0.6/web3signer-1.0.6.tgz
+    version: 1.0.6
+  - apiVersion: v2
     created: "2024-01-23T11:55:57.359159074Z"
     dependencies:
     - alias: slashingprotectiondb
@@ -9098,6 +9707,22 @@ entries:
     version: 0.0.1
   xatu-cannon:
   - apiVersion: v2
+    created: "2025-01-20T12:32:57.230736024Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: f4055060ecff9567bf09e56ce54e4a0f175baa9537a63c0628accfc4d93df243
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cannon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.2.2/xatu-cannon-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2023-11-23T03:40:46.827189093Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
       client and collects data via the consensus client's Beacon API.
@@ -9146,6 +9771,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.0.1/xatu-cannon-0.0.1.tgz
     version: 0.0.1
   xatu-cl-mimicry:
+  - apiVersion: v2
+    created: "2025-01-20T12:32:57.352813461Z"
+    description: Ethereum p2p monitoring tool that collects data from the consensus
+      layer.
+    digest: 58b1a351cebf512cd8bd9f810f96bdac4806462e937d7ae655a5a3a9049fa232
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cl-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cl-mimicry-0.0.2/xatu-cl-mimicry-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     created: "2024-04-17T03:30:22.915239781Z"
     description: Ethereum p2p monitoring tool that collects data from the consensus
@@ -9721,4 +10362,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2024-12-09T10:40:11.287695465Z"
+generated: "2025-01-20T12:32:57.354177834Z"
