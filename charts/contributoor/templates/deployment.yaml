@@ -68,12 +68,12 @@ spec:
         ports:
           {{- if .Values.healthCheck.enabled }}
           - name: health
-            containerPort: "{{ .Values.healthCheck.port }}"
+            containerPort: {{ .Values.healthCheck.port }}
             protocol: TCP
           {{- end }}
           {{- if .Values.metrics.enabled }}
           - name: metrics
-            containerPort: "{{ .Values.metrics.port }}"
+            containerPort: {{ .Values.metrics.port }}
             protocol: TCP
           {{- end }}
         {{- if .Values.livenessProbe }}

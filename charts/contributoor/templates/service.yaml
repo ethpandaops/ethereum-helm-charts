@@ -8,13 +8,13 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     {{- if .Values.healthCheck.enabled }}
-    - port: "{{ .Values.healthCheck.port }}"
+    - port: {{ .Values.healthCheck.port }}
       targetPort: health
       protocol: TCP
       name: health
     {{- end }}
     {{- if .Values.metrics.enabled }}
-    - port: "{{ .Values.metrics.port }}"
+    - port: {{ .Values.metrics.port }}
       targetPort: metrics
       protocol: TCP
       name: metrics
