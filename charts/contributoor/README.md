@@ -14,19 +14,10 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| config.beaconNodeAddress | string | `"http://localhost:5052"` |  |
-| config.contributoorDirectory | string | `"/config/.contributoor"` |  |
-| config.healthCheckAddress | string | `":9191"` |  |
-| config.logLevel | string | `"info"` |  |
-| config.metricsAddress | string | `":9090"` |  |
-| config.networkName | string | `"NETWORK_NAME_MAINNET"` |  |
-| config.outputServer.address | string | `"xatu.primary.production.platform.ethpandaops.io:443"` |  |
-| config.outputServer.credentials | string | `"Someb64Value"` |  |
-| config.outputServer.tls | bool | `true` |  |
-| config.runMethod | string | `"RUN_METHOD_DOCKER"` |  |
-| config.version | string | `"0.0.49"` |  |
+| beaconNode | object | `{"address":"http://localhost:5052"}` | Beacon node configuration |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["--config=/config/config.yaml"]` | Custom args for the contributoor container These are optional, and will be passed to the contributoor container, overriding the values set in 'config'. |
+| credentials | object | `{"password":"FILL_ME","username":"FILL_ME"}` | Credentials configuration |
+| customArgs | list | `[]` | Custom args for the contributoor container |
 | customCommand | list | `[]` | Command replacement for the contributoor container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -35,20 +26,27 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| healthCheck.enabled | bool | `true` |  |
+| healthCheck.port | int | `9191` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | contributoor container pull policy |
 | image.repository | string | `"ethpandaops/contributoor"` | contributoor container image repository |
 | image.tag | string | `"latest"` | contributoor container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | initContainers | list | `[]` | Additional init containers |
 | lifecycle | object | See `values.yaml` | Lifecycle hooks |
-| livenessProbe | object | `{"httpGet":{"path":"/healthz","port":9191},"initialDelaySeconds":60,"periodSeconds":120}` | Liveness probe |
+| livenessProbe | object | `{"httpGet":{"path":"/healthz","port":"health"},"initialDelaySeconds":60,"periodSeconds":120}` | Liveness probe |
+| logLevel | string | `"info"` | Log level |
+| metrics.enabled | bool | `true` |  |
+| metrics.port | int | `9090` |  |
 | nameOverride | string | `""` | Overrides the chart's name |
+| network | string | `"mainnet"` | Network name (mainnet, holesky, sepolia) |
 | nodeSelector | object | `{}` | Node selector for pods |
+| outputServer | object | `{"address":"xatu.primary.production.platform.ethpandaops.io:443","tls":true}` | Output server configuration to send the data to |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
-| readinessProbe | object | `{"httpGet":{"path":"/healthz","port":9191},"initialDelaySeconds":10,"periodSeconds":10}` | Readiness probe |
+| readinessProbe | object | `{"httpGet":{"path":"/healthz","port":"health"},"initialDelaySeconds":10,"periodSeconds":10}` | Readiness probe |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |

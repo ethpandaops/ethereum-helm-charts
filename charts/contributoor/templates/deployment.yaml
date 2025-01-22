@@ -66,33 +66,39 @@ spec:
             {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
         ports:
-          {{- if .Values.config.healthCheckAddress }}
+          {{- if .Values.healthCheck.enabled }}
           - name: health
-            containerPort: {{ include "contributoor.healthCheckPort" . | atoi }}
+            containerPort: {{ .Values.healthCheck.port }}
             protocol: TCP
           {{- end }}
-          {{- if .Values.config.metricsAddress }}
+          {{- if .Values.metrics.enabled }}
           - name: metrics
-            containerPort: {{ include "contributoor.metricsPort" . }}
+            containerPort: {{ .Values.metrics.port }}
             protocol: TCP
           {{- end }}
+        {{- if .Values.livenessProbe }}
         livenessProbe:
-          httpGet:
-            path: /healthz
-            port: health
-          initialDelaySeconds: 60
-          periodSeconds: 120
+          {{- toYaml .Values.livenessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.readinessProbe }}
         readinessProbe:
-          httpGet:
-            path: /healthz
-            port: health
-          initialDelaySeconds: 10
-          periodSeconds: 10
+          {{- toYaml .Values.readinessProbe | nindent 10 }}
+        {{- end }}
         lifecycle:
           {{- toYaml .Values.lifecycle | nindent 12 }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         env:
+          - name: CONTRIBUTOOR_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.credentials.existingSecret | default (printf "%s-credentials" (include "contributoor.fullname" .)) }}
+                key: {{ .Values.credentials.usernameKey | default "username" }}
+          - name: CONTRIBUTOOR_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.credentials.existingSecret | default (printf "%s-credentials" (include "contributoor.fullname" .)) }}
+                key: {{ .Values.credentials.passwordKey | default "password" }}
         {{- range $key, $value := .Values.secretEnv }}
           - name: {{ $key }}
             valueFrom:

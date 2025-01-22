@@ -60,11 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "contributoor.healthCheckPort" -}}
-{{ (split ":" .Values.config.healthCheckAddress)._2 | default "9191" }}
-{{- end -}}
-
-{{- define "contributoor.metricsPort" -}}
-{{ (split ":" .Values.config.metricsAddress)._2 | default "9090" }}
-{{- end -}}
