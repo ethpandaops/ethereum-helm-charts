@@ -62,9 +62,9 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "contributoor.healthCheckPort" -}}
-{{ (split ":" .Values.config.healthCheckAddress)._2 | default "9191" }}
+{{- .Values.healthCheck.port }}
 {{- end -}}
 
 {{- define "contributoor.metricsPort" -}}
-{{ (split ":" .Values.config.metricsAddress)._2 | default "9090" }}
+{{- .Values.metrics.port }}
 {{- end -}}

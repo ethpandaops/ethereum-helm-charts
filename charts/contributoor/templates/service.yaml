@@ -7,13 +7,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    {{- if .Values.config.healthCheckAddress }}
-    - port: {{ include "contributoor.healthCheckPort" . | atoi }}
+    {{- if .Values.healthCheck.enabled }}
+    - port: {{ include "contributoor.healthCheckPort" . }}
       targetPort: health
       protocol: TCP
       name: health
     {{- end }}
-    {{- if .Values.config.metricsAddress }}
+    {{- if .Values.metrics.enabled }}
     - port: {{ include "contributoor.metricsPort" . }}
       targetPort: metrics
       protocol: TCP
