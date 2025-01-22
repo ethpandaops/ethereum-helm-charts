@@ -32,53 +32,19 @@ config:
   contributoorDirectory: /config/.contributoor
   runMethod: RUN_METHOD_DOCKER
 
-ingress:
-  grpc:
-    # -- Ingress resource for GRPC
-    enabled: false
-    # -- Annotations for Ingress
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-    # -- Ingress host
-    hosts:
-      - host: chart-example.local
-        paths: []
-    # -- Ingress TLS
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-  http:
-    # -- Ingress resource for the HTTP API
-    enabled: false
-    # -- Annotations for Ingress
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-    # -- Ingress host
-    hosts:
-      - host: chart-example.local
-        paths: []
-    # -- Ingress TLS
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
-
 # -- Custom args for the contributoor container
 # These are optional, and will be passed to the contributoor container, overriding the values set in 'config'.
-customArgs:
-  - --network=mainnet
-  - --beacon-node-address=http://localhost:5052
-  - --metrics-address=:9090
-  - --health-check-address=:9191
-  - --log-level=info
-  - --username=your-username
-  - --password=your-password
-  - --output-server-address=xatu.primary.production.platform.ethpandaops.io:443
-  - --output-server-tls=true
-  - --contributoor-directory=/config/.contributoor
+customArgs: []
+  # - --network=mainnet
+  # - --beacon-node-address=http://localhost:5052
+  # - --metrics-address=:9090
+  # - --health-check-address=:9191
+  # - --log-level=info
+  # - --username=your-username
+  # - --password=your-password
+  # - --output-server-address=xatu.primary.production.platform.ethpandaops.io:443
+  # - --output-server-tls=true
+  # - --contributoor-directory=/config/.contributoor
 
 # -- Command replacement for the contributoor container
 customCommand: [] # Only change this if you need to change the default command
@@ -114,27 +80,6 @@ readinessProbe:
 
 # -- Node selector for pods
 nodeSelector: {}
-
-persistence:
-  # -- Uses an EmptyDir when not enabled
-  enabled: false
-  # -- Use an existing PVC when persistence.enabled
-  existingClaim: null
-  # -- Access mode for the volume claim template
-  accessModes:
-  - ReadWriteOnce
-  # -- Requested size for volume claim template
-  size: 20Gi
-  # -- Use a specific storage class
-  # E.g 'local-path' for local storage to achieve best performance
-  # Read more (https://github.com/rancher/local-path-provisioner)
-  storageClassName: null
-  # -- Annotations for volume claim template
-  annotations: {}
-  # -- Selector for volume claim template
-  selector: {}
-  #   matchLabels:
-  #     app.kubernetes.io/name: something
 
 # -- Pod labels
 podLabels: {}

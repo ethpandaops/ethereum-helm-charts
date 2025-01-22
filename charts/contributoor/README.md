@@ -14,10 +14,6 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
 | args | list | `[]` | Command arguments |
-| autoscaling.enabled | bool | `false` | Autoscaling configuration |
-| autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
-| autoscaling.minReplicas | int | `2` | Minimum number of replicas |
-| autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.beaconNodeAddress | string | `"http://localhost:5052"` |  |
 | config.contributoorDirectory | string | `"/config/.contributoor"` |  |
 | config.healthCheckAddress | string | `":9191"` |  |
@@ -30,7 +26,7 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | config.runMethod | string | `"RUN_METHOD_DOCKER"` |  |
 | config.version | string | `"0.0.49"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["--network=mainnet","--beacon-node-address=http://localhost:5052","--metrics-address=:9090","--health-check-address=:9191","--log-level=info","--username=your-username","--password=your-password","--output-server-address=xatu.primary.production.platform.ethpandaops.io:443","--output-server-tls=true","--contributoor-directory=/config/.contributoor"]` | Custom args for the contributoor container These are optional, and will be passed to the contributoor container, overriding the values set in 'config'. |
+| customArgs | list | `[]` | Custom args for the contributoor container These are optional, and will be passed to the contributoor container, overriding the values set in 'config'. |
 | customCommand | list | `[]` | Command replacement for the contributoor container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -43,34 +39,16 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | image.repository | string | `"ethpandaops/contributoor"` | contributoor container image repository |
 | image.tag | string | `"latest"` | contributoor container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
-| ingress.grpc.annotations | object | `{}` | Annotations for Ingress |
-| ingress.grpc.enabled | bool | `false` | Ingress resource for GRPC |
-| ingress.grpc.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.grpc.hosts[0].paths | list | `[]` |  |
-| ingress.grpc.tls | list | `[]` | Ingress TLS |
-| ingress.http.annotations | object | `{}` | Annotations for Ingress |
-| ingress.http.enabled | bool | `false` | Ingress resource for the HTTP API |
-| ingress.http.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.http.hosts[0].paths | list | `[]` |  |
-| ingress.http.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | lifecycle | object | See `values.yaml` | Lifecycle hooks |
 | livenessProbe | object | `{"httpGet":{"path":"/healthz","port":9191},"initialDelaySeconds":60,"periodSeconds":120}` | Liveness probe |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
-| persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
-| persistence.annotations | object | `{}` | Annotations for volume claim template |
-| persistence.enabled | bool | `false` | Uses an EmptyDir when not enabled |
-| persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
-| persistence.selector | object | `{}` | Selector for volume claim template |
-| persistence.size | string | `"20Gi"` | Requested size for volume claim template |
-| persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
 | readinessProbe | object | `{"httpGet":{"path":"/healthz","port":9191},"initialDelaySeconds":10,"periodSeconds":10}` | Readiness probe |
-| replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
