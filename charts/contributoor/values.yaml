@@ -34,7 +34,8 @@ config:
 
 # -- Custom args for the contributoor container
 # These are optional, and will be passed to the contributoor container, overriding the values set in 'config'.
-customArgs: []
+customArgs:
+  - --config=/config/config.yaml
   # - --network=mainnet
   # - --beacon-node-address=http://localhost:5052
   # - --metrics-address=:9090
