@@ -41,7 +41,7 @@ config:
     credentials: Someb64Value
     tls: true
   version: 0.0.47
-  contributoorDirectory: /Users/username/.contributoor
+  contributoorDirectory: /path/to/.contributoor/dir
   runMethod: RUN_METHOD_DOCKER
 
 ingress:
@@ -264,4 +264,3 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
-

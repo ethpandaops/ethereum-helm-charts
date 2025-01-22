@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "contributoor.fullname" . }}
   labels:
@@ -7,11 +7,7 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  serviceName: {{ include "contributoor.fullname" . }}
   replicas: {{ .Values.replicas }}
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
-  updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "contributoor.selectorLabels" . | nindent 6 }}
@@ -69,22 +65,14 @@ spec:
             mountPath: "/config.yaml"
             subPath: config.yaml
             readOnly: true
-          - name: storage
-            mountPath: "/data"
           {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
         ports:
+          {{- if (include "contributoor.metricsPort" .) }}
           - name: metrics
             containerPort: {{ include "contributoor.metricsPort" . }}
             protocol: TCP
-          {{- if (include "contributoor.pprofPort" .) }}
-          - name: pprof
-            containerPort: {{ include "contributoor.pprofPort" . }}
-            protocol: TCP
-          {{- end }}
-          {{- if .Values.extraPodPorts }}
-            {{ toYaml .Values.extraPodPorts | nindent 10 }}
           {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
@@ -118,34 +106,9 @@ spec:
         {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
-        - name: config
-          configMap:
-            name: {{ include "contributoor.fullname" . }}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
       {{- end }}
-  {{- if not .Values.persistence.enabled }}
-        - name: storage
-          emptyDir: {}
-  {{- else if .Values.persistence.existingClaim }}
-        - name: storage
-          persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim }}
-  {{- else }}
-  volumeClaimTemplates:
-  - metadata:
-      name: storage
-      annotations:
-        {{- toYaml .Values.persistence.annotations | nindent 8 }}
-    spec:
-      accessModes:
-        {{- toYaml .Values.persistence.accessModes | nindent 8 }}
-      resources:
-        requests:
-          storage: {{ .Values.persistence.size | quote }}
-      storageClassName: {{ .Values.persistence.storageClassName }}
-      {{- if .Values.persistence.selector }}
-      selector:
-        {{- toYaml .Values.persistence.selector | nindent 8 }}
-      {{- end }}
-  {{- end }}
+        - name: config
+          configMap:
+            name: {{ include "contributoor.fullname" . }}

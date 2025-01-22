@@ -7,15 +7,11 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
+    {{- if (include "contributoor.metricsPort" .) }}
     - port: {{ include "contributoor.metricsPort" . }}
       targetPort: metrics
       protocol: TCP
       name: metrics
-    {{- if (include "contributoor.pprofPort" .) }}
-    - port: {{ include "contributoor.pprofPort" . }}
-      targetPort: pprof
-      protocol: TCP
-      name: pprof
     {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}

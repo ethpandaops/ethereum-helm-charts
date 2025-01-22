@@ -61,13 +61,16 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Get metrics address
+*/}}
 {{- define "contributoor.metricsPort" -}}
-{{ (split ":" .Values.config.shared.metricsAddr)._1 | default "9090" }}
+{{- $address := .Values.config.metricsAddress -}}
+{{- if $address -}}
+{{- $parts := splitList ":" $address -}}
+{{- if len $parts | eq 2 -}}
+{{- index $parts 1 -}}
 {{- end -}}
-
-{{- define "contributoor.pprofPort" -}}
-{{- if .Values.config.server.pprofAddr -}}
-{{ (split ":" .Values.config.server.pprofAddr)._1 | default "6060" }}
 {{- end -}}
 {{- end -}}
 
