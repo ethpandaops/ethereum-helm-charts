@@ -26,7 +26,7 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | config.runMethod | string | `"RUN_METHOD_DOCKER"` |  |
 | config.version | string | `"0.0.49"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `[]` | Custom args for the contributoor container These are optional, and will be passed to the contributoor container, overriding the values set in 'config'. |
+| customArgs | list | `["--config=/config/config.yaml"]` | Custom args for the contributoor container These are optional, and will be passed to the contributoor container, overriding the values set in 'config'. |
 | customCommand | list | `[]` | Command replacement for the contributoor container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
