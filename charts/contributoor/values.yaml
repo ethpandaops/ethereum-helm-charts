@@ -34,14 +34,15 @@ args: []
 config:
   beaconNodeAddress: http://localhost:5052
   metricsAddress: ":9090"
+  healthCheckAddress: ":9191"
   logLevel: info
   networkName: NETWORK_NAME_MAINNET
   outputServer:
     address: xatu.primary.production.platform.ethpandaops.io:443
     credentials: Someb64Value
     tls: true
-  version: 0.0.47
-  contributoorDirectory: /path/to/.contributoor/dir
+  version: 0.0.49
+  contributoorDirectory: /config/.contributoor
   runMethod: RUN_METHOD_DOCKER
 
 ingress:
@@ -79,17 +80,18 @@ ingress:
     #      - chart-example.local
 
 # -- Custom args for the contributoor container
+# These are optional, and will be passed to the contributoor container, overriding the values set in 'config'.
 customArgs:
   - --network=mainnet
   - --beacon-node-address=http://localhost:5052
   - --metrics-address=:9090
+  - --health-check-address=:9191
   - --log-level=info
   - --username=your-username
   - --password=your-password
   - --output-server-address=xatu.primary.production.platform.ethpandaops.io:443
   - --output-server-tls=true
-  - --contributoor-version=0.0.47
-  - --contributoor-directory=/path/to/.contributoor
+  - --contributoor-directory=/config/.contributoor
 
 # -- Command replacement for the contributoor container
 customCommand: [] # Only change this if you need to change the default command
@@ -108,18 +110,18 @@ imagePullSecrets: []
 annotations: {}
 
 # -- Liveness probe
-# @default -- See `values.yaml`
 livenessProbe:
-  tcpSocket:
-    port: grpc
+  httpGet:
+    path: /healthz
+    port: 9191
   initialDelaySeconds: 60
   periodSeconds: 120
 
 # -- Readiness probe
-# @default -- See `values.yaml`
 readinessProbe:
-  tcpSocket:
-    port: grpc
+  httpGet:
+    path: /healthz
+    port: 9191
   initialDelaySeconds: 10
   periodSeconds: 10
 

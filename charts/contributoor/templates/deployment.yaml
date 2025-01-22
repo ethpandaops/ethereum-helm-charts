@@ -47,16 +47,13 @@ spec:
         {{- if gt (len .Values.customCommand) 0 }}
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
-          - "/contributoor"
-          - "sentry"
-          - --config=/config.yaml
-          {{- if gt (len .Values.args) 0 }}
-          {{- toYaml .Values.args | nindent 12}}
-          {{- end }}
+          []
         {{- end }}
-        {{- if gt (len .Values.customArgs) 0 }}
         args:
+        {{- if gt (len .Values.customArgs) 0 }}
           {{- toYaml .Values.customArgs | nindent 12}}
+        {{- else }}
+          []
         {{- end }}
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 12 }}
@@ -69,15 +66,28 @@ spec:
             {{ toYaml .Values.extraVolumeMounts | nindent 10}}
           {{- end }}
         ports:
-          {{- if (include "contributoor.metricsPort" .) }}
+          {{- if .Values.config.healthCheckAddress }}
+          - name: health
+            containerPort: {{ include "contributoor.healthCheckPort" . | atoi }}
+            protocol: TCP
+          {{- end }}
+          {{- if .Values.config.metricsAddress }}
           - name: metrics
             containerPort: {{ include "contributoor.metricsPort" . }}
             protocol: TCP
           {{- end }}
         livenessProbe:
-          {{- toYaml .Values.livenessProbe | nindent 12 }}
+          httpGet:
+            path: /healthz
+            port: health
+          initialDelaySeconds: 60
+          periodSeconds: 120
         readinessProbe:
-          {{- toYaml .Values.readinessProbe | nindent 12 }}
+          httpGet:
+            path: /healthz
+            port: health
+          initialDelaySeconds: 10
+          periodSeconds: 10
         lifecycle:
           {{- toYaml .Values.lifecycle | nindent 12 }}
         resources:
