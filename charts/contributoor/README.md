@@ -19,7 +19,7 @@ A lightweight sidecar that runs alongside an Ethereum consensus client and colle
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
 | config.beaconNodeAddress | string | `"http://localhost:5052"` |  |
-| config.contributoorDirectory | string | `"/Users/username/.contributoor"` |  |
+| config.contributoorDirectory | string | `"/path/to/.contributoor/dir"` |  |
 | config.logLevel | string | `"info"` |  |
 | config.metricsAddress | string | `":9090"` |  |
 | config.networkName | string | `"NETWORK_NAME_MAINNET"` |  |
