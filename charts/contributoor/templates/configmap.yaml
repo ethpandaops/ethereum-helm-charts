@@ -8,10 +8,10 @@ data:
   config.yaml: |
     beaconNodeAddress: {{ .Values.beaconNode.address }}
     {{- if .Values.metrics.enabled }}
-    metricsAddress: ":{{- .Values.metrics.port }}"
+    metricsAddress: ":{{ .Values.metrics.port }}"
     {{- end }}
     {{- if .Values.healthCheck.enabled }}
-    healthCheckAddress: ":{{- .Values.healthCheck.port }}"
+    healthCheckAddress: ":{{ .Values.healthCheck.port }}"
     {{- end }}
     logLevel: {{ .Values.logLevel }}
     networkName: {{ $network := .Values.network | default "mainnet" }}{{ printf "NETWORK_NAME_%s" ($network | upper) }}
