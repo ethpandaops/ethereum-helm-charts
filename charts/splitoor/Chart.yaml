@@ -1,0 +1,9 @@
+apiVersion: v2
+name: splitoor
+description: Monitor 0xSplits, validators, gnosis safe's and provide notifications on relevant events
+home: https://github.com/ethpandaops/splitoor
+type: application
+version: 0.0.1
+maintainers:
+  - name: savid
+    email: andrew.davis@ethereum.org
