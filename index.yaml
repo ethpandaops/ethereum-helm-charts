@@ -8847,6 +8847,21 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/smart-contract-verifier-http-0.1.0/smart-contract-verifier-http-0.1.0.tgz
     version: 0.1.0
+  splitoor:
+  - apiVersion: v2
+    created: "2025-01-23T02:56:10.38353109Z"
+    description: Monitor 0xSplits, validators, gnosis safe's and provide notifications
+      on relevant events
+    digest: 63ca0f1f0d948aa7d1d26142c4bd049eca795c2ed3591155cb5fe27dc368cbdd
+    home: https://github.com/ethpandaops/splitoor
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: splitoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/splitoor-0.0.1/splitoor-0.0.1.tgz
+    version: 0.0.1
   stubbies:
   - apiVersion: v2
     created: "2023-05-10T18:22:08.4638858Z"
@@ -10362,4 +10377,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-01-20T12:32:57.354177834Z"
+generated: "2025-01-23T02:56:10.384219837Z"
