@@ -1453,6 +1453,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.0/consensus-monitor-0.1.0.tgz
     version: 0.1.0
+  contributoor:
+  - apiVersion: v2
+    created: "2025-01-23T03:53:56.946262756Z"
+    description: A lightweight sidecar that runs alongside an Ethereum consensus client
+      and collects data.
+    digest: 6f3663823b30336b7e5602021c79eb6227825947a8d2496fce8f7016e1d2db5a
+    home: https://github.com/ethpandaops/contributoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    - email: matt.evans@ethereum.org
+      name: matty
+    name: contributoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/contributoor-0.0.1/contributoor-0.0.1.tgz
+    version: 0.0.1
   dora:
   - apiVersion: v2
     created: "2025-01-20T12:32:54.272892189Z"
@@ -10377,4 +10396,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-01-23T02:56:10.384219837Z"
+generated: "2025-01-23T03:53:56.94722566Z"
