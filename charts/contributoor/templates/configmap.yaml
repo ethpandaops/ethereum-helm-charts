@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "contributoor.fullname" . }}
+  labels:
+    {{- include "contributoor.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    beaconNodeAddress: {{ .Values.beaconNode.address }}
+    {{- if .Values.metrics.enabled }}
+    metricsAddress: ":{{ .Values.metrics.port }}"
+    {{- end }}
+    {{- if .Values.healthCheck.enabled }}
+    healthCheckAddress: ":{{ .Values.healthCheck.port }}"
+    {{- end }}
+    logLevel: {{ .Values.logLevel }}
+    networkName: {{ $network := .Values.network | default "mainnet" }}{{ printf "NETWORK_NAME_%s" ($network | upper) }}
+    outputServer:
+      address: {{ .Values.outputServer.address | default "xatu.primary.production.platform.ethpandaops.io:443" }}
+      tls: {{ .Values.outputServer.tls | default "true" }}
+    contributoorDirectory: "/config/.contributoor"
+    runMethod: RUN_METHOD_DOCKER

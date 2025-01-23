@@ -1,0 +1,13 @@
+apiVersion: v2
+name: contributoor
+description: A lightweight sidecar that runs alongside an Ethereum consensus client and collects data.
+home: https://github.com/ethpandaops/contributoor
+type: application
+version: 0.0.1
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
+  - name: savid
+    email: andrew.davis@ethereum.org
+  - name: matty
+    email: matt.evans@ethereum.org
