@@ -62,11 +62,11 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "splitoor.metricsPort" -}}
-{{ (split ":" .Values.config.metricsAddr)._1 | default ":9090" }}
+{{ (split ":" .Values.config.metricsAddr)._1 | default "9090" }}
 {{- end -}}
 
 {{- define "splitoor.healthCheckPort" -}}
-{{ (split ":" .Values.config.healthCheckAddr)._1 | default ":9191" }}
+{{ (split ":" .Values.config.healthCheckAddr)._1 | default "9191" }}
 {{- end -}}
 
 {{- define "splitoor.pprofPort" -}}
