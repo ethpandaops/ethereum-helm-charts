@@ -1474,6 +1474,29 @@ entries:
     version: 0.0.1
   dora:
   - apiVersion: v2
+    created: "2025-02-05T16:48:41.848232101Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: A Beaconchain explorer is a tool that allows users to view and interact
+      with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer,
+      which allows users to view data on a blockchain such as the current state of
+      transactions and blocks - but focussed on exploring the beaconchain.
+    digest: 8cb00067cba4d4d054ba1f490cc11abd6b569173a20912f754f91378a2eeb278
+    home: https://github.com/pk910/dora
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: dora
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dora-0.0.7/dora-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2025-01-20T12:32:54.272892189Z"
     dependencies:
     - condition: postgresql.enabled
@@ -10396,4 +10419,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-01-23T03:53:56.94722566Z"
+generated: "2025-02-05T16:48:41.848901177Z"
