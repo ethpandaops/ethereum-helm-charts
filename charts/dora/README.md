@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.7](https://img.shields.io/badge/Version-0.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -22,7 +22,6 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
 | config | string | See `values.yaml` | Config file |
-| configPath | string | `""` | Path to the network config file -- This can be a url or a local path -- "https://config.dencun-devnet-8.ethpandaops.io/cl/config.yaml" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the dora container |
 | endpoints | list | `[{"archive":false,"headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
@@ -47,6 +46,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | ingress.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| maxInMemoryEpochs | int | `4` | Maximum number of epochs to keep in memory |
 | mevRelays | list | `[]` | An array of mev relays to crawl mev data from (optional) -- index must be a unique id for the relay (0-62) -- {} |
 | name | string | `"mainnet"` | Name of the network ("mainnet", "sepolia", "holesky") |
 | nameOverride | string | `""` | Overrides the chart's name |
