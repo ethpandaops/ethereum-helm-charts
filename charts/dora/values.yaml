@@ -175,6 +175,7 @@ config: |
         - index: {{ .index }}
           name: {{ .name | quote }}
           url: {{ .url | quote }}
+          blockLimit: {{ .blockLimit }}
         {{- end }}
       refreshInterval: 5m
 
