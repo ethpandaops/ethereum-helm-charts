@@ -1,0 +1,253 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- hermes container image repository
+  repository: ethpandaops/hermes
+  # -- hermes container image tag
+  tag: latest
+  # -- hermes container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+# -- Secrets configuration
+secrets:
+  # -- S3 access key ID (required if using S3)
+  s3AccessKeyId: ""
+  # -- S3 secret access key (required if using S3)
+  s3AccessSecretKey: ""
+
+config:
+  # Stream Configuration
+  stream:
+    # -- Stream type (kinesis, s3, callback, logger)
+    type: "s3"
+
+    # -- Kinesis configuration
+    kinesis:
+      enabled: false
+      region: ""
+      stream: ""
+
+    # -- S3 configuration
+    s3:
+      enabled: true
+      region: "" # S3 region (eg, us-east-1, ams3, nyc2, etc).
+      endpoint: ""  # Full endpoint URL for S3-compatible storage (eg, https://s3.us-east-1.amazonaws.com, https://nyc2.digitaloceanspaces.com).
+      bucket: "" # Name of the bucket to use.
+      tag: "" # The bucket key/tag.
+      byteLimit: "25000000"  # 10MB is the default (using string to prevent scientific notation).
+      flushers: 12  # 2 is the default.
+      flushInterval: "40s"  # 2s is the default.
+
+  # Metrics Configuration
+  metrics:
+    # -- Metrics host
+    addr: "0.0.0.0"
+    # -- Metrics port
+    port: 6060
+
+  # Ethereum Configuration
+  ethereum:
+    # -- Ethereum chain (mainnet, holesky, etc.)
+    chain: "mainnet"
+    # -- Which address devp2p (discv5) should bind to.
+    devp2p:
+      host: "0.0.0.0"
+    # -- Which address libp2p (discv5) should bind to.
+    libp2p:
+      host: "0.0.0.0"
+    # -- Prysm host
+    prysm:
+      # -- If Prysm node is running on the same machine (localhost).
+      trusted: true
+      host: "127.0.0.1"
+      ports:
+        http: 5052
+        grpc: 4000
+
+# -- Command arguments
+args: []
+
+# -- Custom args for the hermes container
+customArgs: []
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Command replacement for the hermes container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  httpGet:
+    path: /metrics
+    port: 6060
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  httpGet:
+    path: /metrics
+    port: 6060
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Extra Pod ports
+extraPodPorts: []
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 90
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 15s
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

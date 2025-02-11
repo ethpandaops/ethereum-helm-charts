@@ -1,0 +1,150 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "hermes.fullname" . }}
+  labels:
+    {{- include "hermes.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      {{- include "hermes.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "hermes.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "hermes.serviceAccountName" . }}
+    {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      initContainers:
+      {{- if .Values.initContainers }}
+        {{- toYaml .Values.initContainers | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+        {{- if gt (len .Values.customCommand) 0 }}
+          {{- toYaml .Values.customCommand | nindent 12}}
+        {{- else }}
+          - "/hermes"
+        {{- end }}
+        args:
+        {{- if gt (len .Values.customArgs) 0 }}
+          {{- toYaml .Values.customArgs | nindent 12}}
+        {{- else }}
+          - "--metrics"
+          - "--metrics.addr={{ .Values.config.metrics.addr }}"
+          - "--metrics.port={{ .Values.config.metrics.port }}"
+          - "--data.stream.type={{ .Values.config.stream.type }}"
+          {{- if and (eq .Values.config.stream.type "kinesis") .Values.config.stream.kinesis.enabled }}
+          - "--kinesis.region={{ .Values.config.stream.kinesis.region }}"
+          - "--kinesis.stream={{ .Values.config.stream.kinesis.stream }}"
+          {{- end }}
+          {{- if and (eq .Values.config.stream.type "s3") .Values.config.stream.s3.enabled }}
+          - "--s3.region={{ .Values.config.stream.s3.region }}"
+          - "--s3.bucket={{ .Values.config.stream.s3.bucket }}"
+          - "--s3.tag={{ .Values.config.stream.s3.tag }}"
+          - "--s3.byte.limit={{ .Values.config.stream.s3.byteLimit }}"
+          - "--s3.flushers={{ .Values.config.stream.s3.flushers }}"
+          - "--s3.flush.interval={{ .Values.config.stream.s3.flushInterval }}"
+          {{- end }}
+          - "eth"
+          - "--chain={{ .Values.config.ethereum.chain }}"
+          - "--devp2p.host={{ .Values.config.ethereum.devp2p.host }}"
+          - "--libp2p.host={{ .Values.config.ethereum.libp2p.host }}"
+          - "--prysm.host={{ .Values.config.ethereum.prysm.host }}"
+          - "--prysm.port.http={{ .Values.config.ethereum.prysm.ports.http }}"
+          - "--prysm.port.grpc={{ .Values.config.ethereum.prysm.ports.grpc }}"
+          - "--local.trusted.addr={{ .Values.config.ethereum.prysm.trusted }}"
+          {{- if gt (len .Values.args) 0 }}
+          {{- toYaml .Values.args | nindent 12}}
+          {{- end }}
+        {{- end }}
+        securityContext:
+          {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+        volumeMounts:
+          - name: config
+            mountPath: "/config.yaml"
+            subPath: config.yaml
+            readOnly: true
+          {{- if .Values.extraVolumeMounts }}
+            {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
+          {{- end }}
+        ports:
+          - name: metrics
+            containerPort: {{ include "hermes.metricsPort" . }}
+            protocol: TCP
+          {{- if .Values.extraPodPorts }}
+            {{ toYaml .Values.extraPodPorts | nindent 10 }}
+          {{- end }}
+        livenessProbe:
+          {{- toYaml .Values.livenessProbe | nindent 12 }}
+        readinessProbe:
+          {{- toYaml .Values.readinessProbe | nindent 12 }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        env:
+        {{- range $key, $value := .Values.secretEnv }}
+          - name: {{ $key }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "hermes.fullname" $ }}-env
+                key: {{ $key }}
+        {{- end }}
+        {{- if and (eq .Values.config.stream.type "s3") .Values.config.stream.s3.enabled }}
+          - name: HERMES_AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "hermes.fullname" . }}-env
+                key: s3-access-key-id
+          - name: HERMES_AWS_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "hermes.fullname" . }}-env
+                key: s3-access-secret-key
+          - name: AWS_ENDPOINT_URL
+            value: {{ .Values.config.stream.s3.endpoint }}
+        {{- end }}
+        {{- if .Values.extraEnv }}
+          {{- toYaml .Values.extraEnv | nindent 12 }}
+        {{- end }}
+      {{- if .Values.extraContainers }}
+        {{ toYaml .Values.extraContainers | nindent 8}}
+      {{- end }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      volumes:
+      {{- if .Values.extraVolumes }}
+        {{ toYaml .Values.extraVolumes | nindent 8}}
+      {{- end }}
+        - name: config
+          configMap:
+            name: {{ include "hermes.fullname" . }}
