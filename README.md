@@ -87,6 +87,7 @@ Tooling
 - [`forkmon`](charts/forkmon) - Fork monitor for execution layer nodes.
 - [`ganache`](charts/ganache) - Simulator for development and testing purposes of the execution layer.
 - [`genesis-generator`](charts/genesis-generator) - A tool to generate and expose genesis files for the execution and consensus layer clients.
+- [`hermes`](charts/hermes) - A GossipSub listener and tracer, subscribing to all relevant pubsub topics and traces all protocol interactions.
 - [`ipfs-cluster`](charts/ipfs-cluster) - IPFS Cluster
 - [`powfaucet`](charts/powfaucet) - Modularized faucet for EVM chains with different protection methods (Captcha, PoW Mining, IP Limits, Wallet Balances and more)
 - [`rpc-proxy`](charts/rpc-proxy) - A proxy for web3 JSONRPC. Rate limiting and method filtering.
