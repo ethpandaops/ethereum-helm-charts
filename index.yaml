@@ -6112,6 +6112,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.0.1/grandine-0.0.1.tgz
     version: 0.0.1
+  hermes:
+  - apiVersion: v2
+    created: "2025-02-11T02:16:03.346316509Z"
+    description: A GossipSub listener and tracer, subscribing to all relevant pubsub
+      topics and traces all protocol interactions.
+    digest: e8ba179be4a0d90206d162bc18be25493efc9fe574248c233fe0cd207e796dec
+    home: https://github.com/ethpandaops/hermes
+    maintainers:
+    - email: matt.evans@ethereum.org
+      name: matty
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: hermes
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/hermes-0.0.1/hermes-0.0.1.tgz
+    version: 0.0.1
   ipfs-cluster:
   - apiVersion: v2
     created: "2025-01-20T12:32:55.82444333Z"
@@ -10419,4 +10438,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-05T16:48:41.848901177Z"
+generated: "2025-02-11T02:16:03.347121909Z"
