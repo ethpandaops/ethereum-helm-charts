@@ -1455,6 +1455,24 @@ entries:
     version: 0.1.0
   contributoor:
   - apiVersion: v2
+    created: "2025-03-04T16:32:06.844092433Z"
+    description: A lightweight sidecar that runs alongside an Ethereum consensus client
+      and collects data.
+    digest: a4d5de307ebe62b3031da6a82cdf363556d8b985431a7bdb7d73ccce6bf5546b
+    home: https://github.com/ethpandaops/contributoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    - email: matt.evans@ethereum.org
+      name: matty
+    name: contributoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/contributoor-0.0.2/contributoor-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2025-01-23T03:53:56.946262756Z"
     description: A lightweight sidecar that runs alongside an Ethereum consensus client
       and collects data.
@@ -10438,4 +10456,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-02-11T02:16:03.347121909Z"
+generated: "2025-03-04T16:32:06.844826672Z"
