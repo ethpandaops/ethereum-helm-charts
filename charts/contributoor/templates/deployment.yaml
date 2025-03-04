@@ -53,7 +53,7 @@ spec:
         {{- if gt (len .Values.customArgs) 0 }}
           {{- toYaml .Values.customArgs | nindent 12}}
         {{- else }}
-          []
+           - --config=/config.yaml
         {{- end }}
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 12 }}
