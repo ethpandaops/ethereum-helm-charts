@@ -39,8 +39,8 @@ credentials:
   password: "FILL_ME"
   # Use existing secret
   # existingSecret: ""
-  # usernameKey: username
-  # passwordKey: password
+  # username: username
+  # password: password
 
 # -- Custom args for the contributoor container
 customArgs: []
