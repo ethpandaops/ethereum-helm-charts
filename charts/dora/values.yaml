@@ -102,7 +102,11 @@ config: |
       ethExplorerLink: "{{ .Values.ethExplorerLink }}"
 
       # file or inventory url to load validator names from
+      {{- if ne .Values.validatorNamesInventory "" }}
       validatorNamesYaml: "/data/ranges.yaml"
+      {{- else }}
+      validatorNamesYaml: ""
+      {{- end }}
       validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
 
     rateLimit:
