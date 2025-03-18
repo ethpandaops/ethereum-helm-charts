@@ -18,7 +18,7 @@ jobs:
         run: git fetch origin ${{ github.event.repository.default_branch }}:${{ github.event.repository.default_branch }}
 
       - name: Set up Helm
-        uses: azure/setup-helm@37dd2562cae2f186a3dc13f2bb5d4abe08dbfec4 # 37dd256
+        uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4.3.0
         with:
           version: v3.16.2
 
