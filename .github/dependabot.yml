@@ -15,4 +15,12 @@ updates:
   package-ecosystem: github-actions
   schedule:
     interval: weekly
+- directory: /
+  groups:
+    actions:
+      patterns:
+      - '*'
+  package-ecosystem: github-actions
+  schedule:
+    interval: weekly
 version: 2
