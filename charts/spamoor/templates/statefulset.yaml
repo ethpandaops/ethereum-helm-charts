@@ -46,10 +46,8 @@ spec:
           command:
             {{- toYaml .Values.customCommand | nindent 12}}
           {{- end }}
-          {{- if gt (len .Values.customArgs) 0 }}
           args:
-            {{- toYaml .Values.customArgs | nindent 12}}
-          {{- end }}
+            {{- include "spamoor.containerArgs" . | nindent 12 }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:

@@ -16,11 +16,7 @@ image:
 customCommand: ["./spamoor-daemon"]
 
 # -- Custom args for the spamoor container
-customArgs:
-  - --db=/data/spamoor.sqlite
-  - --rpchost-file=/config/rpchosts.txt
-  - --port={{ .Values.httpPort }}
-  - --privkey={{ .Values.privateKey }}
+customArgs: []
 
 ingress:
   # -- Ingress resource for the HTTP API
@@ -174,9 +170,22 @@ rpcEndpoints:
 # -- HTTP port for spamoor interface
 httpPort: 8080
 
+# -- Template used for the default spamoor args
+# @default -- See `values.yaml`
+defaultSpamoorArgsTemplate: |
+  - --db=/data/spamoor.sqlite
+  - --rpchost-file=/config/rpchosts.txt
+  - --port={{ .Values.httpPort }}
+  - --privkey={{ .Values.privateKey }}
+  {{- if gt (len .Values.customArgs) 0 }}
+  {{- range .Values.customArgs }}
+  - {{ tpl . $ }}
+  {{- end }}
+  {{- end }}
+
 # -- RPC endpoints file content
 # @default -- See `values.yaml`
 rpcEndpointsFile: |
-  {{- range .Values.endpoints }}
+  {{- range .Values.rpcEndpoints }}
   {{ . }}
   {{- end }}
