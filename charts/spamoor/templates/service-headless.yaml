@@ -1,30 +1,18 @@
-{{- if .Values.serviceHeadless.enabled -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "spamoor.fullname" . }}-headless
   labels:
     {{- include "spamoor.labels" . | nindent 4 }}
-    {{- if .Values.serviceHeadless.labels }}
-    {{- toYaml .Values.serviceHeadless.labels | nindent 4 }}
-    {{- end }}
-  annotations:
-    {{- if .Values.serviceHeadless.annotations }}
-    {{- toYaml .Values.serviceHeadless.annotations | nindent 4 }}
-    {{- end }}
 spec:
-  type: ClusterIP
-  clusterIP: None  # Headless service
+  clusterIP: None
   ports:
-    {{- range .Values.serviceHeadless.ports }}
-    - port: {{ .port }}
-      targetPort: {{ .targetPort | default .port }}
-      protocol: {{ .protocol | default "TCP" }}
-      name: {{ .name }}
-      {{- if .nodePort }}
-      nodePort: {{ .nodePort }}
-      {{- end }}
-    {{- end }}
+    - port: {{ include "spamoor.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
   selector:
     {{- include "spamoor.selectorLabels" . | nindent 4 }}
-{{- end }}

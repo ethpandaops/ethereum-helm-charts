@@ -12,93 +12,36 @@ image:
   # -- spamoor container pull policy
   pullPolicy: IfNotPresent
 
-# -- Spamoor scenario to use (options: eoatx, erctx, deploytx, deploy-destruct, blobs, gasburnertx)
-scenario: eoatx
+# -- Command replacement for the spamoor container
+customCommand: ["./spamoor-daemon"]
 
 # -- Custom args for the spamoor container
-customArgs: []
+customArgs:
+  - --db=/data/spamoor.sqlite
+  - --rpchost-file=/config/rpchosts.txt
+  - --port={{ .Values.httpPort }}
+  - --privkey={{ .Values.privateKey }}
 
-# -- Command replacement for the spamoor container
-customCommand: [] # Only change this if you need to change the default command
-
-# -- Required private key for the main wallet
-privateKey: ""
-
-# -- Child wallet seed for generating multiple transaction wallets
-walletSeed: ""
-
-# -- RPC endpoint to use for transactions
-rpcEndpoint: "http://execution-client:8545"
-
-# -- Number of transactions to send per second
-throughput: 100
-
-# -- Maximum number of pending transactions
-maxPending: 1000
-
-# -- Maximum number of child wallets to use
-maxWallets: 500
-
-# -- Transaction amount per transaction (in gwei)
-amount: 20
-
-# -- Base fee per gas (in gwei)
-baseFee: 20
-
-# -- Tip fee per gas (in gwei)
-tipFee: 2
-
-# -- Gas limit for transactions
-gasLimit: 21000
-
-# -- Rebroadcast interval in seconds
-rebroadcastInterval: 120
-
-# -- Whether to use random transaction amounts
-randomAmount: false
-
-# -- Whether to use random target addresses
-randomTarget: false
-
-# -- Amount of ETH to fund/refill each child wallet
-refillAmount: 5
-
-# -- Minimum balance before refilling a child wallet
-refillBalance: 2
-
-# -- Interval for child wallet balance check (in seconds)
-refillInterval: 300
-
-# -- SQLite database configuration
-sqlite:
-  # -- Whether to enable SQLite database
+ingress:
+  # -- Ingress resource for the HTTP API
   enabled: false
-  # -- Path to SQLite database file
-  path: "/data/spamoor.db"
-  # -- Persistent volume claim configuration
-  persistence:
-    # -- Whether to create a persistent volume claim
-    enabled: false
-    # -- Size of the persistent volume
-    size: 1Gi
-    # -- Storage class for the persistent volume
-    storageClass: ""
-    # -- Access mode for the persistent volume
-    accessModes:
-      - ReadWriteOnce
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host for public service
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
-# -- Blob specific settings
-blob:
-  # -- Whether to use blob transactions (only for blob scenarios)
-  enabled: false
-  # -- Maximum number of blobs per transaction
-  maxBlobs: 2
-
-# -- Enables tracing output for debugging
-traceEnabled: false
-
-# -- Additional environment variables
-extraEnv: []
+service:
+  # -- Service type
+  type: ClusterIP
 
 # -- Affinity configuration for pods
 affinity: {}
@@ -131,6 +74,7 @@ resources: {}
 #   memory: 1Gi
 
 # -- The security context for pods
+# @default -- See `values.yaml`
 securityContext:
   fsGroup: 10001
   runAsGroup: 10001
@@ -138,7 +82,35 @@ securityContext:
   runAsUser: 10001
 
 # -- The security context for containers
+# @default -- See `values.yaml`
 containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 5Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -153,9 +125,11 @@ serviceAccount:
 terminationGracePeriodSeconds: 30
 
 # -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
 tolerations: []
 
 # -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
 topologySpreadConstraints: []
 
 # -- Define the PodDisruptionBudget spec
@@ -184,82 +158,25 @@ extraVolumes: []
 # -- Additional volume mounts
 extraVolumeMounts: []
 
-# -- Service configuration
-service:
-  # -- Service type
-  type: ClusterIP
-  # -- Service ports
-  ports:
-    http:
-      # -- HTTP port
-      port: 8545
-      # -- HTTP target port
-      targetPort: 8545
-      # -- HTTP protocol
-      protocol: TCP
-      # -- HTTP port name
-      name: http
-      # -- HTTP node port
-      nodePort: null
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
 
-# -- Headless service configuration
-serviceHeadless:
-  # -- Whether to create a headless service
-  enabled: true
-  # -- Headless service ports
-  ports:
-    http:
-      # -- HTTP port
-      port: 8545
-      # -- HTTP target port
-      targetPort: 8545
-      # -- HTTP protocol
-      protocol: TCP
-      # -- HTTP port name
-      name: http
-  # -- Headless service labels
-  labels: {}
-  # -- Headless service annotations
-  annotations: {}
+# -- Additional env variables
+extraEnv: []
 
-# -- Ingress configuration
-ingress:
-  # -- Whether to create an ingress
-  enabled: false
-  # -- Ingress class name
-  className: ""
-  # -- Ingress annotations
-  annotations: {}
-  # -- Ingress hosts
-  hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  # -- Ingress TLS configuration
-  tls: []
-  # - secretName: chart-example-tls
-  #   hosts:
-  #     - chart-example.local
+# -- Required private key for the main wallet
+privateKey: ""
 
-serviceMonitor:
-  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
-  enabled: false
-  # -- Path to scrape
-  path: /metrics
-  # -- Alternative namespace for ServiceMonitor
-  namespace: null
-  # -- Additional ServiceMonitor labels
-  labels: {}
-  # -- Additional ServiceMonitor annotations
-  annotations: {}
-  # -- ServiceMonitor scrape interval
-  interval: 15s
-  # -- ServiceMonitor scheme
-  scheme: http
-  # -- ServiceMonitor TLS configuration
-  tlsConfig: {}
-  # -- ServiceMonitor scrape timeout
-  scrapeTimeout: 2s
-  # -- ServiceMonitor relabelings
-  relabelings: []
+# -- RPC endpoint to use for transactions
+rpcEndpoints:
+  - "http://execution-client:8545"
+
+# -- HTTP port for spamoor interface
+httpPort: 8080
+
+# -- RPC endpoints file content
+# @default -- See `values.yaml`
+rpcEndpointsFile: |
+  {{- range .Values.endpoints }}
+  {{ . }}
+  {{- end }}
