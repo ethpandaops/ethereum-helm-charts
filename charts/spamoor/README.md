@@ -18,8 +18,9 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `["--db=/data/spamoor.sqlite","--rpchost-file=/config/rpchosts.txt","--port={{ .Values.httpPort }}","--privkey={{ .Values.privateKey }}"]` | Custom args for the spamoor container |
+| customArgs | list | `[]` | Custom args for the spamoor container |
 | customCommand | list | `["./spamoor-daemon"]` | Command replacement for the spamoor container |
+| defaultSpamoorArgsTemplate | string | See `values.yaml` | Template used for the default spamoor args |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
