@@ -60,3 +60,7 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "spamoor.httpPort" -}}
+{{- printf "8080" -}}
+{{- end -}}
