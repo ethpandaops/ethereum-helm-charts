@@ -1,0 +1,18 @@
+# {{ template "chart.name" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+{{ template "chart.description" . }}
+
+## Installation
+
+```console
+helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
+helm install [RELEASE_NAME] ethereum-helm-charts/{{ template "chart.name" . }}
+```
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

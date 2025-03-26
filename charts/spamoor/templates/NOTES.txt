@@ -1,0 +1,35 @@
+==========================================
+ Spamoor - Ethereum Transaction Spammer
+==========================================
+
+The Spamoor pod has been deployed with the following configuration:
+
+Scenario: {{ .Values.scenario }}
+Throughput: {{ .Values.throughput }} transactions per second
+Max Pending: {{ .Values.maxPending }} transactions
+Max Wallets: {{ .Values.maxWallets }}
+RPC Endpoint: {{ .Values.rpcEndpoint }}
+
+{{- if eq .Values.privateKey "" }}
+
+WARNING: No private key specified!
+------------------------------------------------------------------------
+You must set a private key with sufficient ETH balance to fund transactions.
+Update your deployment with:
+
+  helm upgrade {{ .Release.Name }} {{ .Chart.Name }} --set privateKey=<your-private-key>
+------------------------------------------------------------------------
+{{- end }}
+
+{{- if contains "blob" .Values.scenario }}
+{{- if not .Values.blob.enabled }}
+
+NOTE: You're using a blob scenario but blob settings are not enabled.
+You may want to enable blob settings with:
+
+  helm upgrade {{ .Release.Name }} {{ .Chart.Name }} --set blob.enabled=true
+{{- end }}
+{{- end }}
+
+To monitor logs:
+  kubectl logs -f deployment/{{ include "spamoor.fullname" . }} -n {{ .Release.Namespace }}
