@@ -8,7 +8,7 @@ image:
   # -- spamoor container image repository
   repository: ethpandaops/spamoor
   # -- spamoor container image tag
-  tag: "pk910-spamoor-daemon"
+  tag: "latest"
   # -- spamoor container pull policy
   pullPolicy: IfNotPresent
 

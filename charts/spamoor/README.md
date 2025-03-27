@@ -30,7 +30,7 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 | httpPort | int | `8080` | HTTP port for spamoor interface |
 | image.pullPolicy | string | `"IfNotPresent"` | spamoor container pull policy |
 | image.repository | string | `"ethpandaops/spamoor"` | spamoor container image repository |
-| image.tag | string | `"pk910-spamoor-daemon"` | spamoor container image tag |
+| image.tag | string | `"latest"` | spamoor container image tag |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
