@@ -8949,6 +8949,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/smart-contract-verifier-http-0.1.0/smart-contract-verifier-http-0.1.0.tgz
     version: 0.1.0
+  spamoor:
+  - apiVersion: v2
+    appVersion: 1.0.2
+    created: "2025-03-27T16:04:53.688612528Z"
+    description: 'Ethereum transaction spammer for testnets and stress testing '
+    digest: bdd519b8cd3841409071dc5839b34c23e8674883e7aeb491f3740251a7808b30
+    home: https://github.com/ethpandaops/spamoor
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: philipp@pk910.de
+      name: pk910
+    name: spamoor
+    sources:
+    - https://github.com/ethpandaops/spamoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/spamoor-0.0.1/spamoor-0.0.1.tgz
+    version: 0.0.1
   splitoor:
   - apiVersion: v2
     created: "2025-01-23T02:56:10.38353109Z"
@@ -10479,4 +10498,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-03-05T08:16:23.580305723Z"
+generated: "2025-03-27T16:04:53.689377624Z"
