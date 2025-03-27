@@ -1,0 +1,15 @@
+apiVersion: v2
+name: spamoor
+description: >
+  Ethereum transaction spammer for testnets and stress testing
+home: https://github.com/ethpandaops/spamoor
+sources:
+  - https://github.com/ethpandaops/spamoor
+type: application
+version: 0.0.1
+appVersion: "1.0.2"
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com
+  - name: pk910
+    email: philipp@pk910.de

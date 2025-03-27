@@ -70,3 +70,4 @@ jobs:
           --excluded-charts xatu-cl-mimicry
           --excluded-charts contributoor
           --excluded-charts hermes
+          --excluded-charts spamoor
