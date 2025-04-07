@@ -89,10 +89,29 @@ spec:
           {{- if .Values.extraPodPorts }}
             {{ toYaml .Values.extraPodPorts | nindent 10 }}
           {{- end }}
+        {{- if .Values.livenessProbe.enabled }}
         livenessProbe:
-          {{- toYaml .Values.livenessProbe | nindent 12 }}
+          {{- if .Values.livenessProbe.custom }}
+          {{- toYaml .Values.livenessProbe.customProbe | nindent 10 }}
+          {{- else }}
+          tcpSocket:
+            port: {{ .Values.livenessProbe.tcp.port }}
+          initialDelaySeconds: {{ .Values.livenessProbe.tcp.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.tcp.periodSeconds }}
+          {{- end }}
+        {{- end }}
+
+        {{- if .Values.readinessProbe.enabled }}
         readinessProbe:
-          {{- toYaml .Values.readinessProbe | nindent 12 }}
+          {{- if .Values.readinessProbe.custom }}
+          {{- toYaml .Values.readinessProbe.customProbe | nindent 10 }}
+          {{- else }}
+          tcpSocket:
+            port: {{ .Values.readinessProbe.tcp.port }}
+          initialDelaySeconds: {{ .Values.readinessProbe.tcp.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.tcp.periodSeconds }}
+          {{- end }}
+        {{- end }}
         lifecycle:
           {{- toYaml .Values.lifecycle | nindent 12 }}
         resources:

@@ -103,18 +103,25 @@ annotations: {}
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  tcpSocket:
+  enabled: true
+  custom: false
+  customProbe: {}
+  tcp:
     port: metrics
-  initialDelaySeconds: 60
-  periodSeconds: 120
+    initialDelaySeconds: 60
+    periodSeconds: 120
+
 
 # -- Readiness probe
 # @default -- See `values.yaml`
 readinessProbe:
-  tcpSocket:
+  enabled: true
+  custom: false
+  customProbe: {}
+  tcp:
     port: metrics
-  initialDelaySeconds: 10
-  periodSeconds: 10
+    initialDelaySeconds: 10
+    periodSeconds: 10
 
 # -- Node selector for pods
 nodeSelector: {}

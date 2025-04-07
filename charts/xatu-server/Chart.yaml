@@ -3,7 +3,7 @@ name: xatu-server
 description: Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 home: https://github.com/ethpandaops/xatu
 type: application
-version: 0.0.13
+version: 0.0.14
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
