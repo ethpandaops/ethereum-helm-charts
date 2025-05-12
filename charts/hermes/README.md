@@ -1,7 +1,7 @@
 
 # hermes
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A GossipSub listener and tracer, subscribing to all relevant pubsub topics and traces all protocol interactions.
 
@@ -19,6 +19,7 @@ A GossipSub listener and tracer, subscribing to all relevant pubsub topics and t
 | config.ethereum.libp2p | object | `{"host":"0.0.0.0"}` | Which address libp2p (discv5) should bind to. |
 | config.ethereum.prysm | object | `{"host":"127.0.0.1","ports":{"grpc":4000,"http":5052},"trusted":true}` | Prysm host |
 | config.ethereum.prysm.trusted | bool | `true` | If Prysm node is running on the same machine (localhost). |
+| config.ethereum.subscriptionTopics | list | `[]` | Optional list of topics to subscribe to If not set, Hermes will subscribe to all default topics |
 | config.metrics.addr | string | `"0.0.0.0"` | Metrics host |
 | config.metrics.port | int | `6060` | Metrics port |
 | config.stream.kinesis | object | `{"enabled":false,"region":"","stream":""}` | Kinesis configuration |
