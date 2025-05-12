@@ -6155,6 +6155,24 @@ entries:
     version: 0.0.1
   hermes:
   - apiVersion: v2
+    created: "2025-05-12T11:30:23.833077327Z"
+    description: A GossipSub listener and tracer, subscribing to all relevant pubsub
+      topics and traces all protocol interactions.
+    digest: 6e9d4f5c3868cb014a812f9ec5759f519df0ee1d8886e3e8e75b48471ab53d93
+    home: https://github.com/ethpandaops/hermes
+    maintainers:
+    - email: matt.evans@ethereum.org
+      name: matty
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: hermes
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/hermes-0.0.2/hermes-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2025-02-11T02:16:03.346316509Z"
     description: A GossipSub listener and tracer, subscribing to all relevant pubsub
       topics and traces all protocol interactions.
@@ -10514,4 +10532,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-04-07T05:01:46.553038406Z"
+generated: "2025-05-12T11:30:23.834609605Z"
