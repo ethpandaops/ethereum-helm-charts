@@ -77,6 +77,41 @@ spec:
           - "--prysm.port.http={{ .Values.config.ethereum.prysm.ports.http }}"
           - "--prysm.port.grpc={{ .Values.config.ethereum.prysm.ports.grpc }}"
           - "--local.trusted.addr={{ .Values.config.ethereum.prysm.trusted }}"
+          {{- if .Values.config.ethereum.subnetConfigs }}
+          {{- if .Values.config.ethereum.subnetConfigs.beacon_attestation }}
+          - "--subnet.attestation.type={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.type }}"
+          {{- if eq .Values.config.ethereum.subnetConfigs.beacon_attestation.type "random" }}
+          - "--subnet.attestation.count={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.count }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.beacon_attestation.type "static" }}
+          - "--subnet.attestation.subnets={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.subnets }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.beacon_attestation.type "static_range" }}
+          - "--subnet.attestation.start={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.start }}"
+          - "--subnet.attestation.end={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.end }}"
+          {{- end }}
+          {{- end }}
+          {{- if .Values.config.ethereum.subnetConfigs.sync_committee }}
+          - "--subnet.synccommittee.type={{ .Values.config.ethereum.subnetConfigs.sync_committee.type }}"
+          {{- if eq .Values.config.ethereum.subnetConfigs.sync_committee.type "random" }}
+          - "--subnet.synccommittee.count={{ .Values.config.ethereum.subnetConfigs.sync_committee.count }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.sync_committee.type "static" }}
+          - "--subnet.synccommittee.subnets={{ .Values.config.ethereum.subnetConfigs.sync_committee.subnets }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.sync_committee.type "static_range" }}
+          - "--subnet.synccommittee.start={{ .Values.config.ethereum.subnetConfigs.sync_committee.start }}"
+          - "--subnet.synccommittee.end={{ .Values.config.ethereum.subnetConfigs.sync_committee.end }}"
+          {{- end }}
+          {{- end }}
+          {{- if .Values.config.ethereum.subnetConfigs.blob_sidecar }}
+          - "--subnet.blobsidecar.type={{ .Values.config.ethereum.subnetConfigs.blob_sidecar.type }}"
+          {{- if eq .Values.config.ethereum.subnetConfigs.blob_sidecar.type "random" }}
+          - "--subnet.blobsidecar.count={{ .Values.config.ethereum.subnetConfigs.blob_sidecar.count }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.blob_sidecar.type "static" }}
+          - "--subnet.blobsidecar.subnets={{ .Values.config.ethereum.subnetConfigs.blob_sidecar.subnets }}"
+          {{- else if eq .Values.config.ethereum.subnetConfigs.blob_sidecar.type "static_range" }}
+          - "--subnet.blobsidecar.start={{ .Values.config.ethereum.subnetConfigs.blob_sidecar.start }}"
+          - "--subnet.blobsidecar.end={{ .Values.config.ethereum.subnetConfigs.blob_sidecar.end }}"
+          {{- end }}
+          {{- end }}
+          {{- end }}
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
           {{- end }}

@@ -3,7 +3,7 @@ name: hermes
 description: A GossipSub listener and tracer, subscribing to all relevant pubsub topics and traces all protocol interactions.
 home: https://github.com/ethpandaops/hermes
 type: application
-version: 0.0.1
+version: 0.0.2
 maintainers:
   - name: matty
     email: matt.evans@ethereum.org
