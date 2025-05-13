@@ -14,21 +14,21 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 ## Subcharts
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../besu | besu | 1.0.7 |
-| file://../erigon | erigon | 1.0.11 |
-| file://../ethereum-metrics-exporter | ethereum-metrics-exporter | 0.2.0 |
-| file://../ethereumjs | ethereumjs | 0.0.9 |
-| file://../geth | geth | 1.0.8 |
-| file://../grandine | grandine | 0.1.2 |
-| file://../lighthouse | lighthouse | 1.1.4 |
-| file://../lodestar | lodestar | 1.1.3 |
-| file://../nethermind | nethermind | 1.0.13 |
-| file://../nimbus | nimbus | 1.1.3 |
-| file://../prysm | prysm | 1.1.4 |
-| file://../reth | reth | 0.0.14 |
-| file://../teku | teku | 1.1.3 |
-| file://../tracoor-agent | tracoor-agent | 0.0.1 |
-| file://../xatu-sentry | xatu-sentry | 0.0.8 |
+| https://ethpandaops.github.io/ethereum-helm-charts | besu | 1.0.7 |
+| https://ethpandaops.github.io/ethereum-helm-charts | erigon | 1.0.11 |
+| https://ethpandaops.github.io/ethereum-helm-charts | ethereum-metrics-exporter | 0.2.0 |
+| https://ethpandaops.github.io/ethereum-helm-charts | ethereumjs | 0.0.9 |
+| https://ethpandaops.github.io/ethereum-helm-charts | geth | 1.0.8 |
+| https://ethpandaops.github.io/ethereum-helm-charts | grandine | 0.1.2 |
+| https://ethpandaops.github.io/ethereum-helm-charts | lighthouse | 1.1.4 |
+| https://ethpandaops.github.io/ethereum-helm-charts | lodestar | 1.1.3 |
+| https://ethpandaops.github.io/ethereum-helm-charts | nethermind | 1.0.13 |
+| https://ethpandaops.github.io/ethereum-helm-charts | nimbus | 1.1.3 |
+| https://ethpandaops.github.io/ethereum-helm-charts | prysm | 1.1.4 |
+| https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.0.14 |
+| https://ethpandaops.github.io/ethereum-helm-charts | teku | 1.1.3 |
+| https://ethpandaops.github.io/ethereum-helm-charts | tracoor-agent | 0.0.1 |
+| https://ethpandaops.github.io/ethereum-helm-charts | xatu-sentry | 0.0.8 |
 
 # Details
 
