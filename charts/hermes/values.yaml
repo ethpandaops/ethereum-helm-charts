@@ -41,12 +41,12 @@ config:
     s3:
       enabled: true
       region: "" # S3 region (eg, us-east-1, ams3, nyc2, etc).
-      endpoint: ""  # Full endpoint URL for S3-compatible storage (eg, https://s3.us-east-1.amazonaws.com, https://nyc2.digitaloceanspaces.com).
+      endpoint: "" # Full endpoint URL for S3-compatible storage (eg, https://s3.us-east-1.amazonaws.com, https://nyc2.digitaloceanspaces.com).
       bucket: "" # Name of the bucket to use.
       tag: "" # The bucket key/tag.
-      byteLimit: "25000000"  # 10MB is the default (using string to prevent scientific notation).
-      flushers: 12  # 2 is the default.
-      flushInterval: "40s"  # 2s is the default.
+      byteLimit: "25000000" # 10MB is the default (using string to prevent scientific notation).
+      flushers: 12 # 2 is the default.
+      flushInterval: "40s" # 2s is the default.
 
   # Metrics Configuration
   metrics:
@@ -73,6 +73,12 @@ config:
       ports:
         http: 5052
         grpc: 4000
+    # -- Optional list of topics to subscribe to
+    # If not set, Hermes will subscribe to all default topics
+    subscriptionTopics: []
+    # - beacon_attestation
+    # - beacon_block
+    # - another_gossip_topic
 
 # -- Command arguments
 args: []
@@ -84,7 +90,8 @@ ingress:
   # -- Ingress resource for the HTTP API
   enabled: false
   # -- Annotations for Ingress
-  annotations: {}
+  annotations:
+    {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   # -- Ingress host
@@ -165,7 +172,8 @@ securityContext:
 
 # -- The security context for containers
 # @default -- See `values.yaml`
-containerSecurityContext: {}
+containerSecurityContext:
+  {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -188,8 +196,8 @@ lifecycle:
   preStop:
     exec:
       command:
-      - /bin/sleep
-      - "30"
+        - /bin/sleep
+        - "30"
 
 # -- How long to wait until the pod is forcefully terminated
 terminationGracePeriodSeconds: 90

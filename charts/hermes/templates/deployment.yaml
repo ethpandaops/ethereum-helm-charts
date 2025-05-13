@@ -77,6 +77,9 @@ spec:
           - "--prysm.port.http={{ .Values.config.ethereum.prysm.ports.http }}"
           - "--prysm.port.grpc={{ .Values.config.ethereum.prysm.ports.grpc }}"
           - "--local.trusted.addr={{ .Values.config.ethereum.prysm.trusted }}"
+          {{- if .Values.config.ethereum.subscriptionTopics }}
+          - "--subscription.topics={{ join "," .Values.config.ethereum.subscriptionTopics }}"
+          {{- end }}
           {{- if .Values.config.ethereum.subnetConfigs }}
           {{- if .Values.config.ethereum.subnetConfigs.beacon_attestation }}
           - "--subnet.attestation.type={{ .Values.config.ethereum.subnetConfigs.beacon_attestation.type }}"
