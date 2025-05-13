@@ -3,6 +3,7 @@ global:
     network: mainnet
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
+    wsEndpoint: ws://{{ .Release.Name }}-execution:8546
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
   checkpointSync:
     enabled: true
@@ -10,6 +11,7 @@ global:
       mainnet: https://mainnet-checkpoint-sync.attestant.io
       sepolia: https://checkpoint-sync.sepolia.ethpandaops.io
       holesky: https://checkpoint-sync.holesky.ethpandaops.io
+      hoodi: https://checkpoint-sync.hoodi.ethpandaops.io
   clientArgs:
     networks:
       mainnet:
@@ -81,6 +83,33 @@ global:
             - --holesky
           teku:
             - --network=holesky
+      hoodi:
+        execution:
+          besu:
+            - --network=hoodi
+          erigon:
+            - --chain=hoodi
+          ethereumjs:
+            - --network=hoodi
+          geth:
+            - --hoodi
+          nethermind:
+            - --config=hoodi
+          reth:
+            - --chain=hoodi
+        consensus:
+          grandine:
+            - --network=hoodi
+          lighthouse:
+            - --network=hoodi
+          lodestar:
+            - --network=hoodi
+          nimbus:
+            - --network=hoodi
+          prysm:
+            - --hoodi
+          teku:
+            - --network=hoodi
 
 
 ########################
@@ -93,6 +122,7 @@ besu:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -110,6 +140,7 @@ erigon:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -127,6 +158,7 @@ ethereumjs:
   enabled: false
   nameOverride: execution
   rpcPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -144,6 +176,7 @@ geth:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -161,6 +194,7 @@ nethermind:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -178,6 +212,7 @@ reth:
   enabled: false
   nameOverride: execution
   httpPort: 8545
+  wsPort: 8546
   p2pPort: 30303
   extraArgs:
     - >-
@@ -332,6 +367,9 @@ xatu-sentry:
     name: "{{ .Release.Name }}"
     ethereum:
       beaconNodeAddress: "{{ tpl  .Values.global.main.beaconEndpoint . }}"
+    execution:
+      wsAddress: "{{ tpl  .Values.global.main.wsEndpoint . }}"
+      rpcAddress: "{{ tpl  .Values.global.main.rpcEndpoint . }}"
     outputs:
     - name: basic
       type: http
