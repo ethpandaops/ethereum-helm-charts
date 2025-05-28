@@ -1,7 +1,7 @@
 
 # erpc
 
-![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.4](https://img.shields.io/badge/Version-0.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching solution. It is built with read-heavy use-cases in mind such as data indexing and high-load frontend usage.
 
@@ -26,7 +26,7 @@ eRPC is a fault-tolerant EVM RPC proxy and re-org aware permanent caching soluti
 | httpPort | int | `4000` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | erpc container pull policy |
 | image.repository | string | `"ghcr.io/erpc/erpc"` | erpc container image repository |
-| image.tag | string | `"0.0.26"` | erpc container image tag |
+| image.tag | string | `"0.0.49"` | erpc container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
