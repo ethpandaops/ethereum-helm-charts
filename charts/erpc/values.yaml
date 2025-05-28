@@ -19,10 +19,42 @@ image:
 # @default -- See `values.yaml`
 config: |
     logLevel: debug
-
     database:
       evmJsonRpcCache:
-        driver: memory
+        connectors:
+          - id: memory-cache
+            driver: memory # Refer to "memory" driver docs below
+            memory:
+              maxItems: 100000
+        policies:
+          # Cache all methods with finalized data including empty responses
+          - network: "*"
+            method: "*"
+            finality: finalized
+            empty: allow
+            connector: memory-cache
+            ttl: 0
+          # Cache unfinalized data only for 5 seconds (getLogs of a recent block) except empty responses
+          - network: "*"
+            method: "*"
+            finality: unfinalized
+            empty: ignore
+            connector: memory-cache
+            ttl: 5s
+          # Cache unknown finalization data (eth_trace*) only for 10 seconds
+          - network: "*"
+            method: "*"
+            finality: unknown
+            empty: ignore
+            connector: memory-cache
+            ttl: 10s
+          # Cache realtime data only for 2 seconds (eth_blockNumber, eth_gasPrice, etc) to reduce costs yet fresh enough data
+          - network: "*"
+            method: "*"
+            finality: realtime
+            empty: ignore
+            connector: memory-cache
+            ttl: 2s
 
     server:
       httpHostV4: "0.0.0.0"
