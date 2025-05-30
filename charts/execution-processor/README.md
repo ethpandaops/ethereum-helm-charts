@@ -3,7 +3,7 @@
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-Monitor 0xSplits, validators, gnosis safe's and provide notifications on relevant events
+A distributed system for processing Ethereum execution layer data with support for transaction structlogs, leader election, and horizontal scaling
 
 **Homepage:** <https://github.com/ethpandaops/execution-processor>
 
