@@ -1,0 +1,9 @@
+apiVersion: v2
+name: execution-processor
+description: A distributed system for processing Ethereum execution layer data with support for transaction structlogs, leader election, and horizontal scaling
+home: https://github.com/ethpandaops/execution-processor
+type: application
+version: 0.0.1
+maintainers:
+  - name: savid
+    email: andrew.davis@ethereum.org

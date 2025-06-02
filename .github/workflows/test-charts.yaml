@@ -71,3 +71,4 @@ jobs:
           --excluded-charts contributoor
           --excluded-charts hermes
           --excluded-charts spamoor
+          --excluded-charts execution-processor
