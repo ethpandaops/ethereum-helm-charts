@@ -48,7 +48,6 @@ spec:
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
           - "/execution-processor"
-          - "monitor"
           - --config=/config.yaml
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
