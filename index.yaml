@@ -5310,6 +5310,21 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethstats-0.1.0/ethstats-0.1.0.tgz
     version: 0.1.0
+  execution-processor:
+  - apiVersion: v2
+    created: "2025-06-02T00:37:42.300909146Z"
+    description: A distributed system for processing Ethereum execution layer data
+      with support for transaction structlogs, leader election, and horizontal scaling
+    digest: 4bb07ce00d9b9eb26ea2ee7e17f191bf69c7e97f78c1da3cf5d8607ad9dc8e9b
+    home: https://github.com/ethpandaops/execution-processor
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: execution-processor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/execution-processor-0.0.1/execution-processor-0.0.1.tgz
+    version: 0.0.1
   fauceth:
   - apiVersion: v2
     created: "2025-01-20T12:32:55.119518975Z"
@@ -10646,4 +10661,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-05-28T18:18:44.777148166Z"
+generated: "2025-06-02T00:37:42.301443102Z"
