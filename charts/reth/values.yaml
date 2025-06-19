@@ -32,40 +32,45 @@ defaultCommandTemplate: |
     . /env/init-nodeport;
   {{- end }}
     exec /usr/local/bin/reth node
-    --datadir=/data
-    --config=/data/config.toml
+    {{- tpl .Values.defaultCommandArgsTemplate . | nindent 4 }}
+
+# -- Template used for the default command arguments
+# @default -- See `values.yaml`
+defaultCommandArgsTemplate: |
+  --datadir=/data
+  --config=/data/config.toml
   {{- if .Values.p2pNodePort.enabled }}
-    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
-    --nat=extip:$EXTERNAL_IP
-    {{- end }}
-    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
-    --port=$EXTERNAL_PORT
-    {{- end }}
-  {{- else }}
-    {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
-    --nat=extip:$(POD_IP)
-    {{- end }}
-    {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
-    --port={{ include "reth.p2pPort" . }}
-    {{- end }}
+  {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+  --nat=extip:$EXTERNAL_IP
   {{- end }}
-    --http
-    --http.addr=0.0.0.0
-    --http.port={{ .Values.httpPort }}
-    --http.corsdomain=*
-    --ws
-    --ws.addr=0.0.0.0
-    --ws.port={{ .Values.wsPort }}
-    --ws.origins=*
-    --authrpc.jwtsecret=/data/jwt.hex
-    --authrpc.addr=0.0.0.0
-    --authrpc.port={{ .Values.authPort }}
-    --log.file.directory=/data/logs
+  {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+  --port=$EXTERNAL_PORT
+  {{- end }}
+  {{- else }}
+  {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
+  --nat=extip:$(POD_IP)
+  {{- end }}
+  {{- if not (contains "--port=" (.Values.extraArgs | join ",")) }}
+  --port={{ include "reth.p2pPort" . }}
+  {{- end }}
+  {{- end }}
+  --http
+  --http.addr=0.0.0.0
+  --http.port={{ .Values.httpPort }}
+  --http.corsdomain=*
+  --ws
+  --ws.addr=0.0.0.0
+  --ws.port={{ .Values.wsPort }}
+  --ws.origins=*
+  --authrpc.jwtsecret=/data/jwt.hex
+  --authrpc.addr=0.0.0.0
+  --authrpc.port={{ .Values.authPort }}
+  --log.file.directory=/data/logs
   {{- if .Values.metricsPort }}
-    --metrics=0.0.0.0:{{ .Values.metricsPort }}
+  --metrics=0.0.0.0:{{ .Values.metricsPort }}
   {{- end }}
   {{- range .Values.extraArgs }}
-    {{ tpl . $ }}
+  {{ tpl . $ }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
