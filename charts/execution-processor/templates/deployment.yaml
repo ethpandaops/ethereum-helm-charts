@@ -81,6 +81,11 @@ spec:
             containerPort: {{ include "execution-processor.pprofPort" . }}
             protocol: TCP
           {{- end }}
+          {{- if (include "execution-processor.apiPort" .) }}
+          - name: api
+            containerPort: {{ include "execution-processor.apiPort" . }}
+            protocol: TCP
+          {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:

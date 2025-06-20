@@ -74,3 +74,9 @@ Create the name of the service account to use
 {{ (split ":" .Values.config.pprofAddr)._1 | default "6060" }}
 {{- end -}}
 {{- end -}}
+
+{{- define "execution-processor.apiPort" -}}
+{{- if .Values.config.apiAddr -}}
+{{ (split ":" .Values.config.apiAddr)._1 | default "8080" }}
+{{- end -}}
+{{- end -}}
