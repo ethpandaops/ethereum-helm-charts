@@ -22,6 +22,7 @@ config:
   logging: "info" # panic,fatal,warn,info,debug,trace
   metricsAddr: ":9090"
   healthCheckAddr: ":9191"
+  apiAddr: ":8080"
 
 # -- Custom args for the execution-processor container
 customArgs: []

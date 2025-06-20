@@ -23,6 +23,12 @@ spec:
       protocol: TCP
       name: pprof
     {{- end }}
+    {{- if (include "execution-processor.apiPort" .) }}
+    - port: {{ include "execution-processor.apiPort" . }}
+      targetPort: api
+      protocol: TCP
+      name: api
+    {{- end }}
   {{- if .Values.extraPorts }}
     {{ toYaml .Values.extraPorts | nindent 4}}
   {{- end }}
