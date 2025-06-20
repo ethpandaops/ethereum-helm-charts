@@ -65,7 +65,12 @@ defaultCommandArgsTemplate: |
   --authrpc.jwtsecret=/data/jwt.hex
   --authrpc.addr=0.0.0.0
   --authrpc.port={{ .Values.authPort }}
-  --log.file.directory=/data/logs
+  {{- if .Values.fileLogging.enabled }}
+  --log.file.dir={{ .Values.fileLogging.dir }}
+  {{- else }}
+  {{/* Currently how file logging is disabled in reth */}}
+  --log.file.max-files=0
+  {{- end }}
   {{- if .Values.metricsPort }}
   --metrics=0.0.0.0:{{ .Values.metricsPort }}
   {{- end }}
@@ -158,6 +163,12 @@ authPort: 8551
 
 # -- Metrics Port
 metricsPort: 9001
+
+fileLogging:
+  # -- Toggle file logging. Default true
+  enabled: true
+  # -- Path to store logs in.
+  dir: /data/logs
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -331,7 +342,7 @@ serviceMonitor:
   # https://github.com/coreos/prometheus-operator
   enabled: false
   # -- Path to scrape
-  path: /debug/metrics/prometheus
+  path: /
   # -- Alternative namespace for ServiceMonitor
   namespace: null
   # -- Additional ServiceMonitor labels
