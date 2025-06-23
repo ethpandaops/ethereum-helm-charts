@@ -1,2 +1,4 @@
 reth:
   enabled: true
+  fileLogging:
+    enabled: false
