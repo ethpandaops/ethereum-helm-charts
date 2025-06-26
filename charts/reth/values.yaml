@@ -166,7 +166,7 @@ metricsPort: 9001
 
 fileLogging:
   # -- Toggle file logging. Default true
-  enabled: false
+  enabled: true
   # -- Path to store logs in.
   dir: /data/logs
 
