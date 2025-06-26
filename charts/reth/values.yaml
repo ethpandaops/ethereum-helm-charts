@@ -68,6 +68,7 @@ defaultCommandArgsTemplate: |
   {{- if .Values.fileLogging.enabled }}
   --log.file.dir={{ .Values.fileLogging.dir }}
   {{- else }}
+  {{- /* Currently how file logging is disabled in reth */}}
   --log.file.max-files=0
   {{- end }}
   {{- if .Values.metricsPort }}
@@ -165,7 +166,7 @@ metricsPort: 9001
 
 fileLogging:
   # -- Toggle file logging. Default true
-  enabled: true
+  enabled: false
   # -- Path to store logs in.
   dir: /data/logs
 
