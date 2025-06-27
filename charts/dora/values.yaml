@@ -158,6 +158,9 @@ config: |
           {{- if .archive }}
           archive: {{ .archive }}
           {{- end }}
+          {{- if .engineSnooperUrl }}
+          engineSnooperUrl: {{ .engineSnooperUrl | quote }}
+          {{- end }}
           {{- if .headers }}
           headers:
           {{- range $key, $value := .headers }}
