@@ -68,7 +68,7 @@ defaultCommandArgsTemplate: |
   {{- if .Values.fileLogging.enabled }}
   --log.file.dir={{ .Values.fileLogging.dir }}
   {{- else }}
-  {{/* Currently how file logging is disabled in reth */}}
+  {{- /* Currently how file logging is disabled in reth */}}
   --log.file.max-files=0
   {{- end }}
   {{- if .Values.metricsPort }}
