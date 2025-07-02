@@ -1,1 +1,2 @@
-# Leave empty so that CT tests with default values
+fileLogging:
+  enabled: false
