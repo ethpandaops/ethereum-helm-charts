@@ -136,11 +136,15 @@ spec:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.startupProbe | nindent 12 }}
           {{- else if eq .Values.mode "validator" }}
           livenessProbe:
             {{- toYaml .Values.validatorLivenessProbe | nindent 12 }}
           readinessProbe:
             {{- toYaml .Values.validatorReadinessProbe | nindent 12 }}
+          startupProbe:
+            {{- toYaml .Values.validatorStartupProbe | nindent 12 }}
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
