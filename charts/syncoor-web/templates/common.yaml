@@ -10,7 +10,7 @@ global:
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "app-template.nameOverride" . | fromYaml) -}}
 
-#{{- define "app-template.hardcodedValues"}}
+{{- define "app-template.hardcodedValues" -}}
 persistence:
   config:
     name: {{ include "bjw-s.common.lib.chart.names.fullname" . }}
