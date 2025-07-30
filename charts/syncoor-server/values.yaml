@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.2.0/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    type: deployment
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/ethpandaops/syncoor
+          tag: master
+          pullPolicy: IfNotPresent
+        args:
+          - sh
+          - -c
+          - >-
+            --listen=:8080
+            --auth-token=$AUTH_TOKEN
+            --log-level=info
+
+secrets:
+  secretenv:
+    enabled: true
+    stringData:
+      AUTH_TOKEN: "not-so-secret-auth-token"
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
+        targetPort: 8080
+        protocol: TCP
+
+ingress:
+  main:
+    enabled: false
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
