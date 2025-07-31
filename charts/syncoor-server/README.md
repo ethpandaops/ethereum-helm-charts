@@ -26,7 +26,7 @@ Kubernetes: `>=1.28.0-0`
 |-----|------|---------|-------------|
 | controllers.main.containers.main.command[0] | string | `"sh"` |  |
 | controllers.main.containers.main.command[1] | string | `"-c"` |  |
-| controllers.main.containers.main.command[2] | string | `"--listen=:8080 --auth-token=$AUTH_TOKEN --log-level=info"` |  |
+| controllers.main.containers.main.command[2] | string | `"syncoor server --listen=:8080 --auth-token=$AUTH_TOKEN --log-level=info"` |  |
 | controllers.main.containers.main.image.pullPolicy | string | `"IfNotPresent"` |  |
 | controllers.main.containers.main.image.repository | string | `"ghcr.io/ethpandaops/syncoor"` |  |
 | controllers.main.containers.main.image.tag | string | `"master"` |  |
