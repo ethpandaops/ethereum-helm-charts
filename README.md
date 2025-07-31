@@ -73,8 +73,8 @@ Tooling
 - [`consensus-monitor`](charts/consensus-monitor) - Web UI to check your ethereum consensus layer nodes via their beacon APIs.
 - [`contributoor`](charts/contributoor) - A lightweight sidecar that runs alongside an Ethereum consensus client and collects data.
 - [`dora`](charts/dora) - Lightweight Beaconchain explorer.
-- [`dugtrio`](charts/dugtrio) - Fault tolerant load balancer for beacon chain RPC apis.
 - [`dshackle`](charts/dshackle) - Fault tolerant load balancer for blockchain apis, including Ethereum RPC.
+- [`dugtrio`](charts/dugtrio) - Fault tolerant load balancer for beacon chain RPC apis.
 - [`eleel`](charts/eleel) - A multiplexer for Ethereum execution clients.
 - [`erpc`](charts/erpc) - EVM RPC proxy.
 - [`eth-faucet`](charts/eth-faucet) - Ether faucet server built with Go and Svelte.
@@ -94,16 +94,18 @@ Tooling
 - [`rpc-snooper`](charts/rpc-snooper) - A tool to snoop on RPC calls and log them to stdout.
 - [`smart-contract-verifier-http`](charts/smart-contract-verifier-http) - Smart contract verification service.
 - [`stubbies`](charts/stubbies) - Ethereum execution client stub for consensus layer clients.
+- [`syncoor-server`](charts/syncoor-server) - A server to collect data about multiple syncoor runs.
+- [`syncoor-web`](charts/syncoor-web) - A web app to display data about multiple syncoor runs.
 - [`testnet-faucet`](charts/testnet-faucet) - Web faucet that can be used to distribute testnet ETH to users.
 - [`testnet-homepage`](charts/testnet-homepage) - Simple website that can be used to display useful information about your testnet.
-- [`tracoor-single`](charts/tracoor-single) - An Ethereum beacon data and execution trace explorer in single mode.
-- [`tracoor-server`](charts/tracoor-server) - An Ethereum beacon data and execution trace explorer in server mode.
 - [`tracoor-agent`](charts/tracoor-agent) - An Ethereum beacon data and execution trace explorer in agent mode.
+- [`tracoor-server`](charts/tracoor-server) - An Ethereum beacon data and execution trace explorer in server mode.
+- [`tracoor-single`](charts/tracoor-single) - An Ethereum beacon data and execution trace explorer in single mode.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
+- [`xatu-cannon`](charts/xatu-cannon) - Ethereum data collection tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
 - [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.
 - [`xatu-sentry`](charts/xatu-sentry) - Ethereum p2p monitoring tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
-- [`xatu-cannon`](charts/xatu-cannon) - Ethereum data collection tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
 - [`xatu-server`](charts/xatu-server) - Ethereum p2p monitoring tool that collects events from and controls various Xatu clients.
 
 ## Development
