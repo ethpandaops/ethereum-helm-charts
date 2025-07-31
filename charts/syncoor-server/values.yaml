@@ -12,7 +12,7 @@ controllers:
           repository: ghcr.io/ethpandaops/syncoor
           tag: master
           pullPolicy: IfNotPresent
-        args:
+        command:
           - sh
           - -c
           - >-
