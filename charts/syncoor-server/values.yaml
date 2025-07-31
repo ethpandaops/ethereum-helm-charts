@@ -23,6 +23,7 @@ controllers:
           - sh
           - -c
           - >-
+            syncoor server
             --listen=:8080
             --auth-token=$AUTH_TOKEN
             --log-level=info
