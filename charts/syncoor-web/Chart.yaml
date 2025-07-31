@@ -1,0 +1,15 @@
+---
+apiVersion: v2
+description: Syncoor Web - Used to display data about multiple syncoor runs.
+name: syncoor-web
+home: https://github.com/ethpandaops/syncoor
+type: application
+version: 0.0.1
+kubeVersion: ">=1.28.0-0"
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
+dependencies:
+  - name: common
+    repository: https://bjw-s-labs.github.io/helm-charts
+    version: 4.2.0

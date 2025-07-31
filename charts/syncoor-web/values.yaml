@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.2.0/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    type: deployment
+    strategy: Recreate
+
+    containers:
+      main:
+        image:
+          repository: ghcr.io/ethpandaops/syncoor-web
+          tag: master
+          pullPolicy: IfNotPresent
+        resources:
+          requests:
+            #cpu: 100m
+            #memory: 128Mi
+          limits:
+            #cpu: 200m
+            #memory: 128Mi
+
+configMaps:
+  config:
+    enabled: true
+    data:
+      config.json: |
+        {
+          "directories": [
+            {
+              "name": "General",
+              "url": "http://url-to-your/reports/"
+            }
+          ],
+          "syncoorApiEndpoints": [
+            {
+              "name": "Syncoor",
+              "url": "http://url-to-your-syncoor-server"
+            }
+          ]
+        }
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
+
+ingress:
+  main:
+    enabled: false
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
