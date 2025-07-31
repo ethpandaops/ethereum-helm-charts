@@ -9394,6 +9394,44 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/stubbies-0.0.1/stubbies-0.0.1.tgz
     version: 0.0.1
+  syncoor-server:
+  - apiVersion: v2
+    created: "2025-07-31T12:03:02.733049368Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts
+      version: 4.2.0
+    description: Syncoor Server - Used to collect data about multiple syncoor runs.
+    digest: 3b0fe0557e4359f3a341f826784e380df4908e62c90bb4ff4d2a5e38651779d8
+    home: https://github.com/ethpandaops/syncoor
+    kubeVersion: '>=1.28.0-0'
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: syncoor-server
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/syncoor-server-0.0.1/syncoor-server-0.0.1.tgz
+    version: 0.0.1
+  syncoor-web:
+  - apiVersion: v2
+    created: "2025-07-31T12:03:02.894593244Z"
+    dependencies:
+    - name: common
+      repository: https://bjw-s-labs.github.io/helm-charts
+      version: 4.2.0
+    description: Syncoor Web - Used to display data about multiple syncoor runs.
+    digest: c2e7c90dda4a0c8de2a7751282e58caa354f620176f70902dbbf7f33f87fb1ad
+    home: https://github.com/ethpandaops/syncoor
+    kubeVersion: '>=1.28.0-0'
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: syncoor-web
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/syncoor-web-0.0.1/syncoor-web-0.0.1.tgz
+    version: 0.0.1
   teku:
   - apiVersion: v2
     created: "2025-01-20T12:32:56.969660097Z"
@@ -10898,4 +10936,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-06-27T20:32:49.491097285Z"
+generated: "2025-07-31T12:03:02.895131508Z"
