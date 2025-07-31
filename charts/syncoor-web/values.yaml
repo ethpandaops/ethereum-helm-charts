@@ -12,6 +12,13 @@ controllers:
           repository: ghcr.io/ethpandaops/syncoor-web
           tag: master
           pullPolicy: IfNotPresent
+        resources:
+          requests:
+            #cpu: 100m
+            #memory: 128Mi
+          limits:
+            #cpu: 200m
+            #memory: 128Mi
 
 configMaps:
   config:
