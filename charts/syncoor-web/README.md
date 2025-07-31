@@ -29,6 +29,8 @@ Kubernetes: `>=1.28.0-0`
 | controllers.main.containers.main.image.pullPolicy | string | `"IfNotPresent"` |  |
 | controllers.main.containers.main.image.repository | string | `"ghcr.io/ethpandaops/syncoor-web"` |  |
 | controllers.main.containers.main.image.tag | string | `"master"` |  |
+| controllers.main.containers.main.resources.limits | string | `nil` |  |
+| controllers.main.containers.main.resources.requests | string | `nil` |  |
 | controllers.main.strategy | string | `"Recreate"` |  |
 | controllers.main.type | string | `"deployment"` |  |
 | ingress.main.enabled | bool | `false` |  |
