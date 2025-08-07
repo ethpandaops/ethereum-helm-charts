@@ -81,7 +81,7 @@ spec:
             - name: storage
               mountPath: "/data"
       {{- end }}
-      {{- if .Values.devnet.enabled }}
+      {{- if eq (include "besu.devnetEnabled" .) "true" }}
         {{- tpl (toYaml .Values.devnet.initContainer | nindent 8) $ }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}

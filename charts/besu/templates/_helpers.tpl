@@ -84,3 +84,71 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- print .Values.replicas }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Check if devnet is enabled based on network name or explicit setting
+*/}}
+{{- define "besu.devnetEnabled" -}}
+{{- if or .Values.devnet.enabled (contains "devnet" .Values.network) }}
+{{- print "true" }}
+{{- else }}
+{{- print "false" }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Extract base name from network (e.g., "fusaka" from "fusaka-devnet-3")
+*/}}
+{{- define "besu.devnetBaseName" -}}
+{{- if .Values.network }}
+  {{- $parts := splitList "-" .Values.network }}
+  {{- if gt (len $parts) 0 }}
+    {{- index $parts 0 }}
+  {{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Extract devnet name from network (e.g., "devnet-3" from "fusaka-devnet-3")
+*/}}
+{{- define "besu.devnetName" -}}
+{{- if .Values.network }}
+  {{- if contains "devnet" .Values.network }}
+    {{- $parts := splitList "-" .Values.network }}
+    {{- if gt (len $parts) 2 }}
+      {{- printf "%s-%s" (index $parts 1) (index $parts 2) }}
+    {{- else if gt (len $parts) 1 }}
+      {{- index $parts 1 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Get the devnet base URL
+*/}}
+{{- define "besu.devnetBaseUrl" -}}
+{{- if .Values.devnet.baseUrl }}
+  {{- .Values.devnet.baseUrl }}
+{{- else if and .Values.network (contains "devnet" .Values.network) }}
+  {{- $baseName := include "besu.devnetBaseName" . }}
+  {{- if $baseName }}
+    {{- printf "https://raw.githubusercontent.com/ethpandaops/%s-devnets/master/network-configs" $baseName }}
+  {{- else }}
+    {{- print "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs" }}
+  {{- end }}
+{{- else }}
+  {{- print "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs" }}
+{{- end }}
+{{- end -}}
+
+{{/*
+Get the actual devnet name to use
+*/}}
+{{- define "besu.devnetNameResolved" -}}
+{{- if .Values.devnet.name }}
+  {{- .Values.devnet.name }}
+{{- else }}
+  {{- include "besu.devnetName" . }}
+{{- end }}
+{{- end -}}
