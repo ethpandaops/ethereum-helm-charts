@@ -51,15 +51,15 @@ devnet:
           mkdir -p /data/devnet;
           if [ ! -f /data/devnet/genesis.json ]; then
             echo "Downloading devnet configuration files...";
-            
+
             # Download genesis.json for execution layer
             echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
             wget -O /data/devnet/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
-            
+
             # Download execution layer bootnodes
             echo "Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
             wget -O /data/devnet/el_bootnode.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
-            
+
             echo "Devnet configuration download complete.";
           else
             echo "Genesis file already exists, skipping download.";
@@ -80,13 +80,13 @@ devnet:
           # Initialize Erigon with the devnet genesis file
           if [ ! -f /data/erigon_initialized ]; then
             echo "Initializing Erigon with devnet genesis...";
-            
+
             # Use Erigon's init command to properly initialize with genesis
             if [ -f /data/devnet/genesis.json ]; then
               erigon init --datadir=/data /data/devnet/genesis.json
               echo "Erigon initialized with genesis file";
             fi
-            
+
             # Mark initialization as complete
             touch /data/erigon_initialized
             echo "Erigon devnet initialization complete.";
