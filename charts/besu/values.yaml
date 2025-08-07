@@ -22,20 +22,24 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Network name (e.g., "fusaka-devnet-3", "mainnet", "holesky")
+# When containing "devnet", automatically enables devnet mode and configures URLs
+network: ""
+
 # -- Devnet configuration
 devnet:
-  # -- Enable devnet mode
+  # -- Enable devnet mode (automatically set to true if network contains "devnet")
   enabled: false
-  # -- Base URL for devnet configuration files
-  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
-  # -- Devnet name (e.g., devnet-3)
-  name: "devnet-3"
+  # -- Base URL for devnet configuration files (auto-generated from network name if not set)
+  baseUrl: ""
+  # -- Devnet name (auto-extracted from network name if not set, e.g., "devnet-3" from "fusaka-devnet-3")
+  name: ""
   # -- URLs for devnet configuration files
   urls:
     # -- Genesis JSON URL for execution layer
-    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"
+    genesisJson: "{{ include \"besu.devnetBaseUrl\" . }}/{{ include \"besu.devnetNameResolved\" . }}/metadata/genesis.json"
     # -- Execution layer bootnode URL
-    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt"
+    elBootnode: "{{ include \"besu.devnetBaseUrl\" . }}/{{ include \"besu.devnetNameResolved\" . }}/metadata/el_bootnode.txt"
   # -- Init container configuration for downloading devnet files
   initContainer:
     - name: download-devnet-config
@@ -109,7 +113,7 @@ defaultCommandTemplate: |
     --metrics-enabled
     --metrics-host=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
-  {{- if .Values.devnet.enabled }}
+  {{- if eq (include "besu.devnetEnabled" .) "true" }}
     --genesis-file=/data/devnet_config/genesis.json
     --bootnodes="$(cat /data/devnet_config/el_bootnode.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
