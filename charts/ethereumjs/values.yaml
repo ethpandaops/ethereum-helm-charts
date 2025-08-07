@@ -35,7 +35,7 @@ devnet:
     # -- Genesis JSON URL for execution layer
     genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"
     # -- Execution layer bootnode URL
-    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt"
+    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"
   # -- Init container configuration for downloading devnet files
   initContainer:
     - name: download-devnet-config
@@ -57,8 +57,8 @@ devnet:
             wget -O /data/devnet_config/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
 
             # Download execution layer bootnodes
-            echo "Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
-            wget -O /data/devnet_config/el_bootnode.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
+            echo "Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
+            wget -O /data/devnet_config/enodes.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
 
             echo "Devnet configuration download complete.";
           else
@@ -112,7 +112,7 @@ defaultCommandTemplate: |
     --wsEnginePort={{ .Values.wsAuthPort }}
   {{- if .Values.devnet.enabled }}
     --gethGenesis=/data/devnet_config/genesis.json
-    --bootnodes="$(cat /data/devnet_config/el_bootnode.txt | tr '\n' ',' | sed 's/,$//')"
+    --bootnodes="$(cat /data/devnet_config/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
