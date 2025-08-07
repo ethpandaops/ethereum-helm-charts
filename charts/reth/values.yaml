@@ -51,15 +51,15 @@ devnet:
           mkdir -p /data/devnet_config;
           if [ ! -f /data/devnet_config/genesis.json ]; then
             echo "Downloading devnet configuration files...";
-            
+
             # Download genesis.json for execution layer
             echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
             wget -O /data/devnet_config/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
-            
+
             # Download execution layer bootnodes
             echo "Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
             wget -O /data/devnet_config/el_bootnode.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
-            
+
             echo "Devnet configuration download complete.";
           else
             echo "Genesis file already exists, skipping download.";

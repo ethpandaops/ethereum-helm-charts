@@ -57,15 +57,15 @@ devnet:
           mkdir -p /data/devnet;
           if [ ! -f /data/devnet/genesis.json ]; then
             echo "Downloading devnet configuration files...";
-            
+
             # Download genesis.json for execution layer
             echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
             wget -O /data/devnet/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
-            
+
             # Download execution layer bootnodes
             echo "Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
             wget -O /data/devnet/el_bootnode.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
-            
+
             echo "Devnet configuration download complete.";
           else
             echo "Genesis file already exists, skipping download.";
@@ -419,3 +419,4 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+

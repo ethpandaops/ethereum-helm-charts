@@ -54,7 +54,7 @@ devnet:
     genesisSsz: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"
     # -- Bootstrap nodes YAML URL
     bootstrapNodesYaml: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/bootstrap_nodes.yaml"
-    # -- Bootstrap nodes TXT URL 
+    # -- Bootstrap nodes TXT URL
     bootstrapNodesTxt: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/bootstrap_nodes.txt"
     # -- Deposit contract address URL
     depositContractAddress: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/deposit_contract.txt"
@@ -73,29 +73,29 @@ devnet:
           mkdir -p /data/testnet_spec;
           if [ ! -f /data/testnet_spec/genesis.ssz ]; then
             echo "Downloading devnet configuration files...";
-            
+
             # Download deposit contract block (required by Teku for --eth1-deposit-contract-address)
             echo "Downloading deposit_contract_block.txt from {{ tpl .Values.devnet.urls.depositContractBlock . }}"
             wget -O /data/testnet_spec/deposit_contract_block.txt "{{ tpl .Values.devnet.urls.depositContractBlock . }}"
-            
+
             # Download deposit contract address
             echo "Downloading deposit_contract.txt from {{ tpl .Values.devnet.urls.depositContractAddress . }}"
             wget -O /data/testnet_spec/deposit_contract.txt "{{ tpl .Values.devnet.urls.depositContractAddress . }}"
-            
+
             # Download config.yaml (required by Teku --network parameter)
             echo "Downloading config.yaml from {{ tpl .Values.devnet.urls.configYaml . }}"
             wget -O /data/testnet_spec/config.yaml "{{ tpl .Values.devnet.urls.configYaml . }}"
-            
+
             # Download genesis.ssz (required by Teku --initial-state parameter)
             echo "Downloading genesis.ssz from {{ tpl .Values.devnet.urls.genesisSsz . }}"
             wget -O /data/testnet_spec/genesis.ssz "{{ tpl .Values.devnet.urls.genesisSsz . }}"
-            
+
             # Download bootstrap nodes (both formats for compatibility)
             echo "Downloading bootstrap_nodes.yaml from {{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             wget -O /data/testnet_spec/bootstrap_nodes.yaml "{{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             echo "Downloading bootstrap_nodes.txt from {{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"
             wget -O /data/testnet_spec/bootstrap_nodes.txt "{{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"
-            
+
             echo "Devnet configuration download complete.";
           else
             echo "Genesis file already exists, skipping download.";
