@@ -1,0 +1,17 @@
+# Test values for devnet functionality
+devnet:
+  enabled: true
+  name: "devnet-3"
+  
+# Use minimal resources for CI testing  
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+# Disable persistence for testing
+persistence:
+  enabled: false
