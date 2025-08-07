@@ -1,0 +1,23 @@
+# Sample values for testing devnet functionality
+
+image:
+  tag: "master"
+
+# Enable devnet mode
+devnet:
+  enabled: true
+  name: "devnet-3"
+
+# Enable persistence for devnet data
+persistence:
+  enabled: true
+  size: 5Gi
+
+# Minimal resource allocation for CI testing
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi

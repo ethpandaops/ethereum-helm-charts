@@ -1,0 +1,18 @@
+# CI test values for Besu devnet configuration
+devnet:
+  enabled: true
+  name: "devnet-3"
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+
+# Use smaller resource limits for CI
+resources:
+  limits:
+    cpu: 100m
+    memory: 512Mi
+  requests:
+    cpu: 50m
+    memory: 256Mi
+
+# Disable persistence for CI
+persistence:
+  enabled: false

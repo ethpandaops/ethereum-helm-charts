@@ -1,0 +1,23 @@
+devnet:
+  enabled: true
+  name: "devnet-3"
+
+# Reduce resource usage for CI
+resources:
+  requests:
+    cpu: 100m
+    memory: 1Gi
+  limits:
+    cpu: 500m
+    memory: 2Gi
+
+resourcesRPCDaemon:
+  requests:
+    cpu: 50m
+    memory: 256Mi
+  limits:
+    cpu: 200m
+    memory: 512Mi
+
+persistence:
+  enabled: false

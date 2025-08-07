@@ -22,6 +22,81 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Devnet configuration
+devnet:
+  # -- Enable devnet mode
+  enabled: false
+  # -- Base URL for devnet configuration files
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+  # -- Devnet name (e.g., devnet-3)
+  name: "devnet-3"
+  # -- URLs for devnet configuration files
+  urls:
+    # -- Genesis JSON URL for execution layer
+    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"
+    # -- Execution layer bootnode URL
+    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt"
+  # -- Init container configuration for downloading devnet files
+  initContainer:
+    - name: download-devnet-config
+      image: alpine:latest
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          mkdir -p /data/devnet;
+          if [ ! -f /data/devnet/genesis.json ]; then
+            echo "Downloading devnet configuration files...";
+            
+            # Download genesis.json for execution layer
+            echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
+            wget -O /data/devnet/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
+            
+            # Download execution layer bootnodes
+            echo "Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
+            wget -O /data/devnet/el_bootnode.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
+            
+            echo "Devnet configuration download complete.";
+          else
+            echo "Genesis file already exists, skipping download.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+    - name: init-erigon-devnet
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          # Initialize Erigon with the devnet genesis file
+          if [ ! -f /data/erigon_initialized ]; then
+            echo "Initializing Erigon with devnet genesis...";
+            
+            # Use Erigon's init command to properly initialize with genesis
+            if [ -f /data/devnet/genesis.json ]; then
+              erigon init --datadir=/data /data/devnet/genesis.json
+              echo "Erigon initialized with genesis file";
+            fi
+            
+            # Mark initialization as complete
+            touch /data/erigon_initialized
+            echo "Erigon devnet initialization complete.";
+          else
+            echo "Erigon devnet already initialized, skipping setup.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+
 # -- Extra args for the rpcdaemon container
 extraArgsRPCDaemon: []
   #- --http.corsdomain=yourdomain.tld
@@ -63,6 +138,9 @@ defaultCommandTemplate: |
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
+  {{- if .Values.devnet.enabled }}
+    --bootnodes="$(cat /data/devnet/el_bootnode.txt | tr '\n' ',' | sed 's/,$//')"
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}

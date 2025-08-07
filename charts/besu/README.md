@@ -1,7 +1,7 @@
 
 # besu
 
-![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An Ethereum execution layer client designed to be enterprise-friendly for both public and private, permissioned network use cases. Besu is written in Java and released under the Apache 2.0 Licence.
 
@@ -21,6 +21,14 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
+| devnet | object | `{"baseUrl":"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs","enabled":false,"initContainer":[{"command":["sh","-ac","mkdir -p /data/devnet_config;\nif [ ! -f /data/devnet_config/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n  \n  # Download genesis.json for execution layer\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet_config/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n  \n  # Download execution layer bootnodes\n  echo \"Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet_config/el_bootnode.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n  \n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}],"name":"devnet-3","urls":{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}}` | Devnet configuration |
+| devnet.baseUrl | string | `"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"` | Base URL for devnet configuration files |
+| devnet.enabled | bool | `false` | Enable devnet mode |
+| devnet.initContainer | list | `[{"command":["sh","-ac","mkdir -p /data/devnet_config;\nif [ ! -f /data/devnet_config/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n  \n  # Download genesis.json for execution layer\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet_config/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n  \n  # Download execution layer bootnodes\n  echo \"Downloading el_bootnode.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet_config/el_bootnode.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n  \n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}]` | Init container configuration for downloading devnet files |
+| devnet.name | string | `"devnet-3"` | Devnet name (e.g., devnet-3) |
+| devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
+| devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/el_bootnode.txt"` | Execution layer bootnode URL |
+| devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | extraArgs | list | `[]` | Extra args for the besu container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |

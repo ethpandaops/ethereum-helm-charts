@@ -81,6 +81,9 @@ spec:
             - name: storage
               mountPath: "/data"
       {{- end }}
+      {{- if .Values.devnet.enabled }}
+        {{- tpl (toYaml .Values.devnet.initContainer | nindent 8) $ }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
