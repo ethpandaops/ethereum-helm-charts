@@ -158,7 +158,6 @@ defaultBeaconCommandTemplate: |
     --genesis-state=/data/testnet_spec/genesis.ssz
     --chain-config-file=/data/testnet_spec/config.yaml
     --bootstrap-node="$(cat /data/testnet_spec/bootstrap_nodes.txt | tr '\n' ',' | sed 's/,$//')"
-    --min-sync-peers=0
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
