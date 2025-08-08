@@ -1,7 +1,7 @@
 
 # ethereumjs
 
-![Version: 0.0.10](https://img.shields.io/badge/Version-0.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract language Ethereum dApp developers are most familiar with. It is targeted to be a client for research and development and not meant to be used in production on mainnet for the foreseeable future (out of resource and security considerations).
 
@@ -22,6 +22,14 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultBinaryPath | string | `"node /usr/app/packages/client/dist/esm/bin/cli.js"` | Path within the container to the beacon node binary |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
+| devnet | object | `{"baseUrl":"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs","enabled":false,"initContainer":[{"command":["sh","-ac","mkdir -p /data/devnet_config;\nif [ ! -f /data/devnet_config/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet_config/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n\n  echo \"Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet_config/enodes.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n\n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}],"name":"devnet-3","urls":{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}}` | Devnet configuration |
+| devnet.baseUrl | string | `"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"` | Base URL for devnet configuration files |
+| devnet.enabled | bool | `false` | Enable devnet mode |
+| devnet.initContainer | list | `[{"command":["sh","-ac","mkdir -p /data/devnet_config;\nif [ ! -f /data/devnet_config/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet_config/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n\n  echo \"Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet_config/enodes.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n\n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}]` | Init container configuration for downloading devnet files |
+| devnet.name | string | `"devnet-3"` | Devnet name (e.g., devnet-3) |
+| devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
+| devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
+| devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | extraArgs | list | `[]` | Extra args for the ethereumjs container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |

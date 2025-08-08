@@ -38,6 +38,9 @@ spec:
       {{- if .Values.initContainers }}
         {{- tpl (toYaml .Values.initContainers | nindent 8) $ }}
       {{- end }}
+      {{- if .Values.devnet.enabled }}
+        {{- tpl (toYaml .Values.devnet.initContainer | nindent 8) $ }}
+      {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: init-nodeport
           image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"

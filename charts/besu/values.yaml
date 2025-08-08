@@ -22,6 +22,50 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Devnet configuration
+devnet:
+  # -- Enable devnet mode
+  enabled: false
+  # -- Base URL for devnet configuration files
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+  # -- Devnet name (e.g., devnet-3)
+  name: "devnet-3"
+  # -- URLs for devnet configuration files
+  urls:
+    # -- Genesis JSON URL for execution layer (using besu-specific file)
+    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/besu.json"
+    # -- Execution layer bootnode URL
+    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"
+  # -- Init container configuration for downloading devnet files
+  initContainer:
+    - name: download-devnet-config
+      image: alpine:latest
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          mkdir -p /data/devnet_config;
+          if [ ! -f /data/devnet_config/genesis.json ]; then
+            echo "Downloading devnet configuration files...";
+
+            echo "Downloading besu genesis from {{ tpl .Values.devnet.urls.genesisJson . }}"
+            wget -O /data/devnet_config/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
+
+            echo "Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
+            wget -O /data/devnet_config/enodes.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
+
+            echo "Devnet configuration download complete.";
+          else
+            echo "Genesis file already exists, skipping download.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+
 # -- Template used for the default command
 # @default -- See `values.yaml`
 defaultCommandTemplate: |
@@ -63,6 +107,10 @@ defaultCommandTemplate: |
     --metrics-enabled
     --metrics-host=0.0.0.0
     --metrics-port={{ .Values.metricsPort }}
+  {{- if .Values.devnet.enabled }}
+    --genesis-file=/data/devnet_config/genesis.json
+    --bootnodes="$(cat /data/devnet_config/enodes.txt | tr '\n' ',' | sed 's/,$//')"
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
