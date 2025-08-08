@@ -369,7 +369,7 @@ initContainers:
         --backfill=false \
         --trusted-node-url={{ tpl .Values.checkpointSync.url $ }}
         {{- else }}
-        echo "Checkpoint-sync isn't enabled or devnet mode is active. Skipping trusted node sync."
+        echo "Checkpoint-sync isn't enabled."
         {{- end }}
     volumeMounts:
     - name: storage
