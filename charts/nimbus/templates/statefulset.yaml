@@ -35,6 +35,9 @@ spec:
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       initContainers:
+      {{- if .Values.initContainers }}
+        {{- tpl (toYaml .Values.initContainers | nindent 8) $ }}
+      {{- end }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: init-nodeport
           image: "{{ .Values.p2pNodePort.initContainer.image.repository }}:{{ .Values.p2pNodePort.initContainer.image.tag }}"
@@ -77,9 +80,6 @@ spec:
           volumeMounts:
             - name: storage
               mountPath: "/data"
-      {{- end }}
-      {{- if .Values.initContainers }}
-        {{- tpl (toYaml .Values.initContainers | nindent 8) $ }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

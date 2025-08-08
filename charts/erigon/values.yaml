@@ -123,13 +123,7 @@ defaultCommandTemplate: |
     --port={{ include "erigon.p2pPort" . }}
     {{- end }}
   {{- end }}
-  {{- if .Values.devnet.enabled }}
-    --http=true
-    --http.addr=0.0.0.0
-    --http.port={{ .Values.httpPort }}
-  {{- else }}
     --http=false
-  {{- end }}
     --private.api.addr=127.0.0.1:9090
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0

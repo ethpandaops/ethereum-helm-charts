@@ -122,9 +122,6 @@ defaultCommandArgsTemplate: |
   --http.addr=0.0.0.0
   --http.port={{ .Values.httpPort }}
   --http.corsdomain=*
-  {{- if .Values.devnet.enabled }}
-  --http.api=trace,rpc,eth,net,debug,web3,admin,txpool
-  {{- end }}
   --ws
   --ws.addr=0.0.0.0
   --ws.port={{ .Values.wsPort }}
