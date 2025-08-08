@@ -143,7 +143,7 @@ besu:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -165,7 +165,7 @@ erigon:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -187,7 +187,7 @@ ethereumjs:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -209,7 +209,7 @@ geth:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -231,7 +231,7 @@ nethermind:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -253,7 +253,7 @@ reth:
         {{- end -}}
       {{- end }}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -280,7 +280,7 @@ grandine:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -301,7 +301,7 @@ lighthouse:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -322,7 +322,7 @@ teku:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -343,7 +343,7 @@ lodestar:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -364,7 +364,7 @@ prysm:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
@@ -386,7 +386,7 @@ nimbus:
         {{- end -}}
       {{- end -}}
   devnet:
-    enabled: "{{ .Values.global.main.devnet.enabled }}"
+    enabled: {{ .Values.global.main.devnet.enabled }}
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
 
