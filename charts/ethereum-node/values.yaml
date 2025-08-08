@@ -5,13 +5,6 @@ global:
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
     wsEndpoint: ws://{{ .Release.Name }}-execution:8546
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
-    devnet:
-      # -- Enable devnet mode
-      enabled: false
-      # -- Base URL for devnet configuration files
-      baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
-      # -- Devnet name (e.g., devnet-3)
-      name: "devnet-3"
   checkpointSync:
     enabled: true
     addresses:
@@ -142,10 +135,6 @@ besu:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 erigon:
   enabled: false
@@ -164,10 +153,6 @@ erigon:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 ethereumjs:
   enabled: false
@@ -186,10 +171,6 @@ ethereumjs:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 geth:
   enabled: false
@@ -208,10 +189,6 @@ geth:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 nethermind:
   enabled: false
@@ -230,10 +207,6 @@ nethermind:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 reth:
   enabled: false
@@ -252,10 +225,6 @@ reth:
         {{- end }}
         {{- end -}}
       {{- end }}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 ########################
 ###
@@ -279,10 +248,6 @@ grandine:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 lighthouse:
   enabled: false
@@ -300,10 +265,6 @@ lighthouse:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 teku:
   enabled: false
@@ -321,10 +282,6 @@ teku:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 lodestar:
   enabled: false
@@ -342,10 +299,6 @@ lodestar:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 prysm:
   enabled: false
@@ -363,10 +316,6 @@ prysm:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 nimbus:
   enabled: false
@@ -385,10 +334,6 @@ nimbus:
         {{ . }}
         {{- end -}}
       {{- end -}}
-  devnet:
-    enabled: {{ .Values.global.main.devnet.enabled }}
-    baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
-    name: "{{ .Values.global.main.devnet.name }}"
 
 ########################
 ###
