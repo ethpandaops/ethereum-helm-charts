@@ -381,6 +381,26 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2025-08-08T03:44:10.468400473Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 565f26758000e244a07643cf0d1c1d4684006aa407e57ea004d0c33d23f8841a
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-1.1.1/besu-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:34.815297089Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -2144,6 +2164,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.0/eleel-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2025-08-08T03:44:10.645439147Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: 1e9928f9af91eb7c4564e3002530bf1a2d472a1e77293cfa1da7d8293c19a0f7
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-1.1.1/erigon-1.1.1.tgz
+    version: 1.1.1
   - apiVersion: v2
     created: "2025-08-08T01:25:34.953289621Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -5332,6 +5374,26 @@ entries:
     version: 0.0.1
   ethereumjs:
   - apiVersion: v2
+    created: "2025-08-08T03:44:10.856563543Z"
+    description: 'The EthereumJS Client is an Ethereum Execution Client (similar to
+      go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract
+      language Ethereum dApp developers are most familiar with. It is targeted to
+      be a client for research and development and not meant to be used in production
+      on mainnet for the foreseeable future (out of resource and security considerations). '
+    digest: caa403e9e6f5347bae9b180fdfe6bb2884ce18a452e6f1c57b4d601c4c71a5f9
+    home: https://ethereumjs.readthedocs.io/en/latest/
+    icon: https://user-images.githubusercontent.com/47108/78779352-d0839500-796a-11ea-9468-fd2a0b3fe1ef.png
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: ethereumjs
+    sources:
+    - https://github.com/ethereumjs/ethereumjs-monorepo
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereumjs-0.1.1/ethereumjs-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:35.115653344Z"
     description: 'The EthereumJS Client is an Ethereum Execution Client (similar to
       go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract
@@ -6100,6 +6162,27 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    created: "2025-08-08T03:44:11.03200958Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 752220808285e4f090dc6f1415bccba5d65ddf770f79a2ddd61f7b461f1dc79a
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-1.1.1/geth-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:35.260761748Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
       of the Ethereum protocol. Currently, it is the most widespread client with the
@@ -6503,6 +6586,23 @@ entries:
     version: 0.1.0
   grandine:
   - apiVersion: v2
+    created: "2025-08-08T03:44:11.236248259Z"
+    description: A currently closed source, but hopefully soon to be open-source Ethereum
+      Consensus layer client, written in Rust.
+    digest: 952d80a7c87cc0d41c4bb870f048563fe5a3ac7c569011cbd212c61690156858
+    home: https://sifrai.com
+    icon: https://github.com/sifraitech/grandine/blob/master/gui.png
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: grandine
+    sources:
+    - https://github.com/sifraitech/grandine
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.2.1/grandine-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:35.373410767Z"
     description: A currently closed source, but hopefully soon to be open-source Ethereum
       Consensus layer client, written in Rust.
@@ -6885,6 +6985,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/light-beaconchain-explorer-0.0.1/light-beaconchain-explorer-0.0.1.tgz
     version: 0.0.1
   lighthouse:
+  - apiVersion: v2
+    created: "2025-08-08T03:44:11.494049033Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: 9497eadfe65203729bb44d4f3dce42177659b7e377a5a8292c64e23719c1af3e
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.1.7/lighthouse-1.1.7.tgz
+    version: 1.1.7
   - apiVersion: v2
     created: "2025-08-08T01:25:35.535522199Z"
     description: An open-source Ethereum 2.0 client, written in Rust
@@ -9110,6 +9228,27 @@ entries:
     version: 0.1.0
   reth:
   - apiVersion: v2
+    created: "2025-08-08T03:44:11.702234026Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: 08d256173adf0d0f3b637013ec280d922dee7caede80cb28a18ecaa2082a74bf
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.1.1/reth-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:36.229482022Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
       full node implementation that is focused on being user-friendly, highly modular,
@@ -11246,4 +11385,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-08T02:21:42.84667535Z"
+generated: "2025-08-08T03:44:11.703174715Z"
