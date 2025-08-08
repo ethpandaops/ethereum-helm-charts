@@ -146,8 +146,6 @@ besu:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 erigon:
   enabled: false
@@ -170,8 +168,6 @@ erigon:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 ethereumjs:
   enabled: false
@@ -194,8 +190,6 @@ ethereumjs:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 geth:
   enabled: false
@@ -218,8 +212,6 @@ geth:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 nethermind:
   enabled: false
@@ -242,8 +234,6 @@ nethermind:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 reth:
   enabled: false
@@ -266,8 +256,6 @@ reth:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 ########################
 ###
@@ -295,8 +283,6 @@ grandine:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 lighthouse:
   enabled: false
@@ -318,8 +304,6 @@ lighthouse:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 teku:
   enabled: false
@@ -341,8 +325,6 @@ teku:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 lodestar:
   enabled: false
@@ -364,8 +346,6 @@ lodestar:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 prysm:
   enabled: false
@@ -387,8 +367,6 @@ prysm:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 nimbus:
   enabled: false
@@ -411,8 +389,6 @@ nimbus:
     enabled: "{{ .Values.global.main.devnet.enabled }}"
     baseUrl: "{{ .Values.global.main.devnet.baseUrl }}"
     name: "{{ .Values.global.main.devnet.name }}"
-    urls:
-      genesisJson: "{{ .Values.global.main.devnet.urls.genesisJson }}"
 
 ########################
 ###
