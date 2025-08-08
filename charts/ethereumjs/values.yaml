@@ -52,11 +52,9 @@ devnet:
           if [ ! -f /data/devnet_config/genesis.json ]; then
             echo "Downloading devnet configuration files...";
 
-            # Download genesis.json for execution layer
             echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
             wget -O /data/devnet_config/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
 
-            # Download execution layer bootnodes
             echo "Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
             wget -O /data/devnet_config/enodes.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
 

@@ -32,8 +32,8 @@ devnet:
   name: "devnet-3"
   # -- URLs for devnet configuration files
   urls:
-    # -- Genesis JSON URL for execution layer
-    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"
+    # -- Genesis JSON URL for execution layer (using besu-specific file)
+    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/besu.json"
     # -- Execution layer bootnode URL
     elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"
   # -- Init container configuration for downloading devnet files
@@ -52,11 +52,9 @@ devnet:
           if [ ! -f /data/devnet_config/genesis.json ]; then
             echo "Downloading devnet configuration files...";
 
-            # Download genesis.json for execution layer
-            echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
+            echo "Downloading besu genesis from {{ tpl .Values.devnet.urls.genesisJson . }}"
             wget -O /data/devnet_config/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
 
-            # Download execution layer bootnodes
             echo "Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
             wget -O /data/devnet_config/enodes.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
 

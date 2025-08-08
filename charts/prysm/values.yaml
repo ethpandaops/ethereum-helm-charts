@@ -81,22 +81,17 @@ devnet:
           if [ ! -f /data/testnet_spec/genesis.ssz ]; then
             echo "Downloading devnet configuration files...";
 
-            # Download deposit contract block (required by Prysm)
             echo "Downloading deposit_contract_block.txt from {{ tpl .Values.devnet.urls.depositContractBlock . }}"
             wget -O /data/testnet_spec/deposit_contract_block.txt "{{ tpl .Values.devnet.urls.depositContractBlock . }}"
 
-            # Also save as deploy_block.txt for compatibility
             cp /data/testnet_spec/deposit_contract_block.txt /data/testnet_spec/deploy_block.txt
 
-            # Download config.yaml (chain configuration)
             echo "Downloading config.yaml from {{ tpl .Values.devnet.urls.configYaml . }}"
             wget -O /data/testnet_spec/config.yaml "{{ tpl .Values.devnet.urls.configYaml . }}"
 
-            # Download genesis.ssz (genesis state)
             echo "Downloading genesis.ssz from {{ tpl .Values.devnet.urls.genesisSsz . }}"
             wget -O /data/testnet_spec/genesis.ssz "{{ tpl .Values.devnet.urls.genesisSsz . }}"
 
-            # Download bootstrap nodes (both formats for compatibility)
             echo "Downloading bootstrap_nodes.yaml from {{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             wget -O /data/testnet_spec/bootstrap_nodes.yaml "{{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             echo "Downloading bootstrap_nodes.txt from {{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"
@@ -158,6 +153,7 @@ defaultBeaconCommandTemplate: |
     --genesis-state=/data/testnet_spec/genesis.ssz
     --chain-config-file=/data/testnet_spec/config.yaml
     --bootstrap-node="$(cat /data/testnet_spec/bootstrap_nodes.txt | tr '\n' ',' | sed 's/,$//')"
+    --contract-deployment-block="$(cat /data/testnet_spec/deposit_contract_block.txt)"
   {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
@@ -174,6 +170,9 @@ defaultValidatorCommandTemplate: |
     --datadir=/data
     --monitoring-host=0.0.0.0
     --monitoring-port={{ .Values.metricsPort }}
+  {{- if .Values.devnet.enabled }}
+    --chain-config-file=/data/testnet_spec/config.yaml
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}

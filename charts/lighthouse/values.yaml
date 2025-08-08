@@ -73,19 +73,14 @@ devnet:
           mkdir -p /data/testnet_spec;
           if [ ! -f /data/testnet_spec/genesis.ssz ]; then
             echo "Downloading devnet configuration files...";
-            # Download deposit contract block (required by Lighthouse)
             echo "Downloading deposit_contract_block.txt from {{ tpl .Values.devnet.urls.depositContractBlock . }}"
             wget -O /data/testnet_spec/deposit_contract_block.txt "{{ tpl .Values.devnet.urls.depositContractBlock . }}"
-            # Also save as deploy_block.txt for compatibility
             cp /data/testnet_spec/deposit_contract_block.txt /data/testnet_spec/deploy_block.txt
-            # Download config.yaml
             echo "Downloading config.yaml from {{ tpl .Values.devnet.urls.configYaml . }}"
             wget -O /data/testnet_spec/config.yaml "{{ tpl .Values.devnet.urls.configYaml . }}"
-            # Download genesis.ssz
             echo "Downloading genesis.ssz from {{ tpl .Values.devnet.urls.genesisSsz . }}"
             wget -O /data/testnet_spec/genesis.ssz "{{ tpl .Values.devnet.urls.genesisSsz . }}"
 
-            # Download bootstrap nodes (both formats for compatibility)
             echo "Downloading bootstrap_nodes.yaml from {{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             wget -O /data/testnet_spec/bootstrap_nodes.yaml "{{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
             echo "Downloading bootstrap_nodes.txt from {{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"

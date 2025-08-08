@@ -152,6 +152,7 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
+      {{- if not .Values.devnet.enabled }}
         - name: {{ .Chart.Name }}-rpcd
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -195,6 +196,7 @@ spec:
           {{- if .Values.extraEnvRPCDaemon }}
             {{- toYaml .Values.extraEnvRPCDaemon | nindent 12 }}
           {{- end }}
+      {{- end }}
       {{- if .Values.extraContainers }}
         {{ tpl (toYaml .Values.extraContainers | nindent 8) $ }}
       {{- end }}
