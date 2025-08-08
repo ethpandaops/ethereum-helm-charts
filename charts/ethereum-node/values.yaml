@@ -12,10 +12,6 @@ global:
       baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
       # -- Devnet name (e.g., devnet-3)
       name: "devnet-3"
-      # -- URLs for devnet configuration files
-      urls:
-        # -- Genesis JSON URL for execution layer
-        genesisJson: "{{ .Values.global.main.devnet.baseUrl }}/{{ .Values.global.main.devnet.name }}/metadata/genesis.json"
   checkpointSync:
     enabled: true
     addresses:
