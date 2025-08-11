@@ -7,6 +7,10 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+# -- Home directory for reth. This is where reth will create its .cache directory for logs.
+# Should be set to a writable directory when running as non-root user.
+homeDir: /data
+
 image:
   # -- reth container image repository
   repository: ethpandaops/reth

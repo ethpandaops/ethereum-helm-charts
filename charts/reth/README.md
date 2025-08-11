@@ -40,6 +40,7 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | fileLogging.dir | string | `"/data/logs"` | Path to store logs in. |
 | fileLogging.enabled | bool | `true` | Toggle file logging. Default true |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| homeDir | string | `"/data"` | Home directory for reth. This is where reth will create its .cache directory for logs. Should be set to a writable directory when running as non-root user. |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | reth container pull policy |
 | image.repository | string | `"ethpandaops/reth"` | reth container image repository |
