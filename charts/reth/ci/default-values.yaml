@@ -7,3 +7,7 @@ readinessProbe:
     port: metrics
   initialDelaySeconds: 30
   periodSeconds: 10
+
+# Disable file logging for CI tests
+fileLogging:
+  enabled: false
