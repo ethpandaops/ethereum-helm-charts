@@ -3113,6 +3113,85 @@ entries:
     version: 0.1.0
   ethereum-node:
   - apiVersion: v2
+    created: "2025-08-11T15:54:18.586546963Z"
+    dependencies:
+    - condition: besu.enabled
+      name: besu
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: erigon.enabled
+      name: erigon
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: ethereumjs.enabled
+      name: ethereumjs
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.1
+    - condition: geth.enabled
+      name: geth
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: nethermind.enabled
+      name: nethermind
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.0
+    - condition: reth.enabled
+      name: reth
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.2
+    - condition: grandine.enabled
+      name: grandine
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.2.1
+    - condition: lighthouse.enabled
+      name: lighthouse
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.7
+    - condition: lodestar.enabled
+      name: lodestar
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: nimbus.enabled
+      name: nimbus
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: prysm.enabled
+      name: prysm
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: teku.enabled
+      name: teku
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: ethereum-metrics-exporter.enabled
+      name: ethereum-metrics-exporter
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.2.0
+    - condition: xatu-sentry.enabled
+      name: xatu-sentry
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.0.8
+    - condition: tracoor-agent.enabled
+      name: tracoor-agent
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.0.1
+    description: 'This chart acts as an umbrella chart and allows to run a ethereum
+      execution and consensus layer client. It''s also able to deploy optional monitoring
+      applications. '
+    digest: f4f90ffb903b5e578e85e7b4532249ae5cccc0e5af1be8b8ff36f190d154399e
+    home: https://ethereum.org
+    icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethereum-node
+    sources:
+    - https://github.com/ethpandaops/ethereum-helm-charts
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-node-0.2.2/ethereum-node-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2025-08-08T03:51:06.589256267Z"
     dependencies:
     - condition: besu.enabled
@@ -11485,4 +11564,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-11T15:41:32.973900417Z"
+generated: "2025-08-11T15:54:18.587248523Z"
