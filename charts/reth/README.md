@@ -43,8 +43,8 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | homeDir | string | `"/data"` | Home directory for reth. This is where reth will create its .cache directory for logs. Should be set to a writable directory when running as non-root user. |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | reth container pull policy |
-| image.repository | string | `"ethpandaops/reth"` | reth container image repository |
-| image.tag | string | `"main"` | reth container image tag |
+| image.repository | string | `"ghcr.io/paradigmxyz/reth"` | reth container image repository |
+| image.tag | string | `"latest"` | reth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
