@@ -1,6 +1,7 @@
 # Use metrics port for readiness probe in CI tests
 # since RPC port takes time to become ready on mainnet
 readinessProbe:
+  tcpSocket: null  # Clear default tcpSocket
   httpGet:
     path: /
     port: metrics
