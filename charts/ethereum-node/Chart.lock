@@ -16,7 +16,7 @@ dependencies:
   version: 1.1.0
 - name: reth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.1
+  version: 0.1.2
 - name: grandine
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.2.1
@@ -44,5 +44,5 @@ dependencies:
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
-digest: sha256:b3b82582743ccabf47bad3aa364db8c9cd94d81427b5c0ef3631cf9932613132
-generated: "2025-08-08T13:45:36.825776+10:00"
+digest: sha256:477c2395a03a2e62eaee5360bd9f4a06dbf53a09fe82c1c140ea02a7a814762d
+generated: "2025-08-11T16:43:22.08199+01:00"
