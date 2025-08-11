@@ -9307,6 +9307,27 @@ entries:
     version: 0.1.0
   reth:
   - apiVersion: v2
+    created: "2025-08-11T15:41:32.972325665Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: 62fde44a7fd9a803ca3918c85ce90f4161d2b1bc689229bcf415edfc97afcb6f
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.1.2/reth-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2025-08-08T03:44:11.702234026Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
       full node implementation that is focused on being user-friendly, highly modular,
@@ -11464,4 +11485,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-08-08T03:51:06.589936601Z"
+generated: "2025-08-11T15:41:32.973900417Z"
