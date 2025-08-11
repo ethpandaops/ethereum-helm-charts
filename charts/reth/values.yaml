@@ -103,7 +103,6 @@ defaultCommandTemplate: |
 # @default -- See `values.yaml`
 defaultCommandArgsTemplate: |
   --datadir=/data
-  --config=/data/config.toml
   {{- if .Values.devnet.enabled }}
   --chain=/data/devnet/genesis.json
   {{- end }}
