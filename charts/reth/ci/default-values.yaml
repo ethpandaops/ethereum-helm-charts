@@ -1,11 +1,7 @@
-# Use metrics port for readiness probe in CI tests
-# since RPC port takes time to become ready on mainnet
-readinessProbe:
-  tcpSocket:
-    port: metrics
-  initialDelaySeconds: 30
-  periodSeconds: 10
-
 # Disable file logging for CI tests
 fileLogging:
   enabled: false
+
+# Use devnet for CI tests to speed up startup
+devnet:
+  enabled: true
