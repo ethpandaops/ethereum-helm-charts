@@ -1,7 +1,7 @@
-# Disable file logging for CI tests
-fileLogging:
-  enabled: false
-
-# Use devnet for CI tests to speed up startup
-devnet:
-  enabled: true
+# Use engine API port for readiness probe in CI tests
+# Engine API starts immediately unlike RPC which needs sync
+readinessProbe:
+  tcpSocket:
+    port: auth-rpc
+  initialDelaySeconds: 30
+  periodSeconds: 10
