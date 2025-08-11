@@ -1,6 +1,6 @@
 # This is the CT (chart testing) config file
 # More infos under https://github.com/helm/chart-testing#configuration
-kubectl-timeout: 300s
+kubectl-timeout: 600s
 debug: true
 remote: origin
 target-branch: master

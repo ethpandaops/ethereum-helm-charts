@@ -7,6 +7,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     concurrency:
       group: ${{ github.head_ref }}-${{ matrix.network }}-${{ matrix.consensus }}-${{ matrix.execution }}
       cancel-in-progress: true
