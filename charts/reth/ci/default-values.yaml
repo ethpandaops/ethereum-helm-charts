@@ -1,14 +1,13 @@
-# Disable probes for CI - reth takes time to start on mainnet
+# Use http-rpc port for readiness probe in CI
+# http-rpc binds to 0.0.0.0 and should be accessible
 readinessProbe:
-  exec:
-    command:
-      - /bin/true
-  initialDelaySeconds: 10
+  tcpSocket:
+    port: http-rpc
+  initialDelaySeconds: 60
   periodSeconds: 10
 
 livenessProbe:
-  exec:
-    command:
-      - /bin/true
-  initialDelaySeconds: 60
-  periodSeconds: 60
+  tcpSocket:
+    port: http-rpc
+  initialDelaySeconds: 120
+  periodSeconds: 30
