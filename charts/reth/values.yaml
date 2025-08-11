@@ -7,11 +7,15 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+# -- Home directory for reth. This is where reth will create its .cache directory for logs.
+# Should be set to a writable directory when running as non-root user.
+homeDir: /data
+
 image:
   # -- reth container image repository
-  repository: ethpandaops/reth
+  repository: ghcr.io/paradigmxyz/reth
   # -- reth container image tag
-  tag: main
+  tag: latest
   # -- reth container pull policy
   pullPolicy: IfNotPresent
 
@@ -204,7 +208,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: http-rpc
+    port: p2p-tcp
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -212,7 +216,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: http-rpc
+    port: p2p-tcp
   initialDelaySeconds: 10
   periodSeconds: 10
 

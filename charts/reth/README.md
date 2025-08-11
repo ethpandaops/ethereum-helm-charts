@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -40,10 +40,11 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | fileLogging.dir | string | `"/data/logs"` | Path to store logs in. |
 | fileLogging.enabled | bool | `true` | Toggle file logging. Default true |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| homeDir | string | `"/data"` | Home directory for reth. This is where reth will create its .cache directory for logs. Should be set to a writable directory when running as non-root user. |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | reth container pull policy |
-| image.repository | string | `"ethpandaops/reth"` | reth container image repository |
-| image.tag | string | `"main"` | reth container image tag |
+| image.repository | string | `"ghcr.io/paradigmxyz/reth"` | reth container image repository |
+| image.tag | string | `"latest"` | reth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

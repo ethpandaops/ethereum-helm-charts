@@ -143,6 +143,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: HOME
+              value: {{ .Values.homeDir | quote }}
             - name: POD_IP
               valueFrom:
                 fieldRef:
