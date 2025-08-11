@@ -1,7 +1,1 @@
-# Use engine API port for readiness probe in CI tests
-# Engine API starts immediately unlike RPC which needs sync
-readinessProbe:
-  tcpSocket:
-    port: auth-rpc
-  initialDelaySeconds: 30
-  periodSeconds: 10
+# CI test values - intentionally empty to test with defaults
