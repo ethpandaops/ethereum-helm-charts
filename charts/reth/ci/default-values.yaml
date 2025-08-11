@@ -1,1 +1,14 @@
-# CI test values - intentionally empty to test with defaults
+# Disable probes for CI - reth takes time to start on mainnet
+readinessProbe:
+  exec:
+    command:
+      - /bin/true
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+livenessProbe:
+  exec:
+    command:
+      - /bin/true
+  initialDelaySeconds: 60
+  periodSeconds: 60
