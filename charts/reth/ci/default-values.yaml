@@ -1,1 +1,8 @@
-# Leave empty so that CT tests with default values
+# Use metrics port for readiness probe in CI tests
+# since RPC port takes time to become ready on mainnet
+readinessProbe:
+  httpGet:
+    path: /
+    port: metrics
+  initialDelaySeconds: 30
+  periodSeconds: 10
