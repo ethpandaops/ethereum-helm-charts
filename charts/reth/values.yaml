@@ -208,7 +208,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: http-api
+    port: p2p-tcp
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -216,7 +216,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: http-api
+    port: p2p-tcp
   initialDelaySeconds: 10
   periodSeconds: 10
 
