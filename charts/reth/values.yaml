@@ -89,14 +89,15 @@ devnet:
 
 # -- Template used for the default command
 # @default -- See `values.yaml`
-defaultCommandTemplate: |
+defaultCommandTemplate: >
   - sh
   - -ac
   - >
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    exec /usr/local/bin/reth node {{ tpl .Values.defaultCommandArgsTemplate . | trim | replace "\n" " " }}
+    exec /usr/local/bin/reth node
+    {{- tpl .Values.defaultCommandArgsTemplate . | nindent 4 }}
 
 # -- Template used for the default command arguments
 # @default -- See `values.yaml`
