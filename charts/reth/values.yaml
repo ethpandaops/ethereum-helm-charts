@@ -89,7 +89,7 @@ devnet:
 
 # -- Template used for the default command
 # @default -- See `values.yaml`
-defaultCommandTemplate: >
+defaultCommandTemplate: |
   - sh
   - -ac
   - >
@@ -101,7 +101,7 @@ defaultCommandTemplate: >
 
 # -- Template used for the default command arguments
 # @default -- See `values.yaml`
-defaultCommandArgsTemplate: |
+defaultCommandArgsTemplate: >
   --datadir=/data
   --config=/data/config.toml
   {{- if .Values.devnet.enabled }}
