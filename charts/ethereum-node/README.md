@@ -25,7 +25,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | https://ethpandaops.github.io/ethereum-helm-charts | nethermind | 1.1.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | nimbus | 1.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | prysm | 1.2.0 |
-| https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.1.2 |
+| https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.1.3 |
 | https://ethpandaops.github.io/ethereum-helm-charts | teku | 1.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | tracoor-agent | 0.0.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | xatu-sentry | 0.0.8 |
