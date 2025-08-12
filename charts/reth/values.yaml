@@ -133,7 +133,7 @@ defaultCommandArgsTemplate: |
   --authrpc.addr=0.0.0.0
   --authrpc.port={{ .Values.authPort }}
   {{- if .Values.fileLogging.enabled }}
-  --log.file.dir={{ .Values.fileLogging.dir }}
+  --log.file.directory={{ .Values.fileLogging.dir }}
   {{- else }}
   {{/* Currently how file logging is disabled in reth */}}
   --log.file.max-files=0
