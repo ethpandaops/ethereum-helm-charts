@@ -101,7 +101,7 @@ defaultCommandTemplate: |
 
 # -- Template used for the default command arguments
 # @default -- See `values.yaml`
-defaultCommandArgsTemplate: |
+defaultCommandArgsTemplate: >
   --datadir=/data
   --config=/data/config.toml
   {{- if .Values.devnet.enabled }}
@@ -134,7 +134,7 @@ defaultCommandArgsTemplate: |
   --authrpc.addr=0.0.0.0
   --authrpc.port={{ .Values.authPort }}
   {{- if .Values.fileLogging.enabled }}
-  --log.file.dir={{ .Values.fileLogging.dir }}
+  --log.file.directory={{ .Values.fileLogging.dir }}
   {{- else }}
   {{/* Currently how file logging is disabled in reth */}}
   --log.file.max-files=0
