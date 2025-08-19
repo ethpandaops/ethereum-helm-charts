@@ -1,0 +1,12 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "chaos-mesh.fullname" . }}
+  labels:
+    {{- include "chaos-mesh.labels" . | nindent 4 }}
+rules:
+{{- with .Values.rbac.rules }}
+{{- toYaml . | nindent 2 }}
+{{- end }}
+{{- end }}

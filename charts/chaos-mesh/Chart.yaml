@@ -1,0 +1,9 @@
+apiVersion: v2
+name: chaos-mesh
+description: Chaos Mesh Dashboard is a web interface for managing and visualizing chaos engineering experiments in Kubernetes clusters. It provides a user-friendly way to create, monitor, and analyze chaos experiments.
+home: https://chaos-mesh.org/
+type: application
+version: 0.0.1
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com

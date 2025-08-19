@@ -1,0 +1,26 @@
+{{- if .Values.podDisruptionBudget }}
+{{- if and .Values.podDisruptionBudget.minAvailable .Values.podDisruptionBudget.maxUnavailable }}
+{{- fail "Cannot set both .Values.podDisruptionBudget.minAvailable and .Values.podDisruptionBudget.maxUnavailable" }}
+{{- end }}
+{{- if not .Values.podDisruptionBudget.maxUnavailable }}
+{{- if not .Values.podDisruptionBudget.minAvailable }}
+{{- fail "Must set either .Values.podDisruptionBudget.minAvailable or .Values.podDisruptionBudget.maxUnavailable" }}
+{{- end }}
+{{- end }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "chaos-mesh.fullname" . }}
+  labels:
+    {{- include "chaos-mesh.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.podDisruptionBudget.minAvailable }}
+  minAvailable: {{ .Values.podDisruptionBudget.minAvailable }}
+  {{- end }}
+  {{- if .Values.podDisruptionBudget.maxUnavailable }}
+  maxUnavailable: {{ .Values.podDisruptionBudget.maxUnavailable }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "chaos-mesh.selectorLabels" . | nindent 6 }}
+{{- end }}
