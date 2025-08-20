@@ -1,218 +1,45 @@
-# -- Overrides the chart's name
-nameOverride: ""
+# Configuration for the official chaos-mesh chart
+chaos-mesh:
+  # Dashboard configuration  
+  webhook:
+    certManager:
+      enabled: false
+    # Set failure policy to Ignore to avoid blocking on certificate issues
+    FailurePolicy: Ignore
+    # Reduce timeout to fail faster if there are issues
+    timeoutSeconds: 2
+  dashboard:
+    create: true
+    securityMode: false
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        external-dns.alpha.kubernetes.io/hostname: chaos-mesh.fusaka-devnet-chaos-1.yolkie.xyz
+      hosts:
+        - name: chaos-mesh.fusaka-devnet-chaos-1.yolkie.xyz
+          paths:
+            - path: /
+              pathType: Prefix
+  
+  # Controller Manager configuration
+  controllerManager:
+    replicaCount: 1
+    # Disable mTLS for physical machine connections
+    chaosdSecurityMode: false
+  
+  # Chaos Daemon configuration
+  chaosDaemon:
+    runtime: containerd
+    socketPath: /run/containerd/containerd.sock
 
-# -- Overrides the chart's computed fullname
-fullnameOverride: ""
-
-# -- Number of replicas
-replicas: 1
-
-image:
-  # -- Chaos Mesh Dashboard container image repository
-  repository: ghcr.io/chaos-mesh/chaos-dashboard
-  # -- Chaos Mesh Dashboard container image tag
-  tag: "v2.6.7"
-  # -- Chaos Mesh Dashboard container pull policy
-  pullPolicy: IfNotPresent
-
-# -- Chaos Mesh namespace (where chaos mesh is installed)
-chaosMeshNamespace: chaos-system
-
-# -- Dashboard configuration
-dashboard:
-  # -- Enable the dashboard
-  enabled: true
-  # -- Security mode (true enables RBAC authentication)
-  securityMode: false
-  # -- Root URL for the dashboard
-  rootUrl: ""
-  # -- Enable clustering mode
-  clustering: false
-
-# -- HTTP port for dashboard interface
-httpPort: 2333
-
-# -- Extra args for the dashboard container
-extraArgs: []
-
-# -- Command replacement for the dashboard container
-customCommand: []
-
-ingress:
-  # -- Ingress resource for the HTTP API
-  enabled: true
-  # -- Annotations for Ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    external-dns.alpha.kubernetes.io/hostname: chaos-mesh.fusaka-devnet-chaos-1.yolkie.xyz
-    # kubernetes.io/tls-acme: "true"
-  # -- Ingress host
-  hosts:
-    - host: chaos-mesh.fusaka-devnet-chaos-1.yolkie.xyz
-      paths:
-        - path: /
-          pathType: Prefix
-  # -- Ingress TLS
-  tls: []
-  #  - secretName: chaos-mesh-tls
-  #    hosts:
-  #      - chaos-mesh.local
-
-service:
-  # -- Service type
-  type: ClusterIP
-  # -- Service port
-  port: 2333
-
-# -- Affinity configuration for pods
-affinity: {}
-
-# -- Image pull secrets for Docker images
-imagePullSecrets: []
-
-# -- Annotations for the Deployment
-annotations: {}
-
-# -- Liveness probe
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-  initialDelaySeconds: 30
-  periodSeconds: 30
-
-# -- Readiness probe
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
-  initialDelaySeconds: 5
-  periodSeconds: 10
-
-# -- Node selector for pods
-nodeSelector: {}
-
-# -- Pod labels
-podLabels: {}
-
-# -- Pod annotations
-podAnnotations: {}
-
-# -- Pod priority class
-priorityClassName: null
-
-# -- Resource requests and limits
-resources: {}
-# limits:
-#   cpu: 500m
-#   memory: 512Mi
-# requests:
-#   cpu: 100m
-#   memory: 128Mi
-
-# -- The security context for pods
-securityContext:
-  fsGroup: 1001
-  runAsGroup: 1001
-  runAsNonRoot: true
-  runAsUser: 1001
-
-# -- The security context for containers
-containerSecurityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
-serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Annotations to add to the service account
-  annotations: {}
-  # -- The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-# -- How long to wait until the pod is forcefully terminated
-terminationGracePeriodSeconds: 30
-
-# -- Tolerations for pods
-tolerations: []
-
-# -- Topology Spread Constraints for pods
-topologySpreadConstraints: []
-
-# -- Define the PodDisruptionBudget spec
-podDisruptionBudget: {}
-# minAvailable: 1
-# maxUnavailable: 1
-
-# -- Additional init containers
-initContainers: []
-
-# -- Additional containers
-extraContainers: []
-
-# -- Additional volumes
-extraVolumes: []
-
-# -- Additional volume mounts
-extraVolumeMounts: []
-
-# -- Additional ports
-extraPorts: []
-
-# -- Additional env variables
-extraEnv: []
-
-# -- Additional env variables injected via a created secret
-secretEnv: {}
-
-# -- RBAC configuration
-rbac:
-  # -- Create RBAC resources
-  create: true
-  # -- Rules for the cluster role
-  rules:
-    - apiGroups: [""]
-      resources: ["pods", "namespaces"]
-      verbs: ["get", "list", "watch"]
-    - apiGroups: ["chaos-mesh.org"]
-      resources: ["*"]
-      verbs: ["*"]
-    - apiGroups: ["apps"]
-      resources: ["deployments", "replicasets"]
-      verbs: ["get", "list", "watch"]
-
-serviceMonitor:
-  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
-  enabled: false
-  # -- Path to scrape
-  path: /metrics
-  # -- Alternative namespace for ServiceMonitor
-  namespace: null
-  # -- Additional ServiceMonitor labels
-  labels: {}
-  # -- Additional ServiceMonitor annotations
-  annotations: {}
-  # -- ServiceMonitor scrape interval
-  interval: 1m
-  # -- ServiceMonitor scheme
-  scheme: http
-  # -- ServiceMonitor TLS configuration
-  tlsConfig: {}
-  # -- ServiceMonitor scrape timeout
-  scrapeTimeout: 30s
-  # -- ServiceMonitor relabelings
-  relabelings: []
-
-# -- Physical machines configuration
-# List of physical machines running chaosd that should be registered with Chaos Mesh
+# Custom physical machines configuration (not supported by upstream chart)
+# These will be created by our custom template
 physicalMachines:
   - name: lighthouse-geth-1
     address: "https://sunnyside:sleepyyolkie@rpc.lighthouse-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz/chaosd/"
+    hostname: "lighthouse-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz"
+    ip: "64.227.30.134"  # Optional: IP address for network targeting
     labels:
       consensus: lighthouse
       execution: geth
@@ -221,9 +48,143 @@ physicalMachines:
       description: "Lighthouse full node"
   - name: grandine-geth-1
     address: "https://sunnyside:sleepyyolkie@rpc.grandine-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz/chaosd/"
+    hostname: "grandine-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz"
+    ip: "206.189.186.141"  # Optional: IP address for network targeting
     labels:
       consensus: grandine
       execution: geth
       nodename: grandine-geth-1
     annotations:
       description: "Grandine full node"
+  - name: teku-geth-1
+    address: "https://sunnyside:sleepyyolkie@rpc.teku-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz/chaosd/"
+    hostname: "teku-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz"
+    ip: "134.209.65.167"  # Optional: IP address for network targeting
+    labels:
+      consensus: teku
+      execution: geth
+      nodename: teku-geth-1
+    annotations:
+      description: "Teku full node"
+  - name: prysm-geth-1
+    address: "https://sunnyside:sleepyyolkie@rpc.prysm-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz/chaosd/"
+    hostname: "prysm-geth-1.fusaka-devnet-ssl-chaos-1.yolkie.xyz"
+    ip: "24.199.83.225"  # Optional: IP address for network targeting
+    labels:
+      consensus: prysm
+      execution: geth
+      nodename: prysm-geth-1
+    annotations:
+      description: "Prysm full node"
+
+# Pre-built chaos experiments (created in paused state)
+experiments:
+  # Enable/disable experiment creation
+  enabled: true
+  
+  # Process kill experiments
+  processKill:
+    enabled: false
+    experiments:
+      - name: kill-geth-process
+        description: "Kill geth process on all nodes"
+        process: "geth"
+        signal: 9
+        duration: "60s"
+      - name: kill-consensus-process
+        description: "Kill consensus client processes"
+        process: "lighthouse|grandine|prysm|teku"  # regex pattern
+        signal: 15  # SIGTERM for graceful shutdown
+        duration: "30s"
+  
+  # Network chaos experiments  
+  network:
+    enabled: true
+    experiments:
+      # Option 1: Automatic split by number of groups
+      - name: network-partition-2-groups
+        description: "Split network into 2 equal groups"
+        type: "partition"
+        direction: "to"
+        device: "eth0"
+        # duration: "300s"
+        # Automatically split all physical machines into N groups
+        autoSplit:
+          groups: 2
+          
+      # - name: network-partition-3-groups  
+      #   description: "Split network into 3 groups (only group 1 isolated)"
+      #   type: "partition"
+      #   direction: "to"
+      #   device: "eth0"
+      #   duration: "300s"
+      #   autoSplit:
+      #     groups: 3
+      #     # Only the first group will be isolated from groups 2&3
+      #     isolateGroup: 1
+          
+      # # Option 2: Explicit group definition
+      # - name: network-partition-consensus-split
+      #   description: "Isolate lighthouse nodes from grandine nodes"
+      #   type: "partition"
+      #   direction: "to" 
+      #   device: "eth0"
+      #   duration: "300s"
+      #   # Manually define groups using physical machine names
+      #   manualGroups:
+      #     # Group 1 (will be isolated FROM group 2)
+      #     - ["lighthouse-geth-1"]
+      #     # Group 2 (target group that group 1 cannot reach)
+      #     - ["grandine-geth-1"]
+          
+      # - name: network-partition-complex-split
+      #   description: "Complex 3-way network partition"
+      #   type: "partition"
+      #   direction: "to"
+      #   device: "eth0" 
+      #   duration: "300s"
+      #   # Example of 3-way split for when you have more machines
+      #   manualGroups:
+      #     # Each group will be isolated from the NEXT group in the list
+      #     - ["lighthouse-geth-1", "lighthouse-geth-2"] # Group 1 → isolated from Group 2
+      #     - ["grandine-geth-1", "grandine-geth-2"]     # Group 2 → isolated from Group 3  
+      #     - ["prysm-geth-1", "teku-geth-1"]            # Group 3 → isolated from Group 1
+        
+      # # Non-partition network experiments  
+      # - name: network-delay-all
+      #   description: "Add 100ms latency to all nodes"
+      #   type: "delay"
+      #   device: "eth0"
+      #   latency: "100ms"
+      #   jitter: "10ms"
+      #   duration: "180s"
+        
+      - name: network-loss-random
+        description: "Random 5% packet loss"
+        type: "loss"
+        device: "eth0"
+        percent: "5"
+        # duration: "120s"
+  
+  # Resource stress experiments
+  stress:
+    enabled: true
+    experiments:
+      - name: cpu-stress-high
+        description: "High CPU stress test"
+        type: "cpu"
+        workers: 4
+        load: 30
+        # duration: "180s"
+      # - name: memory-stress-moderate
+      #   description: "Moderate memory pressure"
+      #   type: "memory"  
+      #   workers: 2
+      #   size: "1GB"
+      #   duration: "300s"
+      # - name: disk-io-stress
+      #   description: "Disk I/O stress test"
+      #   type: "disk"
+      #   workers: 2
+      #   size: "100MB"
+      #   duration: "120s"
