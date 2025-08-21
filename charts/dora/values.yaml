@@ -22,6 +22,7 @@ endpoints:
     url: "http://beacon-node:5052"
     priority: 1
     archive: false
+    authGroup: ""
     headers:
       "X-Test": "test"
       "Y-Test": "test2"
@@ -45,6 +46,15 @@ mevRelays: []
   #  name: default-relay
   #  url: "http://mev-relay"
   #  blockLimit: 200
+
+# -- A dictionary of reusable authentication options to use for endpoints
+authGroups: {}
+  # group1:
+  #   credentials: 0
+  #     username: ...
+  #     password: ...
+  #   headers:
+  #     "X-Custom-Auth": "..."
 
 # -- Name of the network ("mainnet", "sepolia", "holesky")
 name: mainnet
@@ -115,6 +125,24 @@ config: |
       rate: {{ .Values.callRateLimit }}
       burst: {{ .Values.callRateBurst }}
 
+    {{- if .Values.authGroups }}
+    authGroups:
+    {{- range $key, $value := .headers }}
+      {{ $key | quote | default "" }}:
+        {{- if $value.credentials }}
+        credentials:
+          username: {{ $value.credentials.username | quote | default ""}}
+          password: {{ $value.credentials.password | quote | default ""}}
+        {{- end }}
+        {{- if $value.headers }}
+        headers:
+        {{- range $hkey, $hvalue := $value.headers }}
+          {{ $hkey | quote | default "" }}: {{ $hvalue | quote | default ""}}
+        {{- end }}
+        {{- end }}
+    {{- end }}
+    {{- end }}
+
     beaconapi:
       # CL Client RPC
       endpoints:
@@ -128,6 +156,9 @@ config: |
           {{- end }}
           {{- if .archive }}
           archive: {{ .archive }}
+          {{- end }}
+          {{- if .authGroup }}
+          authGroup: {{ .authGroup | quote }}
           {{- end }}
           {{- if .headers }}
           headers:
@@ -160,6 +191,9 @@ config: |
           {{- end }}
           {{- if .engineSnooperUrl }}
           engineSnooperUrl: {{ .engineSnooperUrl | quote }}
+          {{- end }}
+          {{- if .authGroup }}
+          authGroup: {{ .authGroup | quote }}
           {{- end }}
           {{- if .headers }}
           headers:
