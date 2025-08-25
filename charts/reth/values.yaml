@@ -96,8 +96,7 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    exec /usr/local/bin/reth node
-    {{- tpl .Values.defaultCommandArgsTemplate . | nindent 4 }}
+    exec /usr/local/bin/reth node {{ tpl .Values.defaultCommandArgsTemplate . | trim | replace "\n" " " }}
 
 # -- Template used for the default command arguments
 # @default -- See `values.yaml`
