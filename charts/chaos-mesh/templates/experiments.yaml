@@ -11,7 +11,6 @@ metadata:
     {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
     chaos-mesh.org/experiment-type: "process-kill"
   annotations:
-    chaos-mesh.org/pause: "true"
     chaos-mesh.org/description: {{ .description | quote }}
 spec:
   action: process
@@ -39,7 +38,6 @@ metadata:
     {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
     chaos-mesh.org/experiment-type: "network-{{ .type }}"
   annotations:
-    chaos-mesh.org/pause: "true"
     chaos-mesh.org/description: {{ .description | quote }}
 spec:
   {{- if eq .type "partition" }}
@@ -129,7 +127,6 @@ metadata:
     {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
     chaos-mesh.org/experiment-type: "network-partition"
   annotations:
-    chaos-mesh.org/pause: "true"
     chaos-mesh.org/description: {{ printf "%s (reverse direction)" .description | quote }}
 spec:
   action: network-partition
@@ -248,7 +245,6 @@ metadata:
     {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
     chaos-mesh.org/experiment-type: "stress-{{ .type }}"
   annotations:
-    chaos-mesh.org/pause: "true"
     chaos-mesh.org/description: {{ .description | quote }}
 spec:
   {{- if eq .type "cpu" }}
