@@ -1,7 +1,7 @@
 
 # grandine
 
-![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
@@ -18,6 +18,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | checkpointSync | object | `{"enabled":false,"url":""}` | Checkpoint Sync |
+| config | object | `{}` | Configmap data for the node. Can contain multiple files with templating support. Example: config:   "config.yaml": |     network: mainnet   "settings.toml": |     [section]     key = "{{ .Values.someValue }}" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead. |
 | defaultBeaconCommandTemplate | string | See `values.yaml` | Template used for the default beacon command |

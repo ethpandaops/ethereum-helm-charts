@@ -446,3 +446,14 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+# Additional configmap data
+# config -- Configmap data for the node. Can contain multiple files with templating support.
+# Example:
+# config:
+#   "config.yaml": |
+#     network: mainnet
+#   "settings.toml": |
+#     [section]
+#     key = "{{ .Values.someValue }}"
+config: {}
