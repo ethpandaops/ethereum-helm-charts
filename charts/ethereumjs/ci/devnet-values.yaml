@@ -1,0 +1,4 @@
+# Enable devnet mode
+devnet:
+  enabled: true
+  name: "devnet-3"

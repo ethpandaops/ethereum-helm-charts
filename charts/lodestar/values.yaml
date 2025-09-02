@@ -37,6 +37,66 @@ checkpointSync:
   enabled: false
   url: ""
 
+# -- Devnet configuration
+devnet:
+  # -- Enable devnet mode
+  enabled: false
+  # -- Base URL for devnet configuration files
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+  # -- Devnet name (e.g., devnet-3)
+  name: "devnet-3"
+  # -- URLs for devnet configuration files
+  urls:
+    # -- Deposit contract block number URL
+    depositContractBlock: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/deposit_contract_block.txt"
+    # -- Chain config YAML URL
+    configYaml: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/config.yaml"
+    # -- Genesis state SSZ URL
+    genesisSsz: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"
+    # -- Bootstrap nodes YAML URL
+    bootstrapNodesYaml: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/bootstrap_nodes.yaml"
+    # -- Bootstrap nodes TXT URL
+    bootstrapNodesTxt: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/bootstrap_nodes.txt"
+  # -- Init container configuration for downloading devnet files
+  initContainer:
+    - name: download-devnet-config
+      image: alpine:latest
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          mkdir -p /data/testnet_spec;
+          if [ ! -f /data/testnet_spec/genesis.ssz ]; then
+            echo "Downloading devnet configuration files...";
+
+            echo "Downloading deposit_contract_block.txt from {{ tpl .Values.devnet.urls.depositContractBlock . }}"
+            wget -O /data/testnet_spec/deposit_contract_block.txt "{{ tpl .Values.devnet.urls.depositContractBlock . }}"
+
+            cp /data/testnet_spec/deposit_contract_block.txt /data/testnet_spec/deploy_block.txt
+
+            echo "Downloading config.yaml from {{ tpl .Values.devnet.urls.configYaml . }}"
+            wget -O /data/testnet_spec/config.yaml "{{ tpl .Values.devnet.urls.configYaml . }}"
+
+            echo "Downloading genesis.ssz from {{ tpl .Values.devnet.urls.genesisSsz . }}"
+            wget -O /data/testnet_spec/genesis.ssz "{{ tpl .Values.devnet.urls.genesisSsz . }}"
+
+            echo "Downloading bootstrap_nodes.yaml from {{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
+            wget -O /data/testnet_spec/bootstrap_nodes.yaml "{{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
+            echo "Downloading bootstrap_nodes.txt from {{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"
+            wget -O /data/testnet_spec/bootstrap_nodes.txt "{{ tpl .Values.devnet.urls.bootstrapNodesTxt . }}"
+
+            echo "Devnet configuration download complete.";
+          else
+            echo "Genesis file already exists, skipping download.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+
 # -- Template used for the default beacon command
 # @default -- See `values.yaml`
 defaultBeaconCommandTemplate: |
@@ -83,6 +143,12 @@ defaultBeaconCommandTemplate: |
   {{- if .Values.checkpointSync.enabled }}
     --checkpointSyncUrl={{ tpl .Values.checkpointSync.url $ }}
   {{- end }}
+  {{- if .Values.devnet.enabled }}
+    --paramsFile=/data/testnet_spec/config.yaml
+    --genesisStateFile=/data/testnet_spec/genesis.ssz
+    --network.connectToDiscv5Bootnodes=true
+    --bootnodes="$(cat /data/testnet_spec/bootstrap_nodes.txt | tr '\n' ',' | sed 's/,$//')"
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}
@@ -99,6 +165,9 @@ defaultValidatorCommandTemplate: |
     --metrics
     --metrics.address=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
+  {{- if .Values.devnet.enabled }}
+    --paramsFile=/data/testnet_spec/config.yaml
+  {{- end }}
   {{- range .Values.extraArgs }}
     {{ tpl . $ }}
   {{- end }}

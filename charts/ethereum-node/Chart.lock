@@ -1,40 +1,40 @@
 dependencies:
 - name: besu
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.0.8
+  version: 1.1.1
 - name: erigon
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.0.12
+  version: 1.1.1
 - name: ethereumjs
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.0.10
+  version: 0.1.1
 - name: geth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.0.9
+  version: 1.1.1
 - name: nethermind
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.0.14
+  version: 1.1.0
 - name: reth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.0.17
+  version: 0.1.3
 - name: grandine
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.3
+  version: 0.2.1
 - name: lighthouse
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.5
+  version: 1.1.7
 - name: lodestar
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.4
+  version: 1.2.0
 - name: nimbus
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.4
+  version: 1.2.0
 - name: prysm
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.5
+  version: 1.2.0
 - name: teku
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.4
+  version: 1.2.0
 - name: ethereum-metrics-exporter
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.2.0
@@ -44,5 +44,5 @@ dependencies:
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
-digest: sha256:d567594d36148c43ebe4da70afe0370bceab9c96936e691ff916102d7c9e69a7
-generated: "2025-06-20T15:13:26.112593+03:00"
+digest: sha256:c099e37a705ba9d10458c344d848c257e08f0cd38fce53589a76680d364946c6
+generated: "2025-08-12T12:41:30.448888+01:00"

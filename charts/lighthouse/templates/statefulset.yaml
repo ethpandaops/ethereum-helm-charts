@@ -67,6 +67,9 @@ spec:
             - name: env-nodeport
               mountPath: /env
       {{- end }}
+      {{- if .Values.devnet.enabled }}
+        {{- tpl (toYaml .Values.devnet.initContainer | nindent 8) $ }}
+      {{- end }}
       {{- if .Values.initChownData.enabled }}
         - name: init-chown-data
           image: "{{ .Values.initChownData.image.repository }}:{{ .Values.initChownData.image.tag }}"

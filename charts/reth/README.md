@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.0.17](https://img.shields.io/badge/Version-0.0.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -22,6 +22,14 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultCommandArgsTemplate | string | See `values.yaml` | Template used for the default command arguments |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
+| devnet | object | `{"baseUrl":"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs","enabled":false,"initContainer":[{"command":["sh","-ac","mkdir -p /data/devnet;\nif [ ! -f /data/devnet/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n  echo \"Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet/enodes.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]},{"command":["sh","-ac","if [ ! -f /data/db/db/metadata.json ]; then\n  echo \"Initializing Reth with genesis.json...\";\n  reth init --chain=/data/devnet/genesis.json --datadir=/data\n  echo \"Reth initialization complete.\";\nelse\n  echo \"Reth already initialized, skipping genesis initialization.\";\nfi\n"],"image":"{{ .Values.image.repository }}:{{ .Values.image.tag }}","imagePullPolicy":"{{ .Values.image.pullPolicy }}","name":"init-reth-genesis","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}],"name":"devnet-3","urls":{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}}` | Devnet configuration |
+| devnet.baseUrl | string | `"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"` | Base URL for devnet configuration files |
+| devnet.enabled | bool | `false` | Enable devnet mode |
+| devnet.initContainer | list | `[{"command":["sh","-ac","mkdir -p /data/devnet;\nif [ ! -f /data/devnet/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n  echo \"Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet/enodes.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]},{"command":["sh","-ac","if [ ! -f /data/db/db/metadata.json ]; then\n  echo \"Initializing Reth with genesis.json...\";\n  reth init --chain=/data/devnet/genesis.json --datadir=/data\n  echo \"Reth initialization complete.\";\nelse\n  echo \"Reth already initialized, skipping genesis initialization.\";\nfi\n"],"image":"{{ .Values.image.repository }}:{{ .Values.image.tag }}","imagePullPolicy":"{{ .Values.image.pullPolicy }}","name":"init-reth-genesis","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}]` | Init container configuration for downloading devnet files |
+| devnet.name | string | `"devnet-3"` | Devnet name (e.g., devnet-3) |
+| devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
+| devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
+| devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | extraArgs | list | `[]` | Extra args for the reth container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |
@@ -32,10 +40,11 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | fileLogging.dir | string | `"/data/logs"` | Path to store logs in. |
 | fileLogging.enabled | bool | `true` | Toggle file logging. Default true |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| homeDir | string | `"/data"` | Home directory for reth. This is where reth will create its .cache directory for logs. Should be set to a writable directory when running as non-root user. |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | reth container pull policy |
-| image.repository | string | `"ethpandaops/reth"` | reth container image repository |
-| image.tag | string | `"main"` | reth container image tag |
+| image.repository | string | `"ghcr.io/paradigmxyz/reth"` | reth container image repository |
+| image.tag | string | `"latest"` | reth container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |

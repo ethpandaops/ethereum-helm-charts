@@ -7,11 +7,15 @@ fullnameOverride: ""
 # -- Number of replicas
 replicas: 1
 
+# -- Home directory for reth. This is where reth will create its .cache directory for logs.
+# Should be set to a writable directory when running as non-root user.
+homeDir: /data
+
 image:
   # -- reth container image repository
-  repository: ethpandaops/reth
+  repository: ghcr.io/paradigmxyz/reth
   # -- reth container image tag
-  tag: main
+  tag: latest
   # -- reth container pull policy
   pullPolicy: IfNotPresent
 
@@ -22,6 +26,67 @@ extraArgs: []
 # -- JWT secret is attached as a secret object. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Devnet configuration
+devnet:
+  # -- Enable devnet mode
+  enabled: false
+  # -- Base URL for devnet configuration files
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+  # -- Devnet name (e.g., devnet-3)
+  name: "devnet-3"
+  # -- URLs for devnet configuration files
+  urls:
+    # -- Genesis JSON URL for execution layer
+    genesisJson: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"
+    # -- Execution layer bootnode URL
+    elBootnode: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"
+  # -- Init container configuration for downloading devnet files
+  initContainer:
+    - name: download-devnet-config
+      image: alpine:latest
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          mkdir -p /data/devnet;
+          if [ ! -f /data/devnet/genesis.json ]; then
+            echo "Downloading devnet configuration files...";
+            echo "Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}"
+            wget -O /data/devnet/genesis.json "{{ tpl .Values.devnet.urls.genesisJson . }}"
+            echo "Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}"
+            wget -O /data/devnet/enodes.txt "{{ tpl .Values.devnet.urls.elBootnode . }}"
+            echo "Devnet configuration download complete.";
+          else
+            echo "Genesis file already exists, skipping download.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+    - name: init-reth-genesis
+      image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+      imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          if [ ! -f /data/db/db/metadata.json ]; then
+            echo "Initializing Reth with genesis.json...";
+            reth init --chain=/data/devnet/genesis.json --datadir=/data
+            echo "Reth initialization complete.";
+          else
+            echo "Reth already initialized, skipping genesis initialization.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+
 # -- Template used for the default command
 # @default -- See `values.yaml`
 defaultCommandTemplate: |
@@ -31,14 +96,16 @@ defaultCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    exec /usr/local/bin/reth node
-    {{- tpl .Values.defaultCommandArgsTemplate . | nindent 4 }}
+    exec /usr/local/bin/reth node {{ tpl .Values.defaultCommandArgsTemplate . | trim | replace "\n" " " }}
 
 # -- Template used for the default command arguments
 # @default -- See `values.yaml`
-defaultCommandArgsTemplate: |
+defaultCommandArgsTemplate: >
   --datadir=/data
   --config=/data/config.toml
+  {{- if .Values.devnet.enabled }}
+  --chain=/data/devnet/genesis.json
+  {{- end }}
   {{- if .Values.p2pNodePort.enabled }}
   {{- if not (contains "--nat=" (.Values.extraArgs | join ",")) }}
   --nat=extip:$EXTERNAL_IP
@@ -66,13 +133,16 @@ defaultCommandArgsTemplate: |
   --authrpc.addr=0.0.0.0
   --authrpc.port={{ .Values.authPort }}
   {{- if .Values.fileLogging.enabled }}
-  --log.file.dir={{ .Values.fileLogging.dir }}
+  --log.file.directory={{ .Values.fileLogging.dir }}
   {{- else }}
   {{/* Currently how file logging is disabled in reth */}}
   --log.file.max-files=0
   {{- end }}
   {{- if .Values.metricsPort }}
   --metrics=0.0.0.0:{{ .Values.metricsPort }}
+  {{- end }}
+  {{- if .Values.devnet.enabled }}
+  --bootnodes="$(cat /data/devnet/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
   {{- range .Values.extraArgs }}
   {{ tpl . $ }}
@@ -137,7 +207,7 @@ annotations: {}
 # @default -- See `values.yaml`
 livenessProbe:
   tcpSocket:
-    port: http-rpc
+    port: p2p-tcp
   initialDelaySeconds: 60
   periodSeconds: 120
 
@@ -145,7 +215,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: http-rpc
+    port: p2p-tcp
   initialDelaySeconds: 10
   periodSeconds: 10
 
