@@ -12,8 +12,12 @@ Chaos Mesh has been deployed successfully!
 {{- end }}
 
 2. Physical Machines registered:
-{{- range .Values.physicalMachines }}
+{{- if .Values.physicalMachines.enabled }}
+{{- range .Values.physicalMachines.machines }}
    - {{ .name }}: {{ .address }}
+{{- end }}
+{{- else }}
+   - No physical machines configured
 {{- end }}
 
 3. To check the status of Chaos Mesh components:

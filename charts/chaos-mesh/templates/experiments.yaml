@@ -16,7 +16,7 @@ spec:
   action: process
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   process:
@@ -47,14 +47,14 @@ spec:
   mode: all
   address:
     {{- if .autoSplit }}
-    {{/* Automatic split - first group blocks second group */}}
-    {{- $machineCount := len $.Values.physicalMachines }}
-    {{- $groupSize := div $machineCount .autoSplit.groups }}
+    {{/* Automatic split - use hash-based random assignment */}}
     {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
-    {{- $startIndex := mul (sub $isolateGroup 1) $groupSize }}
-    {{- $endIndex := mul $isolateGroup $groupSize }}
-    {{- range $index, $machine := $.Values.physicalMachines }}
-    {{- if and (ge $index $startIndex) (lt $index $endIndex) }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if eq $assignedGroup $isolateGroup }}
     - {{ $machine.address | quote }}
     {{- end }}
     {{- end }}
@@ -62,7 +62,7 @@ spec:
     {{/* Manual group definition - use first group as source */}}
     {{- $firstGroup := index .manualGroups 0 }}
     {{- range $machineName := $firstGroup }}
-    {{- range $machine := $.Values.physicalMachines }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
     {{- if eq $machine.name $machineName }}
     - {{ $machine.address | quote }}
     {{- end }}
@@ -74,14 +74,14 @@ spec:
     {{- $targetHostnames := list }}
     {{- $targetIPs := list }}
     {{- if .autoSplit }}
-    {{/* Target all OTHER groups */}}
-    {{- $machineCount := len $.Values.physicalMachines }}
-    {{- $groupSize := div $machineCount .autoSplit.groups }}
+    {{/* Target all OTHER groups (using same hash-based assignment) */}}
     {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
-    {{- $startIndex := mul (sub $isolateGroup 1) $groupSize }}
-    {{- $endIndex := mul $isolateGroup $groupSize }}
-    {{- range $index, $machine := $.Values.physicalMachines }}
-    {{- if or (lt $index $startIndex) (ge $index $endIndex) }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if ne $assignedGroup $isolateGroup }}
     {{- if $machine.hostname }}
     {{- $targetHostnames = append $targetHostnames $machine.hostname }}
     {{- end }}
@@ -95,7 +95,7 @@ spec:
     {{- range $groupIndex, $group := .manualGroups }}
     {{- if ne $groupIndex 0 }}
     {{- range $machineName := $group }}
-    {{- range $machine := $.Values.physicalMachines }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
     {{- if eq $machine.name $machineName }}
     {{- if $machine.hostname }}
     {{- $targetHostnames = append $targetHostnames $machine.hostname }}
@@ -133,14 +133,14 @@ spec:
   mode: all
   address:
     {{- if .autoSplit }}
-    {{/* Second group blocks first group */}}
-    {{- $machineCount := len $.Values.physicalMachines }}
-    {{- $groupSize := div $machineCount .autoSplit.groups }}
+    {{/* All OTHER groups block the isolated group (using same hash-based assignment) */}}
     {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
-    {{- $startIndex := mul (sub $isolateGroup 1) $groupSize }}
-    {{- $endIndex := mul $isolateGroup $groupSize }}
-    {{- range $index, $machine := $.Values.physicalMachines }}
-    {{- if or (lt $index $startIndex) (ge $index $endIndex) }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if ne $assignedGroup $isolateGroup }}
     - {{ $machine.address | quote }}
     {{- end }}
     {{- end }}
@@ -149,7 +149,7 @@ spec:
     {{- range $groupIndex, $group := .manualGroups }}
     {{- if ne $groupIndex 0 }}
     {{- range $machineName := $group }}
-    {{- range $machine := $.Values.physicalMachines }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
     {{- if eq $machine.name $machineName }}
     - {{ $machine.address | quote }}
     {{- end }}
@@ -163,14 +163,14 @@ spec:
     {{- $reverseTargetHostnames := list }}
     {{- $reverseTargetIPs := list }}
     {{- if .autoSplit }}
-    {{/* Target the first group */}}
-    {{- $machineCount := len $.Values.physicalMachines }}
-    {{- $groupSize := div $machineCount .autoSplit.groups }}
+    {{/* Target the isolated group (using same hash-based assignment) */}}
     {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
-    {{- $startIndex := mul (sub $isolateGroup 1) $groupSize }}
-    {{- $endIndex := mul $isolateGroup $groupSize }}
-    {{- range $index, $machine := $.Values.physicalMachines }}
-    {{- if and (ge $index $startIndex) (lt $index $endIndex) }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if eq $assignedGroup $isolateGroup }}
     {{- if $machine.hostname }}
     {{- $reverseTargetHostnames = append $reverseTargetHostnames $machine.hostname }}
     {{- end }}
@@ -183,7 +183,7 @@ spec:
     {{/* Target the first group */}}
     {{- $firstGroup := index .manualGroups 0 }}
     {{- range $machineName := $firstGroup }}
-    {{- range $machine := $.Values.physicalMachines }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
     {{- if eq $machine.name $machineName }}
     {{- if $machine.hostname }}
     {{- $reverseTargetHostnames = append $reverseTargetHostnames $machine.hostname }}
@@ -209,7 +209,7 @@ spec:
   action: network-delay
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   network-delay:
@@ -222,7 +222,7 @@ spec:
   action: network-loss
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   network-loss:
@@ -251,7 +251,7 @@ spec:
   action: stress-cpu
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   stress-cpu:
@@ -261,7 +261,7 @@ spec:
   action: stress-mem
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   stress-mem:
@@ -271,7 +271,7 @@ spec:
   action: disk-write-payload
   mode: all
   address:
-    {{- range $.Values.physicalMachines }}
+    {{- range $.Values.physicalMachines.machines }}
     - {{ .address | quote }}
     {{- end }}
   disk-write-payload:
