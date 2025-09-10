@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -26,8 +26,11 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Command replacement for the dora container |
 | endpoints | list | `[{"archive":false,"authGroup":"","headers":{"X-Test":"test","Y-Test":"test2"},"name":"default-endpoint","priority":1,"url":"http://beacon-node:5052"}]` | An array of endpoints to use for the explorer -- url is the only required field |
+| endpointsUrl | string | `""` | URL to the endpoints file -- If you want to use a separate endpoints file as an alternative to the endpoints array, set this value |
 | ethExplorerLink | string | `""` | Link to the el block explorer |
 | executionEndpoints | list | `[]` | An array of execution endpoints to use for the explorer -- url is the only required field |
+| executionEndpointsUrl | string | `""` | URL to the execution endpoints file -- If you want to use a separate endpoints file as an alternative to the endpoints array, set this value |
+| executionGenesisConfig | string | `""` | URL to the execution genesis config file -- If you want to use a separate execution genesis config file, set this value |
 | extraArgs | list | `[]` | Extra args for the dora container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -79,6 +82,8 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | proxyCount | int | `1` | Number of proxy servers in front of the explorer |
+| publicRpcUrl | string | `""` | Public RPC URL to use for the explorer |
+| rainbowkitProjectId | string | `""` | Rainbowkit project ID to use for the explorer |
 | ranges | string | `"0-1: test\n"` |  |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
