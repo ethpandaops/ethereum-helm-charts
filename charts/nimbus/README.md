@@ -1,7 +1,7 @@
 
 # nimbus
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum consensus layer client, written in Nim
 
@@ -18,6 +18,7 @@ An open-source Ethereum consensus layer client, written in Nim
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | checkpointSync | object | `{"enabled":false,"network":"","url":""}` | Checkpoint Sync |
+| config | object | `{}` | Configmap data for the node. Can contain multiple files with templating support. Example: config:   "config.yaml": |     network: mainnet   "settings.toml": |     [section]     key = "{{ .Values.someValue }}" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultBinaryPath | string | `"/home/user/nimbus-eth2/build/nimbus_beacon_node"` | Path within the container to the beacon node binary |
