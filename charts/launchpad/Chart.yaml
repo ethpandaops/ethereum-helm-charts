@@ -1,0 +1,13 @@
+apiVersion: v2
+name: launchpad
+description: >
+  The Launchpad is the is a way to deposit your ETH for staking on Ethereum Testnets.
+home: https://github.com/ethereum/staking-launchpad
+icon: https://launchpad.ethereum.org/static/media/leslie-rhino.243747b9.png
+sources:
+  - https://github.com/ethereum/staking-launchpad
+type: application
+version: 0.0.1
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com
