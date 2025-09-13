@@ -118,7 +118,6 @@ apiDisableDefaultRateLimit: false
 # -- Allowed CORS origins
 apiCorsOrigins: []
 
-
 # -- Config file
 # @default -- See `values.yaml`
 config: |
