@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -19,6 +19,13 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| apiAuthSecret | string | `""` | Authentication secret for JWT tokens (use random base64 string, generate with: dora-utils token secret) |
+| apiCorsOrigins | list | `[]` | Allowed CORS origins |
+| apiDefaultRateLimit | int | `60` | Default rate limiting for unauthenticated requests |
+| apiDefaultRateLimitBurst | int | `10` | Default rate limiting for unauthenticated requests burst capacity |
+| apiDisableDefaultRateLimit | bool | `false` | Disable rate limiting completely |
+| apiRequireAuth | bool | `false` | Require authentication for all API requests (set to true to disable unauthenticated access) |
+| apiWhitelistedIPs | list | `[]` | IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges |
 | authGroups | object | `{}` | A dictionary of reusable authentication options to use for endpoints |
 | callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
