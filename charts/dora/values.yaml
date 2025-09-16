@@ -97,6 +97,26 @@ publicRpcUrl: ""
 # -- Rainbowkit project ID to use for the explorer
 rainbowkitProjectId: ""
 
+# -- Require authentication for all API requests (set to true to disable unauthenticated access)
+apiRequireAuth: false
+
+# -- Authentication secret for JWT tokens (use random base64 string, generate with: dora-utils token secret)
+apiAuthSecret: ""
+
+# -- IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges
+apiWhitelistedIPs: []
+
+# -- Default rate limiting for unauthenticated requests
+apiDefaultRateLimit: 60 # requests per minute, 0 = no limit
+
+# -- Default rate limiting for unauthenticated requests burst capacity
+apiDefaultRateLimitBurst: 10 # burst capacity
+
+# -- Disable rate limiting completely
+apiDisableDefaultRateLimit: false
+
+# -- Allowed CORS origins
+apiCorsOrigins: []
 
 # -- Config file
 # @default -- See `values.yaml`
@@ -119,7 +139,25 @@ config: |
 
     api:
       enabled: true # Enable or disable the web API
-      corsOrigins: [] # CORS origins
+      corsOrigins: {{ if not .Values.apiCorsOrigins }}[]{{ end }}
+        {{- range .Values.apiCorsOrigins }}
+        - {{ . | quote }}
+        {{- end }}
+      authSecret: "{{ .Values.apiAuthSecret }}"
+
+      # Require authentication for all API requests (set to true to disable unauthenticated access)
+      requireAuth: {{ .Values.apiRequireAuth }}
+
+      # Default rate limiting for unauthenticated requests
+      defaultRateLimit: {{ .Values.apiDefaultRateLimit }} # requests per minute, 0 = no limit
+      defaultRateLimitBurst: {{ .Values.apiDefaultRateLimitBurst }} # burst capacity
+      disableDefaultRateLimit: {{ .Values.apiDisableDefaultRateLimit }} # disable rate limiting completely
+
+      # IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges
+      whitelistedIPs: {{ if not .Values.apiWhitelistedIPs }}[]{{ end }}
+        {{- range .Values.apiWhitelistedIPs }}
+        - {{ . | quote }}
+        {{- end }}
 
     frontend:
       enabled: true # Enable or disable to web frontend
