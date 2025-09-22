@@ -382,6 +382,17 @@ initChownData:
   #    cpu: 100m
   #    memory: 128Mi
 
+# Additional configmap data
+# config -- Configmap data for the node. Can contain multiple files with templating support.
+# Example:
+# config:
+#   "config.yaml": |
+#     network: mainnet
+#   "settings.toml": |
+#     [section]
+#     key = "{{ .Values.someValue }}"
+config: {}
+
 serviceMonitor:
   # -- If true, a ServiceMonitor CRD is created for a prometheus operator
   # https://github.com/coreos/prometheus-operator

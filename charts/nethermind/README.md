@@ -1,7 +1,7 @@
 
 # nethermind
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Nethermind is an Ethereum execution layer implementation created with the C# .NET tech stack, running on all major platforms including ARM.
 
@@ -18,6 +18,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | authPort | int | `8551` | Engine Port (Auth Port) |
+| config | object | `{}` | Configmap data for the node. Can contain multiple files with templating support. Example: config:   "config.yaml": |     network: mainnet   "settings.toml": |     [section]     key = "{{ .Values.someValue }}" |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
