@@ -27,6 +27,10 @@ endpoints:
       "X-Test": "test"
       "Y-Test": "test2"
 
+# -- URL to the endpoints file
+# -- If you want to use a separate endpoints file as an alternative to the endpoints array, set this value
+endpointsUrl: ""
+
 # -- An array of execution endpoints to use for the explorer
 # -- url is the only required field
 executionEndpoints: []
@@ -37,6 +41,14 @@ executionEndpoints: []
   #  headers:
   #    "X-Test": "test"
   #    "Y-Test": "test2"
+
+# -- URL to the execution endpoints file
+# -- If you want to use a separate endpoints file as an alternative to the endpoints array, set this value
+executionEndpointsUrl: ""
+
+# -- URL to the execution genesis config file
+# -- If you want to use a separate execution genesis config file, set this value
+executionGenesisConfig: ""
 
 # -- An array of mev relays to crawl mev data from (optional)
 # -- index must be a unique id for the relay (0-62)
@@ -79,6 +91,32 @@ callRateBurst: 10
 # -- Maximum number of epochs to keep in memory
 maxInMemoryEpochs: 4
 
+# -- Public RPC URL to use for the explorer
+publicRpcUrl: ""
+
+# -- Rainbowkit project ID to use for the explorer
+rainbowkitProjectId: ""
+
+# -- Require authentication for all API requests (set to true to disable unauthenticated access)
+apiRequireAuth: false
+
+# -- Authentication secret for JWT tokens (use random base64 string, generate with: dora-utils token secret)
+apiAuthSecret: ""
+
+# -- IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges
+apiWhitelistedIPs: []
+
+# -- Default rate limiting for unauthenticated requests
+apiDefaultRateLimit: 60 # requests per minute, 0 = no limit
+
+# -- Default rate limiting for unauthenticated requests burst capacity
+apiDefaultRateLimitBurst: 10 # burst capacity
+
+# -- Disable rate limiting completely
+apiDisableDefaultRateLimit: false
+
+# -- Allowed CORS origins
+apiCorsOrigins: []
 
 # -- Config file
 # @default -- See `values.yaml`
@@ -99,6 +137,28 @@ config: |
       host: "0.0.0.0" # Address to listen on
       port: "{{ .Values.httpPort }}" # Port to listen on
 
+    api:
+      enabled: true # Enable or disable the web API
+      corsOrigins: {{ if not .Values.apiCorsOrigins }}[]{{ end }}
+        {{- range .Values.apiCorsOrigins }}
+        - {{ . | quote }}
+        {{- end }}
+      authSecret: "{{ .Values.apiAuthSecret }}"
+
+      # Require authentication for all API requests (set to true to disable unauthenticated access)
+      requireAuth: {{ .Values.apiRequireAuth }}
+
+      # Default rate limiting for unauthenticated requests
+      defaultRateLimit: {{ .Values.apiDefaultRateLimit }} # requests per minute, 0 = no limit
+      defaultRateLimitBurst: {{ .Values.apiDefaultRateLimitBurst }} # burst capacity
+      disableDefaultRateLimit: {{ .Values.apiDisableDefaultRateLimit }} # disable rate limiting completely
+
+      # IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges
+      whitelistedIPs: {{ if not .Values.apiWhitelistedIPs }}[]{{ end }}
+        {{- range .Values.apiWhitelistedIPs }}
+        - {{ . | quote }}
+        {{- end }}
+
     frontend:
       enabled: true # Enable or disable to web frontend
       debug: false
@@ -111,6 +171,10 @@ config: |
       # link to EL Explorer
       ethExplorerLink: "{{ .Values.ethExplorerLink }}"
 
+      # Public RPC URL to use for the explorer
+      publicRpcUrl: "{{ .Values.publicRpcUrl }}"
+      rainbowkitProjectId: "{{ .Values.rainbowkitProjectId }}"
+
       # file or inventory url to load validator names from
       {{- if ne .Values.validatorNamesInventory "" }}
       validatorNamesYaml: "/data/ranges.yaml"
@@ -118,6 +182,12 @@ config: |
       validatorNamesYaml: ""
       {{- end }}
       validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
+
+      # Show additional information in the UI
+      showPeerDASInfos: true
+      showSubmitDeposit: true
+      showSubmitElRequests: true
+      showValidatorSummary: true
 
     rateLimit:
       enabled: true
@@ -144,6 +214,10 @@ config: |
     {{- end }}
 
     beaconapi:
+      {{- if ne .Values.endpointsUrl "" }}
+      # CL Client RPC (remote)
+      endpointsUrl: "{{ .Values.endpointsUrl }}"
+      {{- else }}
       # CL Client RPC
       endpoints:
         {{- range .Values.endpoints }}
@@ -167,6 +241,7 @@ config: |
           {{- end }}
           {{- end }}
         {{- end }}
+      {{- end }}
 
       # local cache for page models
       localCacheSize: 100 # 100MB
@@ -176,7 +251,11 @@ config: |
       redisCachePrefix: ""
 
     executionapi:
-      # CL Client RPC
+      {{- if ne .Values.executionEndpointsUrl "" }}
+      # Execution Client RPC (remote)
+      endpointsUrl: "{{ .Values.executionEndpointsUrl }}"
+      {{- else }}
+      # Execution Client RPC
       endpoints: {{ if not .Values.executionEndpoints }}[]{{ end }}
         {{- range .Values.executionEndpoints }}
         - url: {{ .url | quote }}
@@ -202,7 +281,9 @@ config: |
           {{- end }}
           {{- end }}
         {{- end }}
+      {{- end }}
       depositLogBatchSize: 1000
+      genesisConfig: "{{ .Values.executionGenesisConfig }}"
 
     mevIndexer:
       # list of mev relays to crawl mev blocks from
