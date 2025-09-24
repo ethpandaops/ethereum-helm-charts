@@ -1,0 +1,284 @@
+{{- if .Values.experiments.enabled }}
+{{- if .Values.experiments.processKill.enabled }}
+{{- range .Values.experiments.processKill.experiments }}
+---
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PhysicalMachineChaos
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
+    chaos-mesh.org/experiment-type: "process-kill"
+  annotations:
+    chaos-mesh.org/description: {{ .description | quote }}
+spec:
+  action: process
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  process:
+    process: {{ .process | quote }}
+    signal: {{ .signal }}
+  duration: {{ .duration | quote }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.experiments.network.enabled }}
+{{- range .Values.experiments.network.experiments }}
+---
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PhysicalMachineChaos
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
+    chaos-mesh.org/experiment-type: "network-{{ .type }}"
+  annotations:
+    chaos-mesh.org/description: {{ .description | quote }}
+spec:
+  {{- if eq .type "partition" }}
+  {{/* For network partitions, we create TWO experiments for bidirectional blocking */}}
+  {{/* This is experiment 1: Group A blocks Group B */}}
+  action: network-partition
+  mode: all
+  address:
+    {{- if .autoSplit }}
+    {{/* Automatic split - use hash-based random assignment */}}
+    {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if eq $assignedGroup $isolateGroup }}
+    - {{ $machine.address | quote }}
+    {{- end }}
+    {{- end }}
+    {{- else if .manualGroups }}
+    {{/* Manual group definition - use first group as source */}}
+    {{- $firstGroup := index .manualGroups 0 }}
+    {{- range $machineName := $firstGroup }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{- if eq $machine.name $machineName }}
+    - {{ $machine.address | quote }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  network-partition:
+    direction: {{ .direction | quote }}
+    {{- $targetHostnames := list }}
+    {{- $targetIPs := list }}
+    {{- if .autoSplit }}
+    {{/* Target all OTHER groups (using same hash-based assignment) */}}
+    {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if ne $assignedGroup $isolateGroup }}
+    {{- if $machine.hostname }}
+    {{- $targetHostnames = append $targetHostnames $machine.hostname }}
+    {{- end }}
+    {{- if $machine.ip }}
+    {{- $targetIPs = append $targetIPs $machine.ip }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- else if .manualGroups }}
+    {{/* Target all groups except the first */}}
+    {{- range $groupIndex, $group := .manualGroups }}
+    {{- if ne $groupIndex 0 }}
+    {{- range $machineName := $group }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{- if eq $machine.name $machineName }}
+    {{- if $machine.hostname }}
+    {{- $targetHostnames = append $targetHostnames $machine.hostname }}
+    {{- end }}
+    {{- if $machine.ip }}
+    {{- $targetIPs = append $targetIPs $machine.ip }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- if $targetHostnames }}
+    hostname: {{ join "," $targetHostnames | quote }}
+    {{- end }}
+    {{- if $targetIPs }}
+    ip-address: {{ join "," $targetIPs | quote }}
+    {{- end }}
+    device: {{ .device | quote }}
+---
+{{/* Create the reverse experiment: Group B blocks Group A */}}
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PhysicalMachineChaos
+metadata:
+  name: {{ .name }}-reverse
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
+    chaos-mesh.org/experiment-type: "network-partition"
+  annotations:
+    chaos-mesh.org/description: {{ printf "%s (reverse direction)" .description | quote }}
+spec:
+  action: network-partition
+  mode: all
+  address:
+    {{- if .autoSplit }}
+    {{/* All OTHER groups block the isolated group (using same hash-based assignment) */}}
+    {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if ne $assignedGroup $isolateGroup }}
+    - {{ $machine.address | quote }}
+    {{- end }}
+    {{- end }}
+    {{- else if .manualGroups }}
+    {{/* All groups except first block the first group */}}
+    {{- range $groupIndex, $group := .manualGroups }}
+    {{- if ne $groupIndex 0 }}
+    {{- range $machineName := $group }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{- if eq $machine.name $machineName }}
+    - {{ $machine.address | quote }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+  network-partition:
+    direction: {{ .direction | quote }}
+    {{- $reverseTargetHostnames := list }}
+    {{- $reverseTargetIPs := list }}
+    {{- if .autoSplit }}
+    {{/* Target the isolated group (using same hash-based assignment) */}}
+    {{- $isolateGroup := default 1 .autoSplit.isolateGroup }}
+    {{- $totalGroups := .autoSplit.groups }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{/* Create pseudo-random group assignment using machine name hash */}}
+    {{- $hash := adler32sum $machine.name }}
+    {{- $assignedGroup := add (mod $hash $totalGroups) 1 }}
+    {{- if eq $assignedGroup $isolateGroup }}
+    {{- if $machine.hostname }}
+    {{- $reverseTargetHostnames = append $reverseTargetHostnames $machine.hostname }}
+    {{- end }}
+    {{- if $machine.ip }}
+    {{- $reverseTargetIPs = append $reverseTargetIPs $machine.ip }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- else if .manualGroups }}
+    {{/* Target the first group */}}
+    {{- $firstGroup := index .manualGroups 0 }}
+    {{- range $machineName := $firstGroup }}
+    {{- range $machine := $.Values.physicalMachines.machines }}
+    {{- if eq $machine.name $machineName }}
+    {{- if $machine.hostname }}
+    {{- $reverseTargetHostnames = append $reverseTargetHostnames $machine.hostname }}
+    {{- end }}
+    {{- if $machine.ip }}
+    {{- $reverseTargetIPs = append $reverseTargetIPs $machine.ip }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
+    {{- if $reverseTargetHostnames }}
+    hostname: {{ join "," $reverseTargetHostnames | quote }}
+    {{- end }}
+    {{- if $reverseTargetIPs }}
+    ip-address: {{ join "," $reverseTargetIPs | quote }}
+    {{- end }}
+    device: {{ .device | quote }}
+  {{- if .duration }}
+  duration: {{ .duration | quote }}
+  {{- end }}
+  {{- else if eq .type "delay" }}
+  action: network-delay
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  network-delay:
+    device: {{ .device | quote }}
+    latency: {{ .latency | quote }}
+    {{- if .jitter }}
+    jitter: {{ .jitter | quote }}
+    {{- end }}
+  {{- else if eq .type "loss" }}
+  action: network-loss
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  network-loss:
+    device: {{ .device | quote }}
+    percent: {{ .percent | quote }}
+  {{- end }}
+  duration: {{ .duration | quote }}
+{{- end }}
+{{- end }}
+
+{{- if .Values.experiments.stress.enabled }}
+{{- range .Values.experiments.stress.experiments }}
+---
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PhysicalMachineChaos
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
+    chaos-mesh.org/experiment-type: "stress-{{ .type }}"
+  annotations:
+    chaos-mesh.org/description: {{ .description | quote }}
+spec:
+  {{- if eq .type "cpu" }}
+  action: stress-cpu
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  stress-cpu:
+    workers: {{ .workers }}
+    load: {{ .load }}
+  {{- else if eq .type "memory" }}
+  action: stress-mem
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  stress-mem:
+    workers: {{ .workers }}
+    size: {{ .size | quote }}
+  {{- else if eq .type "disk" }}
+  action: disk-write-payload
+  mode: all
+  address:
+    {{- range $.Values.physicalMachines.machines }}
+    - {{ .address | quote }}
+    {{- end }}
+  disk-write-payload:
+    workers: {{ .workers }}
+    size: {{ .size | quote }}
+  {{- end }}
+  duration: {{ .duration | quote }}
+{{- end }}
+{{- end }}
+{{- end }}
