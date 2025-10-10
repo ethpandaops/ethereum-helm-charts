@@ -53,6 +53,18 @@ config:
     max_execution_time: 60
     insecure_skip_verify: false
 
+  telemetry:
+    enabled: false
+    endpoint: "tempo.example.com:443"
+    insecure: false
+    service_name: "xatu-cbt-api"
+    service_version: "1.0.0"
+    environment: "mainnet"
+    sample_rate: 0.1
+    always_sample_errors: true
+    export_timeout: 10s
+    export_batch_size: 512
+
 ingress:
   # -- Ingress resource for the HTTP API
   enabled: false
