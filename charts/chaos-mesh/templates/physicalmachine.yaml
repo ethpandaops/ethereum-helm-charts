@@ -1,0 +1,21 @@
+{{- if .Values.physicalMachines.enabled }}
+{{- range .Values.physicalMachines.machines }}
+---
+apiVersion: chaos-mesh.org/v1alpha1
+kind: PhysicalMachine
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "chaos-mesh-wrapper.labels" $ | nindent 4 }}
+    {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  address: {{ .address | quote }}
+{{- end }}
+{{- end }}
