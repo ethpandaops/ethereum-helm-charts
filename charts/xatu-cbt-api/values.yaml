@@ -96,7 +96,7 @@ livenessProbe:
   custom: false
   customProbe: {}
   tcp:
-    port: metrics
+    port: http
     initialDelaySeconds: 60
     periodSeconds: 120
 
@@ -108,7 +108,7 @@ readinessProbe:
   custom: false
   customProbe: {}
   tcp:
-    port: metrics
+    port: http
     initialDelaySeconds: 10
     periodSeconds: 10
 
