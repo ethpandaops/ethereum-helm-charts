@@ -1386,6 +1386,24 @@ entries:
     version: 0.0.1
   chaos-mesh:
   - apiVersion: v2
+    created: "2025-10-10T09:12:20.857974436Z"
+    dependencies:
+    - name: chaos-mesh
+      repository: https://charts.chaos-mesh.org
+      version: 2.8.0
+    description: Chaos Mesh wrapper chart for Ethereum devnet with custom configurations
+      for physical machines and ingress settings.
+    digest: fbe9d85785a75996171bf1f2c8eeb94e1f6c0f051ffd28b2bdc700f5b94b7c00
+    home: https://chaos-mesh.org/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: chaos-mesh
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/chaos-mesh-0.0.3/chaos-mesh-0.0.3.tgz
+    version: 0.0.3
+  - apiVersion: v2
     created: "2025-10-10T08:43:06.711358133Z"
     dependencies:
     - name: chaos-mesh
@@ -11919,4 +11937,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-10-10T08:43:06.711950643Z"
+generated: "2025-10-10T09:12:20.858520292Z"
