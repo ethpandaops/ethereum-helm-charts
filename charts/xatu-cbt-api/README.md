@@ -18,17 +18,23 @@ API server for Xatu CBT
 | autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
-| clickhouse.conn_max_lifetime | string | `"60s"` |  |
-| clickhouse.database | string | `"mainnet"` |  |
-| clickhouse.dial_timeout | string | `"10s"` |  |
-| clickhouse.dsn | string | `"https://user:pass@host"` |  |
-| clickhouse.insecure_skip_verify | bool | `false` |  |
-| clickhouse.max_execution_time | int | `60` |  |
-| clickhouse.max_idle_conns | int | `5` |  |
-| clickhouse.max_open_conns | int | `10` |  |
-| clickhouse.read_timeout | string | `"30s"` |  |
-| clickhouse.use_final | bool | `true` |  |
-| clickhouse.write_timeout | string | `"30s"` |  |
+| config.clickhouse.conn_max_lifetime | string | `"60s"` |  |
+| config.clickhouse.database | string | `"mainnet"` |  |
+| config.clickhouse.dial_timeout | string | `"10s"` |  |
+| config.clickhouse.dsn | string | `"https://user:pass@host"` |  |
+| config.clickhouse.insecure_skip_verify | bool | `false` |  |
+| config.clickhouse.max_execution_time | int | `60` |  |
+| config.clickhouse.max_idle_conns | int | `5` |  |
+| config.clickhouse.max_open_conns | int | `10` |  |
+| config.clickhouse.read_timeout | string | `"30s"` |  |
+| config.clickhouse.use_final | bool | `true` |  |
+| config.clickhouse.write_timeout | string | `"30s"` |  |
+| config.server.host | string | `"0.0.0.0"` |  |
+| config.server.idle_timeout | string | `"120s"` |  |
+| config.server.port | int | `8080` |  |
+| config.server.read_header_timeout | string | `"10s"` |  |
+| config.server.read_timeout | string | `"30s"` |  |
+| config.server.write_timeout | string | `"30s"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu-cbt-api container |
 | customCommand | list | `[]` | Command replacement for the xatu-cbt-api container |
@@ -62,12 +68,6 @@ API server for Xatu CBT
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Secret env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
-| server.host | string | `"0.0.0.0"` |  |
-| server.idle_timeout | string | `"120s"` |  |
-| server.port | int | `8080` |  |
-| server.read_header_timeout | string | `"10s"` |  |
-| server.read_timeout | string | `"30s"` |  |
-| server.write_timeout | string | `"30s"` |  |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `false` | Specifies whether a service account should be created |

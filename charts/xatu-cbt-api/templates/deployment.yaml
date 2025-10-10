@@ -78,14 +78,6 @@ spec:
           - name: http
             containerPort: {{ include "xatu-cbt-api.httpPort" . }}
             protocol: TCP
-          - name: metrics
-            containerPort: {{ include "xatu-cbt-api.metricsPort" . }}
-            protocol: TCP
-          {{- if (include "xatu-cbt-api.pprofPort" .) }}
-          - name: pprof
-            containerPort: {{ include "xatu-cbt-api.pprofPort" . }}
-            protocol: TCP
-          {{- end }}
           {{- if .Values.extraPodPorts }}
             {{ toYaml .Values.extraPodPorts | nindent 10 }}
           {{- end }}

@@ -62,15 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "xatu-cbt-api.httpPort" -}}
-{{ (split ":" .Values.config.addr)._1 | default "8080" }}
+{{ (split ":" .Values.config.server.port)._1 | default "8080" }}
 {{- end }}
-
-{{- define "xatu-cbt-api.metricsPort" -}}
-{{ (split ":" .Values.config.metricsAddr)._1 | default "9090" }}
-{{- end -}}
-
-{{- define "xatu-cbt-api.pprofPort" -}}
-{{- if .Values.config.pprofAddr -}}
-{{ (split ":" .Values.config.pprofAddr)._1 | default "6060" }}
-{{- end -}}
-{{- end -}}
