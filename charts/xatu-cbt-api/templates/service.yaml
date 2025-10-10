@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xatu-cbt-api.fullname" . }}
+  labels:
+    {{- include "xatu-cbt-api.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "xatu-cbt-api.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ include "xatu-cbt-api.metricsPort" . }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- if (include "xatu-cbt-api.pprofPort" .) }}
+    - port: {{ include "xatu-cbt-api.pprofPort" . }}
+      targetPort: pprof
+      protocol: TCP
+      name: pprof
+    {{- end }}
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "xatu-cbt-api.selectorLabels" . | nindent 4 }}
