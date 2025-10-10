@@ -3,11 +3,11 @@ name: chaos-mesh
 description: Chaos Mesh wrapper chart for Ethereum devnet with custom configurations for physical machines and ingress settings.
 home: https://chaos-mesh.org/
 type: application
-version: 0.0.1
+version: 0.0.2
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
 dependencies:
   - name: chaos-mesh
-    version: "2.6.7"
+    version: "2.8.0"
     repository: https://charts.chaos-mesh.org
