@@ -11246,6 +11246,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.0.1/xatu-cannon-0.0.1.tgz
     version: 0.0.1
+  xatu-cbt-api:
+  - apiVersion: v2
+    created: "2025-10-10T04:19:28.285093288Z"
+    description: API server for Xatu CBT
+    digest: 58e0071dd0e7cc09b23cbe20a1803735778942d8090b46f4f0ed8db81d8a6794
+    home: https://github.com/ethpandaops/xatu-cbt-api
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cbt-api
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cbt-api-0.0.11/xatu-cbt-api-0.0.11.tgz
+    version: 0.0.11
   xatu-cl-mimicry:
   - apiVersion: v2
     created: "2025-01-20T12:32:57.352813461Z"
@@ -11854,4 +11870,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-09-23T07:02:06.022939013Z"
+generated: "2025-10-10T04:19:28.286232998Z"
