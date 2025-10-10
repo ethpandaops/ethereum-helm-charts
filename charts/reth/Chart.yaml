@@ -7,7 +7,7 @@ icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
 sources:
   - https://github.com/paradigmxyz/reth/
 type: application
-version: 0.1.4
+version: 0.1.6
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
