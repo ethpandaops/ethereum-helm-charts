@@ -1,7 +1,7 @@
 
 # xatu-cbt-api
 
-![Version: 0.0.12](https://img.shields.io/badge/Version-0.0.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.13](https://img.shields.io/badge/Version-0.0.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 API server for Xatu CBT
 
@@ -35,6 +35,16 @@ API server for Xatu CBT
 | config.server.read_header_timeout | string | `"10s"` |  |
 | config.server.read_timeout | string | `"30s"` |  |
 | config.server.write_timeout | string | `"30s"` |  |
+| config.telemetry.always_sample_errors | bool | `true` |  |
+| config.telemetry.enabled | bool | `false` |  |
+| config.telemetry.endpoint | string | `"tempo.example.com:443"` |  |
+| config.telemetry.environment | string | `"mainnet"` |  |
+| config.telemetry.export_batch_size | int | `512` |  |
+| config.telemetry.export_timeout | string | `"10s"` |  |
+| config.telemetry.insecure | bool | `false` |  |
+| config.telemetry.sample_rate | float | `0.1` |  |
+| config.telemetry.service_name | string | `"xatu-cbt-api"` |  |
+| config.telemetry.service_version | string | `"1.0.0"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu-cbt-api container |
 | customCommand | list | `[]` | Command replacement for the xatu-cbt-api container |
