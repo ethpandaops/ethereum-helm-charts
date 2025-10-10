@@ -8,8 +8,8 @@ fullnameOverride: ""
 chaos-mesh:
   # -- Override fullname for chaos-mesh to avoid conflicts with other installations
   fullnameOverride: ""
-  
-  # Dashboard configuration  
+
+  # Dashboard configuration
   webhook:
     certManager:
       # -- Enable cert-manager for webhook certificates
@@ -18,7 +18,7 @@ chaos-mesh:
     FailurePolicy: Ignore
     # -- Webhook timeout in seconds
     timeoutSeconds: 10
-    
+
   dashboard:
     # -- Create dashboard
     create: true
@@ -42,14 +42,14 @@ chaos-mesh:
       #  - secretName: chaos-mesh-tls
       #    hosts:
       #      - chaos-mesh.example.com
-  
+
   # Controller Manager configuration
   controllerManager:
     # -- Number of controller manager replicas
     replicaCount: 1
     # -- Enable mTLS for physical machine connections
     chaosdSecurityMode: false
-  
+
   # Chaos Daemon configuration
   chaosDaemon:
     # -- Container runtime (docker, containerd, crio)
@@ -80,7 +80,7 @@ physicalMachines:
 experiments:
   # -- Enable/disable experiment creation
   enabled: true
-  
+
   # Process kill experiments
   processKill:
     # -- Enable process kill experiments
@@ -98,8 +98,8 @@ experiments:
       #   process: "lighthouse|grandine|prysm|teku"  # regex pattern
       #   signal: 15  # SIGTERM for graceful shutdown
       #   duration: "30s"
-  
-  # Network chaos experiments  
+
+  # Network chaos experiments
   network:
     # -- Enable network experiments
     enabled: false
@@ -122,7 +122,7 @@ experiments:
       # - name: network-partition-consensus-split
       #   description: "Isolate lighthouse nodes from grandine nodes"
       #   type: "partition"
-      #   direction: "to" 
+      #   direction: "to"
       #   device: "eth0"
       #   duration: "300s"
       #   manualGroups:
@@ -145,7 +145,7 @@ experiments:
       #   device: "eth0"
       #   percent: "5"
       #   duration: "120s"
-  
+
   # Resource stress experiments
   stress:
     # -- Enable stress experiments
@@ -161,7 +161,7 @@ experiments:
       #   duration: "180s"
       # - name: memory-stress-moderate
       #   description: "Moderate memory pressure"
-      #   type: "memory"  
+      #   type: "memory"
       #   workers: 2
       #   size: "1GB"
       #   duration: "300s"
