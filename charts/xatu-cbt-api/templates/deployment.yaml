@@ -53,9 +53,7 @@ spec:
         {{- if gt (len .Values.customCommand) 0 }}
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
-          - "/xatu-cbt-api"
-          - "server"
-          - --config=/config.yaml
+          - "/app/server"
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}
           {{- end }}
@@ -68,7 +66,7 @@ spec:
           {{- toYaml .Values.containerSecurityContext | nindent 12 }}
         volumeMounts:
           - name: config
-            mountPath: "/config.yaml"
+            mountPath: "/app/config.yaml"
             subPath: config.yaml
             readOnly: true
           {{- if .Values.extraVolumeMounts }}

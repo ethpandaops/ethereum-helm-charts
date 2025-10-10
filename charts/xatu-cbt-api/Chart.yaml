@@ -3,7 +3,7 @@ name: xatu-cbt-api
 description: API server for Xatu CBT
 home: https://github.com/ethpandaops/xatu-cbt-api
 type: application
-version: 0.0.11
+version: 0.0.12
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
