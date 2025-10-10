@@ -62,5 +62,5 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "xatu-cbt-api.httpPort" -}}
-{{ (split ":" .Values.config.server.port)._1 | default "8080" }}
+{{ .Values.config.server.port | default "8080" }}
 {{- end }}
