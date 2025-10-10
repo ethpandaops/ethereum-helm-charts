@@ -1384,6 +1384,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.1/blutgang-0.0.1.tgz
     version: 0.0.1
+  chaos-mesh:
+  - apiVersion: v2
+    created: "2025-10-10T08:43:06.711358133Z"
+    dependencies:
+    - name: chaos-mesh
+      repository: https://charts.chaos-mesh.org
+      version: 2.6.7
+    description: Chaos Mesh wrapper chart for Ethereum devnet with custom configurations
+      for physical machines and ingress settings.
+    digest: 0bc2431e354c5c93467f1246b464679e7faeb9b489e9e6f7c0fee3c14e81c15c
+    home: https://chaos-mesh.org/
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: chaos-mesh
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/chaos-mesh-0.0.1/chaos-mesh-0.0.1.tgz
+    version: 0.0.1
   checkpointz:
   - apiVersion: v2
     created: "2023-05-10T18:22:04.709879479Z"
@@ -11900,4 +11919,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-10-10T08:32:35.015535407Z"
+generated: "2025-10-10T08:43:06.711950643Z"
