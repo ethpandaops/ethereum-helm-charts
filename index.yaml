@@ -1384,6 +1384,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.1/blutgang-0.0.1.tgz
     version: 0.0.1
+  cbt-api:
+  - apiVersion: v2
+    created: "2025-10-14T03:57:34.606322749Z"
+    description: API server for CBT
+    digest: 50ca911285bc2b7957195646036eb21b951d79b87e620294470fdccfc4a503b7
+    home: https://github.com/ethpandaops/cbt-api
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: cbt-api
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/cbt-api-0.0.13/cbt-api-0.0.13.tgz
+    version: 0.0.13
   chaos-mesh:
   - apiVersion: v2
     created: "2025-10-10T09:12:20.857974436Z"
@@ -11937,4 +11953,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-10-10T09:12:20.858520292Z"
+generated: "2025-10-14T03:57:34.607378061Z"
