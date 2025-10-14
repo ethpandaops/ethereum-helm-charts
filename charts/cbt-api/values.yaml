@@ -18,11 +18,11 @@ autoscaling:
   targetCPUUtilizationPercentage: 85
 
 image:
-  # -- xatu-cbt-api container image repository
-  repository: ethpandaops/xatu-cbt-api
-  # -- xatu-cbt-api container image tag
+  # -- cbt-api container image repository
+  repository: ethpandaops/cbt-api
+  # -- cbt-api container image tag
   tag: latest
-  # -- xatu-cbt-api container pull policy
+  # -- cbt-api container pull policy
   pullPolicy: IfNotPresent
 
 # -- Secret env variables injected via a created secret
@@ -57,7 +57,7 @@ config:
     enabled: false
     endpoint: "tempo.example.com:443"
     insecure: false
-    service_name: "xatu-cbt-api"
+    service_name: "cbt-api"
     service_version: "1.0.0"
     environment: "mainnet"
     sample_rate: 0.1
@@ -82,10 +82,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# -- Custom args for the xatu-cbt-api container
+# -- Custom args for the cbt-api container
 customArgs: []
 
-# -- Command replacement for the xatu-cbt-api container
+# -- Command replacement for the cbt-api container
 customCommand: [] # Only change this if you need to change the default command
 
 service:
