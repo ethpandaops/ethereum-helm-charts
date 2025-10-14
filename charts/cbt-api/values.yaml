@@ -52,6 +52,21 @@ config:
     write_timeout: 30s
     max_execution_time: 60
     insecure_skip_verify: false
+    discovery:
+      prefixes:
+        - fct
+      exclude:
+
+  proto:
+    output_dir: "./pkg/proto/clickhouse"
+    package: "cbt.v1"
+    go_package: "github.com/ethpandaops/cbt-api/pkg/proto/clickhouse"
+    include_comments: true
+
+  api:
+    base_path: "/api/v1"
+    expose_prefixes:
+      - fct
 
   telemetry:
     enabled: false

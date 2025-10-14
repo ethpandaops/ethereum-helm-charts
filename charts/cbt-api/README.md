@@ -18,9 +18,13 @@ API server for CBT
 | autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
+| config.api.base_path | string | `"/api/v1"` |  |
+| config.api.expose_prefixes[0] | string | `"fct"` |  |
 | config.clickhouse.conn_max_lifetime | string | `"60s"` |  |
 | config.clickhouse.database | string | `"mainnet"` |  |
 | config.clickhouse.dial_timeout | string | `"10s"` |  |
+| config.clickhouse.discovery.exclude | string | `nil` |  |
+| config.clickhouse.discovery.prefixes[0] | string | `"fct"` |  |
 | config.clickhouse.dsn | string | `"https://user:pass@host"` |  |
 | config.clickhouse.insecure_skip_verify | bool | `false` |  |
 | config.clickhouse.max_execution_time | int | `60` |  |
@@ -29,6 +33,10 @@ API server for CBT
 | config.clickhouse.read_timeout | string | `"30s"` |  |
 | config.clickhouse.use_final | bool | `true` |  |
 | config.clickhouse.write_timeout | string | `"30s"` |  |
+| config.proto.go_package | string | `"github.com/ethpandaops/cbt-api/pkg/proto/clickhouse"` |  |
+| config.proto.include_comments | bool | `true` |  |
+| config.proto.output_dir | string | `"./pkg/proto/clickhouse"` |  |
+| config.proto.package | string | `"cbt.v1"` |  |
 | config.server.host | string | `"0.0.0.0"` |  |
 | config.server.idle_timeout | string | `"120s"` |  |
 | config.server.port | int | `8080` |  |
