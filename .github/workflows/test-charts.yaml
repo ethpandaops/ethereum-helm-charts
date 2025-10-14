@@ -72,4 +72,4 @@ jobs:
           --excluded-charts hermes
           --excluded-charts spamoor
           --excluded-charts execution-processor
-          --excluded-charts xatu-cbt-api
+          --excluded-charts cbt-api

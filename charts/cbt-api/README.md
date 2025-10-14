@@ -1,11 +1,11 @@
 
-# xatu-cbt-api
+# cbt-api
 
 ![Version: 0.0.13](https://img.shields.io/badge/Version-0.0.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-API server for Xatu CBT
+API server for CBT
 
-**Homepage:** <https://github.com/ethpandaops/xatu-cbt-api>
+**Homepage:** <https://github.com/ethpandaops/cbt-api>
 
 ## Values
 
@@ -18,9 +18,13 @@ API server for Xatu CBT
 | autoscaling.maxReplicas | int | `3` | Maximum number of replicas |
 | autoscaling.minReplicas | int | `2` | Minimum number of replicas |
 | autoscaling.targetCPUUtilizationPercentage | int | `85` | Target CPU utilization percentage |
+| config.api.base_path | string | `"/api/v1"` |  |
+| config.api.expose_prefixes[0] | string | `"fct"` |  |
 | config.clickhouse.conn_max_lifetime | string | `"60s"` |  |
 | config.clickhouse.database | string | `"mainnet"` |  |
 | config.clickhouse.dial_timeout | string | `"10s"` |  |
+| config.clickhouse.discovery.exclude | string | `nil` |  |
+| config.clickhouse.discovery.prefixes[0] | string | `"fct"` |  |
 | config.clickhouse.dsn | string | `"https://user:pass@host"` |  |
 | config.clickhouse.insecure_skip_verify | bool | `false` |  |
 | config.clickhouse.max_execution_time | int | `60` |  |
@@ -29,6 +33,10 @@ API server for Xatu CBT
 | config.clickhouse.read_timeout | string | `"30s"` |  |
 | config.clickhouse.use_final | bool | `true` |  |
 | config.clickhouse.write_timeout | string | `"30s"` |  |
+| config.proto.go_package | string | `"github.com/ethpandaops/cbt-api/pkg/proto/clickhouse"` |  |
+| config.proto.include_comments | bool | `true` |  |
+| config.proto.output_dir | string | `"./pkg/proto/clickhouse"` |  |
+| config.proto.package | string | `"cbt.v1"` |  |
 | config.server.host | string | `"0.0.0.0"` |  |
 | config.server.idle_timeout | string | `"120s"` |  |
 | config.server.port | int | `8080` |  |
@@ -43,11 +51,11 @@ API server for Xatu CBT
 | config.telemetry.export_timeout | string | `"10s"` |  |
 | config.telemetry.insecure | bool | `false` |  |
 | config.telemetry.sample_rate | float | `0.1` |  |
-| config.telemetry.service_name | string | `"xatu-cbt-api"` |  |
+| config.telemetry.service_name | string | `"cbt-api"` |  |
 | config.telemetry.service_version | string | `"1.0.0"` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| customArgs | list | `[]` | Custom args for the xatu-cbt-api container |
-| customCommand | list | `[]` | Command replacement for the xatu-cbt-api container |
+| customArgs | list | `[]` | Custom args for the cbt-api container |
+| customCommand | list | `[]` | Command replacement for the cbt-api container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
@@ -55,9 +63,9 @@ API server for Xatu CBT
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| image.pullPolicy | string | `"IfNotPresent"` | xatu-cbt-api container pull policy |
-| image.repository | string | `"ethpandaops/xatu-cbt-api"` | xatu-cbt-api container image repository |
-| image.tag | string | `"latest"` | xatu-cbt-api container image tag |
+| image.pullPolicy | string | `"IfNotPresent"` | cbt-api container pull policy |
+| image.repository | string | `"ethpandaops/cbt-api"` | cbt-api container image repository |
+| image.tag | string | `"latest"` | cbt-api container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
