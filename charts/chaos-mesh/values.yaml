@@ -1,0 +1,173 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# Configuration for the official chaos-mesh chart
+chaos-mesh:
+  # -- Override fullname for chaos-mesh to avoid conflicts with other installations
+  fullnameOverride: ""
+
+  # Dashboard configuration
+  webhook:
+    certManager:
+      # -- Enable cert-manager for webhook certificates
+      enabled: false
+    # -- Set failure policy to handle certificate issues
+    FailurePolicy: Ignore
+    # -- Webhook timeout in seconds
+    timeoutSeconds: 10
+
+  dashboard:
+    # -- Create dashboard
+    create: true
+    # -- Enable security mode for dashboard
+    securityMode: false
+    ingress:
+      # -- Enable ingress for dashboard
+      enabled: false
+      # -- Ingress annotations
+      annotations: {}
+        # kubernetes.io/ingress.class: nginx
+        # external-dns.alpha.kubernetes.io/hostname: chaos-mesh.example.com
+      # -- Ingress hosts
+      hosts: []
+        # - name: chaos-mesh.example.com
+        #   paths:
+        #     - path: /
+        #       pathType: Prefix
+      # -- Ingress TLS
+      tls: []
+      #  - secretName: chaos-mesh-tls
+      #    hosts:
+      #      - chaos-mesh.example.com
+
+  # Controller Manager configuration
+  controllerManager:
+    # -- Number of controller manager replicas
+    replicaCount: 1
+    # -- Enable mTLS for physical machine connections
+    chaosdSecurityMode: false
+
+  # Chaos Daemon configuration
+  chaosDaemon:
+    # -- Container runtime (docker, containerd, crio)
+    runtime: containerd
+    # -- Runtime socket path
+    socketPath: /run/containerd/containerd.sock
+
+# Custom physical machines configuration (not supported by upstream chart)
+# These will be created by our custom template
+physicalMachines:
+  # -- Enable creation of physical machine resources
+  enabled: true
+  # -- List of physical machines for chaos testing
+  machines: []
+    # Example configuration:
+    # - name: example-node
+    #   address: "https://username:password@hostname.example.com/chaosd/"
+    #   hostname: "hostname.example.com"
+    #   ip: "192.168.1.100"
+    #   labels:
+    #     consensus: lighthouse
+    #     execution: geth
+    #     nodename: example-node
+    #   annotations:
+    #     description: "Example Ethereum node"
+
+# Pre-built chaos experiments (created in paused state)
+experiments:
+  # -- Enable/disable experiment creation
+  enabled: true
+
+  # Process kill experiments
+  processKill:
+    # -- Enable process kill experiments
+    enabled: false
+    # -- List of process kill experiments
+    experiments: []
+      # Example configuration:
+      # - name: kill-geth-process
+      #   description: "Kill geth process on all nodes"
+      #   process: "geth"
+      #   signal: 9
+      #   duration: "60s"
+      # - name: kill-consensus-process
+      #   description: "Kill consensus client processes"
+      #   process: "lighthouse|grandine|prysm|teku"  # regex pattern
+      #   signal: 15  # SIGTERM for graceful shutdown
+      #   duration: "30s"
+
+  # Network chaos experiments
+  network:
+    # -- Enable network experiments
+    enabled: false
+    # -- Default network device for experiments
+    device: "eth0"
+    # -- List of network experiments
+    experiments: []
+      # Example configurations:
+      # # Automatic split by number of groups
+      # - name: network-partition-2-groups
+      #   description: "Split network into 2 equal groups"
+      #   type: "partition"
+      #   direction: "to"
+      #   device: "eth0"
+      #   duration: "300s"
+      #   autoSplit:
+      #     groups: 2
+      #
+      # # Manual group definition
+      # - name: network-partition-consensus-split
+      #   description: "Isolate lighthouse nodes from grandine nodes"
+      #   type: "partition"
+      #   direction: "to"
+      #   device: "eth0"
+      #   duration: "300s"
+      #   manualGroups:
+      #     - ["lighthouse-node-1"]
+      #     - ["grandine-node-1"]
+      #
+      # # Network delay
+      # - name: network-delay-all
+      #   description: "Add 100ms latency to all nodes"
+      #   type: "delay"
+      #   device: "eth0"
+      #   latency: "100ms"
+      #   jitter: "10ms"
+      #   duration: "180s"
+      #
+      # # Packet loss
+      # - name: network-loss-random
+      #   description: "Random 5% packet loss"
+      #   type: "loss"
+      #   device: "eth0"
+      #   percent: "5"
+      #   duration: "120s"
+
+  # Resource stress experiments
+  stress:
+    # -- Enable stress experiments
+    enabled: false
+    # -- List of stress experiments
+    experiments: []
+      # Example configurations:
+      # - name: cpu-stress-high
+      #   description: "High CPU stress test"
+      #   type: "cpu"
+      #   workers: 4
+      #   load: 30
+      #   duration: "180s"
+      # - name: memory-stress-moderate
+      #   description: "Moderate memory pressure"
+      #   type: "memory"
+      #   workers: 2
+      #   size: "1GB"
+      #   duration: "300s"
+      # - name: disk-io-stress
+      #   description: "Disk I/O stress test"
+      #   type: "disk"
+      #   workers: 2
+      #   size: "100MB"
+      #   duration: "120s"
