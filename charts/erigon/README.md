@@ -21,8 +21,6 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | caplin.enabled | bool | `false` |  |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customCommand | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead. |
-| customCommandRPCDaemon | list | `[]` | Legacy way of overwriting the default command. You may prefer to change defaultCommandRPCDaemonTemplate instead. |
-| defaultCommandRPCDaemonTemplate | string | See `values.yaml` | Template used for the default command |
 | defaultCommandTemplate | string | See `values.yaml` | Template used for the default command |
 | devnet | object | `{"baseUrl":"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs","enabled":false,"initContainer":[{"command":["sh","-ac","mkdir -p /data/devnet;\nif [ ! -f /data/devnet/genesis.json ]; then\n  echo \"Downloading devnet configuration files...\";\n\n  echo \"Downloading genesis.json from {{ tpl .Values.devnet.urls.genesisJson . }}\"\n  wget -O /data/devnet/genesis.json \"{{ tpl .Values.devnet.urls.genesisJson . }}\"\n\n  echo \"Downloading enodes.txt from {{ tpl .Values.devnet.urls.elBootnode . }}\"\n  wget -O /data/devnet/enodes.txt \"{{ tpl .Values.devnet.urls.elBootnode . }}\"\n\n  echo \"Devnet configuration download complete.\";\nelse\n  echo \"Genesis file already exists, skipping download.\";\nfi\n"],"image":"alpine:latest","imagePullPolicy":"IfNotPresent","name":"download-devnet-config","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]},{"command":["sh","-ac","if [ ! -f /data/erigon_initialized ]; then\n  echo \"Initializing Erigon with devnet genesis...\";\n\n  if [ -f /data/devnet/genesis.json ]; then\n    erigon init --datadir=/data /data/devnet/genesis.json\n    echo \"Erigon initialized with genesis file\";\n  fi\n\n  touch /data/erigon_initialized\n  echo \"Erigon devnet initialization complete.\";\nelse\n  echo \"Erigon devnet already initialized, skipping setup.\";\nfi\n"],"image":"{{ .Values.image.repository }}:{{ .Values.image.tag }}","imagePullPolicy":"{{ .Values.image.pullPolicy }}","name":"init-erigon-devnet","securityContext":{"runAsNonRoot":false,"runAsUser":0},"volumeMounts":[{"mountPath":"/data","name":"storage"}]}],"name":"devnet-3","urls":{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}}` | Devnet configuration |
 | devnet.baseUrl | string | `"https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"` | Base URL for devnet configuration files |
@@ -33,10 +31,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | extraArgs | list | `[]` | Extra args for the erigon container |
-| extraArgsRPCDaemon | list | `[]` | Extra args for the rpcdaemon container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables for erigon container |
-| extraEnvRPCDaemon | list | `[]` | Additional env variables for RPCDaemon container |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
@@ -59,9 +55,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
-| livenessProbeRPCDaemon | object | See `values.yaml` | Liveness probe |
 | metricsPort | int | `6060` | Metrics Port |
-| metricsPortRPCDaemon | int | `6061` | RPC Daemon Port |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
@@ -89,10 +83,8 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |
 | rbac.rules | list | See `values.yaml` | Required ClusterRole rules |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
-| readinessProbeRPCDaemon | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits for the erigon container |
-| resourcesRPCDaemon | object | `{}` | Resource requests and limits for the RPC daemon container |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
@@ -140,10 +132,10 @@ p2pNodePort:
   port: 31000
 ```
 
-## Exposing more APIs via the RPC Daemon
+## Customizing HTTP API configuration
 
 ```yaml
-extraArgsRPCDaemon:
+extraArgs:
   - --http.corsdomain=yourdomain.tld
   - --http.api=eth,erigon,web3,net,debug,trace,txpool,db
 ```
