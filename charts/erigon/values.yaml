@@ -22,6 +22,10 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Enable Caplin (Erigon's built-in consensus layer client). When false, --externalcl flag is added.
+caplin:
+  enabled: false
+
 # -- Devnet configuration
 devnet:
   # -- Enable devnet mode
@@ -123,7 +127,11 @@ defaultCommandTemplate: |
     --port={{ include "erigon.p2pPort" . }}
     {{- end }}
   {{- end }}
-    --http=false
+    --http
+    --http.addr=0.0.0.0
+    --http.port={{ .Values.httpPort }}
+    --http.vhosts=*
+    --http.api=eth,erigon,web3,net,debug,trace,txpool
     --private.api.addr=127.0.0.1:9090
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
@@ -133,6 +141,9 @@ defaultCommandTemplate: |
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
+  {{- if not .Values.caplin.enabled }}
+    --externalcl
+  {{- end }}
   {{- if .Values.devnet.enabled }}
     --bootnodes="$(cat /data/devnet/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
@@ -232,7 +243,7 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: metrics
+    port: http-rpc
   initialDelaySeconds: 10
   periodSeconds: 10
 
