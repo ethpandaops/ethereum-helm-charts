@@ -22,6 +22,10 @@ extraArgs: []
 # -- JWT secret used by client as a secret. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Enable Caplin (Erigon's built-in consensus layer client). When false, --externalcl flag is added.
+caplin:
+  enabled: false
+
 # -- Devnet configuration
 devnet:
   # -- Enable devnet mode
@@ -92,11 +96,6 @@ devnet:
         - name: storage
           mountPath: "/data"
 
-# -- Extra args for the rpcdaemon container
-extraArgsRPCDaemon: []
-  #- --http.corsdomain=yourdomain.tld
-  #- --http.api=eth,erigon,web3,net,debug,trace,txpool,db
-
 # -- Template used for the default command
 # @default -- See `values.yaml`
 defaultCommandTemplate: |
@@ -123,7 +122,11 @@ defaultCommandTemplate: |
     --port={{ include "erigon.p2pPort" . }}
     {{- end }}
   {{- end }}
-    --http=false
+    --http
+    --http.addr=0.0.0.0
+    --http.port={{ .Values.httpPort }}
+    --http.vhosts=*
+    --http.api=eth,erigon,web3,net,debug,trace,txpool
     --private.api.addr=127.0.0.1:9090
     --authrpc.jwtsecret=/data/jwt.hex
     --authrpc.addr=0.0.0.0
@@ -133,6 +136,9 @@ defaultCommandTemplate: |
     --metrics
     --metrics.addr=0.0.0.0
     --metrics.port={{ .Values.metricsPort }}
+  {{- if not .Values.caplin.enabled }}
+    --externalcl
+  {{- end }}
   {{- if .Values.devnet.enabled }}
     --bootnodes="$(cat /data/devnet/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
@@ -140,33 +146,8 @@ defaultCommandTemplate: |
     {{ tpl . $ }}
   {{- end }}
 
-# -- Template used for the default command
-# @default -- See `values.yaml`
-defaultCommandRPCDaemonTemplate: |
-  - sh
-  - -ac
-  - >
-    until timeout 1 bash -c ">/dev/tcp/127.0.0.1/9090" 2>/dev/null; do echo "Waiting for erigon..."; sleep 1; done;
-    exec rpcdaemon
-    --datadir=/data
-    --private.api.addr=127.0.0.1:9090
-    --txpool.api.addr=127.0.0.1:9090
-    --http.addr=0.0.0.0
-    --http.port={{ .Values.httpPort }}
-    --http.vhosts=*
-    --ws
-    --metrics
-    --metrics.addr=0.0.0.0
-    --metrics.port={{ .Values.metricsPortRPCDaemon }}
-  {{- range .Values.extraArgsRPCDaemon }}
-    {{ tpl . $ }}
-  {{- end }}
-
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplate instead.
 customCommand: []
-
-# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandRPCDaemonTemplate instead.
-customCommandRPCDaemon: [] # Only change this if you need to change the default command
 
 # When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
 # This is useful if you want to expose and announce your node to the Internet.
@@ -232,22 +213,6 @@ livenessProbe:
 # @default -- See `values.yaml`
 readinessProbe:
   tcpSocket:
-    port: metrics
-  initialDelaySeconds: 10
-  periodSeconds: 10
-
-# -- Liveness probe
-# @default -- See `values.yaml`
-livenessProbeRPCDaemon:
-  tcpSocket:
-    port: http-rpc
-  initialDelaySeconds: 60
-  periodSeconds: 120
-
-# -- Readiness probe
-# @default -- See `values.yaml`
-readinessProbeRPCDaemon:
-  tcpSocket:
     port: http-rpc
   initialDelaySeconds: 10
   periodSeconds: 10
@@ -263,9 +228,6 @@ authPort: 8551
 
 # -- Metrics Port
 metricsPort: 6060
-
-# -- RPC Daemon Port
-metricsPortRPCDaemon: 6061
 
 # -- Node selector for pods
 nodeSelector: {}
@@ -331,15 +293,6 @@ rbac:
 
 # -- Resource requests and limits for the erigon container
 resources: {}
-# limits:
-#   cpu: 500m
-#   memory: 2Gi
-# requests:
-#   cpu: 300m
-#   memory: 1Gi
-
-# -- Resource requests and limits for the RPC daemon container
-resourcesRPCDaemon: {}
 # limits:
 #   cpu: 500m
 #   memory: 2Gi
@@ -416,9 +369,6 @@ extraPorts: []
 
 # -- Additional env variables for erigon container
 extraEnv: []
-
-# -- Additional env variables for RPCDaemon container
-extraEnvRPCDaemon: []
 
 # -- Additional env variables injected via a created secret
 secretEnv: {}
