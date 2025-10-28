@@ -139,6 +139,27 @@ The [CT (Chart Testing)](https://github.com/helm/chart-testing) tool is used to 
 make lint
 ```
 
+### Before creating a Pull Request
+
+Before submitting a pull request, run the following command to ensure all documentation is generated, dependencies are updated, and linting passes:
+
+```sh
+make all
+```
+
+This will:
+1. Generate documentation for all charts using helm-docs
+2. Update `ethereum-node` chart dependencies to use the latest versions from local Chart.yaml files (and bump its version if changes are detected)
+3. Update Chart.lock with the new dependency versions
+4. Run chart linting and validation
+
+**Note**: The dependency update process reads versions from local chart directories (e.g., `charts/besu/Chart.yaml`) and updates `charts/ethereum-node/Chart.yaml` accordingly. The `helm dependency update` command will download chart packages from the published repository to update Chart.lock. This means you should run `make` after bumping any chart version to ensure ethereum-node stays in sync.
+
+You can also run individual targets:
+- `make docs` - Generate chart documentation
+- `make update-ethereum-node-deps` - Update ethereum-node dependencies
+- `make lint` - Run chart linting
+
 ## License
 
 [MIT License](LICENSE)
