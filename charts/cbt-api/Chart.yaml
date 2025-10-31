@@ -3,7 +3,7 @@ name: cbt-api
 description: API server for CBT
 home: https://github.com/ethpandaops/cbt-api
 type: application
-version: 0.0.13
+version: 0.0.14
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org
