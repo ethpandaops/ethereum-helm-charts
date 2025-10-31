@@ -1,7 +1,7 @@
 
 # cbt-api
 
-![Version: 0.0.13](https://img.shields.io/badge/Version-0.0.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.14](https://img.shields.io/badge/Version-0.0.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 API server for CBT
 
@@ -33,6 +33,7 @@ API server for CBT
 | config.clickhouse.read_timeout | string | `"30s"` |  |
 | config.clickhouse.use_final | bool | `true` |  |
 | config.clickhouse.write_timeout | string | `"30s"` |  |
+| config.headers.policies | list | `[]` |  |
 | config.proto.go_package | string | `"github.com/ethpandaops/cbt-api/pkg/proto/clickhouse"` |  |
 | config.proto.include_comments | bool | `true` |  |
 | config.proto.output_dir | string | `"./pkg/proto/clickhouse"` |  |
