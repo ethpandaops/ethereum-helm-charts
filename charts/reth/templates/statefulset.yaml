@@ -114,6 +114,12 @@ spec:
               mountPath: "/data/jwt.hex"
               subPath: jwt.hex
               readOnly: true
+            {{- if .Values.config }}
+            - name: config
+              mountPath: "/data/config.toml"
+              subPath: config.toml
+              readOnly: true
+            {{- end }}
           ports:
             {{- if .Values.extraContainerPorts }}
               {{ toYaml .Values.extraContainerPorts | nindent 12}}
@@ -178,6 +184,11 @@ spec:
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}
+      {{- end }}
+      {{- if .Values.config }}
+        - name: config
+          configMap:
+            name: {{ include "reth.fullname" . }}-configmap
       {{- end }}
       {{- if .Values.extraVolumes }}
         {{ toYaml .Values.extraVolumes | nindent 8}}
