@@ -3060,6 +3060,20 @@ entries:
     version: 0.1.0
   ethereum-address-metrics-exporter:
   - apiVersion: v2
+    created: "2025-11-05T09:43:14.964123403Z"
+    description: A prometheus exporter for Ethereum externally owned account and contract
+      addresses
+    digest: 1c59a59ed56d77c8628c54c73ba7c54480e7143fb4d0b78600a4a521fd26bdea
+    home: https://github.com/ethpandaops/ethereum-address-metrics-exporter
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: ethereum-address-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-address-metrics-exporter-0.2.0/ethereum-address-metrics-exporter-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2024-08-08T15:22:44.442903201Z"
     description: A prometheus exporter for Ethereum externally owned account and contract
       addresses
@@ -11990,4 +12004,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-10-31T06:26:09.940610331Z"
+generated: "2025-11-05T09:43:14.965359351Z"
