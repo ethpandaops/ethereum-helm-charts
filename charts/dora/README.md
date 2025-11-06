@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -80,7 +80,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.registry | string | `"docker.io"` |  |
-| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
+| postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
 | postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
 | postgresql.persistence.enabled | bool | `true` |  |
