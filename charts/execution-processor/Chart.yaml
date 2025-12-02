@@ -3,7 +3,7 @@ name: execution-processor
 description: A distributed system for processing Ethereum execution layer data with support for transaction structlogs, leader election, and horizontal scaling
 home: https://github.com/ethpandaops/execution-processor
 type: application
-version: 0.0.2
+version: 0.0.3
 maintainers:
   - name: savid
     email: andrew.davis@ethereum.org
