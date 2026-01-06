@@ -77,7 +77,24 @@ spec:
           securityContext:
             runAsNonRoot: false
             runAsUser: 0
-          command: ["chown", "-R", "{{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsGroup }}", "/data"]
+          command:
+            - sh
+            - -c
+            - |
+              # ethrex-specific: Remove lost+found from fresh PVCs
+              # ethrex uses dir_is_empty() to detect existing databases (PR #5597).
+              # If datadir is non-empty but has no metadata.json, it fails with "Incompatible DB Version".
+              # ext4 filesystems create lost+found on fresh volumes, triggering this false positive.
+              # This removes lost+found ONLY if it's the only item in /data (fresh volume).
+              # See: https://github.com/lambdaclass/ethrex/pull/5597 (validate_store_schema_version)
+              if [ -d /data/lost+found ]; then
+                count=$(ls -A /data | wc -l)
+                if [ "$count" -eq 1 ]; then
+                  echo "Fresh volume detected: removing lost+found directory"
+                  rm -rf /data/lost+found
+                fi
+              fi
+              chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.runAsGroup }} /data
           resources:
       {{ toYaml .Values.initChownData.resources | nindent 12 }}
           volumeMounts:
@@ -110,8 +127,9 @@ spec:
             {{- end }}
             - name: storage
               mountPath: "/data"
+            # JWT mounted at /secrets (matches ethrex docker-compose convention)
             - name: jwt
-              mountPath: "/data/jwt.hex"
+              mountPath: "/secrets/jwt.hex"
               subPath: jwt.hex
               readOnly: true
           ports:

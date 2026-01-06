@@ -104,7 +104,7 @@ defaultCommandArgsTemplate: >
   --ws.enabled
   --ws.addr=0.0.0.0
   --ws.port={{ .Values.wsPort }}
-  --authrpc.jwtsecret=/data/jwt.hex
+  --authrpc.jwtsecret=/secrets/jwt.hex
   --authrpc.addr=0.0.0.0
   --authrpc.port={{ .Values.authPort }}
   {{- if .Values.metricsPort }}
