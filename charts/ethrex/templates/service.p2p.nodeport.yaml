@@ -1,0 +1,28 @@
+{{- if .Values.p2pNodePort.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ethrex.fullname" $ }}-p2p-0
+  labels:
+    {{- include "ethrex.labels" $ | nindent 4 }}
+    pod: {{ include "ethrex.fullname" $ }}-0
+    type: p2p
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: p2p-tcp
+      port: {{ include "ethrex.p2pPort" $ }}
+      protocol: TCP
+      targetPort: p2p-tcp
+      nodePort: {{ include "ethrex.p2pPort" $ }}
+    - name: p2p-udp
+      port: {{ include "ethrex.p2pPort" $ }}
+      protocol: UDP
+      targetPort: p2p-udp
+      nodePort: {{ include "ethrex.p2pPort" $ }}
+  selector:
+    {{- include "ethrex.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: "{{ include "ethrex.fullname" $ }}-0"
+{{- end }}

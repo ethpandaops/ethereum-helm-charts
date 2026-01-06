@@ -52,20 +52,20 @@ jobs:
       - name: Validate devnet template rendering
         run: |
           echo "🔍 Testing devnet template rendering for ${{ matrix.client }}"
-          
+
           # Test with devnet disabled (default)
           helm template test-default charts/${{ matrix.client }} > /tmp/default.yaml
-          
+
           # Test with devnet enabled
           helm template test-devnet charts/${{ matrix.client }} -f charts/${{ matrix.client }}/ci/devnet-values.yaml > /tmp/devnet.yaml
-          
+
           # Verify devnet-specific configurations appear in the devnet template
           if grep -q "devnet" /tmp/devnet.yaml; then
             echo "✅ Devnet configuration found in template for ${{ matrix.client }}"
           else
             echo "⚠️  No devnet configuration found in template for ${{ matrix.client }} (may be conditional)"
           fi
-          
+
           # Verify no devnet configuration in default template
           if ! grep -q "devnet" /tmp/default.yaml; then
             echo "✅ No devnet configuration in default template for ${{ matrix.client }}"
@@ -85,19 +85,19 @@ jobs:
       - name: Verify devnet values structure
         run: |
           echo "📝 Verifying devnet values structure for ${{ matrix.client }}"
-          
+
           # Check that devnet section exists in values.yaml
           if ! grep -q "^devnet:" charts/${{ matrix.client }}/values.yaml; then
             echo "❌ Missing devnet section in values.yaml for ${{ matrix.client }}"
             exit 1
           fi
-          
+
           # Check that devnet is enabled in CI values
           if ! grep -q "enabled: true" charts/${{ matrix.client }}/ci/devnet-values.yaml; then
             echo "❌ Devnet not enabled in CI values for ${{ matrix.client }}"
             exit 1
           fi
-          
+
           echo "✅ Devnet values structure valid for ${{ matrix.client }}"
 
   test-devnet-summary:
