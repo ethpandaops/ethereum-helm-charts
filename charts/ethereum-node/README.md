@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.5](https://img.shields.io/badge/Version-0.2.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -18,6 +18,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | https://ethpandaops.github.io/ethereum-helm-charts | erigon | 1.1.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethereum-metrics-exporter | 0.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethereumjs | 0.1.1 |
+| https://ethpandaops.github.io/ethereum-helm-charts | ethrex | 0.1.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | geth | 1.1.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | grandine | 0.2.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | lighthouse | 1.1.7 |
