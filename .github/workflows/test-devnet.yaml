@@ -19,6 +19,7 @@ jobs:
           - besu
           - erigon
           - ethereumjs
+          - ethrex
           - geth
           - nethermind
           - reth
