@@ -6125,6 +6125,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereumjs-0.0.1/ethereumjs-0.0.1.tgz
     version: 0.0.1
+  ethrex:
+  - apiVersion: v2
+    created: "2026-01-06T03:49:17.978882715Z"
+    description: 'Ethrex is an Ethereum execution client developed by Lambda Class.
+      It is written in Rust and designed to be modular, efficient, and fully compatible
+      with Ethereum''s Engine API for connecting to consensus layer clients. '
+    digest: ac092a3bfabb48942172f577c9223878f630c79270e3d3e66edee2dc494578fe
+    home: https://github.com/lambdaclass/ethrex
+    icon: https://avatars.githubusercontent.com/u/6535196
+    maintainers:
+    - email: matt.evans@ethereum.org
+      name: mattevans
+    name: ethrex
+    sources:
+    - https://github.com/lambdaclass/ethrex
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethrex-0.1.0/ethrex-0.1.0.tgz
+    version: 0.1.0
   ethstats:
   - apiVersion: v2
     created: "2023-05-10T18:22:06.326202529Z"
@@ -12041,4 +12060,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2025-12-02T04:58:21.836686995Z"
+generated: "2026-01-06T03:49:17.980980065Z"
