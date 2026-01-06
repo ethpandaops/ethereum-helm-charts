@@ -1,5 +1,0 @@
-# CI test values for Ethrex devnet configuration
-devnet:
-  enabled: true
-  name: "devnet-3"
-  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
