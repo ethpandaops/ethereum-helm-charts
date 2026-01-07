@@ -118,6 +118,12 @@ apiDisableDefaultRateLimit: false
 # -- Allowed CORS origins
 apiCorsOrigins: []
 
+# -- Enable execution data indexer
+executionIndexerEnabled: false
+
+# -- Execution data retention time
+executionIndexerRetention: "720h" # 1 month
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -306,6 +312,13 @@ config: |
 
       # max number of parallel state requests to make to the CL clients
       maxParallelValidatorSetRequests: 2
+
+    executionIndexer:
+      # enable execution data indexing
+      enabled: {{ .Values.executionIndexerEnabled }}
+
+      # history retention time
+      retention: {{ .Values.executionIndexerRetention }}
 
     database:
       engine: "pgsql"
