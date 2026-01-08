@@ -1,0 +1,13 @@
+apiVersion: v2
+name: ethrex
+description: >
+  Ethrex is an Ethereum execution client developed by Lambda Class. It is written in Rust and designed to be modular, efficient, and fully compatible with Ethereum's Engine API for connecting to consensus layer clients.
+home: https://github.com/lambdaclass/ethrex
+icon: https://avatars.githubusercontent.com/u/6535196
+sources:
+  - https://github.com/lambdaclass/ethrex
+type: application
+version: 0.1.0
+maintainers:
+  - name: mattevans
+    email: matt.evans@ethereum.org

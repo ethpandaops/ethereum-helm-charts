@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "ethrex.fullname" . }}-test-connection"
+  labels:
+    {{- include "ethrex.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: netcat
+      image: busybox
+      command: ['nc']
+      args:
+        - -z
+        - -v
+        - '{{ include "ethrex.fullname" . }}'
+        - '{{ include "ethrex.p2pPort" . }}'
+  restartPolicy: Never

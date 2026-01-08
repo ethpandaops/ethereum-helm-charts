@@ -19,6 +19,7 @@ global:
           besu: []
           erigon: []
           ethereumjs: []
+          ethrex: []
           geth: []
           nethermind: []
           reth: []
@@ -36,6 +37,8 @@ global:
           erigon:
             - --chain=sepolia
           ethereumjs:
+            - --network=sepolia
+          ethrex:
             - --network=sepolia
           geth:
             - --sepolia
@@ -64,6 +67,8 @@ global:
             - --chain=holesky
           ethereumjs:
             - --network=holesky
+          ethrex:
+            - --network=holesky
           geth:
             - --holesky
           nethermind:
@@ -90,6 +95,8 @@ global:
           erigon:
             - --chain=hoodi
           ethereumjs:
+            - --network=hoodi
+          ethrex:
             - --network=hoodi
           geth:
             - --hoodi
@@ -218,6 +225,24 @@ reth:
     - >-
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range $i, $v := .execution.reth }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
+ethrex:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  wsPort: 8546
+  p2pPort: 30303
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.ethrex }}
         {{- if (eq $i 0) }}
         {{- $v }}
         {{- else }}
