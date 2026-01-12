@@ -19,7 +19,7 @@ dependencies:
   version: 0.1.4
 - name: ethrex
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.0
+  version: 0.1.1
 - name: grandine
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.2.1
@@ -47,5 +47,5 @@ dependencies:
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
-digest: sha256:5f5e3e62d01587384dedb4829a602999caf2a819488217fb91167b76c6d5d166
-generated: "2026-01-06T13:50:44.187814+10:00"
+digest: sha256:0fdc86ab706fc3b7a66d4baef1162a50d0f798b9388ba08132eab50cf96a6ed9
+generated: "2026-01-12T15:25:05.073584+10:00"

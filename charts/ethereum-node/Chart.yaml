@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.5
+version: 0.2.6
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -39,7 +39,7 @@ dependencies:
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: reth.enabled
 - name: ethrex
-  version: "0.1.0"
+  version: "0.1.1"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: ethrex.enabled
 
