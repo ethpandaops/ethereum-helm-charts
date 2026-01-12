@@ -7,7 +7,7 @@ icon: https://avatars.githubusercontent.com/u/6535196
 sources:
   - https://github.com/lambdaclass/ethrex
 type: application
-version: 0.1.0
+version: 0.1.1
 maintainers:
   - name: mattevans
     email: matt.evans@ethereum.org
