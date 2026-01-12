@@ -165,6 +165,15 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# -- Use the host network namespace
+# Required for ethrex when using p2pNodePort because ethrex doesn't support separate bind/advertise addresses yet
+# See: https://github.com/lambdaclass/ethrex/issues/5425
+hostNetwork: false
+
+# -- DNS policy for pods
+# When hostNetwork is true, this should be set to ClusterFirstWithHostNet
+dnsPolicy: ""
+
 # -- Affinity configuration for pods
 affinity: {}
 

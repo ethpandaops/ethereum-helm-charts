@@ -1,7 +1,7 @@
 
 # ethrex
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethrex is an Ethereum execution client developed by Lambda Class. It is written in Rust and designed to be modular, efficient, and fully compatible with Ethereum's Engine API for connecting to consensus layer clients.
 
@@ -30,6 +30,7 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
+| dnsPolicy | string | `""` | DNS policy for pods When hostNetwork is true, this should be set to ClusterFirstWithHostNet |
 | extraArgs | list | `[]` | Extra args for the ethrex container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |
@@ -39,6 +40,7 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | homeDir | string | `"/data"` | Home directory for ethrex |
+| hostNetwork | bool | `false` | Use the host network namespace Required for ethrex when using p2pNodePort because ethrex doesn't support separate bind/advertise addresses yet See: https://github.com/lambdaclass/ethrex/issues/5425 |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | ethrex container pull policy |
 | image.repository | string | `"ghcr.io/lambdaclass/ethrex"` | ethrex container image repository |
