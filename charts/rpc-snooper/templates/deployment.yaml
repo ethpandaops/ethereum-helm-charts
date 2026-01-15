@@ -49,7 +49,7 @@ spec:
             - ./json_rpc_snoop
             - --bind-address=0.0.0.0
             - --port={{ .Values.httpPort }}
-            - "{{ .Values.url }}"
+            - "{{ tpl .Values.url . }}"
           {{- end }}
           {{- if gt (len .Values.customArgs) 0 }}
           args:

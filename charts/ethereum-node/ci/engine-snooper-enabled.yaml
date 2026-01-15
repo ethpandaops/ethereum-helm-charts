@@ -1,0 +1,13 @@
+global:
+  main:
+    network: "mainnet"
+    engineSnooper:
+      enabled: true
+  checkpointSync:
+    enabled: true
+
+geth:
+  enabled: true
+
+lighthouse:
+  enabled: true
