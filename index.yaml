@@ -3332,6 +3332,93 @@ entries:
     version: 0.1.0
   ethereum-node:
   - apiVersion: v2
+    created: "2026-01-15T05:56:38.160974198Z"
+    dependencies:
+    - condition: besu.enabled
+      name: besu
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: erigon.enabled
+      name: erigon
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: ethereumjs.enabled
+      name: ethereumjs
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.1
+    - condition: geth.enabled
+      name: geth
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.1
+    - condition: nethermind.enabled
+      name: nethermind
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.0
+    - condition: reth.enabled
+      name: reth
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.4
+    - condition: ethrex.enabled
+      name: ethrex
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.1.1
+    - condition: grandine.enabled
+      name: grandine
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.2.1
+    - condition: lighthouse.enabled
+      name: lighthouse
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.1.7
+    - condition: lodestar.enabled
+      name: lodestar
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: nimbus.enabled
+      name: nimbus
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: prysm.enabled
+      name: prysm
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: teku.enabled
+      name: teku
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 1.2.0
+    - condition: ethereum-metrics-exporter.enabled
+      name: ethereum-metrics-exporter
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.2.0
+    - condition: xatu-sentry.enabled
+      name: xatu-sentry
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.0.8
+    - condition: tracoor-agent.enabled
+      name: tracoor-agent
+      repository: https://ethpandaops.github.io/ethereum-helm-charts
+      version: 0.0.1
+    - condition: global.main.engineSnooper.enabled
+      name: rpc-snooper
+      repository: file://../rpc-snooper
+      version: 0.0.2
+    description: 'This chart acts as an umbrella chart and allows to run a ethereum
+      execution and consensus layer client. It''s also able to deploy optional monitoring
+      applications. '
+    digest: 5389d0d78bc6ab13ec3e9a1039a5252afd098dbaab0b7c69c0d844d094d154f6
+    home: https://ethereum.org
+    icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: ethereum-node
+    sources:
+    - https://github.com/ethpandaops/ethereum-helm-charts
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-node-0.2.7/ethereum-node-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
     created: "2026-01-12T05:31:33.221719162Z"
     dependencies:
     - condition: besu.enabled
@@ -9601,6 +9688,24 @@ entries:
     version: 0.0.1
   prysm:
   - apiVersion: v2
+    created: "2026-01-15T05:56:38.367471497Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: daf8b039389d17dd95279d16359d79da1a9387972d5291977ab0acf22b7a1eec
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.2.1/prysm-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:36.067382577Z"
     description: An open-source Ethereum 2.0 client, written in Go
     digest: 603f2ca5c0246a3fb41235729b0022082d915dabc1e61fcbc751b62db7158425
@@ -10503,6 +10608,22 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-proxy-0.1.0/rpc-proxy-0.1.0.tgz
     version: 0.1.0
   rpc-snooper:
+  - apiVersion: v2
+    created: "2026-01-15T05:56:38.523402374Z"
+    description: Lightweight RPC proxy tool designed for debugging and monitoring
+      RPC calls between Ethereum clients
+    digest: 07e314ec8564e1afb3dbac4ca1f3125466d439d6f64548c910788800d3ae77e4
+    home: https://github.com/ethpandaops/rpc-snooper
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: philipp@pk910.de
+      name: pk910
+    name: rpc-snooper
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-snooper-0.0.2/rpc-snooper-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     created: "2024-04-19T13:21:13.706721747Z"
     description: Lightweight RPC proxy tool designed for debugging and monitoring
@@ -12267,4 +12388,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-01-12T05:31:33.22255453Z"
+generated: "2026-01-15T05:56:38.524472465Z"
