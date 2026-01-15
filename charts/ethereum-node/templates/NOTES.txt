@@ -73,5 +73,8 @@ Infos about your ethereum node installation:
 - Network: {{ .Values.global.main.network }}
 - Execution layer client: {{ printf "%s" $elName }}
 - Consensus layer client: {{ printf "%s" $clName }}
+{{- if .Values.global.main.engineSnooper.enabled }}
+- Engine API proxy: enabled (rpc-snooper)
+{{- end }}
 
 =====

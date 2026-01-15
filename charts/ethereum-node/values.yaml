@@ -2,6 +2,8 @@ global:
   main:
     network: mainnet
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
+    engineSnooper:
+      enabled: false
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
     wsEndpoint: ws://{{ .Release.Name }}-execution:8546
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
@@ -267,7 +269,7 @@ grandine:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --eth1-rpc-urls={{ tpl .Values.global.main.engineEndpoint . }}
+      --eth1-rpc-urls={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.grandine }}
         {{ . }}
@@ -284,7 +286,7 @@ lighthouse:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.lighthouse }}
         {{ . }}
@@ -301,7 +303,7 @@ teku:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --ee-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.teku }}
         {{ . }}
@@ -318,7 +320,7 @@ lodestar:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution.urls={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.lodestar }}
         {{ . }}
@@ -335,7 +337,7 @@ prysm:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.prysm }}
         {{ . }}
@@ -353,7 +355,7 @@ nimbus:
     network: "{{ .Values.global.main.network }}"
   extraArgs:
     - >-
-      --web3-url={{ tpl .Values.global.main.engineEndpoint . }}
+      --web3-url={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.nimbus }}
         {{ . }}
@@ -426,3 +428,14 @@ tracoor-agent:
         region: "us-east-1"
         endpoint: http://localhost:9000
         bucket_name: tracoor
+
+########################
+###
+###  Engine API Proxy
+###
+########################
+
+rpc-snooper:
+  nameOverride: engine-snooper
+  httpPort: 8551
+  url: "{{ tpl .Values.global.main.engineEndpoint . }}"
