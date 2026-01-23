@@ -381,6 +381,26 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2026-01-23T09:53:31.208418817Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: 80865d1190588f8efc126f734dfd05128a8e5bafdde28f91d3bddc1d153ca03e
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-1.1.2/besu-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2025-08-08T03:44:10.468400473Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -2347,6 +2367,28 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eleel-0.1.0/eleel-0.1.0.tgz
     version: 0.1.0
   erigon:
+  - apiVersion: v2
+    created: "2026-01-23T09:53:31.373819714Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: bda95d9e8cf055d5513e9b1658eb94bd06a5b7831501cf1f8a5f4203553ff6d8
+    home: https://twitter.com/ErigonEth
+    icon: https://pbs.twimg.com/profile_images/1420080204148576274/-4OFIs2x_400x400.jpg
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-2.0.1/erigon-2.0.1.tgz
+    version: 2.0.1
   - apiVersion: v2
     created: "2025-10-28T08:44:05.767425699Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
@@ -7001,6 +7043,27 @@ entries:
     version: 0.1.0
   geth:
   - apiVersion: v2
+    created: "2026-01-23T09:53:31.538112049Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 714420f7fa1f700c34b0d27f5b0f0147ee64699856206ddc5b51c462fa15e7d2
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-1.1.2/geth-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     created: "2025-08-08T03:44:11.03200958Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
       of the Ethereum protocol. Currently, it is the most widespread client with the
@@ -9687,6 +9750,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-0.0.1/powfaucet-0.0.1.tgz
     version: 0.0.1
   prysm:
+  - apiVersion: v2
+    created: "2026-01-23T09:53:31.717610119Z"
+    description: An open-source Ethereum 2.0 client, written in Go
+    digest: e44c0c53a91ee4faec82f51130402857403adc304bc8d38eb32ab7243c8284b8
+    home: https://docs.prylabs.network/docs/getting-started/
+    icon: https://launchpad.ethereum.org/static/media/prysmatic-labs-circle.96c803fe.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: prysm
+    sources:
+    - https://github.com/prysmaticlabs/prysm
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-1.2.2/prysm-1.2.2.tgz
+    version: 1.2.2
   - apiVersion: v2
     created: "2026-01-15T05:56:38.367471497Z"
     description: An open-source Ethereum 2.0 client, written in Go
@@ -12388,4 +12469,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-01-15T05:56:38.524472465Z"
+generated: "2026-01-23T09:53:31.71855087Z"
