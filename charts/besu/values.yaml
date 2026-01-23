@@ -109,6 +109,7 @@ defaultCommandTemplate: |
     --metrics-port={{ .Values.metricsPort }}
   {{- if .Values.devnet.enabled }}
     --genesis-file=/data/devnet_config/genesis.json
+    --network-id=$(cat /data/devnet_config/genesis.json | grep -o '"chainId"[[:space:]]*:[[:space:]]*[0-9]*' | grep -o '[0-9]*')
     --bootnodes="$(cat /data/devnet_config/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
   {{- range .Values.extraArgs }}

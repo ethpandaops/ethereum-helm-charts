@@ -152,7 +152,7 @@ defaultBeaconCommandTemplate: |
   {{- if .Values.devnet.enabled }}
     --genesis-state=/data/testnet_spec/genesis.ssz
     --chain-config-file=/data/testnet_spec/config.yaml
-    --bootstrap-node="$(cat /data/testnet_spec/bootstrap_nodes.txt | tr '\n' ',' | sed 's/,$//')"
+    --bootstrap-node=/data/testnet_spec/bootstrap_nodes.yaml
     --contract-deployment-block="$(cat /data/testnet_spec/deposit_contract_block.txt)"
   {{- end }}
   {{- range .Values.extraArgs }}
