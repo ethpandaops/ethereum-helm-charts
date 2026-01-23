@@ -140,6 +140,7 @@ defaultCommandTemplate: |
     --externalcl
   {{- end }}
   {{- if .Values.devnet.enabled }}
+    --networkid=$(cat /data/devnet/genesis.json | grep -o '"chainId"[[:space:]]*:[[:space:]]*[0-9]*' | grep -o '[0-9]*')
     --bootnodes="$(cat /data/devnet/enodes.txt | tr '\n' ',' | sed 's/,$//')"
   {{- end }}
   {{- range .Values.extraArgs }}
