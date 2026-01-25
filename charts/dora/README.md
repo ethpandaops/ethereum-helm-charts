@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.4](https://img.shields.io/badge/Version-1.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.5](https://img.shields.io/badge/Version-1.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -116,6 +116,8 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
+| tracoorNetwork | string | `""` | Tracoor network |
+| tracoorUrl | string | `""` | Tracoor URL |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 | validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml ranges section |
