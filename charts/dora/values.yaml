@@ -124,6 +124,12 @@ executionIndexerEnabled: false
 # -- Execution data retention time
 executionIndexerRetention: "720h" # 1 month
 
+# -- Tracoor URL
+tracoorUrl: ""
+
+# -- Tracoor network
+tracoorNetwork: ""
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -194,6 +200,12 @@ config: |
       showSubmitDeposit: true
       showSubmitElRequests: true
       showValidatorSummary: true
+
+      {{- if .Values.tracoorUrl }}
+      # Tracoor cross references
+      tracoorUrl: "{{ .Values.tracoorUrl }}"
+      tracoorNetwork: "{{ .Values.tracoorNetwork }}"
+      {{- end }}
 
     rateLimit:
       enabled: true
