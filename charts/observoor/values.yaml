@@ -1,0 +1,240 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- observoor container image repository
+  repository: ethpandaops/observoor
+  # -- observoor container image tag
+  tag: latest
+  # -- observoor container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+# -- Command arguments
+args: []
+
+config:
+  # -- Log level (debug, info, warn, error)
+  logLevel: info
+
+  # -- Beacon node configuration
+  beacon:
+    # -- Beacon node HTTP API endpoint
+    endpoint: http://localhost:5052
+    # -- HTTP request timeout
+    timeout: 10s
+
+  # -- Process discovery configuration
+  pid:
+    # -- Discover processes by name (scans /proc)
+    # If empty, defaults to all known Ethereum client names
+    processNames: []
+    # -- Discover processes by cgroup v2 path
+    # cgroupPath: /sys/fs/cgroup/ethereum.slice
+
+  # -- BPF ring buffer size in bytes (default 4MB)
+  ringBufferSize: 4194304
+
+  # -- Beacon sync status polling frequency
+  syncPollInterval: 30s
+
+  # -- Data export sinks configuration
+  sinks:
+    # -- Raw events sink - writes every event to ClickHouse
+    raw:
+      enabled: true
+      clickhouse:
+        endpoint: clickhouse:9000
+        database: observoor
+        table: raw_events
+        batchSize: 10000
+        flushInterval: 1s
+        username: ""
+        password: ""
+      sampleRate: 1.0
+      includeFilenames: true
+
+    # -- Slot aggregation sink - aggregates per Ethereum slot
+    slot:
+      enabled: true
+
+    # -- Window aggregation sink - aggregates over fixed time intervals
+    window:
+      enabled: false
+      interval: 500ms
+      clickhouse:
+        endpoint: clickhouse:9000
+        database: observoor
+        table: window_events
+        batchSize: 10000
+        flushInterval: 1s
+
+    # -- Aggregated metrics sink - high-cardinality metrics with histograms
+    aggregated:
+      enabled: false
+      resolution:
+        interval: 1s
+        slotAligned: true
+      dimensions:
+        network:
+          includePort: true
+          includeDirection: true
+        disk:
+          includeDevice: true
+          includeRw: true
+
+  # -- Prometheus metrics server address
+  healthAddr: ":9090"
+
+# -- Custom args for the observoor container
+customArgs: []
+
+# -- Command replacement for the observoor container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Number of replicas
+replicas: 1
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext: {}
+  # Note: observoor requires privileged mode for eBPF
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext:
+  privileged: true
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 90
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 15s
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
