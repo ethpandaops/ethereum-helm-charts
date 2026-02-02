@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "observoor.fullname" . }}
+  labels:
+    {{- include "observoor.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    log_level: {{ .Values.config.logLevel }}
+
+    beacon:
+      endpoint: {{ .Values.config.beacon.endpoint }}
+      timeout: {{ .Values.config.beacon.timeout }}
+
+    {{- if or .Values.config.pid.processNames .Values.config.pid.cgroupPath }}
+    pid:
+      {{- if .Values.config.pid.processNames }}
+      process_names:
+        {{- toYaml .Values.config.pid.processNames | nindent 8 }}
+      {{- end }}
+      {{- if .Values.config.pid.cgroupPath }}
+      cgroup_path: {{ .Values.config.pid.cgroupPath }}
+      {{- end }}
+    {{- end }}
+
+    ring_buffer_size: {{ .Values.config.ringBufferSize | int }}
+    sync_poll_interval: {{ .Values.config.syncPollInterval }}
+
+    sinks:
+      raw:
+        enabled: {{ .Values.config.sinks.raw.enabled }}
+        {{- if .Values.config.sinks.raw.enabled }}
+        clickhouse:
+          endpoint: {{ .Values.config.sinks.raw.clickhouse.endpoint }}
+          database: {{ .Values.config.sinks.raw.clickhouse.database }}
+          table: {{ .Values.config.sinks.raw.clickhouse.table }}
+          batch_size: {{ .Values.config.sinks.raw.clickhouse.batchSize | int }}
+          flush_interval: {{ .Values.config.sinks.raw.clickhouse.flushInterval }}
+          {{- if .Values.config.sinks.raw.clickhouse.username }}
+          username: {{ .Values.config.sinks.raw.clickhouse.username }}
+          {{- end }}
+          {{- if .Values.config.sinks.raw.clickhouse.password }}
+          password: {{ .Values.config.sinks.raw.clickhouse.password }}
+          {{- end }}
+        sample_rate: {{ .Values.config.sinks.raw.sampleRate }}
+        include_filenames: {{ .Values.config.sinks.raw.includeFilenames }}
+        {{- end }}
+
+      slot:
+        enabled: {{ .Values.config.sinks.slot.enabled }}
+
+      window:
+        enabled: {{ .Values.config.sinks.window.enabled }}
+        {{- if .Values.config.sinks.window.enabled }}
+        interval: {{ .Values.config.sinks.window.interval }}
+        clickhouse:
+          endpoint: {{ .Values.config.sinks.window.clickhouse.endpoint }}
+          database: {{ .Values.config.sinks.window.clickhouse.database }}
+          table: {{ .Values.config.sinks.window.clickhouse.table }}
+          batch_size: {{ .Values.config.sinks.window.clickhouse.batchSize | int }}
+          flush_interval: {{ .Values.config.sinks.window.clickhouse.flushInterval }}
+        {{- end }}
+
+      aggregated:
+        enabled: {{ .Values.config.sinks.aggregated.enabled }}
+        {{- if .Values.config.sinks.aggregated.enabled }}
+        resolution:
+          interval: {{ .Values.config.sinks.aggregated.resolution.interval }}
+          slot_aligned: {{ .Values.config.sinks.aggregated.resolution.slotAligned }}
+        dimensions:
+          network:
+            include_port: {{ .Values.config.sinks.aggregated.dimensions.network.includePort }}
+            include_direction: {{ .Values.config.sinks.aggregated.dimensions.network.includeDirection }}
+          disk:
+            include_device: {{ .Values.config.sinks.aggregated.dimensions.disk.includeDevice }}
+            include_rw: {{ .Values.config.sinks.aggregated.dimensions.disk.includeRw }}
+        {{- end }}
+
+    health:
+      addr: {{ .Values.config.healthAddr | quote }}

@@ -1,0 +1,138 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "observoor.fullname" . }}
+  labels:
+    {{- include "observoor.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicas }}
+  serviceName: {{ include "observoor.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "observoor.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "observoor.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "observoor.serviceAccountName" . }}
+      hostPID: true
+    {{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
+    {{- end }}
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
+      initContainers:
+      {{- if .Values.initContainers }}
+        {{- toYaml .Values.initContainers | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+        {{- if gt (len .Values.customCommand) 0 }}
+          {{- toYaml .Values.customCommand | nindent 12}}
+        {{- else }}
+          []
+        {{- end }}
+        args:
+        {{- if gt (len .Values.customArgs) 0 }}
+          {{- toYaml .Values.customArgs | nindent 12}}
+        {{- else }}
+           - --config=/config.yaml
+        {{- end }}
+        securityContext:
+          {{- toYaml .Values.containerSecurityContext | nindent 12 }}
+        volumeMounts:
+          - name: config
+            mountPath: "/config.yaml"
+            subPath: config.yaml
+            readOnly: true
+          - name: debugfs
+            mountPath: /sys/kernel/debug
+            readOnly: true
+          - name: bpf
+            mountPath: /sys/fs/bpf
+          - name: proc
+            mountPath: /host/proc
+            readOnly: true
+          - name: btf
+            mountPath: /sys/kernel/btf
+            readOnly: true
+          {{- if .Values.extraVolumeMounts }}
+            {{ toYaml .Values.extraVolumeMounts | nindent 10}}
+          {{- end }}
+        ports:
+          - name: http
+            containerPort: 9090
+            protocol: TCP
+        {{- if .Values.livenessProbe }}
+        livenessProbe:
+          {{- toYaml .Values.livenessProbe | nindent 10 }}
+        {{- end }}
+        {{- if .Values.readinessProbe }}
+        readinessProbe:
+          {{- toYaml .Values.readinessProbe | nindent 10 }}
+        {{- end }}
+        lifecycle:
+          {{- toYaml .Values.lifecycle | nindent 12 }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        env:
+        {{- range $key, $value := .Values.secretEnv }}
+          - name: {{ $key }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "observoor.fullname" $ }}-env
+                key: {{ $key }}
+        {{- end }}
+        {{- if .Values.extraEnv }}
+          {{- toYaml .Values.extraEnv | nindent 12 }}
+        {{- end }}
+      {{- if .Values.extraContainers }}
+        {{ toYaml .Values.extraContainers | nindent 8}}
+      {{- end }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
+      topologySpreadConstraints:
+        {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      volumes:
+      {{- if .Values.extraVolumes }}
+        {{ toYaml .Values.extraVolumes | nindent 8}}
+      {{- end }}
+        - name: config
+          configMap:
+            name: {{ include "observoor.fullname" . }}
+        - name: debugfs
+          hostPath:
+            path: /sys/kernel/debug
+        - name: bpf
+          hostPath:
+            path: /sys/fs/bpf
+        - name: proc
+          hostPath:
+            path: /proc
+        - name: btf
+          hostPath:
+            path: /sys/kernel/btf
