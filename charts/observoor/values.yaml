@@ -8,7 +8,7 @@ image:
   # -- observoor container image repository
   repository: ethpandaops/observoor
   # -- observoor container image tag
-  tag: latest
+  tag: master
   # -- observoor container pull policy
   pullPolicy: IfNotPresent
 
