@@ -25,7 +25,8 @@ jobs:
         run: |
           echo "🚀 Deploying ethereum-node (geth + lighthouse)..."
 
-          # Add helm dependencies
+          # Add helm repo and build dependencies
+          helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
           helm dependency build charts/ethereum-node
 
           # Install ethereum-node with geth + lighthouse
