@@ -74,20 +74,37 @@ jobs:
           kill $PF_PID 2>/dev/null || true
           echo "✅ Ethereum node is ready"
 
-          # Verify service exists and DNS resolves
+          # Verify service exists
           echo "⏳ Verifying services..."
           kubectl get svc
 
-          # Wait a bit more for DNS to propagate
-          sleep 5
+          # Get the lighthouse pod IP as fallback
+          echo "Getting lighthouse pod IP..."
+          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=lighthouse -o jsonpath='{.items[0].status.podIP}')
+          echo "Lighthouse IP: $LIGHTHOUSE_IP"
+
+          # Wait for CoreDNS to be ready and test DNS resolution
+          echo "⏳ Waiting for DNS to be ready..."
+          for i in {1..30}; do
+            if kubectl run dns-test --image=busybox:1.28 --rm -i --restart=Never -- nslookup eth-node-lighthouse.default.svc.cluster.local 2>/dev/null | grep -q "Address"; then
+              echo "✅ DNS is working"
+              break
+            fi
+            echo "  Waiting for DNS... ($i/30)"
+            sleep 5
+          done
 
       - name: Deploy Observoor
         run: |
           echo "🚀 Deploying Observoor..."
 
-          # Install observoor pointing at the beacon service
+          # Get lighthouse pod IP for more reliable connection
+          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=lighthouse -o jsonpath='{.items[0].status.podIP}')
+          echo "Using lighthouse IP: $LIGHTHOUSE_IP"
+
+          # Install observoor pointing at lighthouse by IP (more reliable in kind)
           helm install observoor charts/observoor \
-            --set config.beacon.endpoint=http://eth-node-lighthouse:5052 \
+            --set config.beacon.endpoint=http://${LIGHTHOUSE_IP}:5052 \
             --set config.sinks.raw.enabled=false \
             --set config.sinks.slot.enabled=false \
             --set livenessProbe.initialDelaySeconds=30 \
