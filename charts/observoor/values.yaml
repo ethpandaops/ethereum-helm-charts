@@ -22,6 +22,11 @@ config:
   # -- Log level (debug, info, warn, error)
   logLevel: info
 
+  # -- Metadata for exported data (used in ClickHouse meta_* columns)
+  metaClientName: ""
+  # -- Network name metadata
+  metaNetworkName: ""
+
   # -- Beacon node configuration
   beacon:
     # -- Beacon node HTTP API endpoint
@@ -78,15 +83,28 @@ config:
     aggregated:
       enabled: true
       resolution:
+        # -- Aggregation window duration (50ms, 100ms, 500ms, 1s, 5s, 1m)
         interval: 100ms
+        # -- Reset aggregation at slot boundaries
         slotAligned: true
+        # -- How often to write sync state
+        syncStatePollInterval: 12s
       dimensions:
         network:
+          # -- Include local port in network metrics
           includePort: true
+          # -- Include TX/RX direction in network metrics
           includeDirection: true
         disk:
+          # -- Include device ID in disk metrics
           includeDevice: true
+          # -- Include read/write breakdown in disk metrics
           includeRw: true
+      clickhouse:
+        endpoint: clickhouse:9000
+        database: observoor
+        batchSize: 10000
+        flushInterval: 1s
 
   # -- Prometheus metrics server address
   healthAddr: ":9090"
