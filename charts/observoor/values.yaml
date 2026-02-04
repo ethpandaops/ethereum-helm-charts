@@ -47,7 +47,7 @@ config:
   sinks:
     # -- Raw events sink - writes every event to ClickHouse
     raw:
-      enabled: true
+      enabled: false
       clickhouse:
         endpoint: clickhouse:9000
         database: observoor
@@ -76,9 +76,9 @@ config:
 
     # -- Aggregated metrics sink - high-cardinality metrics with histograms
     aggregated:
-      enabled: false
+      enabled: true
       resolution:
-        interval: 1s
+        interval: 100ms
         slotAligned: true
       dimensions:
         network:
