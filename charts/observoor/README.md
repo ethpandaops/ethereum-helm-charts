@@ -44,7 +44,7 @@ An eBPF-based kernel-level monitoring agent for Ethereum consensus and execution
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | observoor container pull policy |
 | image.repository | string | `"ethpandaops/observoor"` | observoor container image repository |
-| image.tag | string | `"latest"` | observoor container image tag |
+| image.tag | string | `"master"` | observoor container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | initContainers | list | `[]` | Additional init containers |
 | lifecycle | object | See `values.yaml` | Lifecycle hooks |
