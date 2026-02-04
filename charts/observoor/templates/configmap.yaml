@@ -8,6 +8,13 @@ data:
   config.yaml: |
     log_level: {{ .Values.config.logLevel }}
 
+    {{- if .Values.config.metaClientName }}
+    meta_client_name: {{ .Values.config.metaClientName | quote }}
+    {{- end }}
+    {{- if .Values.config.metaNetworkName }}
+    meta_network_name: {{ .Values.config.metaNetworkName | quote }}
+    {{- end }}
+
     beacon:
       endpoint: {{ .Values.config.beacon.endpoint }}
       timeout: {{ .Values.config.beacon.timeout }}
@@ -67,6 +74,7 @@ data:
         resolution:
           interval: {{ .Values.config.sinks.aggregated.resolution.interval }}
           slot_aligned: {{ .Values.config.sinks.aggregated.resolution.slotAligned }}
+          sync_state_poll_interval: {{ .Values.config.sinks.aggregated.resolution.syncStatePollInterval }}
         dimensions:
           network:
             include_port: {{ .Values.config.sinks.aggregated.dimensions.network.includePort }}
@@ -74,6 +82,11 @@ data:
           disk:
             include_device: {{ .Values.config.sinks.aggregated.dimensions.disk.includeDevice }}
             include_rw: {{ .Values.config.sinks.aggregated.dimensions.disk.includeRw }}
+        clickhouse:
+          endpoint: {{ .Values.config.sinks.aggregated.clickhouse.endpoint }}
+          database: {{ .Values.config.sinks.aggregated.clickhouse.database }}
+          batch_size: {{ .Values.config.sinks.aggregated.clickhouse.batchSize | int }}
+          flush_interval: {{ .Values.config.sinks.aggregated.clickhouse.flushInterval }}
         {{- end }}
 
     health:
