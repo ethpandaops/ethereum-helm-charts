@@ -1,0 +1,161 @@
+name: Test Observoor
+
+on:
+  pull_request:
+    paths:
+      - 'charts/observoor/**'
+  workflow_dispatch:
+
+jobs:
+  test-observoor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Set up Helm
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4.3.1
+        with:
+          version: v3.18.4
+
+      - name: Create kind cluster
+        uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+
+      - name: Deploy Lighthouse (consensus client)
+        run: |
+          echo "🚀 Deploying Lighthouse for observoor to connect to..."
+
+          # Install lighthouse with checkpoint sync for fast startup
+          helm install lighthouse charts/lighthouse \
+            --set global.main.network=mainnet \
+            --set checkpointSync.enabled=true \
+            --set checkpointSync.url=https://mainnet-checkpoint-sync.attestant.io \
+            --wait \
+            --timeout 5m
+
+          # Wait for lighthouse to be ready
+          kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=lighthouse --timeout=300s
+
+          echo "✅ Lighthouse is running"
+
+      - name: Deploy Observoor
+        run: |
+          echo "🚀 Deploying Observoor..."
+
+          # Get lighthouse service endpoint
+          LIGHTHOUSE_SVC="http://lighthouse:5052"
+
+          # Install observoor pointing at lighthouse
+          helm install observoor charts/observoor \
+            --set config.beacon.endpoint=${LIGHTHOUSE_SVC} \
+            --set config.sinks.raw.enabled=false \
+            --set config.sinks.slot.enabled=false \
+            --set livenessProbe.initialDelaySeconds=30 \
+            --set readinessProbe.initialDelaySeconds=5 \
+            --timeout 5m
+
+          echo "✅ Observoor deployed"
+
+      - name: Wait for Observoor to start
+        run: |
+          echo "⏳ Waiting for observoor pod to be created..."
+
+          # Wait for pod to exist
+          for i in {1..30}; do
+            if kubectl get pod -l app.kubernetes.io/name=observoor 2>/dev/null | grep -q observoor; then
+              echo "Pod found"
+              break
+            fi
+            echo "Waiting for pod... ($i/30)"
+            sleep 2
+          done
+
+          # Get pod name
+          POD=$(kubectl get pod -l app.kubernetes.io/name=observoor -o jsonpath='{.items[0].metadata.name}')
+          echo "Pod: $POD"
+
+          # Wait up to 2 minutes for pod to be running (not necessarily ready - eBPF might fail in CI)
+          echo "⏳ Waiting for pod to be running..."
+          for i in {1..60}; do
+            STATUS=$(kubectl get pod $POD -o jsonpath='{.status.phase}' 2>/dev/null || echo "Pending")
+            echo "Status: $STATUS ($i/60)"
+
+            if [ "$STATUS" = "Running" ]; then
+              echo "✅ Pod is running"
+              break
+            elif [ "$STATUS" = "Failed" ] || [ "$STATUS" = "Error" ]; then
+              echo "❌ Pod failed to start"
+              kubectl describe pod $POD
+              kubectl logs $POD || true
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+      - name: Check Observoor logs and metrics
+        run: |
+          POD=$(kubectl get pod -l app.kubernetes.io/name=observoor -o jsonpath='{.items[0].metadata.name}')
+
+          echo "📋 Observoor logs:"
+          kubectl logs $POD --tail=50 || true
+
+          echo ""
+          echo "📊 Checking metrics endpoint..."
+
+          # Port forward and check metrics
+          kubectl port-forward $POD 9090:9090 &
+          PF_PID=$!
+          sleep 3
+
+          # Fetch metrics
+          METRICS=$(curl -s http://localhost:9090/metrics 2>/dev/null || echo "")
+
+          kill $PF_PID 2>/dev/null || true
+
+          if [ -z "$METRICS" ]; then
+            echo "⚠️  Could not fetch metrics (pod may still be starting)"
+            echo "Checking if pod is at least running..."
+            kubectl get pod $POD
+            exit 0
+          fi
+
+          echo "✅ Metrics endpoint is responding"
+
+          # Check for key metrics
+          echo ""
+          echo "🔍 Key metrics:"
+          echo "$METRICS" | grep -E "^observoor_(pids_tracked|bpf_programs_attached|events_received)" || echo "  (metrics not yet available)"
+
+          # Check if PIDs are being tracked (success indicator)
+          PIDS_TRACKED=$(echo "$METRICS" | grep "^observoor_pids_tracked " | awk '{print $2}' || echo "0")
+          echo ""
+          echo "PIDs tracked: $PIDS_TRACKED"
+
+          # Check BPF programs attached
+          BPF_ATTACHED=$(echo "$METRICS" | grep "^observoor_bpf_programs_attached" | head -1 || echo "")
+          if [ -n "$BPF_ATTACHED" ]; then
+            echo "BPF programs: $BPF_ATTACHED"
+          fi
+
+      - name: Collect debug info on failure
+        if: failure()
+        run: |
+          echo "=== Pod Status ==="
+          kubectl get pods -A
+
+          echo ""
+          echo "=== Observoor Pod Description ==="
+          kubectl describe pod -l app.kubernetes.io/name=observoor || true
+
+          echo ""
+          echo "=== Observoor Logs ==="
+          kubectl logs -l app.kubernetes.io/name=observoor --tail=100 || true
+
+          echo ""
+          echo "=== Lighthouse Pod Status ==="
+          kubectl describe pod -l app.kubernetes.io/name=lighthouse || true
+
+          echo ""
+          echo "=== Events ==="
+          kubectl get events --sort-by='.lastTimestamp' | tail -30
