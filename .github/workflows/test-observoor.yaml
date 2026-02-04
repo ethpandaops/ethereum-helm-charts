@@ -58,7 +58,7 @@ jobs:
 
           # Wait for beacon API to respond
           echo "⏳ Waiting for beacon API..."
-          kubectl port-forward svc/eth-node-beacon 5052:5052 &
+          kubectl port-forward svc/eth-node-lighthouse 5052:5052 &
           PF_PID=$!
           sleep 3
 
@@ -74,13 +74,20 @@ jobs:
           kill $PF_PID 2>/dev/null || true
           echo "✅ Ethereum node is ready"
 
+          # Verify service exists and DNS resolves
+          echo "⏳ Verifying services..."
+          kubectl get svc
+
+          # Wait a bit more for DNS to propagate
+          sleep 5
+
       - name: Deploy Observoor
         run: |
           echo "🚀 Deploying Observoor..."
 
           # Install observoor pointing at the beacon service
           helm install observoor charts/observoor \
-            --set config.beacon.endpoint=http://eth-node-beacon:5052 \
+            --set config.beacon.endpoint=http://eth-node-lighthouse:5052 \
             --set config.sinks.raw.enabled=false \
             --set config.sinks.slot.enabled=false \
             --set livenessProbe.initialDelaySeconds=30 \
@@ -107,17 +114,31 @@ jobs:
           POD=$(kubectl get pod -l app.kubernetes.io/name=observoor -o jsonpath='{.items[0].metadata.name}')
           echo "Pod: $POD"
 
-          # Wait up to 2 minutes for pod to be running (not necessarily ready - eBPF might fail in CI)
+          # Wait up to 3 minutes for pod to be running and stable
           echo "⏳ Waiting for pod to be running..."
-          for i in {1..60}; do
+          for i in {1..90}; do
             STATUS=$(kubectl get pod $POD -o jsonpath='{.status.phase}' 2>/dev/null || echo "Pending")
-            echo "Status: $STATUS ($i/60)"
+            READY=$(kubectl get pod $POD -o jsonpath='{.status.containerStatuses[0].ready}' 2>/dev/null || echo "false")
+            RESTARTS=$(kubectl get pod $POD -o jsonpath='{.status.containerStatuses[0].restartCount}' 2>/dev/null || echo "0")
 
-            if [ "$STATUS" = "Running" ]; then
-              echo "✅ Pod is running"
+            echo "  Status: $STATUS, Ready: $READY, Restarts: $RESTARTS ($i/90)"
+
+            # Check if pod is ready (ideal)
+            if [ "$READY" = "true" ]; then
+              echo "✅ Pod is ready"
               break
-            elif [ "$STATUS" = "Failed" ] || [ "$STATUS" = "Error" ]; then
-              echo "❌ Pod failed to start"
+            fi
+
+            # If running but not ready, check logs for errors
+            if [ "$STATUS" = "Running" ] && [ "$RESTARTS" -gt "2" ]; then
+              echo "⚠️  Pod is crash-looping, checking logs..."
+              kubectl logs $POD --tail=20 || true
+              # Continue waiting - maybe it will stabilize
+            fi
+
+            # If more than 5 restarts, give up
+            if [ "$RESTARTS" -gt "5" ]; then
+              echo "❌ Pod is crash-looping too much"
               kubectl describe pod $POD
               kubectl logs $POD || true
               exit 1
@@ -125,6 +146,11 @@ jobs:
 
             sleep 2
           done
+
+          # Final status check
+          echo ""
+          echo "📊 Final pod status:"
+          kubectl get pod $POD
 
       - name: Check Observoor logs and metrics
         run: |
