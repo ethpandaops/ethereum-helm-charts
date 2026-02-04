@@ -169,6 +169,33 @@ jobs:
           echo "📊 Final pod status:"
           kubectl get pod $POD
 
+      - name: Generate activity and verify events
+        run: |
+          echo "🔄 Generating activity to trigger events..."
+
+          # Get beacon pod IP for direct requests
+          BEACON_IP=$(kubectl get pod -l app.kubernetes.io/name=beacon -o jsonpath='{.items[0].status.podIP}')
+
+          # Port forward beacon for API requests
+          kubectl port-forward svc/eth-node-beacon 5052:5052 &
+          BEACON_PF=$!
+          sleep 2
+
+          # Generate beacon API activity (this creates network IO that observoor should capture)
+          echo "Making beacon API requests to generate network events..."
+          for i in {1..20}; do
+            curl -s http://localhost:5052/eth/v1/beacon/genesis > /dev/null 2>&1 || true
+            curl -s http://localhost:5052/eth/v1/node/version > /dev/null 2>&1 || true
+            curl -s http://localhost:5052/eth/v1/node/health > /dev/null 2>&1 || true
+            curl -s http://localhost:5052/eth/v1/node/syncing > /dev/null 2>&1 || true
+          done
+
+          kill $BEACON_PF 2>/dev/null || true
+
+          # Wait for observoor to process events
+          echo "⏳ Waiting for observoor to capture events..."
+          sleep 15
+
       - name: Check Observoor logs and metrics
         run: |
           POD=$(kubectl get pod -l app.kubernetes.io/name=observoor -o jsonpath='{.items[0].metadata.name}')
@@ -190,29 +217,83 @@ jobs:
           kill $PF_PID 2>/dev/null || true
 
           if [ -z "$METRICS" ]; then
-            echo "⚠️  Could not fetch metrics (pod may still be starting)"
-            echo "Checking if pod is at least running..."
+            echo "❌ Could not fetch metrics"
             kubectl get pod $POD
-            exit 0
+            exit 1
           fi
 
           echo "✅ Metrics endpoint is responding"
 
-          # Check for key metrics
+          # ===== Validate PIDs tracked =====
           echo ""
-          echo "🔍 Key metrics:"
-          echo "$METRICS" | grep -E "^observoor_(pids_tracked|bpf_programs_attached|events_received)" || echo "  (metrics not yet available)"
-
-          # Check if PIDs are being tracked (success indicator)
-          PIDS_TRACKED=$(echo "$METRICS" | grep "^observoor_pids_tracked " | awk '{print $2}' || echo "0")
-          echo ""
+          echo "🔍 Checking PIDs tracked..."
+          PIDS_TRACKED=$(echo "$METRICS" | grep "^observoor_pids_tracked " | awk '{print $2}' | cut -d. -f1 || echo "0")
           echo "PIDs tracked: $PIDS_TRACKED"
 
-          # Check BPF programs attached
-          BPF_ATTACHED=$(echo "$METRICS" | grep "^observoor_bpf_programs_attached" | head -1 || echo "")
-          if [ -n "$BPF_ATTACHED" ]; then
-            echo "BPF programs: $BPF_ATTACHED"
+          if [ "$PIDS_TRACKED" -lt "1" ]; then
+            echo "❌ FAIL: No PIDs tracked (expected >= 1)"
+            exit 1
           fi
+          echo "✅ PIDs tracked: $PIDS_TRACKED"
+
+          # ===== Validate BPF programs attached =====
+          echo ""
+          echo "🔍 Checking BPF programs..."
+          echo "$METRICS" | grep "^observoor_bpf_programs_attached" || true
+
+          KPROBES=$(echo "$METRICS" | grep 'observoor_bpf_programs_attached{type="kprobe"}' | awk '{print $2}' | cut -d. -f1 || echo "0")
+          TRACEPOINTS=$(echo "$METRICS" | grep 'observoor_bpf_programs_attached{type="tracepoint"}' | awk '{print $2}' | cut -d. -f1 || echo "0")
+
+          if [ "$KPROBES" -lt "1" ]; then
+            echo "❌ FAIL: No kprobes attached"
+            exit 1
+          fi
+          echo "✅ Kprobes attached: $KPROBES"
+
+          if [ "$TRACEPOINTS" -lt "1" ]; then
+            echo "❌ FAIL: No tracepoints attached"
+            exit 1
+          fi
+          echo "✅ Tracepoints attached: $TRACEPOINTS"
+
+          # ===== Validate events received =====
+          echo ""
+          echo "🔍 Checking events received..."
+          EVENTS_TOTAL=$(echo "$METRICS" | grep "^observoor_events_received_total " | awk '{print $2}' | cut -d. -f1 || echo "0")
+          echo "Total events received: $EVENTS_TOTAL"
+
+          # Show event breakdown by type
+          echo ""
+          echo "📊 Events by type:"
+          echo "$METRICS" | grep "^observoor_events_by_type" || echo "  (no events by type yet)"
+
+          # Show events by client
+          echo ""
+          echo "📊 Events by client:"
+          echo "$METRICS" | grep "^observoor_events_by_client" || echo "  (no events by client yet)"
+
+          if [ "$EVENTS_TOTAL" -lt "1" ]; then
+            echo ""
+            echo "⚠️  WARNING: No events received yet"
+            echo "This might be a timing issue - the clients may not have generated enough IO."
+            echo "BPF programs are attached and PIDs are tracked, so the chart is working."
+            # Don't fail on this - BPF attachment is the key indicator the chart works
+          else
+            echo ""
+            echo "✅ Events captured: $EVENTS_TOTAL"
+          fi
+
+          # ===== Summary =====
+          echo ""
+          echo "========================================="
+          echo "📊 OBSERVOOR TEST SUMMARY"
+          echo "========================================="
+          echo "PIDs tracked:        $PIDS_TRACKED"
+          echo "Kprobes attached:    $KPROBES"
+          echo "Tracepoints:         $TRACEPOINTS"
+          echo "Events received:     $EVENTS_TOTAL"
+          echo "========================================="
+          echo "✅ Observoor helm chart is working correctly!"
 
       - name: Collect debug info on failure
         if: failure()
