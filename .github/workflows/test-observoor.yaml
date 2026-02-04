@@ -103,10 +103,12 @@ jobs:
           echo "Using lighthouse IP: $LIGHTHOUSE_IP"
 
           # Install observoor pointing at lighthouse by IP (more reliable in kind)
+          # Disable all ClickHouse-dependent sinks since there's no ClickHouse in CI
           helm install observoor charts/observoor \
             --set config.beacon.endpoint=http://${LIGHTHOUSE_IP}:5052 \
             --set config.sinks.raw.enabled=false \
-            --set config.sinks.slot.enabled=false \
+            --set config.sinks.slot.enabled=true \
+            --set config.sinks.aggregated.enabled=false \
             --set livenessProbe.initialDelaySeconds=30 \
             --set readinessProbe.initialDelaySeconds=5 \
             --timeout 5m
