@@ -33,17 +33,17 @@ jobs:
           helm install eth-node charts/ethereum-node \
             --set global.main.network=mainnet \
             --set global.checkpointSync.enabled=true \
-            --set execution.client=geth \
-            --set consensus.client=lighthouse \
-            --set execution.livenessProbe.initialDelaySeconds=300 \
-            --set execution.readinessProbe.initialDelaySeconds=300 \
-            --set consensus.livenessProbe.initialDelaySeconds=300 \
-            --set consensus.readinessProbe.initialDelaySeconds=300
+            --set geth.enabled=true \
+            --set lighthouse.enabled=true \
+            --set geth.livenessProbe.initialDelaySeconds=300 \
+            --set geth.readinessProbe.initialDelaySeconds=300 \
+            --set lighthouse.livenessProbe.initialDelaySeconds=300 \
+            --set lighthouse.readinessProbe.initialDelaySeconds=300
 
           echo "⏳ Waiting for pods to be Running..."
           for i in {1..90}; do
-            EL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=geth -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
-            CL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=lighthouse -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
+            EL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=execution -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
+            CL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=beacon -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
             echo "  EL: $EL_STATUS, CL: $CL_STATUS ($i/90)"
 
             if [ "$EL_STATUS" = "Running" ] && [ "$CL_STATUS" = "Running" ]; then
@@ -58,7 +58,7 @@ jobs:
 
           # Wait for beacon API to respond
           echo "⏳ Waiting for beacon API..."
-          kubectl port-forward svc/eth-node-lighthouse 5052:5052 &
+          kubectl port-forward svc/eth-node-beacon 5052:5052 &
           PF_PID=$!
           sleep 3
 
@@ -80,13 +80,13 @@ jobs:
 
           # Get the lighthouse pod IP as fallback
           echo "Getting lighthouse pod IP..."
-          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=lighthouse -o jsonpath='{.items[0].status.podIP}')
+          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=beacon -o jsonpath='{.items[0].status.podIP}')
           echo "Lighthouse IP: $LIGHTHOUSE_IP"
 
           # Wait for CoreDNS to be ready and test DNS resolution
           echo "⏳ Waiting for DNS to be ready..."
           for i in {1..30}; do
-            if kubectl run dns-test --image=busybox:1.28 --rm -i --restart=Never -- nslookup eth-node-lighthouse.default.svc.cluster.local 2>/dev/null | grep -q "Address"; then
+            if kubectl run dns-test --image=busybox:1.28 --rm -i --restart=Never -- nslookup eth-node-beacon.default.svc.cluster.local 2>/dev/null | grep -q "Address"; then
               echo "✅ DNS is working"
               break
             fi
@@ -99,7 +99,7 @@ jobs:
           echo "🚀 Deploying Observoor..."
 
           # Get lighthouse pod IP for more reliable connection
-          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=lighthouse -o jsonpath='{.items[0].status.podIP}')
+          LIGHTHOUSE_IP=$(kubectl get pod -l app.kubernetes.io/name=beacon -o jsonpath='{.items[0].status.podIP}')
           echo "Using lighthouse IP: $LIGHTHOUSE_IP"
 
           # Install observoor pointing at lighthouse by IP (more reliable in kind)
@@ -230,19 +230,19 @@ jobs:
 
           echo ""
           echo "=== Geth Pod Status ==="
-          kubectl describe pod -l app.kubernetes.io/name=geth || true
+          kubectl describe pod -l app.kubernetes.io/name=execution || true
 
           echo ""
           echo "=== Geth Logs ==="
-          kubectl logs -l app.kubernetes.io/name=geth --tail=50 || true
+          kubectl logs -l app.kubernetes.io/name=execution --tail=50 || true
 
           echo ""
           echo "=== Lighthouse Pod Status ==="
-          kubectl describe pod -l app.kubernetes.io/name=lighthouse || true
+          kubectl describe pod -l app.kubernetes.io/name=beacon || true
 
           echo ""
           echo "=== Lighthouse Logs ==="
-          kubectl logs -l app.kubernetes.io/name=lighthouse --tail=50 || true
+          kubectl logs -l app.kubernetes.io/name=beacon --tail=50 || true
 
           echo ""
           echo "=== Events ==="
