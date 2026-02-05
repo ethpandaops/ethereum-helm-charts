@@ -94,8 +94,9 @@ jobs:
           # Disable ClickHouse-dependent sinks since there's no ClickHouse in CI
           helm install observoor charts/observoor \
             --set config.beacon.endpoint=${BEACON_SVC} \
+            --set config.metaClientName=ci-test \
+            --set config.metaNetworkName=mainnet \
             --set config.sinks.raw.enabled=false \
-            --set config.sinks.slot.enabled=true \
             --set config.sinks.aggregated.enabled=false \
             --set livenessProbe.initialDelaySeconds=30 \
             --set readinessProbe.initialDelaySeconds=5 \
