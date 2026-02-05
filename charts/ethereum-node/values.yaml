@@ -429,6 +429,15 @@ tracoor-agent:
         endpoint: http://localhost:9000
         bucket_name: tracoor
 
+observoor:
+  enabled: false
+  nameOverride: observoor
+  config:
+    meta_client_name: "{{ .Release.Name }}"
+    meta_network_name: "{{ .Values.global.main.network }}"
+    beacon:
+      endpoint: "{{ tpl .Values.global.main.beaconEndpoint . }}"
+
 ########################
 ###
 ###  Engine API Proxy
