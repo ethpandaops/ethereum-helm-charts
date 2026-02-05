@@ -47,8 +47,11 @@ dependencies:
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
+- name: observoor
+  repository: https://ethpandaops.github.io/ethereum-helm-charts
+  version: 0.0.1
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:7dfe16c463ffb01103bb025736fc5e4eaece8ce43caee475ddc929916e11d697
-generated: "2026-01-23T20:01:38.456218+10:00"
+digest: sha256:aa62fb652a8678a4135a970b95983446116d08149ad0c9fb3839604aa4b9c048
+generated: "2026-02-05T14:58:47.825166+10:00"

@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.8
+version: 0.2.9
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -80,6 +80,10 @@ dependencies:
   version: "0.0.1"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: tracoor-agent.enabled
+- name: observoor
+  version: "0.0.1"
+  repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  condition: observoor.enabled
 - name: rpc-snooper
   version: "0.0.2"
   repository: "file://../rpc-snooper"
