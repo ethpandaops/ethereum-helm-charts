@@ -9778,6 +9778,21 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-0.1.0/nimbus-0.1.0.tgz
     version: 0.1.0
+  observoor:
+  - apiVersion: v2
+    created: "2026-02-05T04:48:30.749076162Z"
+    description: An eBPF-based kernel-level monitoring agent for Ethereum consensus
+      and execution clients.
+    digest: 666a8f0012178ced15e81cce6eade194a0f56c738055572d1ada47153b1f08b4
+    home: https://github.com/ethpandaops/observoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: observoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/observoor-0.0.1/observoor-0.0.1.tgz
+    version: 0.0.1
   powfaucet:
   - apiVersion: v2
     appVersion: 2.0.0
@@ -12579,4 +12594,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-01-27T01:19:53.424056792Z"
+generated: "2026-02-05T04:48:30.749828808Z"
