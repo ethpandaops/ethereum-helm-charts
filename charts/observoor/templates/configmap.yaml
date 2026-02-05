@@ -49,23 +49,7 @@ data:
           {{- if .Values.config.sinks.raw.clickhouse.password }}
           password: {{ .Values.config.sinks.raw.clickhouse.password }}
           {{- end }}
-        sample_rate: {{ .Values.config.sinks.raw.sampleRate }}
         include_filenames: {{ .Values.config.sinks.raw.includeFilenames }}
-        {{- end }}
-
-      slot:
-        enabled: {{ .Values.config.sinks.slot.enabled }}
-
-      window:
-        enabled: {{ .Values.config.sinks.window.enabled }}
-        {{- if .Values.config.sinks.window.enabled }}
-        interval: {{ .Values.config.sinks.window.interval }}
-        clickhouse:
-          endpoint: {{ .Values.config.sinks.window.clickhouse.endpoint }}
-          database: {{ .Values.config.sinks.window.clickhouse.database }}
-          table: {{ .Values.config.sinks.window.clickhouse.table }}
-          batch_size: {{ .Values.config.sinks.window.clickhouse.batchSize | int }}
-          flush_interval: {{ .Values.config.sinks.window.clickhouse.flushInterval }}
         {{- end }}
 
       aggregated:
