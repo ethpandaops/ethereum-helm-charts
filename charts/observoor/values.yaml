@@ -1,0 +1,212 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- observoor container image repository
+  repository: ethpandaops/observoor
+  # -- observoor container image tag
+  tag: master
+  # -- observoor container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Secret env variables injected via a created secret
+secretEnv: {}
+
+# -- Command arguments
+args: []
+
+# -- Observoor configuration (passed directly to observoor)
+# @default -- See `values.yaml`
+config:
+  log_level: info
+  meta_client_name: ""
+  meta_network_name: ""
+  beacon:
+    endpoint: http://localhost:5052
+    timeout: 10s
+  # pid:
+  #   process_names: []
+  #   cgroup_path: /sys/fs/cgroup/ethereum.slice
+  ring_buffer_size: 4194304
+  sync_poll_interval: 30s
+  sinks:
+    raw:
+      enabled: false
+      clickhouse:
+        endpoint: clickhouse:9000
+        database: observoor
+        table: raw_events
+        batch_size: 10000
+        flush_interval: 1s
+      include_filenames: true
+    aggregated:
+      enabled: true
+      resolution:
+        interval: 50ms
+        slot_aligned: true
+        sync_state_poll_interval: 12s
+      dimensions:
+        network:
+          include_port: true
+          include_direction: true
+        disk:
+          include_device: true
+          include_rw: true
+      clickhouse:
+        endpoint: clickhouse:9000
+        database: observoor
+        batch_size: 10000
+        flush_interval: 1s
+  health:
+    addr: ":9090"
+
+# -- Custom args for the observoor container
+customArgs: []
+
+# -- Command replacement for the observoor container
+customCommand: [] # Only change this if you need to change the default command
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Number of replicas
+replicas: 1
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 120
+
+# -- Readiness probe
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext: {}
+  # Note: observoor requires privileged mode for eBPF
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext:
+  privileged: true
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Lifecycle hooks
+# @default -- See `values.yaml`
+lifecycle:
+  preStop:
+    exec:
+      command:
+      - /bin/sleep
+      - "30"
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 90
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 15s
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

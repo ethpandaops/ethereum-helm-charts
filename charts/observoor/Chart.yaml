@@ -1,0 +1,9 @@
+apiVersion: v2
+name: observoor
+description: An eBPF-based kernel-level monitoring agent for Ethereum consensus and execution clients.
+home: https://github.com/ethpandaops/observoor
+type: application
+version: 0.0.2
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org
