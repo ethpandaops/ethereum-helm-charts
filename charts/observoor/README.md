@@ -19,27 +19,7 @@ An eBPF-based kernel-level monitoring agent for Ethereum consensus and execution
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
 | args | list | `[]` | Command arguments |
-| config.beacon | object | `{"endpoint":"http://localhost:5052","timeout":"10s"}` | Beacon node configuration |
-| config.beacon.endpoint | string | `"http://localhost:5052"` | Beacon node HTTP API endpoint |
-| config.beacon.timeout | string | `"10s"` | HTTP request timeout |
-| config.healthAddr | string | `":9090"` | Prometheus metrics server address |
-| config.logLevel | string | `"info"` | Log level (debug, info, warn, error) |
-| config.metaClientName | string | `""` | Metadata for exported data (used in ClickHouse meta_* columns) |
-| config.metaNetworkName | string | `""` | Network name metadata |
-| config.pid | object | `{"processNames":[]}` | Process discovery configuration |
-| config.pid.processNames | list | `[]` | Discover processes by name (scans /proc) If empty, defaults to all known Ethereum client names |
-| config.ringBufferSize | int | `4194304` | BPF ring buffer size in bytes (default 4MB) |
-| config.sinks | object | `{"aggregated":{"clickhouse":{"batchSize":10000,"database":"observoor","endpoint":"clickhouse:9000","flushInterval":"1s"},"dimensions":{"disk":{"includeDevice":true,"includeRw":true},"network":{"includeDirection":true,"includePort":true}},"enabled":true,"resolution":{"interval":"50ms","slotAligned":true,"syncStatePollInterval":"12s"}},"raw":{"clickhouse":{"batchSize":10000,"database":"observoor","endpoint":"clickhouse:9000","flushInterval":"1s","password":"","table":"raw_events","username":""},"enabled":false,"includeFilenames":true}}` | Data export sinks configuration |
-| config.sinks.aggregated | object | `{"clickhouse":{"batchSize":10000,"database":"observoor","endpoint":"clickhouse:9000","flushInterval":"1s"},"dimensions":{"disk":{"includeDevice":true,"includeRw":true},"network":{"includeDirection":true,"includePort":true}},"enabled":true,"resolution":{"interval":"50ms","slotAligned":true,"syncStatePollInterval":"12s"}}` | Aggregated metrics sink - configurable resolution aggregation |
-| config.sinks.aggregated.dimensions.disk.includeDevice | bool | `true` | Include device ID in disk metrics |
-| config.sinks.aggregated.dimensions.disk.includeRw | bool | `true` | Include read/write breakdown in disk metrics |
-| config.sinks.aggregated.dimensions.network.includeDirection | bool | `true` | Include TX/RX direction in network metrics |
-| config.sinks.aggregated.dimensions.network.includePort | bool | `true` | Include local port in network metrics |
-| config.sinks.aggregated.resolution.interval | string | `"50ms"` | Aggregation window duration (50ms, 100ms, 500ms, 1s, 5s, 1m) |
-| config.sinks.aggregated.resolution.slotAligned | bool | `true` | Reset aggregation at slot boundaries |
-| config.sinks.aggregated.resolution.syncStatePollInterval | string | `"12s"` | How often to write sync state |
-| config.sinks.raw | object | `{"clickhouse":{"batchSize":10000,"database":"observoor","endpoint":"clickhouse:9000","flushInterval":"1s","password":"","table":"raw_events","username":""},"enabled":false,"includeFilenames":true}` | Raw events sink - writes every event to ClickHouse Warning: High cardinality, requires ClickHouse setup |
-| config.syncPollInterval | string | `"30s"` | Beacon sync status polling frequency |
+| config | object | See `values.yaml` | Observoor configuration (passed directly to observoor) |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the observoor container |
 | customCommand | list | `[]` | Command replacement for the observoor container |

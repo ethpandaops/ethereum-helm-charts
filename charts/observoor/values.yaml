@@ -18,81 +18,50 @@ secretEnv: {}
 # -- Command arguments
 args: []
 
+# -- Observoor configuration (passed directly to observoor)
+# @default -- See `values.yaml`
 config:
-  # -- Log level (debug, info, warn, error)
-  logLevel: info
-
-  # -- Metadata for exported data (used in ClickHouse meta_* columns)
-  metaClientName: ""
-  # -- Network name metadata
-  metaNetworkName: ""
-
-  # -- Beacon node configuration
+  log_level: info
+  meta_client_name: ""
+  meta_network_name: ""
   beacon:
-    # -- Beacon node HTTP API endpoint
     endpoint: http://localhost:5052
-    # -- HTTP request timeout
     timeout: 10s
-
-  # -- Process discovery configuration
-  pid:
-    # -- Discover processes by name (scans /proc)
-    # If empty, defaults to all known Ethereum client names
-    processNames: []
-    # -- Discover processes by cgroup v2 path
-    # cgroupPath: /sys/fs/cgroup/ethereum.slice
-
-  # -- BPF ring buffer size in bytes (default 4MB)
-  ringBufferSize: 4194304
-
-  # -- Beacon sync status polling frequency
-  syncPollInterval: 30s
-
-  # -- Data export sinks configuration
+  # pid:
+  #   process_names: []
+  #   cgroup_path: /sys/fs/cgroup/ethereum.slice
+  ring_buffer_size: 4194304
+  sync_poll_interval: 30s
   sinks:
-    # -- Raw events sink - writes every event to ClickHouse
-    # Warning: High cardinality, requires ClickHouse setup
     raw:
       enabled: false
       clickhouse:
         endpoint: clickhouse:9000
         database: observoor
         table: raw_events
-        batchSize: 10000
-        flushInterval: 1s
-        username: ""
-        password: ""
-      includeFilenames: true
-
-    # -- Aggregated metrics sink - configurable resolution aggregation
+        batch_size: 10000
+        flush_interval: 1s
+      include_filenames: true
     aggregated:
       enabled: true
       resolution:
-        # -- Aggregation window duration (50ms, 100ms, 500ms, 1s, 5s, 1m)
         interval: 50ms
-        # -- Reset aggregation at slot boundaries
-        slotAligned: true
-        # -- How often to write sync state
-        syncStatePollInterval: 12s
+        slot_aligned: true
+        sync_state_poll_interval: 12s
       dimensions:
         network:
-          # -- Include local port in network metrics
-          includePort: true
-          # -- Include TX/RX direction in network metrics
-          includeDirection: true
+          include_port: true
+          include_direction: true
         disk:
-          # -- Include device ID in disk metrics
-          includeDevice: true
-          # -- Include read/write breakdown in disk metrics
-          includeRw: true
+          include_device: true
+          include_rw: true
       clickhouse:
         endpoint: clickhouse:9000
         database: observoor
-        batchSize: 10000
-        flushInterval: 1s
-
-  # -- Prometheus metrics server address
-  healthAddr: ":9090"
+        batch_size: 10000
+        flush_interval: 1s
+  health:
+    addr: ":9090"
 
 # -- Custom args for the observoor container
 customArgs: []
