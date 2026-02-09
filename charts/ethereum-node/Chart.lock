@@ -48,10 +48,10 @@ dependencies:
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
 - name: observoor
-  repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.0.2
+  repository: file://../observoor
+  version: 0.0.3
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:4b1ef1d48953747b7622fb68d6e5c4d7e80be2668ed3a4c4efd7eb400bf50508
-generated: "2026-02-06T11:22:46.603624+10:00"
+digest: sha256:abdb891313a365150c0a2f86774165b9fdbf5929d248125e0267580435ffe79f
+generated: "2026-02-09T16:16:10.32479+10:00"
