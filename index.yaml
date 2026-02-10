@@ -11230,6 +11230,24 @@ entries:
     version: 0.1.0
   spamoor:
   - apiVersion: v2
+    appVersion: 1.1.16
+    created: "2026-02-10T18:44:23.638474847Z"
+    description: 'Ethereum transaction spammer for testnets and stress testing '
+    digest: 1e4b3020374d3f5accc48dcc0764d6373d351b73d25355d8e6c4f5ef0cc40c3d
+    home: https://github.com/ethpandaops/spamoor
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: philipp@pk910.de
+      name: pk910
+    name: spamoor
+    sources:
+    - https://github.com/ethpandaops/spamoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/spamoor-1.0.0/spamoor-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     appVersion: 1.0.2
     created: "2025-03-27T16:04:53.688612528Z"
     description: 'Ethereum transaction spammer for testnets and stress testing '
@@ -12895,4 +12913,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-09T07:04:19.020418088Z"
+generated: "2026-02-10T18:44:23.639295747Z"
