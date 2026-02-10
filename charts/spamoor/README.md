@@ -1,6 +1,6 @@
 # spamoor
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.2](https://img.shields.io/badge/AppVersion-1.0.2-informational?style=flat-square)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.3](https://img.shields.io/badge/AppVersion-1.0.3-informational?style=flat-square)
 
 Ethereum transaction spammer for testnets and stress testing
 
@@ -17,10 +17,12 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
+| authTokenKey | string | `""` | Authentication token key |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the spamoor container |
 | customCommand | list | `["./spamoor-daemon"]` | Command replacement for the spamoor container |
 | defaultSpamoorArgsTemplate | string | See `values.yaml` | Template used for the default spamoor args |
+| enableAuth | bool | `false` | Enable authentication |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
