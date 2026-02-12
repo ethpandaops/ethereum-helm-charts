@@ -1,6 +1,6 @@
 # xatu-sentry-logs
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Vector-based log collection service that reads structured JSON logs from Ethereum execution clients and sends them to a Xatu server.
 
@@ -43,8 +43,8 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
-| rbac.clusterRules | list | Disabled by default | Required ClusterRole rules (cluster-scoped) |
-| rbac.create | bool | `false` | Specifies whether RBAC resources are to be created |
+| rbac.clusterRules | list | See `values.yaml` | Required ClusterRole rules (cluster-scoped) |
+| rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |
 | rbac.rules | list | See `values.yaml` | Required Role rules (namespace-scoped) |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
@@ -53,7 +53,7 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
-| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | serviceMonitor.annotations | object | `{}` | Additional ServiceMonitor annotations |
 | serviceMonitor.enabled | bool | `false` | If true, a ServiceMonitor CRD is created for a prometheus operator https://github.com/coreos/prometheus-operator |

@@ -3,7 +3,7 @@ name: xatu-sentry-logs
 description: Vector-based log collection service that reads structured JSON logs from Ethereum execution clients and sends them to a Xatu server.
 home: https://github.com/ethpandaops/xatu
 type: application
-version: 0.0.1
+version: 0.0.2
 maintainers:
   - name: samcm
     email: sam.calder-mason@ethereum.org

@@ -1,0 +1,251 @@
+name: Test xatu-sentry-logs
+
+on:
+  pull_request:
+    paths:
+      - 'charts/xatu-sentry-logs/**'
+  workflow_dispatch:
+
+jobs:
+  test-xatu-sentry-logs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Create k3s cluster
+        uses: jupyterhub/action-k3s-helm@v4
+        with:
+          k3s-channel: stable
+          metrics-enabled: false
+          traefik-enabled: false
+
+      - name: Set up Helm
+        uses: azure/setup-helm@b9e51907a09c216f16ebe8536097933489208112 # v4.3.0
+        with:
+          version: v3.17.0
+
+      - name: Deploy Ethereum node (geth + lighthouse)
+        run: |
+          echo "Deploying ethereum-node (geth + lighthouse)..."
+
+          helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
+          helm dependency build charts/ethereum-node
+
+          helm install eth-node charts/ethereum-node \
+            --set global.main.network=mainnet \
+            --set global.checkpointSync.enabled=true \
+            --set geth.enabled=true \
+            --set lighthouse.enabled=true \
+            --set geth.livenessProbe.initialDelaySeconds=300 \
+            --set geth.readinessProbe.initialDelaySeconds=300 \
+            --set lighthouse.livenessProbe.initialDelaySeconds=300 \
+            --set lighthouse.readinessProbe.initialDelaySeconds=300
+
+          echo "Waiting for pods to be Running..."
+          for i in {1..90}; do
+            EL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=execution -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
+            CL_STATUS=$(kubectl get pod -l app.kubernetes.io/name=beacon -o jsonpath='{.items[0].status.phase}' 2>/dev/null || echo "")
+            echo "  EL: $EL_STATUS, CL: $CL_STATUS ($i/90)"
+
+            if [ "$EL_STATUS" = "Running" ] && [ "$CL_STATUS" = "Running" ]; then
+              echo "Both pods are running"
+              break
+            fi
+            sleep 5
+          done
+
+          sleep 10
+          echo "Ethereum node is ready"
+
+      - name: Deploy xatu-sentry-logs
+        run: |
+          echo "Deploying xatu-sentry-logs..."
+
+          # Create values file for complex nested structures
+          cat > /tmp/xatu-sentry-logs-values.yaml <<'VALS'
+          env:
+            XATU_CLIENT_NAME: ci-test
+            XATU_NETWORK_NAME: mainnet
+            XATU_SERVER_URL: http://localhost:8080
+          secretEnv:
+            XATU_AUTH: dGVzdDp0ZXN0
+          sources:
+            execution:
+              sources:
+                ethereum_execution:
+                  type: kubernetes_logs
+                  extra_label_selector: "app.kubernetes.io/name=execution"
+            consensus:
+              sources:
+                ethereum_consensus:
+                  type: kubernetes_logs
+                  extra_label_selector: "app.kubernetes.io/name=beacon"
+          extraVolumes:
+            - name: var-log-pods
+              hostPath:
+                path: /var/log/pods
+            - name: var-lib-vector
+              emptyDir: {}
+          extraVolumeMounts:
+            - name: var-log-pods
+              mountPath: /var/log/pods
+              readOnly: true
+            - name: var-lib-vector
+              mountPath: /var/lib/vector
+          livenessProbe:
+            initialDelaySeconds: 120
+          readinessProbe:
+            initialDelaySeconds: 10
+          VALS
+
+          helm install xatu-sentry-logs charts/xatu-sentry-logs \
+            -f /tmp/xatu-sentry-logs-values.yaml \
+            --timeout 5m
+
+          echo "xatu-sentry-logs deployed"
+
+      - name: Wait for xatu-sentry-logs to start
+        run: |
+          echo "Waiting for xatu-sentry-logs pod..."
+
+          for i in {1..30}; do
+            if kubectl get pod -l app.kubernetes.io/name=xatu-sentry-logs 2>/dev/null | grep -q xatu-sentry-logs; then
+              echo "Pod found"
+              break
+            fi
+            echo "Waiting for pod... ($i/30)"
+            sleep 2
+          done
+
+          POD=$(kubectl get pod -l app.kubernetes.io/name=xatu-sentry-logs -o jsonpath='{.items[0].metadata.name}')
+          echo "Pod: $POD"
+
+          echo "Waiting for pod to be running..."
+          for i in {1..90}; do
+            STATUS=$(kubectl get pod $POD -o jsonpath='{.status.phase}' 2>/dev/null || echo "Pending")
+            READY=$(kubectl get pod $POD -o jsonpath='{.status.containerStatuses[0].ready}' 2>/dev/null || echo "false")
+            RESTARTS=$(kubectl get pod $POD -o jsonpath='{.status.containerStatuses[0].restartCount}' 2>/dev/null || echo "0")
+
+            echo "  Status: $STATUS, Ready: $READY, Restarts: $RESTARTS ($i/90)"
+
+            if [ "$READY" = "true" ]; then
+              echo "Pod is ready"
+              break
+            fi
+
+            if [ "$STATUS" = "Running" ] && [ "$RESTARTS" -gt "2" ]; then
+              echo "Pod is crash-looping, checking logs..."
+              kubectl logs $POD --tail=20 || true
+            fi
+
+            if [ "$RESTARTS" -gt "5" ]; then
+              echo "FAIL: Pod is crash-looping"
+              kubectl describe pod $POD
+              kubectl logs $POD || true
+              exit 1
+            fi
+
+            sleep 2
+          done
+
+          echo ""
+          echo "Final pod status:"
+          kubectl get pod $POD
+
+      - name: Wait for log collection
+        run: |
+          echo "Waiting for Vector to collect logs..."
+          sleep 30
+
+      - name: Check xatu-sentry-logs metrics
+        run: |
+          POD=$(kubectl get pod -l app.kubernetes.io/name=xatu-sentry-logs -o jsonpath='{.items[0].metadata.name}')
+
+          echo "xatu-sentry-logs logs (last 30 lines):"
+          kubectl logs $POD --tail=30 || true
+
+          echo ""
+          echo "Checking metrics endpoint..."
+
+          kubectl port-forward $POD 9090:9090 &
+          PF_PID=$!
+          sleep 3
+
+          METRICS=$(curl -s http://localhost:9090/metrics 2>/dev/null || echo "")
+
+          kill $PF_PID 2>/dev/null || true
+
+          if [ -z "$METRICS" ]; then
+            echo "FAIL: Could not fetch metrics"
+            kubectl get pod $POD
+            exit 1
+          fi
+
+          echo "Metrics endpoint is responding"
+
+          # Check Vector component_received_events_total for our sources
+          echo ""
+          echo "Checking component_received_events_total..."
+          echo "$METRICS" | grep "component_received_events_total" || echo "  (no events yet)"
+
+          EVENTS=$(echo "$METRICS" | grep "^vector_component_received_events_total" | awk '{sum += $2} END {printf "%d", sum}' || echo "0")
+          echo "Total events received across all components: $EVENTS"
+
+          # Check that Vector has sources running (component_received_bytes)
+          echo ""
+          echo "Checking sources are running..."
+          echo "$METRICS" | grep "component_received_bytes_total" | head -5 || echo "  (no bytes received)"
+
+          # Check for errors
+          echo ""
+          echo "Checking for errors..."
+          ERRORS=$(echo "$METRICS" | grep "^vector_component_errors_total" | awk '{sum += $2} END {printf "%d", sum}' || echo "0")
+          echo "Total component errors: $ERRORS"
+
+          # ===== Summary =====
+          echo ""
+          echo "========================================="
+          echo "XATU-SENTRY-LOGS TEST SUMMARY"
+          echo "========================================="
+          echo "Events received:     $EVENTS"
+          echo "Component errors:    $ERRORS"
+          echo "========================================="
+
+          if [ "$EVENTS" -lt "1" ]; then
+            echo "WARNING: No events received yet - may be a timing issue"
+            echo "Checking Vector internal logs for issues..."
+            kubectl logs $POD --tail=50 | grep -iE "error|warn" || echo "  No errors/warnings found"
+          else
+            echo "xatu-sentry-logs is collecting logs!"
+          fi
+
+      - name: Collect debug info on failure
+        if: failure()
+        run: |
+          echo "=== Pod Status ==="
+          kubectl get pods -A
+
+          echo ""
+          echo "=== xatu-sentry-logs Pod Description ==="
+          kubectl describe pod -l app.kubernetes.io/name=xatu-sentry-logs || true
+
+          echo ""
+          echo "=== xatu-sentry-logs Logs ==="
+          kubectl logs -l app.kubernetes.io/name=xatu-sentry-logs --tail=100 || true
+
+          echo ""
+          echo "=== xatu-sentry-logs RBAC ==="
+          kubectl get clusterrole,clusterrolebinding,role,rolebinding | grep xatu-sentry-logs || true
+
+          echo ""
+          echo "=== Geth Logs (last 20) ==="
+          kubectl logs -l app.kubernetes.io/name=execution --tail=20 || true
+
+          echo ""
+          echo "=== Lighthouse Logs (last 20) ==="
+          kubectl logs -l app.kubernetes.io/name=beacon --tail=20 || true
+
+          echo ""
+          echo "=== Events ==="
+          kubectl get events --sort-by='.lastTimestamp' | tail -30
