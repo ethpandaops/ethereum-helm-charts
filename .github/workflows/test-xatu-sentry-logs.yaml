@@ -62,17 +62,45 @@ jobs:
         run: |
           echo "Deploying xatu-sentry-logs..."
 
+          # Create values file for complex nested structures
+          cat > /tmp/xatu-sentry-logs-values.yaml <<'VALS'
+          env:
+            XATU_CLIENT_NAME: ci-test
+            XATU_NETWORK_NAME: mainnet
+            XATU_SERVER_URL: http://localhost:8080
+          secretEnv:
+            XATU_AUTH: dGVzdDp0ZXN0
+          sources:
+            execution:
+              sources:
+                ethereum_execution:
+                  type: kubernetes_logs
+                  extra_label_selector: "app.kubernetes.io/name=execution"
+            consensus:
+              sources:
+                ethereum_consensus:
+                  type: kubernetes_logs
+                  extra_label_selector: "app.kubernetes.io/name=beacon"
+          extraVolumes:
+            - name: var-log-pods
+              hostPath:
+                path: /var/log/pods
+            - name: var-lib-vector
+              emptyDir: {}
+          extraVolumeMounts:
+            - name: var-log-pods
+              mountPath: /var/log/pods
+              readOnly: true
+            - name: var-lib-vector
+              mountPath: /var/lib/vector
+          livenessProbe:
+            initialDelaySeconds: 120
+          readinessProbe:
+            initialDelaySeconds: 10
+          VALS
+
           helm install xatu-sentry-logs charts/xatu-sentry-logs \
-            --set env.XATU_CLIENT_NAME=ci-test \
-            --set env.XATU_NETWORK_NAME=mainnet \
-            --set env.XATU_SERVER_URL=http://localhost:8080 \
-            --set secretEnv.XATU_AUTH=dGVzdDp0ZXN0 \
-            --set 'sources.execution.sources.ethereum_execution.type=kubernetes_logs' \
-            --set 'sources.execution.sources.ethereum_execution.extra_label_selector=app.kubernetes.io/name=execution' \
-            --set 'sources.consensus.sources.ethereum_consensus.type=kubernetes_logs' \
-            --set 'sources.consensus.sources.ethereum_consensus.extra_label_selector=app.kubernetes.io/name=beacon' \
-            --set livenessProbe.initialDelaySeconds=120 \
-            --set readinessProbe.initialDelaySeconds=10 \
+            -f /tmp/xatu-sentry-logs-values.yaml \
             --timeout 5m
 
           echo "xatu-sentry-logs deployed"
