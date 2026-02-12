@@ -66,6 +66,7 @@ jobs:
             --set env.XATU_CLIENT_NAME=ci-test \
             --set env.XATU_NETWORK_NAME=mainnet \
             --set env.XATU_SERVER_URL=http://localhost:8080 \
+            --set secretEnv.XATU_AUTH=dGVzdDp0ZXN0 \
             --set 'sources.execution.sources.ethereum_execution.type=kubernetes_logs' \
             --set 'sources.execution.sources.ethereum_execution.extra_label_selector=app.kubernetes.io/name=execution' \
             --set 'sources.consensus.sources.ethereum_consensus.type=kubernetes_logs' \
