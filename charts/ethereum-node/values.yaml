@@ -438,6 +438,41 @@ observoor:
     beacon:
       endpoint: "{{ tpl .Values.global.main.beaconEndpoint . }}"
 
+xatu-sentry-logs:
+  enabled: false
+  nameOverride: xatu-sentry-logs
+  serviceAccount:
+    create: true
+  rbac:
+    create: true
+  env:
+    XATU_CLIENT_NAME: "{{ .Release.Name }}"
+    XATU_NETWORK_NAME: "{{ .Values.global.main.network }}"
+    XATU_SERVER_URL: ""
+  sources:
+    execution:
+      sources:
+        ethereum_execution:
+          type: kubernetes_logs
+          extra_label_selector: "app.kubernetes.io/name=execution,app.kubernetes.io/instance={{ .Release.Name }}"
+    consensus:
+      sources:
+        ethereum_consensus:
+          type: kubernetes_logs
+          extra_label_selector: "app.kubernetes.io/name=beacon,app.kubernetes.io/instance={{ .Release.Name }}"
+  extraVolumes:
+    - name: var-log-pods
+      hostPath:
+        path: /var/log/pods
+    - name: var-lib-vector
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: var-log-pods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: var-lib-vector
+      mountPath: /var/lib/vector
+
 ########################
 ###
 ###  Engine API Proxy
