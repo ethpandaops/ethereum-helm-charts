@@ -50,8 +50,11 @@ dependencies:
 - name: observoor
   repository: file://../observoor
   version: 0.0.3
+- name: xatu-sentry-logs
+  repository: file://../xatu-sentry-logs
+  version: 0.0.1
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:abdb891313a365150c0a2f86774165b9fdbf5929d248125e0267580435ffe79f
-generated: "2026-02-09T16:16:10.32479+10:00"
+digest: sha256:948d0e188929a768288799a0c26a2a519c913f399c234f62f9b860f0485fad18
+generated: "2026-02-12T13:23:56.021651+10:00"

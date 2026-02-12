@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.11
+version: 0.2.12
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -84,6 +84,10 @@ dependencies:
   version: "0.0.3"
   repository: "file://../observoor"
   condition: observoor.enabled
+- name: xatu-sentry-logs
+  version: "0.0.1"
+  repository: "file://../xatu-sentry-logs"
+  condition: xatu-sentry-logs.enabled
 - name: rpc-snooper
   version: "0.0.2"
   repository: "file://../rpc-snooper"
