@@ -111,7 +111,7 @@ containerSecurityContext: {}
 
 serviceAccount:
   # -- Specifies whether a service account should be created
-  create: false
+  create: true
   # -- Annotations to add to the service account
   annotations: {}
   # -- The name of the service account to use.
@@ -120,7 +120,7 @@ serviceAccount:
 
 rbac:
   # -- Specifies whether RBAC resources are to be created
-  create: false
+  create: true
   # -- Required Role rules (namespace-scoped)
   # @default -- See `values.yaml`
   rules:
@@ -132,8 +132,17 @@ rbac:
       - "list"
       - "watch"
   # -- Required ClusterRole rules (cluster-scoped)
-  # @default -- Disabled by default
-  clusterRules: []
+  # @default -- See `values.yaml`
+  clusterRules:
+    - apiGroups: [""]
+      resources:
+      - "pods"
+      - "namespaces"
+      - "nodes"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
 
 # -- Lifecycle hooks
 # @default -- See `values.yaml`

@@ -76,6 +76,10 @@ spec:
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         env:
+          - name: VECTOR_SELF_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
         {{- range $key, $value := .Values.env }}
         {{- if $value }}
           - name: {{ $key }}
