@@ -97,7 +97,7 @@ jobs:
             --set config.meta_client_name=ci-test \
             --set config.meta_network_name=mainnet \
             --set config.sinks.raw.enabled=false \
-            --set config.sinks.aggregated.enabled=false \
+            --set config.sinks.aggregated.clickhouse.enabled=false \
             --set livenessProbe.initialDelaySeconds=30 \
             --set readinessProbe.initialDelaySeconds=5 \
             --timeout 5m
