@@ -23,6 +23,7 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 | customArgs | list | `[]` | Custom args for the xatu-sentry-logs container |
 | customCommand | list | `[]` | Command replacement for the xatu-sentry-logs container |
 | env | object | `{"XATU_CLIENT_NAME":"","XATU_NETWORK_NAME":"","XATU_SERVER_URL":""}` | Environment variables passed directly to the container. Values are evaluated as templates. |
+| env.XATU_SERVER_URL | string | `""` | Must include the /v1/events path (e.g. "https://xatu-server.example.com/v1/events") |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -49,7 +50,7 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
-| secretEnv | object | `{}` | Secret env variables injected via a created secret |
+| secretEnv | object | `{}` | Secret env variables injected via a created secret. XATU_AUTH should be set to just the base64-encoded credentials (e.g. "dXNlcjpwYXNz"). Do NOT include the "Basic " prefix — the Vector config adds it automatically. |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
