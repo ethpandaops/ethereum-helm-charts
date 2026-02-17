@@ -1,0 +1,152 @@
+# Default values for benchmarkoor-api
+
+replicaCount: 1
+
+strategy:
+  type: Recreate # Required when using a SQLite db due to volume mounting
+  # type: RollingUpdate
+  # rollingUpdate:
+  #   maxSurge: 1
+  #   maxUnavailable: 0
+
+image:
+  repository: ghcr.io/ethpandaops/benchmarkoor
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 1000
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+
+service:
+  type: ClusterIP
+  port: 9090
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: benchmarkoor-api.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+  # limits:
+  #   cpu: 500m
+  #   memory: 256Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /api/v1/health
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /api/v1/healthh
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Persistence for SQLite database
+persistence:
+  enabled: true
+  storageClass: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+  annotations: {}
+
+# Environment variables (plain)
+env: []
+  # - name: FOO
+  #   value: bar
+
+# Secret environment variables
+# These will be stored in a Secret and mounted as env vars
+secretEnv:
+  ADMIN_PASSWORD: changeme
+  VIEWER_PASSWORD: changeme
+  # S3_ENDPOINT: ""
+  # AWS_ACCESS_KEY_ID: "id-value"
+  # AWS_SECRET_ACCESS_KEY: "secret-value"
+
+# Application configuration
+# Raw config.yaml content
+config: |
+  global:
+    log_level: info
+
+  api:
+    server:
+      listen: ":9090"
+      cors_origins:
+        - "*"
+
+    auth:
+      session_ttl: 24h
+      anonymous_read: false
+      basic:
+        enabled: true
+        users:
+          - username: admin
+            password: ${ADMIN_PASSWORD}
+            role: admin
+          - username: viewer
+            password: ${VIEWER_PASSWORD}
+            role: readonly
+
+    database:
+      driver: sqlite
+      sqlite:
+        path: /app/data/benchmarkoor.db
+
+    storage:
+      s3:
+        enabled: false
+        endpoint_url: ${S3_ENDPOINT}
+        region: us-east-1
+        bucket: your-bucket
+        access_key_id: ${AWS_ACCESS_KEY_ID}
+        secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+        presigned_urls:
+          expiry: 1h
+        discovery_paths:
+          - results
