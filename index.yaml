@@ -379,6 +379,24 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.0/beaconchain-explorer-0.1.0.tgz
     version: 0.1.0
+  benchmarkoor-api:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-02-17T19:34:09.270750091Z"
+    description: Benchmarkoor API - Benchmarking tool for Ethereum execution clients.
+    digest: 28248731325151f532170df25d4b04aba88fc81fce40c44be243ba5076611b53
+    keywords:
+    - benchmarkoor
+    - ethereum
+    - benchmarking
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: benchmarkoor-api
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/benchmarkoor-api-0.1.0/benchmarkoor-api-0.1.0.tgz
+    version: 0.1.0
   benchmarkoor-ui:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -13177,4 +13195,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-17T19:25:39.815322354Z"
+generated: "2026-02-17T19:34:09.271540117Z"
