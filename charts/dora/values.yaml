@@ -365,7 +365,7 @@ config: |
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
         name: "{{ .Values.postgresql.auth.database }}"
-    
+
     {{- if ne .Values.blockDbEngine "" }}
     blockDb:
       engine: "{{ .Values.blockDbEngine }}"
