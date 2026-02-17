@@ -28,7 +28,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | apiWhitelistedIPs | list | `[]` | IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges |
 | authGroups | object | `{}` | A dictionary of reusable authentication options to use for endpoints |
 | blockDbConfig | object | `{}` | Block database configuration |
-| blockDbEngine | string | `""` | Block database engine |
+| blockDbEngine | string | `""` | Block database engine, available options `s3` or `pebble` |
 | blockDbNoBlocks | bool | `false` | Do not store full block bodies in the block database (only other metadata) |
 | callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
