@@ -46,7 +46,7 @@ Benchmarkoor API - Benchmarking tool for Ethereum execution clients.
 | podLabels | object | `{}` |  |
 | podSecurityContext.fsGroup | int | `1000` |  |
 | readinessProbe.failureThreshold | int | `3` |  |
-| readinessProbe.httpGet.path | string | `"/api/v1/healthh"` |  |
+| readinessProbe.httpGet.path | string | `"/api/v1/health"` |  |
 | readinessProbe.httpGet.port | string | `"http"` |  |
 | readinessProbe.initialDelaySeconds | int | `5` |  |
 | readinessProbe.periodSeconds | int | `10` |  |

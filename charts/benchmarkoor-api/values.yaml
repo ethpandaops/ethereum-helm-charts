@@ -74,7 +74,7 @@ livenessProbe:
 
 readinessProbe:
   httpGet:
-    path: /api/v1/healthh
+    path: /api/v1/health
     port: http
   initialDelaySeconds: 5
   periodSeconds: 10

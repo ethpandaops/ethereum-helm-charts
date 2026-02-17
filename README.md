@@ -65,6 +65,7 @@ Tooling
 - [`beacon-metrics-gazer`](charts/beacon-metrics-gazer) - A prometheus exporter for Ethereum validator clients.
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
 - [`benchmarkoor-api`](charts/benchmarkoor-api) - API for Benchmarkoor, the benchmarking tool for Ethereum execution clients.
+- [`benchmarkoor-ui`](charts/benchmarkoor-api) - UI for Benchmarkoor, the benchmarking tool for Ethereum execution clients.
 - [`blob-me-baby`](charts/blob-me-baby) - Send arbitrary blob data in well-formatted blobs
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
