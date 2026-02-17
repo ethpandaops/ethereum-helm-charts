@@ -139,7 +139,7 @@ tracoorUrl: ""
 # -- Tracoor network
 tracoorNetwork: ""
 
-# -- Block database engine
+# -- Block database engine, available options `s3` or `pebble`
 blockDbEngine: ""
 
 # -- Block database configuration
