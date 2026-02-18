@@ -38,6 +38,7 @@ spec:
   selector:
     matchLabels:
       {{- include "lighthouse.selectorLabels" . | nindent 8 }}
+      service-type: cluster-ip
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}
