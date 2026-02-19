@@ -3,7 +3,7 @@ replicas: 1
 mode: bootnode
 
 extraArgs:
-  - --network=holesky
+  - --network=hoodi
 
 livenessProbe: null
 
