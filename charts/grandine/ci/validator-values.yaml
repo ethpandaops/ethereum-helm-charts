@@ -48,7 +48,7 @@ extraArgs:
   - --keystore-dir=/data/validator/keys
   - --keystore-password-file=/data/validator/secrets
   - --suggested-fee-recipient=0x0000000000000000000000000000000000000000
-  - --network=holesky
+  - --network=hoodi
 
 livenessProbe:
   tcpSocket: null

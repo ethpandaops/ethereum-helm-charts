@@ -6,7 +6,7 @@ icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodesta
 sources:
   - https://github.com/ChainSafe/lodestar
 type: application
-version: 1.2.0
+version: 1.2.1
 maintainers:
   - name: skylenet
     email: rafael@skyle.net

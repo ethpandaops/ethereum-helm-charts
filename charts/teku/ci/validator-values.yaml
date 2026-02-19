@@ -49,7 +49,7 @@ extraArgs:
   # If we use --network=auto, it will try to get the network info from the beacon node
   # During the CI test, there's not beacon node running... thus it gets stuck on retrying
   # and doesn't even start the metric server which is used for the liveness/readiness probes
-  - --network=holesky
+  - --network=hoodi
 
 livenessProbe:
   tcpSocket: null
