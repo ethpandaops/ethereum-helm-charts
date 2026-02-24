@@ -1,6 +1,6 @@
 apiVersion: v2
 name: xatu-consumoor
-description: Ethereum data consumer tool that processes and forwards blockchain data from various sources.
+description: Xatu data consumer that pulls events from Kafka and inserts them into downstream sources like Clickhouse.
 home: https://github.com/ethpandaops/xatu
 type: application
 version: 0.0.1
