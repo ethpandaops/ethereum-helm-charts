@@ -5,7 +5,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- Number of replicas
-replicas: 1
+replicas: 3
 
 image:
   # -- xatu container image repository
@@ -69,16 +69,8 @@ podLabels: {}
 # -- Pod annotations
 podAnnotations: {}
 
-# -- Pod management policy
-podManagementPolicy: OrderedReady
-
 # -- Pod priority class
 priorityClassName: null
-
-# -- Update strategy for the Statefulset
-updateStrategy:
-  # -- Update strategy type
-  type: RollingUpdate
 
 # -- Resource requests and limits
 resources: {}
@@ -162,6 +154,19 @@ extraPorts: []
 
 # -- Additional env variables
 extraEnv: []
+
+# -- Autoscaling configuration
+autoscaling:
+  # -- If true, a HorizontalPodAutoscaler is created
+  enabled: false
+  # -- Minimum number of replicas
+  minReplicas: 3
+  # -- Maximum number of replicas
+  maxReplicas: 10
+  # -- Target CPU utilization percentage
+  targetCPUUtilizationPercentage: 80
+  # -- Target Memory utilization percentage
+  targetMemoryUtilizationPercentage: null
 
 serviceMonitor:
   # -- If true, a ServiceMonitor CRD is created for a prometheus operator

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "xatu-consumoor.fullname" . }}
   labels:
@@ -7,11 +7,9 @@ metadata:
   annotations:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
-  serviceName: {{ include "xatu-consumoor.fullname" . }}
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicas }}
-  podManagementPolicy: {{ .Values.podManagementPolicy }}
-  updateStrategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "xatu-consumoor.selectorLabels" . | nindent 6 }}
