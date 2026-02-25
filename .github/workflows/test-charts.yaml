@@ -74,3 +74,4 @@ jobs:
           --excluded-charts execution-processor
           --excluded-charts cbt-api
           --excluded-charts observoor
+          --excluded-charts xatu-consumoor
