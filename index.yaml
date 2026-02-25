@@ -12587,6 +12587,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cl-mimicry-0.0.1/xatu-cl-mimicry-0.0.1.tgz
     version: 0.0.1
+  xatu-consumoor:
+  - apiVersion: v2
+    created: "2026-02-25T01:46:57.985509172Z"
+    description: Xatu data consumer that pulls events from Kafka and inserts them
+      into downstream sources like Clickhouse.
+    digest: 8eec6f48a44522cd847702028cc488af894a76a9f035afa09f1c72e350f0abc3
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-consumoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-consumoor-0.0.1/xatu-consumoor-0.0.1.tgz
+    version: 0.0.1
   xatu-discovery:
   - apiVersion: v2
     created: "2023-11-23T03:40:47.050157185Z"
@@ -13195,4 +13212,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-02-17T19:34:09.271540117Z"
+generated: "2026-02-25T01:46:57.986277464Z"
