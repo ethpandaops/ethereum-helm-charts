@@ -1,8 +1,9 @@
 {{- if .Values.p2pNodePort.enabled -}}
+{{- $fullName := include "helm-ipfs-cluster.fullname" . -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helm-ipfs-cluster.ipfs-name" . }}-p2p-nodeport
+  name: {{ $fullName}}-p2p-nodeport
   labels:
     {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
     nodeType: ipfs
