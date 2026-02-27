@@ -429,3 +429,7 @@ serviceMonitor:
   scrapeTimeout: 30s
   # -- ServiceMonitor relabelings
   relabelings: []
+
+# specify a custom config.toml
+# see: https://reth.rs/run/config.html
+#config: |
