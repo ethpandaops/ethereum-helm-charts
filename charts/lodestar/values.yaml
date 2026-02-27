@@ -106,7 +106,7 @@ defaultBeaconCommandTemplate: |
   {{- if .Values.p2pNodePort.enabled }}
     . /env/init-nodeport;
   {{- end }}
-    node /usr/app/node_modules/.bin/lodestar
+    node /usr/app/packages/cli/bin/lodestar.js
     beacon
     --dataDir=/data
     --discv5
@@ -159,7 +159,7 @@ defaultValidatorCommandTemplate: |
   - sh
   - -ac
   - >-
-    node /usr/app/node_modules/.bin/lodestar
+    node /usr/app/packages/cli/bin/lodestar.js
     validator
     --dataDir=/data
     --metrics
