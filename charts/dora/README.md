@@ -91,9 +91,9 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
 | postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.primary.persistence.enabled | bool | `true` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | proxyCount | int | `1` | Number of proxy servers in front of the explorer |
