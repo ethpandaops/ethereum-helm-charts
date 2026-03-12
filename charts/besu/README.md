@@ -9,7 +9,7 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 
 ## Source Code
 
-* <https://github.com/hyperledger/besu>
+* <https://github.com/besu-eth/besu>
 
 ## Values
 
@@ -38,7 +38,7 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | besu container pull policy |
-| image.repository | string | `"hyperledger/besu"` | besu container image repository |
+| image.repository | string | `"besu-eth/besu"` | besu container image repository |
 | image.tag | string | `"latest"` | besu container image tag |
 | imagePullSecrets | list | `[]` | Image pull secrets for Docker images |
 | ingress.annotations | object | `{}` | Annotations for Ingress |

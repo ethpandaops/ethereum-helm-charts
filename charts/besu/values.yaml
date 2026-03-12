@@ -9,7 +9,7 @@ replicas: 1
 
 image:
   # -- besu container image repository
-  repository: hyperledger/besu
+  repository: besu-eth/besu
   # -- besu container image tag
   tag: latest
   # -- besu container pull policy

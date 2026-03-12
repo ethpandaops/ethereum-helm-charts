@@ -6,7 +6,7 @@ description: >
 home: https://www.hyperledger.org/use/besu
 icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
 sources:
-  - https://github.com/hyperledger/besu
+  - https://github.com/besu-eth/besu
 type: application
 version: 1.1.2
 maintainers:
