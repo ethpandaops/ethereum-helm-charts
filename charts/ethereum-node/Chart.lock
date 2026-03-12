@@ -1,7 +1,7 @@
 dependencies:
 - name: besu
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.2
+  version: 1.1.3
 - name: erigon
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 2.0.1
@@ -56,5 +56,5 @@ dependencies:
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:41944c986d48a049a634b42fdb265173a880e160c3080d25ddef7e8bfbcc996e
-generated: "2026-02-12T18:29:15.18341+10:00"
+digest: sha256:4b82c6253884fb544255cea8bb2f5992034e8acc59cd31d298443c3ee64e3b5f
+generated: "2026-03-12T10:53:33.000000+00:00"
