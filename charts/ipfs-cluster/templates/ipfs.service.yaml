@@ -1,7 +1,8 @@
+{{- $fullName := include "helm-ipfs-cluster.fullname" . -}}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helm-ipfs-cluster.ipfs-name" . }}
+  name: {{ $fullName }}
   labels:
     {{- include "helm-ipfs-cluster.selectorLabels" . | nindent 4 }}
     nodeType: ipfs
