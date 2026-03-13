@@ -8,15 +8,15 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.14
+version: 0.2.13
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
 
 dependencies:
 - name: besu
-  version: "1.1.3"
-  repository: "file://../besu"
+  version: "1.1.2"
+  repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: besu.enabled
 - name: erigon
   version: "2.0.1"
