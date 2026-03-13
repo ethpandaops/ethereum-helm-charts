@@ -56,5 +56,5 @@ dependencies:
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:4b82c6253884fb544255cea8bb2f5992034e8acc59cd31d298443c3ee64e3b5f
-generated: "2026-03-12T10:53:33.000000+00:00"
+digest: sha256:217fd6ea8b34aeccfd76beeb2e3221ce5ec225ad20e5c3f00c029183fe4f037e
+generated: "2026-03-13T09:44:33.6684302+01:00"

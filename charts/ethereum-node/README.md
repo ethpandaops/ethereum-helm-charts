@@ -14,10 +14,10 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 ## Subcharts
 | Repository | Name | Version |
 |------------|------|---------|
+| file://../besu | besu | 1.1.3 |
 | file://../observoor | observoor | 0.0.3 |
 | file://../rpc-snooper | rpc-snooper | 0.0.2 |
 | file://../xatu-sentry-logs | xatu-sentry-logs | 0.0.2 |
-| https://ethpandaops.github.io/ethereum-helm-charts | besu | 1.1.3 |
 | https://ethpandaops.github.io/ethereum-helm-charts | erigon | 2.0.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethereum-metrics-exporter | 0.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethereumjs | 0.1.1 |
