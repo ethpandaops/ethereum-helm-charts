@@ -8,18 +8,18 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.4
+version: 0.2.13
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
 
 dependencies:
 - name: besu
-  version: "1.1.1"
+  version: "1.1.2"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: besu.enabled
 - name: erigon
-  version: "1.1.1"
+  version: "2.0.1"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: erigon.enabled
 - name: ethereumjs
@@ -27,7 +27,7 @@ dependencies:
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: ethereumjs.enabled
 - name: geth
-  version: "1.1.1"
+  version: "1.1.2"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: geth.enabled
 - name: nethermind
@@ -38,6 +38,10 @@ dependencies:
   version: "0.1.4"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: reth.enabled
+- name: ethrex
+  version: "0.1.1"
+  repository: "https://ethpandaops.github.io/ethereum-helm-charts"
+  condition: ethrex.enabled
 
 - name: grandine
   version: "0.2.1"
@@ -56,7 +60,7 @@ dependencies:
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: nimbus.enabled
 - name: prysm
-  version: "1.2.0"
+  version: "1.2.2"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: prysm.enabled
 - name: teku
@@ -76,3 +80,15 @@ dependencies:
   version: "0.0.1"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: tracoor-agent.enabled
+- name: observoor
+  version: "0.0.3"
+  repository: "file://../observoor"
+  condition: observoor.enabled
+- name: xatu-sentry-logs
+  version: "0.0.2"
+  repository: "file://../xatu-sentry-logs"
+  condition: xatu-sentry-logs.enabled
+- name: rpc-snooper
+  version: "0.0.2"
+  repository: "file://../rpc-snooper"
+  condition: global.main.engineSnooper.enabled

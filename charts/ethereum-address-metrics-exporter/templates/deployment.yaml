@@ -47,7 +47,7 @@ spec:
         {{- if gt (len .Values.customCommand) 0 }}
           {{- toYaml .Values.customCommand | nindent 12}}
         {{- else }}
-          - "/ethereum-address-metrics-exporter"
+          - "/app/ethereum-address-metrics-exporter"
           - --config=/config.yaml
           {{- if gt (len .Values.args) 0 }}
           {{- toYaml .Values.args | nindent 12}}

@@ -4,4 +4,6 @@ extend-ignore-re = [
     "enr:-.*",
     # Ignore blutgang config typo
     "supress_rpc_check",
+    # Ignore IPFS CIDs (Content Identifiers)
+    "Qm[a-zA-Z0-9]{44}",
 ]

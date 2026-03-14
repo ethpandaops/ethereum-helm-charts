@@ -41,10 +41,10 @@ p2pNodePort:
 ```
 
 
-## Exposing more APIs via the RPC Daemon
+## Customizing HTTP API configuration
 
 ```yaml
-extraArgsRPCDaemon:
+extraArgs:
   - --http.corsdomain=yourdomain.tld
   - --http.api=eth,erigon,web3,net,debug,trace,txpool,db
 ```

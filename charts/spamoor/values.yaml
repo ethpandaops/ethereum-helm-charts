@@ -170,6 +170,12 @@ rpcEndpoints:
 # -- HTTP port for spamoor interface
 httpPort: 8080
 
+# -- Enable authentication
+enableAuth: false
+
+# -- Authentication token key
+authTokenKey: ""
+
 # -- Template used for the default spamoor args
 # @default -- See `values.yaml`
 defaultSpamoorArgsTemplate: |
@@ -180,6 +186,12 @@ defaultSpamoorArgsTemplate: |
   {{- if gt (len .Values.customArgs) 0 }}
   {{- range .Values.customArgs }}
   - {{ tpl . $ }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.enableAuth }}
+  - --enable-auth
+  {{- if gt (len .Values.authTokenKey) 0 }}
+  - --auth-token-key={{ .Values.authTokenKey }}
   {{- end }}
   {{- end }}
 

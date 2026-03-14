@@ -1,0 +1,19 @@
+env:
+  XATU_CLIENT_NAME: "ci-test"
+  XATU_NETWORK_NAME: "mainnet"
+  XATU_SERVER_URL: "http://localhost:8080"
+
+# Dummy auth value required for Vector to start (sink config references ${XATU_AUTH})
+secretEnv:
+  XATU_AUTH: "dGVzdDp0ZXN0"
+
+# Dummy source to satisfy the pipeline's "ethereum_*" input glob.
+# demo_logs generates fake data that parse_json silently drops (drop_on_error: true).
+sources:
+  ci:
+    sources:
+      ethereum_noop:
+        type: demo_logs
+        format: json
+        count: 1
+        interval: 86400

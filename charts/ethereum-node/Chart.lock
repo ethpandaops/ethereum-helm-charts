@@ -1,22 +1,25 @@
 dependencies:
 - name: besu
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.1
+  version: 1.1.2
 - name: erigon
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.1
+  version: 2.0.1
 - name: ethereumjs
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.1.1
 - name: geth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.1
+  version: 1.1.2
 - name: nethermind
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 1.1.0
 - name: reth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.1.4
+- name: ethrex
+  repository: https://ethpandaops.github.io/ethereum-helm-charts
+  version: 0.1.1
 - name: grandine
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.2.1
@@ -31,7 +34,7 @@ dependencies:
   version: 1.2.0
 - name: prysm
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.2.0
+  version: 1.2.2
 - name: teku
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 1.2.0
@@ -44,5 +47,14 @@ dependencies:
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.1
-digest: sha256:f996b8cd472fd56c7c67ec091506457c2194f1c664d4f7507f4e72657b9a2144
-generated: "2025-09-08T10:52:10.478725+10:00"
+- name: observoor
+  repository: file://../observoor
+  version: 0.0.3
+- name: xatu-sentry-logs
+  repository: file://../xatu-sentry-logs
+  version: 0.0.2
+- name: rpc-snooper
+  repository: file://../rpc-snooper
+  version: 0.0.2
+digest: sha256:41944c986d48a049a634b42fdb265173a880e160c3080d25ddef7e8bfbcc996e
+generated: "2026-02-12T18:29:15.18341+10:00"

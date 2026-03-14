@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.2](https://img.shields.io/badge/Version-1.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.7](https://img.shields.io/badge/Version-1.0.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -27,6 +27,9 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | apiRequireAuth | bool | `false` | Require authentication for all API requests (set to true to disable unauthenticated access) |
 | apiWhitelistedIPs | list | `[]` | IP/CIDR whitelisting (bypass rate limits) - supports IPv4/IPv6 addresses and CIDR ranges |
 | authGroups | object | `{}` | A dictionary of reusable authentication options to use for endpoints |
+| blockDbConfig | object | `{}` | Block database configuration |
+| blockDbEngine | string | `""` | Block database engine, available options `s3` or `pebble` |
+| blockDbNoBlocks | bool | `false` | Do not store full block bodies in the block database (only other metadata) |
 | callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
 | config | string | See `values.yaml` | Config file |
@@ -38,6 +41,11 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | executionEndpoints | list | `[]` | An array of execution endpoints to use for the explorer -- url is the only required field |
 | executionEndpointsUrl | string | `""` | URL to the execution endpoints file -- If you want to use a separate endpoints file as an alternative to the endpoints array, set this value |
 | executionGenesisConfig | string | `""` | URL to the execution genesis config file -- If you want to use a separate execution genesis config file, set this value |
+| executionIndexerDetailsEnabled | bool | `false` | Enable execution data indexer details |
+| executionIndexerDetailsMaxSize | string | `"100GB"` | Execution data indexer details max size |
+| executionIndexerEnabled | bool | `false` | Enable execution data indexer |
+| executionIndexerRetention | string | `"720h"` | Execution data retention time |
+| executionIndexerTracesEnabled | bool | `false` | Enable execution data indexer traces |
 | extraArgs | list | `[]` | Extra args for the dora container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -80,12 +88,12 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | postgresql.auth.username | string | `"postgres"` |  |
 | postgresql.enabled | bool | `true` |  |
 | postgresql.image.registry | string | `"docker.io"` |  |
-| postgresql.image.repository | string | `"bitnami/postgresql"` |  |
+| postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
 | postgresql.image.tag | string | `"15.3.0-debian-11-r7"` |  |
 | postgresql.name | string | `"{{ .Release.Name }}-postgresql"` | If enabled a postgres chart will be deployed as a dependency |
-| postgresql.persistence.enabled | bool | `true` |  |
-| postgresql.persistence.size | string | `"8Gi"` |  |
 | postgresql.primary.extendedConfiguration | string | `"max_connections = 1024\n"` |  |
+| postgresql.primary.persistence.enabled | bool | `true` |  |
+| postgresql.primary.persistence.size | string | `"8Gi"` |  |
 | postgresql.pullPolicy | string | `"IfNotPresent"` |  |
 | priorityClassName | string | `nil` | Pod priority class |
 | proxyCount | int | `1` | Number of proxy servers in front of the explorer |
@@ -114,6 +122,8 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
+| tracoorNetwork | string | `""` | Tracoor network |
+| tracoorUrl | string | `""` | Tracoor URL |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the Statefulset |
 | updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 | validatorNamesInventory | string | `""` | This can be a url here for example: -- "https://config.dencun-devnet-8.ethpandaops.io/api/v1/nodes/validator-ranges" -- If you want to use a local range file define it in the values.yaml ranges section |

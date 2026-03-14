@@ -1,0 +1,39 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Connecting to the holesky test network
+
+```yaml
+extraArgs:
+  - --network=holesky
+```
+
+## Exposing the P2P service via NodePort
+
+This will make your node accessible via the Internet using a service of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport).
+When using `p2pNodePort.enabled` the exposed IP address on your ENR record will be the "External IP" of the node where the pod is running.
+
+**Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`. If you need N nodes, simply deploy the chart N times.
+
+```yaml
+replicas: 1
+
+p2pNodePort:
+  enabled: true
+  port: 31000
+```

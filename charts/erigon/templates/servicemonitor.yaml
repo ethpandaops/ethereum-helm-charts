@@ -33,22 +33,6 @@ spec:
     relabelings:
     {{- toYaml .Values.serviceMonitor.relabelings | nindent 4 }}
     {{- end }}
-  - interval: {{ .Values.serviceMonitor.interval }}
-    {{- if .Values.serviceMonitor.scrapeTimeout }}
-    scrapeTimeout: {{ .Values.serviceMonitor.scrapeTimeout }}
-    {{- end }}
-    honorLabels: true
-    port: metrics-rpcd
-    path: {{ .Values.serviceMonitor.path }}
-    scheme: {{ .Values.serviceMonitor.scheme }}
-    {{- if .Values.serviceMonitor.tlsConfig }}
-    tlsConfig:
-    {{- toYaml .Values.serviceMonitor.tlsConfig | nindent 6 }}
-    {{- end }}
-    {{- if .Values.serviceMonitor.relabelings }}
-    relabelings:
-    {{- toYaml .Values.serviceMonitor.relabelings | nindent 4 }}
-    {{- end }}
   jobLabel: "{{ .Release.Name }}"
   selector:
     matchLabels:

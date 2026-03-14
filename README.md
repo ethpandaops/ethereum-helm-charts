@@ -64,6 +64,8 @@ Tooling
 
 - [`beacon-metrics-gazer`](charts/beacon-metrics-gazer) - A prometheus exporter for Ethereum validator clients.
 - [`beaconchain-explorer`](charts/beaconchain-explorer) - Beacon chain block explorer.
+- [`benchmarkoor-api`](charts/benchmarkoor-api) - API for Benchmarkoor, the benchmarking tool for Ethereum execution clients.
+- [`benchmarkoor-ui`](charts/benchmarkoor-api) - UI for Benchmarkoor, the benchmarking tool for Ethereum execution clients.
 - [`blob-me-baby`](charts/blob-me-baby) - Send arbitrary blob data in well-formatted blobs
 - [`blobscan-indexer`](charts/blobscan-indexer) - Blobscan-Indexer indexes blobs in MongoDB for use with Blobscan.
 - [`blobscan`](charts/blobscan) - Blobscan is the first blockchain explorer that helps to navigate and visualize those EIP-4844 blobs.
@@ -103,6 +105,7 @@ Tooling
 - [`tracoor-single`](charts/tracoor-single) - An Ethereum beacon data and execution trace explorer in single mode.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
 - [`xatu-cannon`](charts/xatu-cannon) - Ethereum data collection tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
+- [`xatu-consumoor`](charts/xatu-consumoor) - Xatu data consumer that pulls events from Kafka and inserts them into downstream sources like Clickhouse.
 - [`xatu-discovery`](charts/xatu-discovery) - Ethereum p2p monitoring tool that discovers node records.
 - [`xatu-mimicry`](charts/xatu-mimicry) - Ethereum p2p monitoring tool that collects data from the execution layer.
 - [`xatu-sentry`](charts/xatu-sentry) - Ethereum p2p monitoring tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).

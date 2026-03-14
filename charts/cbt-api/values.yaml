@@ -68,6 +68,34 @@ config:
     expose_prefixes:
       - fct
 
+  # HTTP Headers Configuration
+  # Allows setting arbitrary HTTP headers per endpoint based on path patterns
+  # Policies are evaluated in order - first match wins
+  # Use this for Cache-Control, Vary, security headers, custom headers, etc.
+  headers:
+    policies: []
+    # Example policies (uncomment and modify as needed):
+    # - name: "openapi_spec"
+    #   path_pattern: "^/openapi\\.yaml$"
+    #   headers:
+    #     Cache-Control: "public, max-age=3600, s-maxage=3600"
+    # - name: "api_docs"
+    #   path_pattern: "^/docs$"
+    #   headers:
+    #     Cache-Control: "public, max-age=300, s-maxage=300"
+    # - name: "health"
+    #   path_pattern: "^/health$"
+    #   headers:
+    #     Cache-Control: "public, max-age=5, s-maxage=5"
+    # - name: "api_queries"
+    #   path_pattern: "^/api/v1/.*"
+    #   headers:
+    #     Cache-Control: "public, max-age=30, s-maxage=60, stale-while-revalidate=120"
+    # - name: "default"
+    #   path_pattern: ".*"
+    #   headers:
+    #     Cache-Control: "no-cache, no-store, must-revalidate"
+
   telemetry:
     enabled: false
     endpoint: "tempo.example.com:443"

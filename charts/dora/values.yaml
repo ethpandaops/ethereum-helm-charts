@@ -118,6 +118,36 @@ apiDisableDefaultRateLimit: false
 # -- Allowed CORS origins
 apiCorsOrigins: []
 
+# -- Enable execution data indexer
+executionIndexerEnabled: false
+
+# -- Enable execution data indexer details
+executionIndexerDetailsEnabled: false
+
+# -- Enable execution data indexer traces
+executionIndexerTracesEnabled: false
+
+# -- Execution data indexer details max size
+executionIndexerDetailsMaxSize: "100GB"
+
+# -- Execution data retention time
+executionIndexerRetention: "720h" # 1 month
+
+# -- Tracoor URL
+tracoorUrl: ""
+
+# -- Tracoor network
+tracoorNetwork: ""
+
+# -- Block database engine, available options `s3` or `pebble`
+blockDbEngine: ""
+
+# -- Block database configuration
+blockDbConfig: {}
+
+# -- Do not store full block bodies in the block database (only other metadata)
+blockDbNoBlocks: false
+
 # -- Config file
 # @default -- See `values.yaml`
 config: |
@@ -188,6 +218,12 @@ config: |
       showSubmitDeposit: true
       showSubmitElRequests: true
       showValidatorSummary: true
+
+      {{- if .Values.tracoorUrl }}
+      # Tracoor cross references
+      tracoorUrl: "{{ .Values.tracoorUrl }}"
+      tracoorNetwork: "{{ .Values.tracoorNetwork }}"
+      {{- end }}
 
     rateLimit:
       enabled: true
@@ -307,6 +343,20 @@ config: |
       # max number of parallel state requests to make to the CL clients
       maxParallelValidatorSetRequests: 2
 
+      # do not store full block bodies in the block database (only other metadata)
+      disableBlockDB: {{ .Values.blockDbNoBlocks }}
+
+    executionIndexer:
+      # enable execution data indexing
+      enabled: {{ .Values.executionIndexerEnabled }}
+
+      # history retention time
+      retention: {{ .Values.executionIndexerRetention }}
+
+      detailsEnabled: {{ .Values.executionIndexerDetailsEnabled }}
+      tracesEnabled: {{ .Values.executionIndexerTracesEnabled }}
+      detailsMaxSize: "{{ .Values.executionIndexerDetailsMaxSize }}"
+
     database:
       engine: "pgsql"
       pgsql:
@@ -315,6 +365,26 @@ config: |
         user: "{{ .Values.postgresql.auth.username }}"
         password: "{{ .Values.postgresql.auth.password }}"
         name: "{{ .Values.postgresql.auth.database }}"
+
+    {{- if ne .Values.blockDbEngine "" }}
+    blockDb:
+      engine: "{{ .Values.blockDbEngine }}"
+      {{- if eq .Values.blockDbEngine "s3" }}
+      s3:
+        endpoint: "{{ .Values.blockDbConfig.endpoint | default "" }}"
+        secure: "{{ .Values.blockDbConfig.secure | default false }}"
+        bucket: "{{ .Values.blockDbConfig.bucket | default "" }}"
+        region: "{{ .Values.blockDbConfig.region | default "" }}"
+        accessKey: "{{ .Values.blockDbConfig.accessKey | default "" }}"
+        secretKey: "{{ .Values.blockDbConfig.secretKey | default "" }}"
+        path: "{{ .Values.blockDbConfig.path | default .Values.name }}"
+      {{- end }}
+      {{- if eq .Values.blockDbEngine "pebble" }}
+      pebble:
+        path: "{{ .Values.blockDbConfig.path | default "" }}"
+        cacheSize: "{{ .Values.blockDbConfig.cacheSize | default 100 }}"
+      {{- end }}
+    {{- end }}
 
 ranges: |
   0-1: test
@@ -521,7 +591,7 @@ postgresql:
   enabled: true
   image:
     registry: docker.io
-    repository: bitnami/postgresql
+    repository: bitnamilegacy/postgresql
     tag: 15.3.0-debian-11-r7
   pullPolicy: IfNotPresent
   auth:
@@ -533,6 +603,6 @@ postgresql:
   primary:
     extendedConfiguration: |
       max_connections = 1024
-  persistence:
-    enabled: true
-    size: 8Gi
+    persistence:
+      enabled: true
+      size: 8Gi

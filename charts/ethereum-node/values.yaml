@@ -2,6 +2,8 @@ global:
   main:
     network: mainnet
     engineEndpoint: http://{{ .Release.Name }}-execution:8551
+    engineSnooper:
+      enabled: false
     rpcEndpoint: http://{{ .Release.Name }}-execution:8545
     wsEndpoint: ws://{{ .Release.Name }}-execution:8546
     beaconEndpoint: http://{{ .Release.Name }}-beacon:5052
@@ -19,6 +21,7 @@ global:
           besu: []
           erigon: []
           ethereumjs: []
+          ethrex: []
           geth: []
           nethermind: []
           reth: []
@@ -36,6 +39,8 @@ global:
           erigon:
             - --chain=sepolia
           ethereumjs:
+            - --network=sepolia
+          ethrex:
             - --network=sepolia
           geth:
             - --sepolia
@@ -64,6 +69,8 @@ global:
             - --chain=holesky
           ethereumjs:
             - --network=holesky
+          ethrex:
+            - --network=holesky
           geth:
             - --holesky
           nethermind:
@@ -90,6 +97,8 @@ global:
           erigon:
             - --chain=hoodi
           ethereumjs:
+            - --network=hoodi
+          ethrex:
             - --network=hoodi
           geth:
             - --hoodi
@@ -226,6 +235,24 @@ reth:
         {{- end -}}
       {{- end }}
 
+ethrex:
+  enabled: false
+  nameOverride: execution
+  httpPort: 8545
+  wsPort: 8546
+  p2pPort: 30303
+  extraArgs:
+    - >-
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range $i, $v := .execution.ethrex }}
+        {{- if (eq $i 0) }}
+        {{- $v }}
+        {{- else }}
+        {{ $v }}
+        {{- end }}
+        {{- end -}}
+      {{- end }}
+
 ########################
 ###
 ###  Consensus clients
@@ -242,7 +269,7 @@ grandine:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --eth1-rpc-urls={{ tpl .Values.global.main.engineEndpoint . }}
+      --eth1-rpc-urls={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.grandine }}
         {{ . }}
@@ -259,7 +286,7 @@ lighthouse:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.lighthouse }}
         {{ . }}
@@ -276,7 +303,7 @@ teku:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --ee-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --ee-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.teku }}
         {{ . }}
@@ -293,7 +320,7 @@ lodestar:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution.urls={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution.urls={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.lodestar }}
         {{ . }}
@@ -310,7 +337,7 @@ prysm:
     url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
   extraArgs:
     - >-
-      --execution-endpoint={{ tpl .Values.global.main.engineEndpoint . }}
+      --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.prysm }}
         {{ . }}
@@ -328,7 +355,7 @@ nimbus:
     network: "{{ .Values.global.main.network }}"
   extraArgs:
     - >-
-      --web3-url={{ tpl .Values.global.main.engineEndpoint . }}
+      --web3-url={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.nimbus }}
         {{ . }}
@@ -401,3 +428,58 @@ tracoor-agent:
         region: "us-east-1"
         endpoint: http://localhost:9000
         bucket_name: tracoor
+
+observoor:
+  enabled: false
+  nameOverride: observoor
+  config:
+    meta_client_name: "{{ .Release.Name }}"
+    meta_network_name: "{{ .Values.global.main.network }}"
+    beacon:
+      endpoint: "{{ tpl .Values.global.main.beaconEndpoint . }}"
+
+xatu-sentry-logs:
+  enabled: false
+  nameOverride: xatu-sentry-logs
+  serviceAccount:
+    create: true
+  rbac:
+    create: true
+  env:
+    XATU_CLIENT_NAME: "{{ .Release.Name }}"
+    XATU_NETWORK_NAME: "{{ .Values.global.main.network }}"
+    XATU_SERVER_URL: ""
+  sources:
+    execution:
+      sources:
+        ethereum_execution:
+          type: kubernetes_logs
+          extra_label_selector: "app.kubernetes.io/name=execution,app.kubernetes.io/instance={{ .Release.Name }}"
+    consensus:
+      sources:
+        ethereum_consensus:
+          type: kubernetes_logs
+          extra_label_selector: "app.kubernetes.io/name=beacon,app.kubernetes.io/instance={{ .Release.Name }}"
+  extraVolumes:
+    - name: var-log-pods
+      hostPath:
+        path: /var/log/pods
+    - name: var-lib-vector
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: var-log-pods
+      mountPath: /var/log/pods
+      readOnly: true
+    - name: var-lib-vector
+      mountPath: /var/lib/vector
+
+########################
+###
+###  Engine API Proxy
+###
+########################
+
+rpc-snooper:
+  nameOverride: engine-snooper
+  httpPort: 8551
+  url: "{{ tpl .Values.global.main.engineEndpoint . }}"
