@@ -1,0 +1,9 @@
+apiVersion: v2
+name: wagie
+description: A modular project orchestration platform
+home: https://github.com/ethpandaops/wagie
+type: application
+version: 0.1.0
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org

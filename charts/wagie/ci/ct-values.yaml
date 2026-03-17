@@ -1,0 +1,30 @@
+target: all
+
+config:
+  data-dir: /data
+
+  database:
+    type: sqlite
+    dsn: "file:/data/wagie.db"
+
+  models:
+    default:
+      - provider: claude-code
+
+  headquarters:
+    http-listen-address: ":8080"
+
+  worker:
+    name: "worker"
+    model: default
+
+  leadership:
+    name: "leadership"
+    model: default
+
+  assistant:
+    name: "assistant"
+    model: default
+
+  web:
+    http-listen-address: ":8080"
