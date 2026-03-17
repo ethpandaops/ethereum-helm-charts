@@ -12269,6 +12269,24 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/tracoor-single-0.0.1/tracoor-single-0.0.1.tgz
     version: 0.0.1
+  wagie:
+  - apiVersion: v2
+    created: "2026-03-17T06:23:03.503145857Z"
+    description: A modular project orchestration platform
+    digest: 01d9bc59a8a00637c35b141e971c915e53f93b57b9fc756cc7c852c99961adab
+    home: https://github.com/ethpandaops/wagie
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    - email: matt.evans@ethereum.org
+      name: mattevans
+    name: wagie
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/wagie-0.1.0/wagie-0.1.0.tgz
+    version: 0.1.0
   web3signer:
   - apiVersion: v2
     created: "2025-01-20T12:32:57.10539409Z"
@@ -13253,4 +13271,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-03-16T06:14:12.097832352Z"
+generated: "2026-03-17T06:23:03.504592751Z"
