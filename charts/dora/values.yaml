@@ -386,8 +386,8 @@ config: |
       {{- end }}
     {{- end }}
 
-ranges: |
-  0-1: test
+ranges: []
+# 0-1: test
 
 # - HTTP port for dora interface
 httpPort: 8080
