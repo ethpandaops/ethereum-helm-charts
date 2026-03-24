@@ -4,6 +4,7 @@ metadata:
   name: {{ include "lighthouse.fullname" . }}
   labels:
     {{- include "lighthouse.labels" . | nindent 4 }}
+    service-type: cluster-ip
 spec:
   type: ClusterIP
   ports:
