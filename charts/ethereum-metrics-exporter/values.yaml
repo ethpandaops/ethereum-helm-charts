@@ -62,6 +62,10 @@ customCommand: [] # Only change this if you need to change the default command
 service:
   # -- Service type
   type: ClusterIP
+  # -- Annotations to add to the service
+  annotations: {}
+  # -- Routing policy for internal cluster traffic. Set to "Local" to prefer same-node routing
+  internalTrafficPolicy: ""
 
 # -- Affinity configuration for pods
 affinity: {}

@@ -1,7 +1,7 @@
 
 # reth
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implementation that is focused on being user-friendly, highly modular, as well as being fast and efficient. Reth is an Execution Layer (EL) and is compatible with all Ethereum Consensus Layer (CL) implementations that support the Engine API. It is originally built and driven forward by Paradigm, and is licensed under the Apache and MIT licenses.
 
@@ -91,6 +91,9 @@ Reth (short for Rust Ethereum, pronunciation) is a new Ethereum full node implem
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
+| service.annotations | object | `{}` | Annotations to add to the service |
+| service.internalTrafficPolicy | string | `""` | Routing policy for internal cluster traffic. Set to "Local" to prefer same-node routing |
+| service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
