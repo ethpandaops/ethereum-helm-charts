@@ -3403,6 +3403,20 @@ entries:
     version: 0.0.1
   ethereum-metrics-exporter:
   - apiVersion: v2
+    created: "2026-03-27T20:35:04.927251579Z"
+    description: A Prometheus metrics exporter for Ethereum consensus & execution
+      nodes
+    digest: 6aa4750480838bad44f097b0f5561d77ede0455bf82703fe3c8acb0f66eecad4
+    home: https://github.com/samcm/ethereum-metrics-exporter
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: ethereum-metrics-exporter
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethereum-metrics-exporter-0.2.1/ethereum-metrics-exporter-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
     created: "2024-10-10T02:53:05.648381912Z"
     description: A Prometheus metrics exporter for Ethereum consensus & execution
       nodes
@@ -8566,6 +8580,24 @@ entries:
     version: 0.0.1
   lighthouse:
   - apiVersion: v2
+    created: "2026-03-27T20:35:05.054994517Z"
+    description: An open-source Ethereum 2.0 client, written in Rust
+    digest: bb8d4d3b2219ea0186f0797dd2d9d9014bdf3fa7404cf58d43e99fbf842e5f53
+    home: https://lighthouse.sigmaprime.io/
+    icon: https://launchpad.ethereum.org/static/media/lighthouse-circle.e0b82d14.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lighthouse
+    sources:
+    - https://github.com/sigp/lighthouse
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lighthouse-1.1.8/lighthouse-1.1.8.tgz
+    version: 1.1.8
+  - apiVersion: v2
     created: "2025-08-08T03:44:11.494049033Z"
     description: An open-source Ethereum 2.0 client, written in Rust
     digest: 9497eadfe65203729bb44d4f3dce42177659b7e377a5a8292c64e23719c1af3e
@@ -10904,6 +10936,27 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
     version: 0.1.0
   reth:
+  - apiVersion: v2
+    created: "2026-03-27T20:35:05.19858304Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: ebc72b5dd798ccbdeaa462c22c40f5d84aa8265b689a1297da5ac84a69796a99
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.1.7/reth-0.1.7.tgz
+    version: 0.1.7
   - apiVersion: v2
     created: "2025-09-23T07:02:06.021655511Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
@@ -13294,4 +13347,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-03-19T17:26:23.79360827Z"
+generated: "2026-03-27T20:35:05.200194978Z"
