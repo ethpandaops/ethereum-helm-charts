@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.2.13](https://img.shields.io/badge/Version-0.2.13-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.14](https://img.shields.io/badge/Version-0.2.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -19,17 +19,17 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | file://../xatu-sentry-logs | xatu-sentry-logs | 0.0.2 |
 | https://ethpandaops.github.io/ethereum-helm-charts | besu | 1.1.2 |
 | https://ethpandaops.github.io/ethereum-helm-charts | erigon | 2.0.1 |
-| https://ethpandaops.github.io/ethereum-helm-charts | ethereum-metrics-exporter | 0.2.0 |
+| https://ethpandaops.github.io/ethereum-helm-charts | ethereum-metrics-exporter | 0.2.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethereumjs | 0.1.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | ethrex | 0.1.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | geth | 1.1.2 |
 | https://ethpandaops.github.io/ethereum-helm-charts | grandine | 0.2.1 |
-| https://ethpandaops.github.io/ethereum-helm-charts | lighthouse | 1.1.7 |
+| https://ethpandaops.github.io/ethereum-helm-charts | lighthouse | 1.1.8 |
 | https://ethpandaops.github.io/ethereum-helm-charts | lodestar | 1.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | nethermind | 1.1.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | nimbus | 1.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | prysm | 1.2.2 |
-| https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.1.4 |
+| https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.1.7 |
 | https://ethpandaops.github.io/ethereum-helm-charts | teku | 1.2.0 |
 | https://ethpandaops.github.io/ethereum-helm-charts | tracoor-agent | 0.0.1 |
 | https://ethpandaops.github.io/ethereum-helm-charts | xatu-sentry | 0.0.8 |
