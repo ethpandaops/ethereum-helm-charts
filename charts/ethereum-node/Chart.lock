@@ -16,7 +16,7 @@ dependencies:
   version: 1.1.0
 - name: reth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.4
+  version: 0.1.7
 - name: ethrex
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.1.1
@@ -25,7 +25,7 @@ dependencies:
   version: 0.2.1
 - name: lighthouse
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.7
+  version: 1.1.8
 - name: lodestar
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 1.2.0
@@ -40,7 +40,7 @@ dependencies:
   version: 1.2.0
 - name: ethereum-metrics-exporter
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.2.0
+  version: 0.2.1
 - name: xatu-sentry
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.0.8
@@ -56,5 +56,5 @@ dependencies:
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:41944c986d48a049a634b42fdb265173a880e160c3080d25ddef7e8bfbcc996e
-generated: "2026-02-12T18:29:15.18341+10:00"
+digest: sha256:b182647611dc8ce9961adc68023e07ad2660518d6b21c85a15a5c861c7c07875
+generated: "2026-03-30T12:50:55.301171+10:00"

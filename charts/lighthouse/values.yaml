@@ -230,6 +230,14 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+service:
+  # -- Service type
+  type: ClusterIP
+  # -- Annotations to add to the service
+  annotations: {}
+  # -- Routing policy for internal cluster traffic. Set to "Local" to prefer same-node routing
+  internalTrafficPolicy: ""
+
 # -- Affinity configuration for pods
 affinity: {}
 
