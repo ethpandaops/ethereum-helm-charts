@@ -417,6 +417,26 @@ entries:
     version: 0.1.0
   besu:
   - apiVersion: v2
+    created: "2026-04-10T08:01:26.812987337Z"
+    description: 'An Ethereum execution layer client designed to be enterprise-friendly
+      for both public and private, permissioned network use cases. Besu is written
+      in Java and released under the Apache 2.0 Licence. '
+    digest: c95069750689bcb924e0e07d5a7a0f398ea013af68db0cac665eb336c0cb7222
+    home: https://www.hyperledger.org/use/besu
+    icon: https://launchpad.ethereum.org/static/media/hyperledger-besu-circle.b96368c7.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: besu
+    sources:
+    - https://github.com/hyperledger/besu
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/besu-1.1.3/besu-1.1.3.tgz
+    version: 1.1.3
+  - apiVersion: v2
     created: "2026-01-23T09:53:31.208418817Z"
     description: 'An Ethereum execution layer client designed to be enterprise-friendly
       for both public and private, permissioned network use cases. Besu is written
@@ -7232,6 +7252,24 @@ entries:
     version: 0.0.1
   ethrex:
   - apiVersion: v2
+    created: "2026-04-10T08:01:26.999389526Z"
+    description: 'Ethrex is an Ethereum execution client developed by Lambda Class.
+      It is written in Rust and designed to be modular, efficient, and fully compatible
+      with Ethereum''s Engine API for connecting to consensus layer clients. '
+    digest: 29b60d8b60f6a99b618da7e67dd81094d39e0d9ef95388e91977366224599527
+    home: https://github.com/lambdaclass/ethrex
+    icon: https://avatars.githubusercontent.com/u/6535196
+    maintainers:
+    - email: matt.evans@ethereum.org
+      name: mattevans
+    name: ethrex
+    sources:
+    - https://github.com/lambdaclass/ethrex
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/ethrex-0.1.2/ethrex-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2026-01-12T05:18:42.731321011Z"
     description: 'Ethrex is an Ethereum execution client developed by Lambda Class.
       It is written in Rust and designed to be modular, efficient, and fully compatible
@@ -7829,6 +7867,27 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/genesis-generator-0.1.0/genesis-generator-0.1.0.tgz
     version: 0.1.0
   geth:
+  - apiVersion: v2
+    created: "2026-04-10T08:01:27.187062949Z"
+    description: 'Go Ethereum (Geth for short) is one of the original implementations
+      of the Ethereum protocol. Currently, it is the most widespread client with the
+      biggest user base and variety of tooling for users and developers. It is written
+      in Go, fully open source and licensed under the GNU LGPL v3 '
+    digest: 76ef685c9dc55a19adbd8f19ca59cb68fae0296c51e2cbee3c699db9de776493
+    home: https://geth.ethereum.org/
+    icon: https://launchpad.ethereum.org/static/media/gethereum-mascot-circle.75cbd3a5.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: geth
+    sources:
+    - https://github.com/ethereum/go-ethereum
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/geth-1.1.3/geth-1.1.3.tgz
+    version: 1.1.3
   - apiVersion: v2
     created: "2026-01-23T09:53:31.538112049Z"
     description: 'Go Ethereum (Geth for short) is one of the original implementations
@@ -9508,6 +9567,25 @@ entries:
     version: 0.1.0
   nethermind:
   - apiVersion: v2
+    created: "2026-04-10T08:01:27.366089376Z"
+    description: 'Nethermind is an Ethereum execution layer implementation created
+      with the C# .NET tech stack, running on all major platforms including ARM. '
+    digest: b23f3d1216be07ce14547c1fd0958ab4150ac393649c1ec87e07bf02e2e031d6
+    home: https://nethermind.io/
+    icon: https://launchpad.ethereum.org/static/media/nethermind-circle.fbbf1a32.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nethermind
+    sources:
+    - https://github.com/NethermindEth/nethermind
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-1.1.1/nethermind-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:35.789485494Z"
     description: 'Nethermind is an Ethereum execution layer implementation created
       with the C# .NET tech stack, running on all major platforms including ARM. '
@@ -11031,6 +11109,27 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/prysm-0.1.0/prysm-0.1.0.tgz
     version: 0.1.0
   reth:
+  - apiVersion: v2
+    created: "2026-04-10T08:01:27.560672952Z"
+    description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
+      full node implementation that is focused on being user-friendly, highly modular,
+      as well as being fast and efficient. Reth is an Execution Layer (EL) and is
+      compatible with all Ethereum Consensus Layer (CL) implementations that support
+      the Engine API. It is originally built and driven forward by Paradigm, and is
+      licensed under the Apache and MIT licenses. '
+    digest: fe8987c072f05cc59531e82690b7417ba379be697f91441ce75872db90f55383
+    home: https://www.paradigm.xyz/2022/12/reth
+    icon: https://github.com/paradigmxyz/reth/raw/main/assets/reth.jpg
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: reth
+    sources:
+    - https://github.com/paradigmxyz/reth/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/reth-0.1.8/reth-0.1.8.tgz
+    version: 0.1.8
   - apiVersion: v2
     created: "2026-03-27T20:35:05.19858304Z"
     description: 'Reth (short for Rust Ethereum, pronunciation) is a new Ethereum
@@ -13442,4 +13541,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-03-30T03:24:22.208611776Z"
+generated: "2026-04-10T08:01:27.561639982Z"
