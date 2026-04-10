@@ -50,10 +50,18 @@ jobs:
         run: pre-commit run --show-diff-on-failure --color=always --all-files
         shell: bash
 
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@6ec842c01de15ebb84c8627d2744a0c2f2755c9f # v2.8.0
-        with:
-          version: "v3.13.0"
+      - name: Install chart-testing
+        run: |
+          CT_VERSION=3.13.0
+          YAMLLINT_VERSION=1.33.0
+          YAMALE_VERSION=6.0.0
+          curl -sSLo ct.tar.gz "https://github.com/helm/chart-testing/releases/download/v${CT_VERSION}/chart-testing_${CT_VERSION}_linux_amd64.tar.gz"
+          mkdir -p "$HOME/.ct"
+          tar -xzf ct.tar.gz -C "$HOME/.ct"
+          rm ct.tar.gz
+          echo "$HOME/.ct" >> $GITHUB_PATH
+          echo "CT_CONFIG_DIR=$HOME/.ct/etc" >> $GITHUB_ENV
+          python -m pip install "yamllint==${YAMLLINT_VERSION}" "yamale==${YAMALE_VERSION}"
 
       - name: Check if chart got changed
         id: list-changed
