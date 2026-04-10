@@ -9149,6 +9149,25 @@ entries:
     version: 0.1.0
   lodestar:
   - apiVersion: v2
+    created: "2026-04-10T08:18:29.840701565Z"
+    description: Lodestar is a open-source TypeScript implementation of the Ethereum
+      consensus engine.
+    digest: f5ec49373b5345675e14c6f331b49336f05e66671e227c22512c714a36a1a6cb
+    home: https://lodestar.chainsafe.io/
+    icon: https://raw.githubusercontent.com/ChainSafe/lodestar/master/assets/lodestar_icon_300.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: lodestar
+    sources:
+    - https://github.com/ChainSafe/lodestar
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/lodestar-1.2.1/lodestar-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     created: "2025-08-08T01:25:35.661844982Z"
     description: Lodestar is a open-source TypeScript implementation of the Ethereum
       consensus engine.
@@ -13541,4 +13560,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-04-10T08:01:27.561639982Z"
+generated: "2026-04-10T08:18:29.841504254Z"
