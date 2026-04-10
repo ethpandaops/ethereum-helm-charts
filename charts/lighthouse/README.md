@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 1.1.7](https://img.shields.io/badge/Version-1.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.8](https://img.shields.io/badge/Version-1.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -89,6 +89,9 @@ An open-source Ethereum 2.0 client, written in Rust
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
 | securityContext | object | See `values.yaml` | The security context for pods |
+| service.annotations | object | `{}` | Annotations to add to the service |
+| service.internalTrafficPolicy | string | `""` | Routing policy for internal cluster traffic. Set to "Local" to prefer same-node routing |
+| service.type | string | `"ClusterIP"` | Service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Specifies whether a service account should be created |
 | serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
