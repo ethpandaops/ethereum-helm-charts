@@ -9,7 +9,7 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 
 ## Source Code
 
-* <https://github.com/hyperledger/besu>
+* <https://github.com/besu-eth/besu>
 
 ## Values
 
