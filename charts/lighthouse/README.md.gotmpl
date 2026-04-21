@@ -41,6 +41,21 @@ p2pNodePort:
   port: 31000
 ```
 
+## Exposing NodePort while keeping Lighthouse on canonical port 9000
+
+Use this when your router/NAT exposes public `9000` but Kubernetes NodePort must stay in `30000-32767`.
+In this mode Lighthouse keeps listening on `p2pPort` while NodePort maps traffic to that container port.
+
+```yaml
+p2pPort: 9000
+
+p2pNodePort:
+  enabled: true
+  port: 30304
+  useNodePortForContainerPort: false
+  advertisedPort: 9000
+```
+
 ## Validator node targeting a beacon node service
 
 This example runs a validator on the holesky network that targets a pre-existing `lighthouse-beacon` service:
