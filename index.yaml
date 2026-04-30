@@ -175,6 +175,22 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/assertoor-0.0.1/assertoor-0.0.1.tgz
     version: 0.0.1
+  authenticatoor:
+  - apiVersion: v2
+    created: "2026-04-30T20:55:03.728149305Z"
+    description: Issues short-lived RS256 JWTs for users authenticated by an upstream
+      reverse-proxy SSO. Public keys are published as a JWKS so any resource server
+      can validate the issued tokens locally.
+    digest: 88830b9c230c4eb2c316c6eb742801f767b9d8fc8a50b7eba464f691fdd1e574
+    home: https://github.com/ethpandaops/service-authenticatoor
+    maintainers:
+    - email: pk910@pk910.de
+      name: pk910
+    name: authenticatoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/authenticatoor-0.1.0/authenticatoor-0.1.0.tgz
+    version: 0.1.0
   beacon-metrics-gazer:
   - apiVersion: v2
     created: "2025-01-20T12:32:53.33444766Z"
@@ -13577,4 +13593,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-04-29T12:56:31.116892749Z"
+generated: "2026-04-30T20:55:03.729049716Z"
