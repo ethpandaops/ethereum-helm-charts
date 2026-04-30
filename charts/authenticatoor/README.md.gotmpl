@@ -1,0 +1,56 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Example
+
+Minimal deploy-and-go install — only the issuer URL and the CF Access team
+domain are required:
+
+```yaml
+issuer: "https://auth.example.com"
+
+cloudflareAccess:
+  teamDomain: "<team>.cloudflareaccess.com"
+```
+
+The chart provisions a small `PersistentVolumeClaim` (default 32Mi) for the
+signing key. On first start the service generates an RS256 keypair and
+writes it to the volume; subsequent restarts reuse the same key, so the
+JWKS is stable across pod reschedules.
+
+To pin the audience claim to a specific CF Access application (extra
+defense), set `cloudflareAccess.audTag` to its AUD tag. When empty, any
+assertion signed by the team's keys is accepted.
+
+To bring your own key instead of using the auto-generated one, set
+`signing.privateKeyPem` (chart writes it to a Secret) or
+`signing.existingSecret` (referencing a Secret you manage). Both disable
+the PVC-based path.
+
+The `audience`, `scopePattern`, `allowedReturnHosts`, and
+`cors.allowedOrigins` fields are auto-derived from the parent zone of the
+issuer host when not set, so the example above produces:
+
+- `aud`   = `["example.com"]`
+- `scope` = `*.example.com`
+
+Generate a fresh signing key with the bundled helper:
+
+```sh
+docker run --rm ethpandaops/service-authenticatoor:main genkey
+```
+
+More details: <https://github.com/ethpandaops/service-authenticatoor>.

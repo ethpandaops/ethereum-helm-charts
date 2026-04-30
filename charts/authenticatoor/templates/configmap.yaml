@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "authenticatoor.fullname" . }}-config
+  labels:
+    {{- include "authenticatoor.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    {{- tpl .Values.config . | nindent 4 }}
