@@ -17,7 +17,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | audience | list | `[]` | The "aud" claim. Verifiers must accept this value. Defaults to the parent zone of the issuer host. |
 | cloudflareAccess.audTag | string | `""` | AUD tag of the CF Access application. Optional. When set, assertions whose aud doesn't match are rejected. When empty, the audience claim is not checked — assertions from any application in the same CF Access team are accepted (signature + issuer still tie them to the team). |
 | cloudflareAccess.jwtHeader | string | `"Cf-Access-Jwt-Assertion"` | Header carrying the assertion JWT. |
-| cloudflareAccess.teamDomain | string | `""` | Cloudflare team domain (e.g. "<team>.cloudflareaccess.com"). Required when verifyJWT is true. |
+| cloudflareAccess.teamDomain | string | `"ethpandaops.cloudflareaccess.com"` | Cloudflare team domain (e.g. "<team>.cloudflareaccess.com"). Required when verifyJWT is true. |
 | cloudflareAccess.verifyJWT | bool | `true` | Verify the Cf-Access-Jwt-Assertion header against Cloudflare's JWKS. Recommended even when the service is unreachable outside the CF tunnel. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
