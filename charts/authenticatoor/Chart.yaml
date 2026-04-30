@@ -1,5 +1,5 @@
 apiVersion: v2
-name: service-authenticatoor
+name: authenticatoor
 description: Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-proxy SSO. Public keys are published as a JWKS so any resource server can validate the issued tokens locally.
 home: https://github.com/ethpandaops/service-authenticatoor
 type: application
