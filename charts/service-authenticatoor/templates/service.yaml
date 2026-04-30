@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "authenticatoor.fullname" . }}
+  labels:
+    {{- include "authenticatoor.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    {{- if .Values.metrics.enabled }}
+    - port: {{ .Values.metricsPort }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- end }}
+    {{- if .Values.extraPorts }}
+    {{- toYaml .Values.extraPorts | nindent 4 }}
+    {{- end }}
+  selector:
+    {{- include "authenticatoor.selectorLabels" . | nindent 4 }}
