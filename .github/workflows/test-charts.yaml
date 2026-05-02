@@ -27,13 +27,34 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Run pre-commit hooks
-        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      - name: Install pre-commit
+        run: |
+          python -m pip install pre-commit
+          python -m pip freeze --local
+        shell: bash
 
-      - name: Set up chart-testing
-        uses: helm/chart-testing-action@6ec842c01de15ebb84c8627d2744a0c2f2755c9f # v2.8.0
+      - name: Cache pre-commit hooks
+        uses: actions/cache@668228422ae6a00e4ad889ee87cd7109ec5666a7 # v5.0.4
         with:
-          version: "v3.13.0"
+          path: ~/.cache/pre-commit
+          key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Run pre-commit hooks
+        run: pre-commit run --show-diff-on-failure --color=always --all-files
+        shell: bash
+
+      - name: Install chart-testing
+        run: |
+          CT_VERSION=3.13.0
+          YAMLLINT_VERSION=1.33.0
+          YAMALE_VERSION=6.0.0
+          curl -sSLo ct.tar.gz "https://github.com/helm/chart-testing/releases/download/v${CT_VERSION}/chart-testing_${CT_VERSION}_linux_amd64.tar.gz"
+          mkdir -p "$HOME/.ct"
+          tar -xzf ct.tar.gz -C "$HOME/.ct"
+          rm ct.tar.gz
+          echo "$HOME/.ct" >> $GITHUB_PATH
+          echo "CT_CONFIG_DIR=$HOME/.ct/etc" >> $GITHUB_ENV
+          python -m pip install "yamllint==${YAMLLINT_VERSION}" "yamale==${YAMALE_VERSION}"
 
       - name: Run chart-testing (list-changed)
         id: list-changed

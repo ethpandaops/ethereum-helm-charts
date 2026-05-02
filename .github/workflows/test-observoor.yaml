@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Create k3s cluster
-        uses: jupyterhub/action-k3s-helm@v4
+        uses: jupyterhub/action-k3s-helm@502a9ff4d816dad543e359971fe2c3128d0f4c6e # v4.1.0
         with:
           k3s-channel: stable
           metrics-enabled: false
