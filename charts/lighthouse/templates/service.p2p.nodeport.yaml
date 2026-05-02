@@ -16,12 +16,12 @@ spec:
       port: {{ include "lighthouse.p2pPort" $ }}
       protocol: TCP
       targetPort: p2p-tcp
-      nodePort: {{ include "lighthouse.p2pPort" $ }}
+      nodePort: {{ .Values.p2pNodePort.port }}
     - name: p2p-udp
       port: {{ include "lighthouse.p2pPort" $ }}
       protocol: UDP
       targetPort: p2p-udp
-      nodePort: {{ include "lighthouse.p2pPort" $ }}
+      nodePort: {{ .Values.p2pNodePort.port }}
   selector:
     {{- include "lighthouse.selectorLabels" $ | nindent 4 }}
     statefulset.kubernetes.io/pod-name: "{{ include "lighthouse.fullname" $ }}-0"
