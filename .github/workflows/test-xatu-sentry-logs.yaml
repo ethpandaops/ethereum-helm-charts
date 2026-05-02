@@ -29,8 +29,18 @@ jobs:
         run: |
           echo "Deploying ethereum-node (geth + lighthouse)..."
 
+          # Sync local file:// dependency versions in ethereum-node Chart.yaml
+          # so helm dependency build works with the versions from this branch
+          for dep in xatu-sentry-logs observoor rpc-snooper; do
+            if [ -f "charts/$dep/Chart.yaml" ]; then
+              LOCAL_VER=$(grep '^version:' "charts/$dep/Chart.yaml" | awk '{print $2}' | tr -d '"')
+              sed -i "/name: $dep/{n;s/version: \".*\"/version: \"$LOCAL_VER\"/}" charts/ethereum-node/Chart.yaml
+              echo "Synced $dep dependency to $LOCAL_VER"
+            fi
+          done
+
           helm repo add ethereum-helm-charts https://ethpandaops.github.io/ethereum-helm-charts
-          helm dependency build charts/ethereum-node
+          helm dependency update charts/ethereum-node
 
           helm install eth-node charts/ethereum-node \
             --set global.main.network=mainnet \
