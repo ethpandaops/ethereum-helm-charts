@@ -175,8 +175,34 @@ faucetTitle: "PoW Faucet"
 # -- Faucet wallet private key
 faucetPrivkey: "feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"
 
-# -- Faucet el node rpc
+# -- Faucet el node rpc (single endpoint legacy mode; ignored when faucetRpcEndpoints is set)
 faucetRpcUrl: "http://your-el-node:8545"
+
+# -- Faucet el node rpc endpoints (multi-RPC mode). When non-empty, replaces faucetRpcUrl.
+# Each entry supports: url (string, required; may include user:pass@), name (optional display label),
+# priority (higher = preferred, default 1), metered (bool, throttles monitoring requests, default false).
+# @default -- `[]`
+faucetRpcEndpoints: []
+# - url: "http://your-el-node:8545"
+#   name: "primary"
+#   priority: 10
+# - url: "https://user:pass@fallback.example.com/"
+#   name: "fallback"
+#   priority: 5
+#   metered: true
+
+# -- Mark RPC endpoints offline if their head block falls behind the highest known head by more than this many blocks
+faucetRpcMaxBlockHeightDiff: 10
+
+# -- Monitoring poll interval (seconds) for non-metered RPC endpoints
+faucetRpcMonitorInterval: 10
+
+# -- Monitoring poll interval (seconds) for metered RPC endpoints (lower request count, slower failure detection)
+faucetRpcMonitorMeteredInterval: 60
+
+# -- Number of highest-priority ready endpoints to broadcast each transaction to in parallel.
+# At least one successful submission is required; other endpoints' errors (e.g. "already known") are ignored.
+faucetTxBroadcastCount: 2
 
 # -- Link to el block explorer ({txid} as placeholder for transaction hash)
 faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
@@ -249,6 +275,51 @@ faucetOutflowDuration: 86400 # 1 day
 
 # -- Outflow module: amount overflow buffer (in wei)
 faucetOutflowBufferWei: 500000000000000000000 # 500 ETH
+
+# -- Enable authenticatoor module (login via ethpandaops/service-authenticatoor)
+faucetAuthenticatoorEnabled: false
+
+# -- Authenticatoor module: base URL of the authenticatoor service
+faucetAuthenticatoorAuthUrl: "https://auth.example.com"
+
+# -- Authenticatoor module: expected `aud` claim
+# Authenticatoor derives the audience from its issuer URL (parent zone of the issuer) unless overridden.
+faucetAuthenticatoorExpectedAudience: ""
+
+# -- Authenticatoor module: optional defense-in-depth host pin matched against the token `scope` claim
+# (DNS-label glob; tokens without scope claim are accepted regardless). Use the faucet's public hostname.
+faucetAuthenticatoorExpectedHost: ""
+
+# -- Authenticatoor module: require login to start a session
+faucetAuthenticatoorRequireLogin: false
+
+# -- Authenticatoor module: max concurrent sessions per authenticated user (0 = unlimited)
+faucetAuthenticatoorConcurrencyLimit: 0
+
+# -- Authenticatoor module: recurring grants applied on session start (evaluated in order; later grants override perks of earlier ones).
+# Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message.
+# @default -- `[]`
+faucetAuthenticatoorGrants: []
+# - limitCount: 0
+#   limitAmount: 0
+#   duration: 86400
+#   rewardFactor: 2
+# - limitCount: 1
+#   duration: 86400
+#   skipModules: ["pow", "recurring-limits", "faucet-outflow"]
+#   overrideMaxDrop: 500000000000000000
+
+# -- Authenticatoor module: frontend label for the login button (null/empty for default)
+faucetAuthenticatoorLoginLabel: ""
+
+# -- Authenticatoor module: frontend label shown next to the username when authenticated (null/empty for default)
+faucetAuthenticatoorUserLabel: ""
+
+# -- Authenticatoor module: HTML shown in the login info popover (null/empty to omit)
+faucetAuthenticatoorInfoHtml: ""
+
+# -- Authenticatoor module: URL/path to the login button logo (null/empty to omit)
+faucetAuthenticatoorLoginLogo: ""
 
 # -- Enable github module (require login to github)
 faucetGithubEnabled: false
@@ -352,8 +423,32 @@ config: |
   # use a random string and do not share / reuse it anywhere.
   faucetSecret: "{{ .Values.faucetPrivkey }}-secret"
 
-  # ETH execution layer RPC host
+  # ETH execution layer RPC host(s)
+  # When faucetRpcEndpoints is non-empty, render a list; otherwise fall back to the
+  # legacy single-URL faucetRpcUrl for backwards compatibility.
+  {{- if .Values.faucetRpcEndpoints }}
+  ethRpcHost:
+    {{- range .Values.faucetRpcEndpoints }}
+    - url: "{{ .url }}"
+      {{- if .name }}
+      name: "{{ .name }}"
+      {{- end }}
+      priority: {{ default 1 .priority }}
+      metered: {{ default false .metered }}
+    {{- end }}
+  {{- else }}
   ethRpcHost: "{{ .Values.faucetRpcUrl }}"
+  {{- end }}
+
+  # mark RPC endpoints offline when their head falls behind by more than this many blocks
+  ethRpcMaxBlockHeightDiff: {{ .Values.faucetRpcMaxBlockHeightDiff }}
+
+  # health-check poll interval (seconds) for non-metered / metered endpoints
+  ethRpcMonitorInterval: {{ .Values.faucetRpcMonitorInterval }}
+  ethRpcMonitorMeteredInterval: {{ .Values.faucetRpcMonitorMeteredInterval }}
+
+  # number of highest-priority ready endpoints to broadcast each transaction to in parallel
+  ethTxBroadcastCount: {{ .Values.faucetTxBroadcastCount }}
 
   # faucet wallet private key (hex, without 0x prefix)
   ethWalletKey: "{{ .Values.faucetPrivkey }}"
@@ -497,6 +592,48 @@ config: |
       # outflow balance limits
       lowerLimit: -{{ .Values.faucetOutflowBufferWei }}
       upperLimit: {{ .Values.faucetOutflowBufferWei }}
+
+    ## Authenticatoor login (ethpandaops/service-authenticatoor)
+    authenticatoor:
+      enabled: {{ .Values.faucetAuthenticatoorEnabled }}
+      authUrl: "{{ .Values.faucetAuthenticatoorAuthUrl }}"
+      expectedAudience: {{ if .Values.faucetAuthenticatoorExpectedAudience }}"{{ .Values.faucetAuthenticatoorExpectedAudience }}"{{ else }}null{{ end }}
+      expectedHost: {{ if .Values.faucetAuthenticatoorExpectedHost }}"{{ .Values.faucetAuthenticatoorExpectedHost }}"{{ else }}null{{ end }}
+      requireLogin: {{ .Values.faucetAuthenticatoorRequireLogin }}
+      concurrencyLimit: {{ .Values.faucetAuthenticatoorConcurrencyLimit }}
+      grants:
+        {{- range .Values.faucetAuthenticatoorGrants }}
+        - {{- if hasKey . "limitCount" }}
+          limitCount: {{ .limitCount }}
+          {{- end }}
+          {{- if hasKey . "limitAmount" }}
+          limitAmount: {{ .limitAmount }}
+          {{- end }}
+          {{- if hasKey . "duration" }}
+          duration: {{ .duration }}
+          {{- end }}
+          {{- if hasKey . "skipModules" }}
+          skipModules: {{ toJson .skipModules }}
+          {{- end }}
+          {{- if hasKey . "rewardFactor" }}
+          rewardFactor: {{ .rewardFactor }}
+          {{- end }}
+          {{- if hasKey . "overrideMaxDrop" }}
+          overrideMaxDrop: {{ .overrideMaxDrop }}
+          {{- end }}
+          {{- if hasKey . "required" }}
+          required: {{ .required }}
+          {{- end }}
+          {{- if hasKey . "message" }}
+          message: "{{ .message }}"
+          {{- end }}
+        {{- end }}
+      loginLabel: {{ if .Values.faucetAuthenticatoorLoginLabel }}"{{ .Values.faucetAuthenticatoorLoginLabel }}"{{ else }}null{{ end }}
+      userLabel: {{ if .Values.faucetAuthenticatoorUserLabel }}"{{ .Values.faucetAuthenticatoorUserLabel }}"{{ else }}null{{ end }}
+      loginLogo: {{ if .Values.faucetAuthenticatoorLoginLogo }}"{{ .Values.faucetAuthenticatoorLoginLogo }}"{{ else }}null{{ end }}
+      infoHtml: {{ if .Values.faucetAuthenticatoorInfoHtml }}|
+        {{ .Values.faucetAuthenticatoorInfoHtml | nindent 8 }}
+      {{- else }}null{{ end }}
 
     ## Github login protection
     github:
