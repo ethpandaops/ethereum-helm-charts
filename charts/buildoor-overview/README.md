@@ -51,7 +51,7 @@ ingress:
 | httpPort | int | `8080` | HTTP port the overview UI listens on |
 | image.pullPolicy | string | `"Always"` | buildoor container pull policy |
 | image.repository | string | `"ethpandaops/buildoor"` | buildoor container image repository |
-| image.tag | string | `"master"` | buildoor container image tag |
+| image.tag | string | `"main"` | buildoor container image tag |
 | imagePullSecrets | list | `[]` | ImagePullSecrets for the pod |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
 | ingress.className | string | `""` | Ingress class |

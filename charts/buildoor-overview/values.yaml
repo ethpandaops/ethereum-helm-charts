@@ -11,7 +11,7 @@ image:
   # -- buildoor container image repository
   repository: ethpandaops/buildoor
   # -- buildoor container image tag
-  tag: master
+  tag: main
   # -- buildoor container pull policy
   pullPolicy: Always
 
