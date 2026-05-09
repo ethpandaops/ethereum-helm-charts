@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "buildoor-overview.fullname" . }}
+  labels:
+    {{- include "buildoor-overview.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      {{- if and (eq .Values.service.type "NodePort") .Values.service.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+    {{- if .Values.extraPorts }}
+    {{- toYaml .Values.extraPorts | nindent 4 }}
+    {{- end }}
+  selector:
+    {{- include "buildoor-overview.selectorLabels" . | nindent 4 }}
