@@ -1493,6 +1493,25 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/blutgang-0.0.1/blutgang-0.0.1.tgz
     version: 0.0.1
+  buildoor-overview:
+  - apiVersion: v2
+    appVersion: 0.0.1
+    created: "2026-05-09T11:11:16.068862894Z"
+    description: 'Multi-instance overview dashboard for buildoor block builders. Aggregates
+      online status, ePBS / Builder API mode, balance and recent build stats from
+      one or more buildoor instances and serves them through a small web UI. '
+    digest: 2be115daa9a3592bc5b0b4202fe9641eff4596f63fd323531d1f8b0fa15edabb
+    home: https://github.com/ethpandaops/buildoor
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: buildoor-overview
+    sources:
+    - https://github.com/ethpandaops/buildoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/buildoor-overview-0.0.1/buildoor-overview-0.0.1.tgz
+    version: 0.0.1
   cbt-api:
   - apiVersion: v2
     created: "2025-10-31T06:26:09.939843278Z"
@@ -13593,4 +13612,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-04-30T20:55:03.729049716Z"
+generated: "2026-05-09T11:11:16.071062285Z"
