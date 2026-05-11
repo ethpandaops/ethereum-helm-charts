@@ -10667,6 +10667,22 @@ entries:
     version: 0.0.1
   powfaucet:
   - apiVersion: v2
+    appVersion: 2.5.0
+    created: "2026-05-11T12:15:36.121232821Z"
+    description: 'PoW Faucet for EVM chains '
+    digest: 8f9dce8f5c2e25cc702d84ff952c516231ef9e67d7df050a724bf4755ea0eded
+    home: https://github.com/pk910/PoWFaucet
+    maintainers:
+    - email: philipp@pk910.de
+      name: pk910
+    name: powfaucet
+    sources:
+    - https://github.com/pk910/PoWFaucet
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/powfaucet-1.0.0/powfaucet-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
     appVersion: 2.0.0
     created: "2025-01-20T12:32:56.534760335Z"
     description: 'PoW Faucet for EVM chains '
@@ -13612,4 +13628,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-05-09T11:11:16.071062285Z"
+generated: "2026-05-11T12:15:36.121966821Z"
