@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -42,6 +42,17 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
+| faucetAuthenticatoorAuthUrl | string | `"https://auth.example.com"` | Authenticatoor module: base URL of the authenticatoor service |
+| faucetAuthenticatoorConcurrencyLimit | int | `0` | Authenticatoor module: max concurrent sessions per authenticated user (0 = unlimited) |
+| faucetAuthenticatoorEnabled | bool | `false` | Enable authenticatoor module (login via ethpandaops/service-authenticatoor) |
+| faucetAuthenticatoorExpectedAudience | string | `""` | Authenticatoor module: expected `aud` claim Authenticatoor derives the audience from its issuer URL (parent zone of the issuer) unless overridden. |
+| faucetAuthenticatoorExpectedHost | string | `""` | Authenticatoor module: optional defense-in-depth host pin matched against the token `scope` claim (DNS-label glob; tokens without scope claim are accepted regardless). Use the faucet's public hostname. |
+| faucetAuthenticatoorGrants | list | `[]` | Authenticatoor module: recurring grants applied on session start (evaluated in order; later grants override perks of earlier ones). Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message. |
+| faucetAuthenticatoorInfoHtml | string | `""` | Authenticatoor module: HTML shown in the login info popover (null/empty to omit) |
+| faucetAuthenticatoorLoginLabel | string | `""` | Authenticatoor module: frontend label for the login button (null/empty for default) |
+| faucetAuthenticatoorLoginLogo | string | `""` | Authenticatoor module: URL/path to the login button logo (null/empty to omit) |
+| faucetAuthenticatoorRequireLogin | bool | `false` | Authenticatoor module: require login to start a session |
+| faucetAuthenticatoorUserLabel | string | `""` | Authenticatoor module: frontend label shown next to the username when authenticated (null/empty for default) |
 | faucetCaptchaEnabled | bool | `false` | Enable captcha module |
 | faucetCaptchaProvider | string | `"hcaptcha"` | Captcha module: provider (hcaptcha / recaptcha) |
 | faucetCaptchaSecret | string | `"0xCensoredHCaptchaSecretKey"` | Captcha module: provider secret |
@@ -85,8 +96,13 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetRecurringLimitsAmountWei | float | `100000000000000000000` | Recurring module: max amount a recurring user is allowed to request in total |
 | faucetRecurringLimitsDuration | int | `86400` | Recurring module: aggregation duration for the max request amount check |
 | faucetRecurringLimitsEnabled | bool | `true` | Enable recurring module (enforce limits for recurring users) |
-| faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc |
+| faucetRpcEndpoints | list | `[]` | Faucet el node rpc endpoints (multi-RPC mode). When non-empty, replaces faucetRpcUrl. Each entry supports: url (string, required; may include user:pass@), name (optional display label), priority (higher = preferred, default 1), metered (bool, throttles monitoring requests, default false). |
+| faucetRpcMaxBlockHeightDiff | int | `10` | Mark RPC endpoints offline if their head block falls behind the highest known head by more than this many blocks |
+| faucetRpcMonitorInterval | int | `10` | Monitoring poll interval (seconds) for non-metered RPC endpoints |
+| faucetRpcMonitorMeteredInterval | int | `60` | Monitoring poll interval (seconds) for metered RPC endpoints (lower request count, slower failure detection) |
+| faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc (single endpoint legacy mode; ignored when faucetRpcEndpoints is set) |
 | faucetTitle | string | `"PoW Faucet"` | Faucet title |
+| faucetTxBroadcastCount | int | `2` | Number of highest-priority ready endpoints to broadcast each transaction to in parallel. At least one successful submission is required; other endpoints' errors (e.g. "already known") are ignored. |
 | faucetTxGasLimit | int | `21000` | Transaction gas limit |
 | faucetTxMaxFee | int | `100000000000` | Max transaction gas fee (in wei) |
 | faucetTxMaxPrioFee | int | `2000000000` | Max transaction priority fee (in wei) |
