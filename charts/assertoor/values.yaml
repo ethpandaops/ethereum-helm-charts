@@ -165,6 +165,13 @@ extraEnv: []
 # -- HTTP port for assertoor interface
 httpPort: 8080
 
+# -- URL of the authenticatoor service that issues bearer tokens for the
+# assertoor API (e.g. "https://auth.<devnet>.example.io"). When empty, the
+# API runs unauthenticated — only safe behind a private network or
+# upstream proxy. When set, all write endpoints require a JWT verified
+# against that service's JWKS.
+authProviderUrl: ""
+
 # -- An array of endpoints to use for assertoor
 # -- executionUrl & consensusUrl are the only required fields
 endpoints:
@@ -218,6 +225,9 @@ config: |
       enabled: {{ .Values.assertoorFrontendEnabled }}
     api:
       enabled: {{ .Values.assertoorApiEnabled }}
+    {{- if gt (len .Values.authProviderUrl) 0 }}
+    authProviderUrl: {{ .Values.authProviderUrl | quote }}
+    {{- end }}
 
   database:
     engine: "sqlite"
