@@ -1,7 +1,7 @@
 
 # assertoor
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Testing tool that is capable of doing actions and checking conditions on ethereum pos networks.
 
@@ -59,6 +59,7 @@ assertoorTests:
 | assertoorMaxConcurrentTests | int | `1` | Maximum number of concurrent tests |
 | assertoorTestRetentionTime | string | `"720h"` | Test retention time |
 | assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overridden if needed. |
+| authProviderUrl | string | `""` | URL of the authenticatoor service that issues bearer tokens for the assertoor API (e.g. "https://auth.<devnet>.example.io"). When empty, the API runs unauthenticated — only safe behind a private network or upstream proxy. When set, all write endpoints require a JWT verified against that service's JWKS. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["--config=/config/assertoor-config.yaml"]` | Custom args for the assertoor container |
