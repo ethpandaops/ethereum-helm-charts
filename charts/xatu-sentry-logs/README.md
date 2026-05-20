@@ -1,6 +1,6 @@
 # xatu-sentry-logs
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Vector-based log collection service that reads structured JSON logs from Ethereum execution clients and sends them to a Xatu server.
 
@@ -19,6 +19,7 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
+| config | string | `""` | Full Vector pipeline (parse/transform/sink) rendered to /etc/xatu/vector.yaml. Defaults to the chart's bundled config (files/vector.yaml); set this to override the entire pipeline from values, no new image required. Evaluated as a template. |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu-sentry-logs container |
 | customCommand | list | `[]` | Command replacement for the xatu-sentry-logs container |

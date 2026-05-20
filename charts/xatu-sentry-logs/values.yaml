@@ -30,6 +30,11 @@ secretEnv: {}
 # Values are evaluated as templates.
 sources: {}
 
+# -- Full Vector pipeline (parse/transform/sink) rendered to /etc/xatu/vector.yaml.
+# Defaults to the chart's bundled config (files/vector.yaml); set this to override
+# the entire pipeline from values, no new image required. Evaluated as a template.
+config: ""
+
 # -- Prometheus exporter port (always enabled via chart-managed Vector config)
 metricsPort: 9090
 

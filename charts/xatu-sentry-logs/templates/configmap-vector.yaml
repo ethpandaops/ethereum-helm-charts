@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "xatu-sentry-logs.fullname" . }}-vector
+  labels:
+    {{- include "xatu-sentry-logs.labels" . | nindent 4 }}
+data:
+  vector.yaml: |-
+    {{- tpl (.Values.config | default (.Files.Get "files/vector.yaml")) $ | nindent 4 }}
