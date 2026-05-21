@@ -57,10 +57,12 @@ spec:
           - name: sources
             mountPath: "/etc/xatu/sources.d/"
             readOnly: true
+          {{- if .Values.config }}
           - name: vector-config
             mountPath: "/etc/xatu/vector.yaml"
             subPath: vector.yaml
             readOnly: true
+          {{- end }}
           {{- if .Values.extraVolumeMounts }}
             {{ toYaml .Values.extraVolumeMounts | nindent 10 }}
           {{- end }}
@@ -119,6 +121,8 @@ spec:
         - name: sources
           configMap:
             name: {{ include "xatu-sentry-logs.fullname" . }}
+        {{- if .Values.config }}
         - name: vector-config
           configMap:
             name: {{ include "xatu-sentry-logs.fullname" . }}-vector
+        {{- end }}

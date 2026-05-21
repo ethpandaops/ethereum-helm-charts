@@ -19,7 +19,7 @@ Vector-based log collection service that reads structured JSON logs from Ethereu
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the Deployment |
-| config | string | `""` | Full Vector pipeline (parse/transform/sink) rendered to /etc/xatu/vector.yaml. Defaults to the chart's bundled config (files/vector.yaml); set this to override the entire pipeline from values, no new image required. Evaluated as a template. |
+| config | string | `""` | Optional full override of the Vector pipeline, rendered to /etc/xatu/vector.yaml. Empty = use the image's built-in config (the source of truth, edited in xatu). Set this only to replace the whole pipeline; for routine sink tuning prefer the XATU_SINK_* env vars. Evaluated as a template. |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the xatu-sentry-logs container |
 | customCommand | list | `[]` | Command replacement for the xatu-sentry-logs container |
