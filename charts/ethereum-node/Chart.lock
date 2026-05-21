@@ -52,9 +52,9 @@ dependencies:
   version: 0.0.3
 - name: xatu-sentry-logs
   repository: file://../xatu-sentry-logs
-  version: 0.0.2
+  version: 0.0.3
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:b182647611dc8ce9961adc68023e07ad2660518d6b21c85a15a5c861c7c07875
-generated: "2026-03-30T12:50:55.301171+10:00"
+digest: sha256:9f0fb89e0b6ce0fbdb88a0fea1127f9878fc0b8b3cf7fb0a53ce4899e8844d5b
+generated: "2026-05-21T15:38:38.052786+10:00"
