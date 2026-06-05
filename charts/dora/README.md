@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.8](https://img.shields.io/badge/Version-1.0.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -99,7 +99,7 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | proxyCount | int | `1` | Number of proxy servers in front of the explorer |
 | publicRpcUrl | string | `""` | Public RPC URL to use for the explorer |
 | rainbowkitProjectId | string | `""` | Rainbowkit project ID to use for the explorer |
-| ranges | list | `[]` |  |
+| ranges | object | `{}` |  |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |

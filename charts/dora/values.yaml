@@ -386,7 +386,7 @@ config: |
       {{- end }}
     {{- end }}
 
-ranges: []
+ranges: {}
 # 0-1: test
 
 # - HTTP port for dora interface
