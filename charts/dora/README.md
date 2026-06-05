@@ -1,7 +1,7 @@
 
 # dora
 
-![Version: 1.0.9](https://img.shields.io/badge/Version-1.0.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.10](https://img.shields.io/badge/Version-1.0.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Beaconchain explorer is a tool that allows users to view and interact with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer, which allows users to view data on a blockchain such as the current state of transactions and blocks - but focussed on exploring the beaconchain.
 
@@ -30,6 +30,8 @@ A Beaconchain explorer is a tool that allows users to view and interact with the
 | blockDbConfig | object | `{}` | Block database configuration |
 | blockDbEngine | string | `""` | Block database engine, available options `s3` or `pebble` |
 | blockDbNoBlocks | bool | `false` | Do not store full block bodies in the block database (only other metadata) |
+| buildoorOverviewUrl | string | `""` | Buildoor (https://github.com/ethpandaops/buildoor) overview server URL. -- When set, dora resolves builder names + external links via -- /api/overview/hosts + each instance's /api/buildoor/overview. |
+| buildoorUrls | list | `[]` | Explicit list of per-instance buildoor URLs. Takes precedence over -- buildoorOverviewUrl when populated. Each entry is polled at -- /api/buildoor/overview directly. |
 | callRateBurst | int | `10` | Page call burst limit per user |
 | callRateLimit | int | `2` | Page call limit per second per user |
 | config | string | See `values.yaml` | Config file |
