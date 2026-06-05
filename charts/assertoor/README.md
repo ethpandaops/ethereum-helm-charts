@@ -1,7 +1,7 @@
 
 # assertoor
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Testing tool that is capable of doing actions and checking conditions on ethereum pos networks.
 
@@ -59,6 +59,7 @@ assertoorTests:
 | assertoorMaxConcurrentTests | int | `1` | Maximum number of concurrent tests |
 | assertoorTestRetentionTime | string | `"720h"` | Test retention time |
 | assertoorTests | list | `[]` | assertoor test configurations -- file is the only required field. All other fields default to the values provided in the test file, but can be overridden if needed. |
+| authProviderUrl | string | `""` | URL of the authenticatoor service that issues bearer tokens for the assertoor API (e.g. "https://auth.<devnet>.example.io"). When empty, the API runs unauthenticated — only safe behind a private network or upstream proxy. When set, all write endpoints require a JWT verified against that service's JWKS. |
 | config | string | See `values.yaml` | Config file |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `["--config=/config/assertoor-config.yaml"]` | Custom args for the assertoor container |
@@ -71,8 +72,7 @@ assertoorTests:
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | globalVariables | object | `{"walletPrivkey":"feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"}` | global assertoor variables -- global variables are passed to all tests. |
-| httpPort | int | `8082` | HTTP port for assertoor interface |
-| httpPortAdmin | int | `8080` | HTTP port for assertoor admin interface |
+| httpPort | int | `8080` | HTTP port for assertoor interface |
 | image.pullPolicy | string | `"IfNotPresent"` | assertoor container pull policy |
 | image.repository | string | `"ethpandaops/assertoor"` | assertoor container image repository |
 | image.tag | string | `"latest"` | assertoor container image tag |
@@ -81,11 +81,6 @@ assertoorTests:
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` | Ingress TLS |
-| ingressAdmin.annotations | object | `{}` | Annotations for Ingress |
-| ingressAdmin.enabled | bool | `false` | Ingress resource for the HTTP API -- This is the admin interface -- Please ensure you put this behind authorization |
-| ingressAdmin.hosts[0].host | string | `"chart-example-admin.local"` |  |
-| ingressAdmin.hosts[0].paths | list | `[]` |  |
-| ingressAdmin.tls | list | `[]` | Ingress TLS |
 | initContainers | list | `[]` | Additional init containers |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |

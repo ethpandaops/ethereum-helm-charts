@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "assertoor.name" -}}
+{{- define "buildoor-overview.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "assertoor.fullname" -}}
+{{- define "buildoor-overview.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "assertoor.chart" -}}
+{{- define "buildoor-overview.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "assertoor.labels" -}}
-helm.sh/chart: {{ include "assertoor.chart" . }}
-{{ include "assertoor.selectorLabels" . }}
+{{- define "buildoor-overview.labels" -}}
+helm.sh/chart: {{ include "buildoor-overview.chart" . }}
+{{ include "buildoor-overview.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,22 +45,18 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "assertoor.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "assertoor.name" . }}
+{{- define "buildoor-overview.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "buildoor-overview.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "assertoor.serviceAccountName" -}}
+{{- define "buildoor-overview.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "assertoor.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "buildoor-overview.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{- define "assertoor.httpPort" -}}
-{{- printf "8080" -}}
-{{- end -}}

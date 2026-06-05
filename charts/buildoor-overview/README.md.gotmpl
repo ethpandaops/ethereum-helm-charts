@@ -1,0 +1,37 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+# Usage
+
+Runs `buildoor overview --port <httpPort> --host <url> ...` and exposes the
+small dashboard on the configured port. Each `hosts` entry must point at a
+buildoor instance that has its WebUI/API enabled (`--api-port`).
+
+Example values:
+```yaml
+hosts:
+  - http://buildoor-1.example.io
+  - http://buildoor-2.example.io
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: buildoor.example.io
+      paths:
+        - path: /
+          pathType: Prefix
+```
+
+{{ template "chart.valuesSection" . }}

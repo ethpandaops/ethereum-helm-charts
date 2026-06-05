@@ -1,0 +1,15 @@
+apiVersion: v2
+name: buildoor-overview
+description: >
+  Multi-instance overview dashboard for buildoor block builders. Aggregates
+  online status, ePBS / Builder API mode, balance and recent build stats from
+  one or more buildoor instances and serves them through a small web UI.
+home: https://github.com/ethpandaops/buildoor
+sources:
+  - https://github.com/ethpandaops/buildoor
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
+maintainers:
+  - name: pk910
+    email: philipp@pk910.de

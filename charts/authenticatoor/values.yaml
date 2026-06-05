@@ -1,0 +1,364 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- authenticatoor container image repository
+  repository: ethpandaops/service-authenticatoor
+  # -- authenticatoor container image tag
+  tag: main
+  # -- authenticatoor container pull policy
+  pullPolicy: Always
+
+# -- HTTP port for the main listener (auth endpoints + JWKS + healthz)
+httpPort: 8080
+
+# -- HTTP port for the metrics listener (only used when metrics.enabled)
+metricsPort: 9090
+
+# -- Canonical URL of this service. Used as the JWT "iss" claim.
+# Required. Several other fields are derived from this when not set:
+# audience, scopePattern, allowedReturnHosts, cors.allowedOrigins.
+issuer: "https://auth.example.com"
+
+# -- URL used in the OIDC discovery document and as jwks_uri.
+# Defaults to the issuer URL.
+externalURL: ""
+
+# -- The "aud" claim. Verifiers must accept this value.
+# Defaults to the parent zone of the issuer host.
+audience: []
+# - "example.com"
+
+# -- The "scope" claim — a host wildcard pattern.
+# Defaults to "*.<parent zone of issuer>".
+scopePattern: ""
+
+# -- Token lifetime
+tokenTTL: "30m"
+
+# -- HTTP header carrying the authenticated user's email.
+userHeader: "Cf-Access-Authenticated-User-Email"
+
+# -- Hosts that /auth/login may redirect to via `return_to`.
+# Same DNS-label glob syntax as scopePattern.
+# Defaults to ["*.<parent zone of issuer>"].
+allowedReturnHosts: []
+# - "*.example.com"
+
+cors:
+  # -- Browser origins allowed to call /auth/* with credentials.
+  # Defaults to allowedReturnHosts.
+  allowedOrigins: []
+  # - "*.example.com"
+
+cloudflareAccess:
+  # -- Verify the Cf-Access-Jwt-Assertion header against Cloudflare's JWKS.
+  # Recommended even when the service is unreachable outside the CF tunnel.
+  verifyJWT: true
+  # -- Cloudflare team domain (e.g. "<team>.cloudflareaccess.com").
+  # Required when verifyJWT is true.
+  teamDomain: "ethpandaops.cloudflareaccess.com"
+  # -- AUD tag of the CF Access application. Optional. When set, assertions
+  # whose aud doesn't match are rejected. When empty, the audience claim is
+  # not checked — assertions from any application in the same CF Access team
+  # are accepted (signature + issuer still tie them to the team).
+  audTag: ""
+  # -- Header carrying the assertion JWT.
+  jwtHeader: "Cf-Access-Jwt-Assertion"
+
+signing:
+  # -- Use an existing Secret instead of having the chart create one. The
+  # Secret must contain `active.pem`. Mutually exclusive with privateKeyPem
+  # and persistence.
+  existingSecret: ""
+  # -- Active RSA private key in PEM format (PKCS#1 or PKCS#8). When set the
+  # chart writes this to a Secret and mounts it read-only.
+  # Mutually exclusive with persistence.
+  privateKeyPem: ""
+  # -- Optional kid for the active key. Auto-derived from the public key if empty.
+  keyId: ""
+  # -- Previous keys (public-only) kept in JWKS during rotation.
+  # Drop entries after `tokenTTL` has passed since the last token signed with
+  # them was issued.
+  previousKeys: []
+  # - keyId: "k0"
+  #   publicKeyPem: |
+  #     -----BEGIN PUBLIC KEY-----
+  #     ...
+  #     -----END PUBLIC KEY-----
+
+persistence:
+  # -- Provision a PersistentVolumeClaim to hold the auto-generated signing
+  # key. This is the deploy-and-go default: the chart creates a small PVC,
+  # the service generates a key on first start, and the key persists across
+  # pod restarts. Disabled automatically when signing.privateKeyPem or
+  # signing.existingSecret is set.
+  enabled: true
+  # -- Use an existing PersistentVolumeClaim instead of provisioning one.
+  existingClaim: ""
+  # -- Access modes for the PersistentVolumeClaim.
+  accessModes:
+    - ReadWriteOnce
+  # -- Requested size for the PersistentVolumeClaim.
+  size: 32Mi
+  # -- Storage class name. Uses the cluster default when null.
+  storageClassName: null
+  # -- Annotations for the PersistentVolumeClaim.
+  annotations: {}
+
+logging:
+  # -- Log level: debug | info | warn | error
+  level: info
+  # -- Log format: text | json
+  format: json
+
+metrics:
+  # -- Expose Prometheus metrics on a separate listener
+  enabled: false
+
+# -- Config file
+# @default -- See `values.yaml`
+config: |
+  listen: "0.0.0.0:{{ .Values.httpPort }}"
+  issuer: "{{ .Values.issuer }}"
+  {{- if .Values.externalURL }}
+  externalURL: "{{ .Values.externalURL }}"
+  {{- end }}
+  {{- if .Values.audience }}
+  audience:
+    {{- range .Values.audience }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+  {{- if .Values.scopePattern }}
+  scopePattern: "{{ .Values.scopePattern }}"
+  {{- end }}
+  tokenTTL: "{{ .Values.tokenTTL }}"
+  userHeader: "{{ .Values.userHeader }}"
+  {{- if .Values.allowedReturnHosts }}
+  allowedReturnHosts:
+    {{- range .Values.allowedReturnHosts }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+
+  {{- if .Values.cors.allowedOrigins }}
+  cors:
+    allowedOrigins:
+      {{- range .Values.cors.allowedOrigins }}
+      - {{ . | quote }}
+      {{- end }}
+  {{- end }}
+
+  cloudflareAccess:
+    verifyJWT: {{ .Values.cloudflareAccess.verifyJWT }}
+    {{- if .Values.cloudflareAccess.teamDomain }}
+    teamDomain: "{{ .Values.cloudflareAccess.teamDomain }}"
+    {{- end }}
+    {{- if .Values.cloudflareAccess.audTag }}
+    audTag: "{{ .Values.cloudflareAccess.audTag }}"
+    {{- end }}
+    jwtHeader: "{{ .Values.cloudflareAccess.jwtHeader }}"
+
+  signing:
+    mode: rs256
+    rs256:
+      privateKeyFile: "/etc/authenticatoor/keys/active.pem"
+      {{- if .Values.signing.keyId }}
+      keyId: "{{ .Values.signing.keyId }}"
+      {{- end }}
+      {{- if and (not .Values.signing.privateKeyPem) (not .Values.signing.existingSecret) }}
+      generateIfMissing: true
+      {{- else }}
+      generateIfMissing: false
+      {{- end }}
+      {{- if .Values.signing.previousKeys }}
+      previousKeys:
+        {{- range .Values.signing.previousKeys }}
+        - keyId: "{{ .keyId }}"
+          publicKeyFile: "/etc/authenticatoor/keys-prev/prev-{{ .keyId }}.pub.pem"
+        {{- end }}
+      {{- end }}
+
+  logging:
+    level: "{{ .Values.logging.level }}"
+    format: "{{ .Values.logging.format }}"
+
+  metrics:
+    enabled: {{ .Values.metrics.enabled }}
+    listen: "0.0.0.0:{{ .Values.metricsPort }}"
+
+# -- Extra args for the authenticatoor container
+extraArgs: []
+
+# -- Command replacement for the authenticatoor container
+customCommand: []
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- IngressClass that will be used to implement the Ingress
+  className: ""
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress hosts
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 30
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 200m
+#   memory: 128Mi
+# requests:
+#   cpu: 50m
+#   memory: 64Mi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 65532
+  runAsGroup: 65532
+  runAsNonRoot: true
+  runAsUser: 65532
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Update strategy for the Deployment. Defaults to Recreate so the new pod
+# can attach the signing-key PVC after the old pod releases it (the typical
+# RWO storage class doesn't allow simultaneous attach).
+updateStrategy:
+  type: Recreate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports on the pod (in addition to http and metrics)
+extraPodPorts: []
+
+# -- Additional ports on the Service (in addition to http)
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+# - name: AUTHENTICATOOR_LOGGING_LEVEL
+#   value: debug
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
