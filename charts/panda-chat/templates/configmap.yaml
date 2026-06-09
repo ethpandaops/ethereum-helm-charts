@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "panda-chat.configMapName" . }}
+  labels: {{- include "panda-chat.labels" . | nindent 4 }}
+data:
+  # Hermes config — seeded into /opt/data/config.yaml.
+  config.yaml: |
+    model:
+      default: {{ .Values.llm.model | quote }}
+      provider: {{ .Values.llm.provider | quote }}
+      api_key_env: {{ .Values.llm.apiKeyEnv | quote }}
+      {{- with .Values.llm.baseUrl }}
+      base_url: {{ . | quote }}
+      {{- end }}
+      {{- with .Values.llm.apiMode }}
+      api_mode: {{ . | quote }}
+      {{- end }}
+    agent:
+      system_prompt: |
+        {{- .Values.systemPrompt | replace "{{ network }}" .Values.network | nindent 8 }}
+    honcho:
+      enabled: true
+    {{- if .Values.langfuse.enabled }}
+    plugins:
+      enabled:
+        - observability/langfuse
+    {{- end }}
+  {{- if .Values.panda.enabled }}
+  # panda-server config — seeded to /opt/data/.config/panda/config.yaml (creds live in the Secret).
+  panda-config.yaml: |
+    server:
+      host: "127.0.0.1"
+      port: 2480
+      base_url: "http://127.0.0.1:2480"
+      sandbox_url: "http://172.17.0.1:2480"
+    sandbox:
+      backend: docker
+      image: {{ .Values.panda.sandboxImage | quote }}
+      network: "bridge"
+      timeout: 300
+      memory_limit: "1g"
+      cpu_limit: 1.0
+    storage:
+      base_dir: "/opt/data/panda-storage"
+    proxy:
+      url: {{ .Values.panda.proxyUrl | quote }}
+      auth:
+        mode: "oidc"
+        issuer_url: {{ .Values.panda.issuerUrl | quote }}
+        client_id: {{ .Values.panda.clientId | quote }}
+  {{- end }}

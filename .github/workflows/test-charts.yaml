@@ -75,3 +75,4 @@ jobs:
           --excluded-charts cbt-api
           --excluded-charts observoor
           --excluded-charts xatu-consumoor
+          --excluded-charts panda-chat

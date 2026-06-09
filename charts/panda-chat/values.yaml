@@ -1,0 +1,194 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- The devnet network this chat serves (e.g. `bal-devnet-7`). Used to
+# scope panda queries and surfaced to the agent so it answers in-context.
+network: ""
+
+# -- The devnet chain id (informational; surfaced to the join-devnet skill).
+chainId: ""
+
+image:
+  # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd).
+  repository: ethpandaops/hermes-agent-panda
+  # -- Image tag. Defaults to the chart appVersion when empty.
+  tag: ""
+  # -- Image pull policy
+  pullPolicy: IfNotPresent
+
+# -- Image pull secrets for the agent image
+imagePullSecrets: []
+
+# LLM provider. The key comes from the Secret (credentials.llmApiKey) into the env var named by apiKeyEnv.
+llm:
+  # -- Hermes provider name (anthropic / openai / custom / minimax / ...)
+  provider: anthropic
+  # -- Model identifier
+  model: claude-sonnet-4-6
+  # -- Base URL override (required for `custom`; optional override otherwise)
+  baseUrl: ""
+  # -- Hermes api_mode (chat_completions / anthropic_messages / ...); auto-detected from URL when empty
+  apiMode: ""
+  # -- Env var the agent reads the model key from (must match a key materialized by `credentials`)
+  apiKeyEnv: ANTHROPIC_API_KEY
+
+# -- System prompt for the agent. `{{ network }}` is substituted at render time.
+systemPrompt: |
+  You are the EthPandaOps assistant for the Ethereum devnet "{{ network }}".
+  Help users understand devnet state and use the EthPandaOps tooling:
+  query live data with the `panda` skill, fund accounts with the `faucet`
+  skill, and join the network with the `join-devnet` skill. Be concise and
+  always scope data queries to this devnet.
+
+# Panda integration. When enabled the agent pod runs panda-server + dockerd and is privileged.
+panda:
+  # -- Enable the panda sidecar processes + privileged pod
+  enabled: true
+  # -- Hosted panda-proxy URL (analytics data plane)
+  proxyUrl: "https://panda-proxy.analytics.production.platform.ethpandaops.io"
+  # -- OIDC issuer (Dex) the bot identity authenticates against
+  issuerUrl: "https://dex.primary.production.platform.ethpandaops.io"
+  # -- OIDC client id at the proxy
+  clientId: "panda-proxy"
+  # -- Sandbox container image panda-server spawns for Python execution
+  sandboxImage: "ethpandaops/panda:sandbox-v0.31.0"
+  # -- dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod)
+  storageDriver: overlay2
+
+# LLM-call tracing via Hermes' bundled observability/langfuse plugin.
+# Keys come from credentials.langfuse; fail-open if absent.
+langfuse:
+  # -- Enable Langfuse tracing
+  enabled: false
+  # -- Langfuse base URL
+  baseUrl: ""
+  # -- Environment tag on traces (defaults to `network` when empty)
+  env: ""
+
+# Devnet tooling endpoints exposed to the agent skills (filled per-devnet by the ansible template).
+devnetTools:
+  faucet:
+    # -- Enable the faucet (account funding) skill
+    enabled: true
+    # -- powfaucet base URL
+    url: ""
+  join:
+    # -- Enable the join-devnet skill
+    enabled: true
+    # -- Base config service URL (serves /cl/config.yaml, /el/enodes.txt, etc.)
+    configUrl: ""
+    # -- Public execution RPC URL
+    rpcUrl: ""
+    # -- Block explorer URL
+    explorerUrl: ""
+
+# Credentials. Injected via vals `<path:...>` on devnets; set directly for standalone use.
+credentials:
+  # -- The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`)
+  llmApiKey: ""
+  panda:
+    # -- panda-server bot credentials JSON (contents of credentials/<hash>.json)
+    credentialsJson: ""
+    # -- Filename panda expects under credentials/ (derived from issuer+client hash)
+    credentialsFile: ""
+  langfuse:
+    # -- Langfuse public key (pk-lf-...)
+    publicKey: ""
+    # -- Langfuse secret key (sk-lf-...)
+    secretKey: ""
+
+# -- Resources for the agent pod (Hermes + panda-server + dockerd + sandboxes)
+resources:
+  requests:
+    cpu: 300m
+    memory: 1Gi
+  limits:
+    cpu: 3000m
+    memory: 6Gi
+
+persistence:
+  # -- Enable a PVC for /opt/data (Hermes state + panda config/creds/storage)
+  enabled: true
+  # -- PVC size
+  size: 8Gi
+  # -- Storage class (cluster default when empty)
+  storageClass: ""
+  # -- Access modes
+  accessModes:
+    - ReadWriteOnce
+  # -- Use an existing claim instead of creating one
+  existingClaim: ""
+
+serviceAccount:
+  # -- Create a service account for the agent
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- Service account name (defaults to the fullname)
+  name: ""
+
+service:
+  # -- Agent service type
+  type: ClusterIP
+  # -- Agent service port (Hermes OpenAI-compatible API)
+  port: 8642
+
+# -- Node selector for the agent pod
+nodeSelector: {}
+# -- Tolerations for the agent pod
+tolerations: []
+# -- Affinity for the agent pod
+affinity: {}
+
+# Open-WebUI front end (subchart). The ansible template adds the ingress host,
+# panda-menu annotations, and the agent endpoint wiring (openaiBaseApiUrls + OPENAI_API_KEYS).
+open-webui:
+  # -- Render the Open-WebUI front end
+  enabled: true
+  replicaCount: 1
+  # CF-Access-aware Open-WebUI: forwards Cf-Access-Jwt-Assertion to the agent so
+  # Hermes sees the individual user (per-user auth + Langfuse attribution). The tag
+  # MUST match this subchart's appVersion (open-webui 14.5.0 -> 0.9.5); bump together.
+  # Built from github.com/ethpandaops/chat (images/open-webui-cf).
+  image:
+    repository: ethpandaops/open-webui-cf
+    tag: "0.9.5"
+  # Route models through Hermes, not the bundled Ollama / Pipelines.
+  ollama:
+    enabled: false
+  pipelines:
+    enabled: false
+  websocket:
+    enabled: false
+    redis:
+      enabled: false
+  persistence:
+    enabled: true
+    size: 5Gi
+  # Access control. Gate the UI at the Cloudflare Access edge (org-scoped) —
+  # the devnet's existing auth gate (authenticatoor/faucet rely on it). CF Access
+  # passes the verified identity as `Cf-Access-Authenticated-User-Email`, which
+  # Open-WebUI consumes as trusted-header SSO (no password). Off by default
+  # (public, like Dora); the bal-devnets template flips it on per devnet.
+  # Requires one Cloudflare Access application on chat.<network> scoped to the org.
+  sso:
+    enabled: false
+    # Auto-provision a Open-WebUI account on first trusted-header login.
+    enableSignup: true
+    trustedHeader:
+      enabled: false
+      # Header Cloudflare Access sets with the authenticated user's email.
+      emailHeader: Cf-Access-Authenticated-User-Email
+      nameHeader: ""
+  ingress:
+    enabled: true
+    class: ingress-nginx-public
+    # host + annotations filled by the ansible template / per-devnet values
+    host: ""
+    annotations: {}
+  extraEnvVars:
+    - name: ENABLE_OLLAMA_API
+      value: "false"

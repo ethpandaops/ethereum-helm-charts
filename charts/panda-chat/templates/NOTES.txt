@@ -1,0 +1,30 @@
+panda-chat deployed for network "{{ .Values.network | default "(unset)" }}".
+
+Front end (Open-WebUI):
+{{- if (index .Values "open-webui").ingress.enabled }}
+  https://{{ (index .Values "open-webui").ingress.host | default "(set open-webui.ingress.host)" }}
+{{- else }}
+  open-webui.ingress.enabled is false — port-forward the open-webui service to reach the UI.
+{{- end }}
+
+Hermes agent (OpenAI-compatible, in-cluster only):
+  http://{{ include "panda-chat.hermesFullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}/v1
+
+IMPORTANT — wire the front end to the agent (the chart does not assume the
+release name). Set these on the open-webui subchart:
+
+  open-webui:
+    openaiBaseApiUrls:
+      - "http://{{ include "panda-chat.hermesFullname" . }}:{{ .Values.service.port }}/v1"
+    extraEnvVars:
+      - name: OPENAI_API_KEYS
+        valueFrom:
+          secretKeyRef:
+            name: {{ include "panda-chat.secretName" . }}
+            key: API_SERVER_KEY
+
+{{- if .Values.panda.enabled }}
+
+Panda is ENABLED — the agent pod is privileged and runs dockerd + panda-server.
+Provision the bot identity and fill credentials.panda.* (see the chart README).
+{{- end }}
