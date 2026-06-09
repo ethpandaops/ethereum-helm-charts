@@ -76,6 +76,16 @@ name: mainnet
 # -- If you want to use a local range file define it in the values.yaml ranges section
 validatorNamesInventory: ""
 
+# -- Buildoor (https://github.com/ethpandaops/buildoor) overview server URL.
+# -- When set, dora resolves builder names + external links via
+# -- /api/overview/hosts + each instance's /api/buildoor/overview.
+buildoorOverviewUrl: ""
+
+# -- Explicit list of per-instance buildoor URLs. Takes precedence over
+# -- buildoorOverviewUrl when populated. Each entry is polled at
+# -- /api/buildoor/overview directly.
+buildoorUrls: []
+
 # -- Link to the el block explorer
 ethExplorerLink: ""
 
@@ -212,6 +222,16 @@ config: |
       validatorNamesYaml: ""
       {{- end }}
       validatorNamesInventory: "{{ .Values.validatorNamesInventory }}"
+
+      # buildoor inventory for resolving builder names + external links
+      {{- if .Values.buildoorUrls }}
+      buildoorUrls:
+        {{- range .Values.buildoorUrls }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- else if ne .Values.buildoorOverviewUrl "" }}
+      buildoorOverviewUrl: "{{ .Values.buildoorOverviewUrl }}"
+      {{- end }}
 
       # Show additional information in the UI
       showPeerDASInfos: true
@@ -386,7 +406,7 @@ config: |
       {{- end }}
     {{- end }}
 
-ranges: []
+ranges: {}
 # 0-1: test
 
 # - HTTP port for dora interface
