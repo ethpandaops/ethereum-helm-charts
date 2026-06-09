@@ -1,0 +1,194 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "panda-chat.hermesFullname" . }}
+  labels: {{- include "panda-chat.labels" . | nindent 4 }}
+spec:
+  # Single replica: Hermes holds SQLite state on an RWO PVC.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels: {{- include "panda-chat.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "panda-chat.labels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+    spec:
+      serviceAccountName: {{ include "panda-chat.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.panda.enabled }}
+      # panda: dockerd needs root, so only fsGroup applies (lets the init containers write the PVC).
+      securityContext:
+        fsGroup: 10000
+      {{- else }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10000
+        runAsGroup: 10000
+        fsGroup: 10000
+      {{- end }}
+      initContainers:
+        # Seed Hermes (and panda) config onto the PVC.
+        - name: seed-config
+          image: busybox:1.37
+          command: ["sh", "-c"]
+          args:
+            - |
+              set -eu
+              mkdir -p /data
+              new=$(sha256sum /config-src/config.yaml | cut -d' ' -f1)
+              old=""
+              [ -f /data/config.yaml ] && old=$(sha256sum /data/config.yaml | cut -d' ' -f1)
+              [ "$new" != "$old" ] && cp /config-src/config.yaml /data/config.yaml || true
+              {{- if .Values.panda.enabled }}
+              mkdir -p /data/.config/panda/credentials /data/panda-storage
+              cp /config-src/panda-config.yaml /data/.config/panda/config.yaml
+              {{- end }}
+          volumeMounts:
+            - {name: config, mountPath: /config-src}
+            - {name: data, mountPath: /data}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+        {{- if .Values.panda.enabled }}
+        # Seed panda bot credentials from the Secret (refreshed every pod start).
+        - name: seed-panda-creds
+          image: busybox:1.37
+          command: ["sh", "-c"]
+          args:
+            - |
+              set -eu
+              mkdir -p /data/.config/panda/credentials
+              if [ -n "${PANDA_CREDENTIALS_JSON:-}" ] && [ -n "${PANDA_CREDENTIALS_FILE:-}" ]; then
+                printf '%s' "$PANDA_CREDENTIALS_JSON" \
+                  > "/data/.config/panda/credentials/${PANDA_CREDENTIALS_FILE}"
+              fi
+          envFrom:
+            - secretRef:
+                name: {{ include "panda-chat.secretName" . }}
+                optional: true
+          volumeMounts:
+            - {name: data, mountPath: /data}
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
+        {{- end }}
+      containers:
+        - name: hermes
+          image: {{ include "panda-chat.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{- if .Values.panda.enabled }}
+          # privileged for dockerd; the image ENTRYPOINT starts dockerd + panda-server before Hermes.
+          securityContext:
+            privileged: true
+          {{- else }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop: [ALL]
+          command: ["/opt/hermes/docker/entrypoint.sh"]
+          args: ["gateway", "run"]
+          {{- end }}
+          env:
+            - {name: API_SERVER_HOST, value: "0.0.0.0"}
+            - {name: API_SERVER_PORT, value: "8642"}
+            - {name: API_SERVER_MODEL_NAME, value: "hermes-agent"}
+            - name: API_SERVER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "panda-chat.secretName" . }}
+                  key: API_SERVER_KEY
+            - {name: HERMES_DATA_DIR, value: "/opt/data"}
+            - {name: HERMES_UID, value: "10000"}
+            - {name: HERMES_GID, value: "10000"}
+            {{- if .Values.panda.enabled }}
+            - {name: DOCKERD_STORAGE_DRIVER, value: {{ .Values.panda.storageDriver | quote }}}
+            - {name: PANDA_SERVER_URL, value: "http://127.0.0.1:2480"}
+            {{- end }}
+            # Devnet context for the agent + skills.
+            - {name: DEVNET_NETWORK, value: {{ .Values.network | quote }}}
+            - {name: DEVNET_CHAIN_ID, value: {{ .Values.chainId | quote }}}
+            {{- if .Values.devnetTools.faucet.enabled }}
+            - {name: DEVNET_FAUCET_URL, value: {{ .Values.devnetTools.faucet.url | quote }}}
+            {{- end }}
+            {{- if .Values.devnetTools.join.enabled }}
+            - {name: DEVNET_CONFIG_URL, value: {{ .Values.devnetTools.join.configUrl | quote }}}
+            - {name: DEVNET_RPC_URL, value: {{ .Values.devnetTools.join.rpcUrl | quote }}}
+            - {name: DEVNET_EXPLORER_URL, value: {{ .Values.devnetTools.join.explorerUrl | quote }}}
+            {{- end }}
+            {{- if .Values.langfuse.enabled }}
+            # Langfuse keys come via envFrom (Secret); URL + env tag are plain.
+            - {name: HERMES_LANGFUSE_BASE_URL, value: {{ .Values.langfuse.baseUrl | quote }}}
+            - {name: HERMES_LANGFUSE_ENV, value: {{ .Values.langfuse.env | default .Values.network | quote }}}
+            {{- end }}
+          envFrom:
+            - secretRef:
+                name: {{ include "panda-chat.secretName" . }}
+                optional: true
+          ports:
+            - {name: http, containerPort: 8642, protocol: TCP}
+          {{- if .Values.panda.enabled }}
+          # ~5 min budget: dockerd + sandbox image pull + panda-server + hermes.
+          startupProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - curl -sf http://127.0.0.1:2480/health && curl -sf http://127.0.0.1:8642/health
+            periodSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 60
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 120
+            periodSeconds: 30
+          {{- else }}
+          readinessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet: {path: /health, port: http}
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          {{- end }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - {name: data, mountPath: /opt/data}
+            - {name: config, mountPath: /config-src, readOnly: true}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "panda-chat.configMapName" . }}
+        - name: data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ include "panda-chat.pvcName" . }}
+          {{- else }}
+          emptyDir: {}
+          {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity: {{- toYaml . | nindent 8 }}
+      {{- end }}

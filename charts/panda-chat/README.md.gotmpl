@@ -1,0 +1,95 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+## What this deploys
+
+- **Open-WebUI** front end (subchart) on `chat.<network>` — the chat UI.
+- **Hermes agent** (NousResearch) as an OpenAI-compatible backend, wired to
+  the **`panda` CLI** for live devnet analytics (Xatu / Prometheus / Loki /
+  Dora / Ethnode via the hosted panda-proxy).
+- Agent **skills** for the EthPandaOps tools: `panda` (query), `faucet`
+  (fund accounts via the devnet powfaucet) and `join-devnet` (enodes /
+  bootnodes / genesis from the devnet `config` service).
+- Optional **Langfuse** tracing (`langfuse.enabled`) via Hermes' bundled
+  `observability/langfuse` plugin — one span per turn, one generation per LLM
+  call, one observation per tool call; traces tagged with the devnet name.
+
+When `panda.enabled` is true the agent pod runs `panda-server` + `dockerd`
+alongside Hermes and is **privileged** (dockerd needs root). The bot identity
+for the proxy is provisioned once (GitHub bot user + `panda auth login`) and
+its credentials are supplied via `credentials.panda.*`.
+
+## Access control
+
+The chart serves a **public** ingress by default (like Dora). Because the agent
+incurs real LLM spend, gate it to your org with **Cloudflare Access** — the same
+edge gate the devnet already runs (authenticatoor / faucet rely on it). CF Access
+verifies org membership and passes the identity to the origin as
+`Cf-Access-Authenticated-User-Email`; Open-WebUI consumes it as **trusted-header
+SSO** (no password), auto-provisioning the user on first visit.
+
+1. Create a Cloudflare Access application on `chat.<network>` scoped to the org
+   (e.g. the ethpandaops GitHub org). This is the only out-of-band step — the same
+   primitive that already gates `auth.<network>`.
+2. Enable trusted-header SSO:
+
+   ```yaml
+   open-webui:
+     sso:
+       enabled: true
+       enableSignup: true            # auto-provision on first login
+       trustedHeader:
+         enabled: true
+         emailHeader: Cf-Access-Authenticated-User-Email
+     extraEnvVars:
+       - name: ENABLE_LOGIN_FORM      # hide the password form
+         value: "false"
+   ```
+
+> ⚠️ Trust model: the chat host must only be reachable **via Cloudflare**, so the
+> email header can't be spoofed by hitting the origin directly — the same
+> assumption authenticatoor and the rest of the devnet stack already rely on.
+
+Per-user identity is also propagated to the agent: the Open-WebUI image
+(`ethpandaops/open-webui-cf`) forwards `Cf-Access-Jwt-Assertion` upstream so
+Hermes sees the individual user (per-user auth on downstream resources + Langfuse
+attribution). On devnets the bal-devnets ansible template wires the trusted-header
+config from a single toggle — see `chat.yaml.j2`.
+
+## Image
+
+Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/chat):
+
+- `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
+  with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
+- `open-webui.image` (`ethpandaops/open-webui-cf`) — Open-WebUI patched to
+  forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
+  Its tag must match the `open-webui` subchart appVersion.
+
+## Wiring the front end to the agent
+
+The chart does not assume the release name, so set the agent endpoint on the
+subchart (the bal-devnets ansible template does this automatically):
+
+```yaml
+open-webui:
+  openaiBaseApiUrls:
+    - "http://<release>-hermes:8642/v1"
+  extraEnvVars:
+    - name: OPENAI_API_KEYS
+      valueFrom:
+        secretKeyRef:
+          name: <release>-hermes-secret
+          key: API_SERVER_KEY
+```
+
+{{ template "chart.valuesSection" . }}

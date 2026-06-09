@@ -14,3 +14,4 @@ chart-repos:
   - ethereum-helm-charts=https://ethpandaops.github.io/ethereum-helm-charts
   - bjw-s=https://bjw-s-labs.github.io/helm-charts
   - chaos-mesh=https://charts.chaos-mesh.org
+  - open-webui=https://helm.openwebui.com
