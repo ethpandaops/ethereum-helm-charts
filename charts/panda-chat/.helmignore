@@ -2,7 +2,6 @@
 *.tmpl
 .git/
 .gitignore
-*.tgz
 .vscode/
 .idea/
 README.md.gotmpl
