@@ -75,7 +75,6 @@ jobs:
       # .helmignore) otherwise surface only on master, after merge. This catches
       # them on the PR.
       - name: Verify charts package (mirrors release)
-        if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add ethpandaops https://ethpandaops.github.io/ethereum-helm-charts
@@ -83,7 +82,10 @@ jobs:
           helm repo add chaos-mesh https://charts.chaos-mesh.org
           helm repo add open-webui https://helm.openwebui.com
           mkdir -p /tmp/cr-packages
-          for chart in $(ct list-changed --config ct.yaml --target-branch ${{ github.event.repository.default_branch }}); do
+          changed=$(git diff --find-renames --name-only "${{ github.event.repository.default_branch }}" -- charts \
+            | awk -F/ 'NF>=2 {print $1"/"$2}' | sort -u)
+          for chart in $changed; do
+            [ -f "$chart/Chart.yaml" ] || continue
             echo "Packaging $chart"
             helm dependency build "$chart"
             helm package "$chart" --destination /tmp/cr-packages
