@@ -23,13 +23,17 @@
   `observability/langfuse` plugin — one span per turn, one generation per LLM
   call, one observation per tool call; traces tagged with the devnet name.
 
-When `panda.enabled` is true the agent pod runs `panda-server` + `dockerd`
-alongside Hermes and is **privileged** (dockerd needs root). The bot identity
-for the proxy is an Authentik **service account** (e.g. `panda-chat-svc` with a
+When `panda.enabled` is true the pod gains a separate **`panda-server`
+sidecar container** (`panda-server` + `dockerd`, privileged — dockerd needs
+root); the `hermes` container always runs unprivileged. The bot identity for
+the proxy is an Authentik **service account** (e.g. `panda-chat-svc` with a
 non-expiring app password) supplied via `credentials.panda.botUsername` /
-`credentials.panda.botToken`. panda-server mints proxy access tokens on demand
-with the OAuth2 `client_credentials` grant and keeps them in memory only — no
-seeded credential files, no refresh-token rotation.
+`credentials.panda.botToken` and materialized in a **dedicated Secret that only
+the sidecar mounts** — Hermes executes LLM-driven shell commands, so it never
+shares an environment with the bot credential. panda-server mints proxy access
+tokens on demand with the OAuth2 `client_credentials` grant and keeps them in
+memory only — no seeded credential files, no refresh-token rotation. Hermes
+reaches the sidecar on `127.0.0.1:2480` (shared pod network namespace).
 
 ## Access control
 

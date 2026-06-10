@@ -43,9 +43,11 @@ systemPrompt: |
   skill, and join the network with the `join-devnet` skill. Be concise and
   always scope data queries to this devnet.
 
-# Panda integration. When enabled the agent pod runs panda-server + dockerd and is privileged.
+# Panda integration. When enabled the pod gains a separate privileged
+# "panda-server" sidecar container (panda-server + dockerd) holding the bot
+# credential; the hermes container stays unprivileged and credential-free.
 panda:
-  # -- Enable the panda sidecar processes + privileged pod
+  # -- Enable the panda-server sidecar container (privileged; the hermes container is not)
   enabled: true
   # -- Hosted panda-proxy URL (analytics data plane)
   proxyUrl: "https://panda-proxy.analytics.production.platform.ethpandaops.io"
@@ -59,6 +61,14 @@ panda:
   sandboxImage: "ethpandaops/panda:sandbox-v0.31.0"
   # -- dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod)
   storageDriver: overlay2
+  # -- Resources for the panda-server sidecar (panda-server + dockerd + sandboxes)
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 2000m
+      memory: 4Gi
 
 # LLM-call tracing via Hermes' bundled observability/langfuse plugin.
 # Keys come from credentials.langfuse; fail-open if absent.
@@ -105,14 +115,14 @@ credentials:
     # -- Langfuse secret key (sk-lf-...)
     secretKey: ""
 
-# -- Resources for the agent pod (Hermes + panda-server + dockerd + sandboxes)
+# -- Resources for the hermes container (panda-server sidecar sized separately under `panda.resources`)
 resources:
   requests:
-    cpu: 300m
-    memory: 1Gi
+    cpu: 200m
+    memory: 768Mi
   limits:
-    cpu: 3000m
-    memory: 6Gi
+    cpu: 1000m
+    memory: 2Gi
 
 persistence:
   # -- Enable a PVC for /opt/data (Hermes state + panda config/creds/storage)

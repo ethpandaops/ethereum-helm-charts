@@ -65,11 +65,20 @@ Agent image reference. Tag defaults to the chart appVersion.
 {{- end }}
 
 {{/*
-Secret holding the Hermes bearer (API_SERVER_KEY), the LLM model key and
-the panda bot credentials.
+Secret holding the Hermes bearer (API_SERVER_KEY) and the LLM model key.
+Mounted ONLY into the unprivileged hermes container.
 */}}
 {{- define "panda-chat.secretName" -}}
 {{- printf "%s-secret" (include "panda-chat.hermesFullname" .) | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
+Secret holding the panda bot credentials (PANDA_BOT_USERNAME/TOKEN).
+Mounted ONLY into the panda-server sidecar — never into hermes, which
+executes LLM-driven shell commands and must not be able to read it.
+*/}}
+{{- define "panda-chat.pandaSecretName" -}}
+{{- printf "%s-panda-secret" (include "panda-chat.hermesFullname" .) | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{- define "panda-chat.configMapName" -}}
