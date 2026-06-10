@@ -76,16 +76,18 @@ jobs:
       # them on the PR.
       - name: Verify charts package (mirrors release)
         run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add ethpandaops https://ethpandaops.github.io/ethereum-helm-charts
-          helm repo add bjw-s https://bjw-s-labs.github.io/helm-charts
-          helm repo add chaos-mesh https://charts.chaos-mesh.org
-          helm repo add open-webui https://helm.openwebui.com
           mkdir -p /tmp/cr-packages
           changed=$(git diff --find-renames --name-only "${{ github.event.repository.default_branch }}" -- charts \
             | awk -F/ 'NF>=2 {print $1"/"$2}' | sort -u)
           for chart in $changed; do
             [ -f "$chart/Chart.yaml" ] || continue
+            # Add each external dependency repo the chart itself declares, so there
+            # is no hardcoded repo list to keep in sync as charts come and go.
+            helm dependency list "$chart" 2>/dev/null \
+              | awk 'NR>1 && $3 ~ /^https?:\/\// {print $3}' | sort -u \
+              | while read -r url; do
+                  helm repo add "dep-$(printf '%s' "$url" | cksum | cut -d' ' -f1)" "$url" >/dev/null 2>&1 || true
+                done
             echo "Packaging $chart"
             helm dependency build "$chart"
             helm package "$chart" --destination /tmp/cr-packages
