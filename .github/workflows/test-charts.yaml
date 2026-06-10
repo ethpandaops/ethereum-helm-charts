@@ -70,28 +70,10 @@ jobs:
           --config ct.yaml
           --target-branch ${{ github.event.repository.default_branch }}
 
-      # Package changed charts the same way release.yaml does. `ct lint`/`install`
-      # never package, so packaging-only failures (e.g. a dependency stripped by
-      # .helmignore) otherwise surface only on master, after merge. This catches
-      # them on the PR.
+      # Package changed charts the same way release.yaml does, so packaging-only
+      # failures are caught on the PR rather than on master after merge.
       - name: Verify charts package (mirrors release)
-        run: |
-          mkdir -p /tmp/cr-packages
-          changed=$(git diff --find-renames --name-only "${{ github.event.repository.default_branch }}" -- charts \
-            | awk -F/ 'NF>=2 {print $1"/"$2}' | sort -u)
-          for chart in $changed; do
-            [ -f "$chart/Chart.yaml" ] || continue
-            # Add each external dependency repo the chart itself declares, so there
-            # is no hardcoded repo list to keep in sync as charts come and go.
-            helm dependency list "$chart" 2>/dev/null \
-              | awk 'NR>1 && $3 ~ /^https?:\/\// {print $3}' | sort -u \
-              | while read -r url; do
-                  helm repo add "dep-$(printf '%s' "$url" | cksum | cut -d' ' -f1)" "$url" >/dev/null 2>&1 || true
-                done
-            echo "Packaging $chart"
-            helm dependency build "$chart"
-            helm package "$chart" --destination /tmp/cr-packages
-          done
+        run: .github/scripts/package-changed-charts.sh "${{ github.event.repository.default_branch }}"
 
       - name: Create kind cluster
         uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
