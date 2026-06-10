@@ -3,9 +3,9 @@ name: panda-chat
 description: AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 home: https://github.com/ethpandaops/chat
 type: application
-version: 0.1.0
-# Hermes Agent upstream version baked into the panda-overlay image.
-appVersion: "0.11.0"
+version: 0.1.1
+# Hermes Agent upstream version (CalVer) baked into the panda-overlay image.
+appVersion: "2026.6.5"
 keywords:
   - llm
   - agent
