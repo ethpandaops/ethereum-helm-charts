@@ -99,6 +99,11 @@ devnetTools:
 
 # Credentials. Injected via vals `<path:...>` on devnets; set directly for standalone use.
 credentials:
+  # -- Stable OW<->Hermes bearer (`API_SERVER_KEY`). Leave empty for a bare
+  # `helm install` (auto-generated + preserved). Under GitOps/ArgoCD you MUST
+  # set this to a stable value (sops) — `helm template` can't preserve a
+  # generated one, so an empty value drifts OW and Hermes apart on re-render.
+  apiServerKey: ""
   # -- The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`)
   llmApiKey: ""
   panda:
