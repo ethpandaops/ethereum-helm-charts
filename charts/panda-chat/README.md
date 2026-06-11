@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -109,6 +109,7 @@ open-webui:
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for the agent pod |
 | chainId | string | `""` | The devnet chain id (informational; surfaced to the join-devnet skill). |
+| credentials.apiServerKey | string | `""` | Stable OW<->Hermes bearer (`API_SERVER_KEY`). Leave empty for a bare `helm install` (auto-generated + preserved). Under GitOps/ArgoCD you MUST set this to a stable value (sops) — `helm template` can't preserve a generated one, so an empty value drifts OW and Hermes apart on re-render. |
 | credentials.langfuse.publicKey | string | `""` | Langfuse public key (pk-lf-...) |
 | credentials.langfuse.secretKey | string | `""` | Langfuse secret key (sk-lf-...) |
 | credentials.llmApiKey | string | `""` | The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`) |
