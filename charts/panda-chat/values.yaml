@@ -13,8 +13,10 @@ chainId: ""
 
 image:
   # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd).
-  repository: ethpandaops/hermes-agent-panda
-  # -- Image tag. Defaults to the chart appVersion when empty.
+  # Built from github.com/ethpandaops/chat (images/hermes-agent-panda).
+  # Published to Docker Hub as ethpandaops/chat:hermes-agent-panda-<tag>.
+  repository: ethpandaops/chat
+  # -- Image tag (prefixed with hermes-agent-panda-). Defaults to the chart appVersion.
   tag: ""
   # -- Image pull policy
   pullPolicy: IfNotPresent
