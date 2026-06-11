@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -104,8 +104,7 @@ open-webui:
 | credentials.langfuse.publicKey | string | `""` | Langfuse public key (pk-lf-...) |
 | credentials.langfuse.secretKey | string | `""` | Langfuse secret key (sk-lf-...) |
 | credentials.llmApiKey | string | `""` | The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`) |
-| credentials.panda.credentialsFile | string | `""` | Filename panda expects under credentials/ (derived from issuer+client hash) |
-| credentials.panda.credentialsJson | string | `""` | panda-server bot credentials JSON (contents of credentials/<hash>.json) |
+| credentials.panda.botToken | string | `""` | Service-account app password for the client_credentials grant (panda-server mints short-lived proxy tokens from it, in memory only) |
 | devnetTools.faucet.enabled | bool | `true` | Enable the faucet (account funding) skill |
 | devnetTools.faucet.url | string | `""` | powfaucet base URL |
 | devnetTools.join.configUrl | string | `""` | Base config service URL (serves /cl/config.yaml, /el/enodes.txt, etc.) |
@@ -151,10 +150,11 @@ open-webui:
 | open-webui.websocket.redis.enabled | bool | `false` |  |
 | panda.clientId | string | `"panda-proxy"` | OIDC client id at the proxy |
 | panda.enabled | bool | `true` | Enable the panda sidecar processes + privileged pod |
-| panda.issuerUrl | string | `"https://dex.primary.production.platform.ethpandaops.io"` | OIDC issuer (Dex) the bot identity authenticates against |
+| panda.issuerUrl | string | `"https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"` | OIDC issuer the bot identity mints client_credentials tokens against |
 | panda.proxyUrl | string | `"https://panda-proxy.analytics.production.platform.ethpandaops.io"` | Hosted panda-proxy URL (analytics data plane) |
 | panda.sandboxImage | string | `"ethpandaops/panda:sandbox-v0.31.0"` | Sandbox container image panda-server spawns for Python execution |
 | panda.storageDriver | string | `"overlay2"` | dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod) |
+| panda.username | string | `"panda-chat-svc"` | Service-account username for the client_credentials grant |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes |
 | persistence.enabled | bool | `true` | Enable a PVC for /opt/data (Hermes state + panda config/creds/storage) |
 | persistence.existingClaim | string | `""` | Use an existing claim instead of creating one |

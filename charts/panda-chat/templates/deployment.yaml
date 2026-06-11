@@ -58,33 +58,6 @@ spec:
             allowPrivilegeEscalation: false
             capabilities:
               drop: [ALL]
-        {{- if .Values.panda.enabled }}
-        # Seed panda bot credentials from the Secret (refreshed every pod start).
-        - name: seed-panda-creds
-          image: busybox:1.37
-          command: ["sh", "-c"]
-          args:
-            - |
-              set -eu
-              mkdir -p /data/.config/panda/credentials
-              if [ -n "${PANDA_CREDENTIALS_JSON:-}" ] && [ -n "${PANDA_CREDENTIALS_FILE:-}" ]; then
-                printf '%s' "$PANDA_CREDENTIALS_JSON" \
-                  > "/data/.config/panda/credentials/${PANDA_CREDENTIALS_FILE}"
-              fi
-          envFrom:
-            - secretRef:
-                name: {{ include "panda-chat.secretName" . }}
-                optional: true
-          volumeMounts:
-            - {name: data, mountPath: /data}
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: 10000
-            runAsGroup: 10000
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop: [ALL]
-        {{- end }}
       containers:
         - name: hermes
           image: {{ include "panda-chat.image" . }}

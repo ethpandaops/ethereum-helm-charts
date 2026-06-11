@@ -27,7 +27,10 @@ data:
         - observability/langfuse
     {{- end }}
   {{- if .Values.panda.enabled }}
-  # panda-server config — seeded to /opt/data/.config/panda/config.yaml (creds live in the Secret).
+  # panda-server config — seeded to /opt/data/.config/panda/config.yaml. The app
+  # password reaches the process as PANDA_BOT_TOKEN (Secret env); panda's config
+  # loader substitutes ${PANDA_BOT_TOKEN} at load time, and access tokens minted
+  # from it stay in memory — no credential files.
   panda-config.yaml: |
     server:
       host: "127.0.0.1"
@@ -46,7 +49,9 @@ data:
     proxy:
       url: {{ .Values.panda.proxyUrl | quote }}
       auth:
-        mode: "oidc"
+        mode: "client_credentials"
         issuer_url: {{ .Values.panda.issuerUrl | quote }}
         client_id: {{ .Values.panda.clientId | quote }}
+        username: {{ .Values.panda.username | quote }}
+        password: "${PANDA_BOT_TOKEN}"
   {{- end }}
