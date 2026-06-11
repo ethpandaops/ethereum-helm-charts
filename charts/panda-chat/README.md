@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -26,10 +26,17 @@ AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResea
   `observability/langfuse` plugin — one span per turn, one generation per LLM
   call, one observation per tool call; traces tagged with the devnet name.
 
-When `panda.enabled` is true the agent pod runs `panda-server` + `dockerd`
-alongside Hermes and is **privileged** (dockerd needs root). The bot identity
-for the proxy is provisioned once (GitHub bot user + `panda auth login`) and
-its credentials are supplied via `credentials.panda.*`.
+When `panda.enabled` is true the pod gains a separate **`panda-server`
+sidecar container** (`panda-server` + `dockerd`, privileged — dockerd needs
+root); the `hermes` container always runs unprivileged. The bot identity for
+the proxy is an Authentik **service account** (e.g. `panda-chat-svc` with a
+non-expiring app password) supplied via `credentials.panda.botUsername` /
+`credentials.panda.botToken` and materialized in a **dedicated Secret that only
+the sidecar mounts** — Hermes executes LLM-driven shell commands, so it never
+shares an environment with the bot credential. panda-server mints proxy access
+tokens on demand with the OAuth2 `client_credentials` grant and keeps them in
+memory only — no seeded credential files, no refresh-token rotation. Hermes
+reaches the sidecar on `127.0.0.1:2480` (shared pod network namespace).
 
 ## Access control
 
@@ -64,9 +71,10 @@ SSO** (no password), auto-provisioning the user on first visit.
 
 Per-user identity is also propagated to the agent: the Open-WebUI image
 (`ethpandaops/open-webui-cf`) forwards `Cf-Access-Jwt-Assertion` upstream so
-Hermes sees the individual user (per-user auth on downstream resources + Langfuse
-attribution). On devnets the bal-devnets ansible template wires the trusted-header
-config from a single toggle — see `chat.yaml.j2`.
+Hermes can attribute traffic to the individual user (Langfuse `user_id`,
+`X-Panda-On-Behalf-Of` audit header). Authentication to panda-proxy itself is
+always the bot service account. On devnets the bal-devnets ansible template
+wires the trusted-header config from a single toggle — see `chat.yaml.j2`.
 
 ## Image
 
@@ -104,8 +112,8 @@ open-webui:
 | credentials.langfuse.publicKey | string | `""` | Langfuse public key (pk-lf-...) |
 | credentials.langfuse.secretKey | string | `""` | Langfuse secret key (sk-lf-...) |
 | credentials.llmApiKey | string | `""` | The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`) |
-| credentials.panda.credentialsFile | string | `""` | Filename panda expects under credentials/ (derived from issuer+client hash) |
-| credentials.panda.credentialsJson | string | `""` | panda-server bot credentials JSON (contents of credentials/<hash>.json) |
+| credentials.panda.botToken | string | `""` | Authentik app-password token for the bot service account (client_credentials grant; minted tokens stay in memory). Required when `panda.enabled`. |
+| credentials.panda.botUsername | string | `""` | Authentik service-account username for the bot (e.g. `panda-chat-svc`). Required when `panda.enabled`. |
 | devnetTools.faucet.enabled | bool | `true` | Enable the faucet (account funding) skill |
 | devnetTools.faucet.url | string | `""` | powfaucet base URL |
 | devnetTools.join.configUrl | string | `""` | Base config service URL (serves /cl/config.yaml, /el/enodes.txt, etc.) |
@@ -149,10 +157,11 @@ open-webui:
 | open-webui.sso.trustedHeader.nameHeader | string | `""` |  |
 | open-webui.websocket.enabled | bool | `false` |  |
 | open-webui.websocket.redis.enabled | bool | `false` |  |
-| panda.clientId | string | `"panda-proxy"` | OIDC client id at the proxy |
-| panda.enabled | bool | `true` | Enable the panda sidecar processes + privileged pod |
-| panda.issuerUrl | string | `"https://dex.primary.production.platform.ethpandaops.io"` | OIDC issuer (Dex) the bot identity authenticates against |
+| panda.clientId | string | `"panda-proxy"` | OAuth client id at the proxy |
+| panda.enabled | bool | `true` | Enable the panda-server sidecar container (privileged; the hermes container is not) |
+| panda.issuerUrl | string | `"https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"` | Authentik application issuer the bot service account mints client_credentials tokens against (the trailing slash is part of the issuer — keep it) |
 | panda.proxyUrl | string | `"https://panda-proxy.analytics.production.platform.ethpandaops.io"` | Hosted panda-proxy URL (analytics data plane) |
+| panda.resources | object | `{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"200m","memory":"512Mi"}}` | Resources for the panda-server sidecar (panda-server + dockerd + sandboxes) |
 | panda.sandboxImage | string | `"ethpandaops/panda:sandbox-v0.31.0"` | Sandbox container image panda-server spawns for Python execution |
 | panda.storageDriver | string | `"overlay2"` | dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod) |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes |
@@ -160,7 +169,7 @@ open-webui:
 | persistence.existingClaim | string | `""` | Use an existing claim instead of creating one |
 | persistence.size | string | `"8Gi"` | PVC size |
 | persistence.storageClass | string | `""` | Storage class (cluster default when empty) |
-| resources | object | `{"limits":{"cpu":"3000m","memory":"6Gi"},"requests":{"cpu":"300m","memory":"1Gi"}}` | Resources for the agent pod (Hermes + panda-server + dockerd + sandboxes) |
+| resources | object | `{"limits":{"cpu":"1000m","memory":"2Gi"},"requests":{"cpu":"200m","memory":"768Mi"}}` | Resources for the hermes container (panda-server sidecar sized separately under `panda.resources`) |
 | service.port | int | `8642` | Agent service port (Hermes OpenAI-compatible API) |
 | service.type | string | `"ClusterIP"` | Agent service type |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |

@@ -43,20 +43,32 @@ systemPrompt: |
   skill, and join the network with the `join-devnet` skill. Be concise and
   always scope data queries to this devnet.
 
-# Panda integration. When enabled the agent pod runs panda-server + dockerd and is privileged.
+# Panda integration. When enabled the pod gains a separate privileged
+# "panda-server" sidecar container (panda-server + dockerd) holding the bot
+# credential; the hermes container stays unprivileged and credential-free.
 panda:
-  # -- Enable the panda sidecar processes + privileged pod
+  # -- Enable the panda-server sidecar container (privileged; the hermes container is not)
   enabled: true
   # -- Hosted panda-proxy URL (analytics data plane)
   proxyUrl: "https://panda-proxy.analytics.production.platform.ethpandaops.io"
-  # -- OIDC issuer (Dex) the bot identity authenticates against
-  issuerUrl: "https://dex.primary.production.platform.ethpandaops.io"
-  # -- OIDC client id at the proxy
+  # -- Authentik application issuer the bot service account mints
+  # client_credentials tokens against (the trailing slash is part of the
+  # issuer — keep it)
+  issuerUrl: "https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"
+  # -- OAuth client id at the proxy
   clientId: "panda-proxy"
   # -- Sandbox container image panda-server spawns for Python execution
   sandboxImage: "ethpandaops/panda:sandbox-v0.31.0"
   # -- dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod)
   storageDriver: overlay2
+  # -- Resources for the panda-server sidecar (panda-server + dockerd + sandboxes)
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 2000m
+      memory: 4Gi
 
 # LLM-call tracing via Hermes' bundled observability/langfuse plugin.
 # Keys come from credentials.langfuse; fail-open if absent.
@@ -90,24 +102,27 @@ credentials:
   # -- The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`)
   llmApiKey: ""
   panda:
-    # -- panda-server bot credentials JSON (contents of credentials/<hash>.json)
-    credentialsJson: ""
-    # -- Filename panda expects under credentials/ (derived from issuer+client hash)
-    credentialsFile: ""
+    # -- Authentik service-account username for the bot (e.g. `panda-chat-svc`).
+    # Required when `panda.enabled`.
+    botUsername: ""
+    # -- Authentik app-password token for the bot service account
+    # (client_credentials grant; minted tokens stay in memory). Required when
+    # `panda.enabled`.
+    botToken: ""
   langfuse:
     # -- Langfuse public key (pk-lf-...)
     publicKey: ""
     # -- Langfuse secret key (sk-lf-...)
     secretKey: ""
 
-# -- Resources for the agent pod (Hermes + panda-server + dockerd + sandboxes)
+# -- Resources for the hermes container (panda-server sidecar sized separately under `panda.resources`)
 resources:
   requests:
-    cpu: 300m
-    memory: 1Gi
+    cpu: 200m
+    memory: 768Mi
   limits:
-    cpu: 3000m
-    memory: 6Gi
+    cpu: 1000m
+    memory: 2Gi
 
 persistence:
   # -- Enable a PVC for /opt/data (Hermes state + panda config/creds/storage)
