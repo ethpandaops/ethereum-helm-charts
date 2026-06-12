@@ -121,27 +121,32 @@ spec:
             - {name: data, mountPath: /opt/data}
             - {name: config, mountPath: /config-src, readOnly: true}
         {{- if .Values.panda.enabled }}
-        # panda-server + dockerd sidecar. Privileged (dockerd) and the ONLY
-        # container holding the bot credential. Same image, "panda-stack" arg.
+        # panda-server sidecar. Runs unprivileged — the `direct` sandbox
+        # backend executes Python as a subprocess inside the container,
+        # relying on the Kubernetes pod boundary for isolation. No dockerd,
+        # no sandbox image, no privileged container.
         - name: panda-server
           image: {{ include "panda-chat.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
-            privileged: true
+            runAsNonRoot: true
+            runAsUser: 10000
+            runAsGroup: 10000
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: [ALL]
           command: ["/opt/panda/entrypoint.sh"]
           args: ["panda-stack"]
-          env:
-            - {name: DOCKERD_STORAGE_DRIVER, value: {{ .Values.panda.storageDriver | quote }}}
           envFrom:
             - secretRef:
                 name: {{ include "panda-chat.pandaSecretName" . }}
           # exec probes: panda-server binds 127.0.0.1, which kubelet httpGet
-          # (pod IP) can't reach. ~5 min budget: dockerd + sandbox pull + server.
+          # (pod IP) can't reach.
           startupProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]
             periodSeconds: 5
-            failureThreshold: 60
+            failureThreshold: 12
           livenessProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]
