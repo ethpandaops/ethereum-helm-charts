@@ -57,18 +57,14 @@ panda:
   issuerUrl: "https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"
   # -- OAuth client id at the proxy
   clientId: "panda-proxy"
-  # -- Sandbox container image panda-server spawns for Python execution
-  sandboxImage: "ethpandaops/panda:sandbox-v0.31.0"
-  # -- dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod)
-  storageDriver: overlay2
-  # -- Resources for the panda-server sidecar (panda-server + dockerd + sandboxes)
+  # -- Resources for the panda-server sidecar
   resources:
     requests:
       cpu: 200m
       memory: 512Mi
     limits:
-      cpu: 2000m
-      memory: 4Gi
+      cpu: 1000m
+      memory: 2Gi
 
 # LLM-call tracing via Hermes' bundled observability/langfuse plugin.
 # Keys come from credentials.langfuse; fail-open if absent.
@@ -99,6 +95,11 @@ devnetTools:
 
 # Credentials. Injected via vals `<path:...>` on devnets; set directly for standalone use.
 credentials:
+  # -- Stable OW<->Hermes bearer (`API_SERVER_KEY`). Leave empty for a bare
+  # `helm install` (auto-generated + preserved). Under GitOps/ArgoCD you MUST
+  # set this to a stable value (sops) — `helm template` can't preserve a
+  # generated one, so an empty value drifts OW and Hermes apart on re-render.
+  apiServerKey: ""
   # -- The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`)
   llmApiKey: ""
   panda:
