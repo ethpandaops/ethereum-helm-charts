@@ -27,16 +27,18 @@ AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResea
   call, one observation per tool call; traces tagged with the devnet name.
 
 When `panda.enabled` is true the pod gains a separate **`panda-server`
-sidecar container** (`panda-server` + `dockerd`, privileged — dockerd needs
-root); the `hermes` container always runs unprivileged. The bot identity for
-the proxy is an Authentik **service account** (e.g. `panda-chat-svc` with a
-non-expiring app password) supplied via `credentials.panda.botUsername` /
-`credentials.panda.botToken` and materialized in a **dedicated Secret that only
-the sidecar mounts** — Hermes executes LLM-driven shell commands, so it never
-shares an environment with the bot credential. panda-server mints proxy access
-tokens on demand with the OAuth2 `client_credentials` grant and keeps them in
-memory only — no seeded credential files, no refresh-token rotation. Hermes
-reaches the sidecar on `127.0.0.1:2480` (shared pod network namespace).
+sidecar container**; both containers run **unprivileged**. The sandbox is the
+`direct` backend — executed Python runs as a subprocess inside the panda-server
+container, isolated by the Kubernetes pod boundary (no dockerd, no sandbox
+image, no privilege). The bot identity for the proxy is an Authentik **service
+account** (e.g. `panda-chat-svc` with a non-expiring app password) supplied via
+`credentials.panda.botUsername` / `credentials.panda.botToken` and materialized
+in a **dedicated Secret that only the sidecar mounts** — Hermes executes
+LLM-driven shell commands, so it never shares an environment with the bot
+credential. panda-server mints proxy access tokens on demand with the OAuth2
+`client_credentials` grant and keeps them in memory only — no seeded credential
+files, no refresh-token rotation. Hermes reaches the sidecar on
+`127.0.0.1:2480` (shared pod network namespace).
 
 ## Access control
 
@@ -81,7 +83,8 @@ wires the trusted-header config from a single toggle — see `chat.yaml.j2`.
 Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/chat):
 
 - `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
-  with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
+  with the panda overlay (panda CLI + panda-server + sandbox Python env +
+  entrypoint + skills).
 - `open-webui.image` (`ethpandaops/open-webui-cf`) — Open-WebUI patched to
   forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
   Its tag must match the `open-webui` subchart appVersion.
@@ -123,7 +126,7 @@ open-webui:
 | devnetTools.join.rpcUrl | string | `""` | Public execution RPC URL |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"ethpandaops/hermes-agent-panda"` | Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd). |
+| image.repository | string | `"ethpandaops/hermes-agent-panda"` | Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server). |
 | image.tag | string | `""` | Image tag. Defaults to the chart appVersion when empty. |
 | imagePullSecrets | list | `[]` | Image pull secrets for the agent image |
 | langfuse.baseUrl | string | `""` | Langfuse base URL |
@@ -159,12 +162,10 @@ open-webui:
 | open-webui.websocket.enabled | bool | `false` |  |
 | open-webui.websocket.redis.enabled | bool | `false` |  |
 | panda.clientId | string | `"panda-proxy"` | OAuth client id at the proxy |
-| panda.enabled | bool | `true` | Enable the panda-server sidecar container (privileged; the hermes container is not) |
+| panda.enabled | bool | `true` | Enable the panda-server sidecar container (holds the bot credential) |
 | panda.issuerUrl | string | `"https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"` | Authentik application issuer the bot service account mints client_credentials tokens against (the trailing slash is part of the issuer — keep it) |
 | panda.proxyUrl | string | `"https://panda-proxy.analytics.production.platform.ethpandaops.io"` | Hosted panda-proxy URL (analytics data plane) |
-| panda.resources | object | `{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"200m","memory":"512Mi"}}` | Resources for the panda-server sidecar (panda-server + dockerd + sandboxes) |
-| panda.sandboxImage | string | `"ethpandaops/panda:sandbox-v0.31.0"` | Sandbox container image panda-server spawns for Python execution |
-| panda.storageDriver | string | `"overlay2"` | dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod) |
+| panda.resources | object | `{"limits":{"cpu":"1000m","memory":"2Gi"},"requests":{"cpu":"200m","memory":"512Mi"}}` | Resources for the panda-server sidecar |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes |
 | persistence.enabled | bool | `true` | Enable a PVC for /opt/data (Hermes state + panda config/creds/storage) |
 | persistence.existingClaim | string | `""` | Use an existing claim instead of creating one |

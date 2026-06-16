@@ -21,8 +21,9 @@ spec:
       imagePullSecrets: {{- toYaml . | nindent 8 }}
       {{- end }}
       # Per-container security contexts below; fsGroup lets every container
-      # (and the init containers) share the PVC. Hermes is ALWAYS unprivileged
-      # — only the panda-server sidecar is privileged (dockerd).
+      # (and the init containers) share the PVC. Both containers run
+      # unprivileged — the panda-server `direct` sandbox executes Python as a
+      # subprocess, isolated by the pod boundary (no dockerd, no privilege).
       securityContext:
         fsGroup: 10000
       initContainers:
@@ -142,11 +143,18 @@ spec:
                 name: {{ include "panda-chat.pandaSecretName" . }}
           # exec probes: panda-server binds 127.0.0.1, which kubelet httpGet
           # (pod IP) can't reach.
+          # Generous startup budget (20 min): the EIP semantic index (9k chunks)
+          # is built at boot via the hosted proxy's embedding endpoint. When the
+          # proxy's Redis cache is unreachable EVERY chunk is a cache miss, so a
+          # cold boot re-embeds everything (~10 min observed) — plus first-run
+          # EIP/spec/schema fetches. A tight budget kills panda-server mid-embed
+          # → restart → re-embed → loop. (The real fix is the proxy Redis; this
+          # just lets a cold boot finish.)
           startupProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]
-            periodSeconds: 5
-            failureThreshold: 12
+            periodSeconds: 10
+            failureThreshold: 120
           livenessProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]

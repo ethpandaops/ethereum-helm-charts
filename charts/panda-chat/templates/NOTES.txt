@@ -25,6 +25,7 @@ release name). Set these on the open-webui subchart:
 
 {{- if .Values.panda.enabled }}
 
-Panda is ENABLED — the agent pod is privileged and runs dockerd + panda-server.
+Panda is ENABLED — the pod runs an unprivileged panda-server sidecar (the
+`direct` sandbox executes Python as a subprocess; no dockerd, no privilege).
 Provision the bot identity and fill credentials.panda.* (see the chart README).
 {{- end }}

@@ -12,7 +12,7 @@ network: ""
 chainId: ""
 
 image:
-  # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd).
+  # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server).
   repository: ethpandaops/hermes-agent-panda
   # -- Image tag. Defaults to the chart appVersion when empty.
   tag: ""
@@ -37,17 +37,18 @@ llm:
 
 # -- System prompt for the agent. `{{ network }}` is substituted at render time.
 systemPrompt: |
-  You are the EthPandaOps assistant for the Ethereum devnet "{{ network }}".
-  Help users understand devnet state and use the EthPandaOps tooling:
-  query live data with the `panda` skill, fund accounts with the `faucet`
-  skill, and join the network with the `join-devnet` skill. Be concise and
-  always scope data queries to this devnet.
+  You are the EthPandaOps assistant for the Ethereum devnet "{{ network }}", scoped to it alone.
+  Tools: `panda` (query live data), `faucet` (fund accounts), `join-devnet` (join the network).
+  Discover before querying (the `panda` skill shows how); never invent APIs, tables, or node names.
+  Report exactly what the tools return — never fabricate; if data is missing or sources disagree, say so.
+  Lead with the numbers, in plain English. Be concise.
 
-# Panda integration. When enabled the pod gains a separate privileged
-# "panda-server" sidecar container (panda-server + dockerd) holding the bot
-# credential; the hermes container stays unprivileged and credential-free.
+# Panda integration. When enabled the pod gains a separate "panda-server"
+# sidecar container holding the bot credential; the hermes container stays
+# credential-free. Both run unprivileged — the `direct` sandbox runs Python as
+# a subprocess, isolated by the pod boundary (no dockerd, no privilege).
 panda:
-  # -- Enable the panda-server sidecar container (privileged; the hermes container is not)
+  # -- Enable the panda-server sidecar container (holds the bot credential)
   enabled: true
   # -- Hosted panda-proxy URL (analytics data plane)
   proxyUrl: "https://panda-proxy.analytics.production.platform.ethpandaops.io"

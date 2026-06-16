@@ -24,16 +24,18 @@
   call, one observation per tool call; traces tagged with the devnet name.
 
 When `panda.enabled` is true the pod gains a separate **`panda-server`
-sidecar container** (`panda-server` + `dockerd`, privileged — dockerd needs
-root); the `hermes` container always runs unprivileged. The bot identity for
-the proxy is an Authentik **service account** (e.g. `panda-chat-svc` with a
-non-expiring app password) supplied via `credentials.panda.botUsername` /
-`credentials.panda.botToken` and materialized in a **dedicated Secret that only
-the sidecar mounts** — Hermes executes LLM-driven shell commands, so it never
-shares an environment with the bot credential. panda-server mints proxy access
-tokens on demand with the OAuth2 `client_credentials` grant and keeps them in
-memory only — no seeded credential files, no refresh-token rotation. Hermes
-reaches the sidecar on `127.0.0.1:2480` (shared pod network namespace).
+sidecar container**; both containers run **unprivileged**. The sandbox is the
+`direct` backend — executed Python runs as a subprocess inside the panda-server
+container, isolated by the Kubernetes pod boundary (no dockerd, no sandbox
+image, no privilege). The bot identity for the proxy is an Authentik **service
+account** (e.g. `panda-chat-svc` with a non-expiring app password) supplied via
+`credentials.panda.botUsername` / `credentials.panda.botToken` and materialized
+in a **dedicated Secret that only the sidecar mounts** — Hermes executes
+LLM-driven shell commands, so it never shares an environment with the bot
+credential. panda-server mints proxy access tokens on demand with the OAuth2
+`client_credentials` grant and keeps them in memory only — no seeded credential
+files, no refresh-token rotation. Hermes reaches the sidecar on
+`127.0.0.1:2480` (shared pod network namespace).
 
 ## Access control
 
@@ -78,7 +80,8 @@ wires the trusted-header config from a single toggle — see `chat.yaml.j2`.
 Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/chat):
 
 - `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
-  with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
+  with the panda overlay (panda CLI + panda-server + sandbox Python env +
+  entrypoint + skills).
 - `open-webui.image` (`ethpandaops/open-webui-cf`) — Open-WebUI patched to
   forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
   Its tag must match the `open-webui` subchart appVersion.
