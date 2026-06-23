@@ -177,5 +177,5 @@ open-webui:
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Create a service account for the agent |
 | serviceAccount.name | string | `""` | Service account name (defaults to the fullname) |
-| systemPrompt | string | `"You are the EthPandaOps assistant for the Ethereum devnet \"{{ network }}\".\nHelp users understand devnet state and use the EthPandaOps tooling:\nquery live data with the `panda` skill, fund accounts with the `faucet`\nskill, and join the network with the `join-devnet` skill. Be concise and\nalways scope data queries to this devnet.\n"` | System prompt for the agent. `{{ network }}` is substituted at render time. |
+| systemPrompt | string | `"You are the EthPandaOps assistant for the Ethereum devnet \"{{ network }}\", scoped to it alone.\nTools: `panda` (query live data), `faucet` (fund accounts), `join-devnet` (join the network).\nDiscover before querying (the `panda` skill shows how); never invent APIs, tables, or node names.\nReport exactly what the tools return — never fabricate; if data is missing or sources disagree, say so.\nLead with the numbers, in plain English. Be concise.\n"` | System prompt for the agent. `{{ network }}` is substituted at render time. |
 | tolerations | list | `[]` | Tolerations for the agent pod |
