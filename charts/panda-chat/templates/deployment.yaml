@@ -136,12 +136,15 @@ spec:
             - secretRef:
                 name: {{ include "panda-chat.pandaSecretName" . }}
           # exec probes: panda-server binds 127.0.0.1, which kubelet httpGet
-          # (pod IP) can't reach. ~5 min budget: dockerd + sandbox pull + server.
+          # (pod IP) can't reach. ~20 min budget: a cold start is dockerd +
+          # sandbox image pull + panda-server, and panda-server rebuilds its
+          # EIP semantic index on boot (~8-10 min when the proxy embed cache
+          # is cold) — a tighter budget CrashLoops mid-embed.
           startupProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]
             periodSeconds: 5
-            failureThreshold: 60
+            failureThreshold: 240
           livenessProbe:
             exec:
               command: ["sh", "-c", "curl -sf http://127.0.0.1:2480/health"]
@@ -149,11 +152,22 @@ spec:
           resources: {{- toYaml .Values.panda.resources | nindent 12 }}
           volumeMounts:
             - {name: data, mountPath: /opt/data}
+            # dockerd data-root on a node-local emptyDir (kubelet dir = ext4/xfs),
+            # NOT the pod's overlay rootfs. overlay2 refuses to stack its
+            # upperdir on another overlayfs (kernel: DCACHE_OP_REAL upperdir +
+            # FILESYSTEM_MAX_STACK_DEPTH=2 → EINVAL → dockerd CrashLoop); on a
+            # real fs it works natively. Ephemeral: the sandbox image is
+            # re-pulled on cold start (entrypoint does this).
+            - {name: docker-storage, mountPath: /var/lib/docker}
         {{- end }}
       volumes:
         - name: config
           configMap:
             name: {{ include "panda-chat.configMapName" . }}
+        {{- if .Values.panda.enabled }}
+        - name: docker-storage
+          emptyDir: {{- toYaml .Values.panda.dockerStorage | nindent 12 }}
+        {{- end }}
         - name: data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:

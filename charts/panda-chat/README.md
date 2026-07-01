@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -162,9 +162,10 @@ open-webui:
 | panda.enabled | bool | `true` | Enable the panda-server sidecar container (privileged; the hermes container is not) |
 | panda.issuerUrl | string | `"https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"` | Authentik application issuer the bot service account mints client_credentials tokens against (the trailing slash is part of the issuer — keep it) |
 | panda.proxyUrl | string | `"https://panda-proxy.analytics.production.platform.ethpandaops.io"` | Hosted panda-proxy URL (analytics data plane) |
+| panda.dockerStorage | object | `{}` | emptyDir spec for dockerd's /var/lib/docker (the sandbox layer cache). Node-local so overlay2 works; ephemeral (re-pulled on cold start). Cap it with `sizeLimit: 10Gi`, or set `medium: ""` explicitly; {} = node default. |
 | panda.resources | object | `{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"200m","memory":"512Mi"}}` | Resources for the panda-server sidecar (panda-server + dockerd + sandboxes) |
-| panda.sandboxImage | string | `"ethpandaops/panda:sandbox-v0.31.0"` | Sandbox container image panda-server spawns for Python execution |
-| panda.storageDriver | string | `"overlay2"` | dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod) |
+| panda.sandboxImage | string | `"ethpandaops/panda:sandbox-0.37.0"` | Sandbox container image panda-server spawns for Python execution (must track the panda-server version baked into the overlay image) |
+| panda.storageDriver | string | `"overlay2"` | dockerd storage driver. overlay2 is reliable because dockerd's data-root is a node-local emptyDir (see panda.dockerStorage), not the pod's overlay rootfs — so overlay2 stacks on ext4/xfs instead of overlayfs. Fall back to vfs only for exotic nodes whose kubelet dir is itself overlayfs/NFS. |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes |
 | persistence.enabled | bool | `true` | Enable a PVC for /opt/data (Hermes state + panda config/creds/storage) |
 | persistence.existingClaim | string | `""` | Use an existing claim instead of creating one |

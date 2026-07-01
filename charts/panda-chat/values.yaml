@@ -58,9 +58,17 @@ panda:
   # -- OAuth client id at the proxy
   clientId: "panda-proxy"
   # -- Sandbox container image panda-server spawns for Python execution
-  sandboxImage: "ethpandaops/panda:sandbox-v0.31.0"
-  # -- dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod)
+  # (must track the panda-server version baked into the overlay image)
+  sandboxImage: "ethpandaops/panda:sandbox-0.37.0"
+  # -- dockerd storage driver. overlay2 is reliable because dockerd's data-root
+  # is a node-local emptyDir (see panda.dockerStorage), not the pod's overlay
+  # rootfs — so overlay2 stacks on ext4/xfs instead of overlayfs. Fall back to
+  # vfs only for exotic nodes whose kubelet dir is itself overlayfs/NFS.
   storageDriver: overlay2
+  # -- emptyDir spec for dockerd's /var/lib/docker (the sandbox layer cache).
+  # Node-local so overlay2 works; ephemeral (re-pulled on cold start). Cap it
+  # with `sizeLimit: 10Gi`, or set `medium: ""` explicitly; {} = node default.
+  dockerStorage: {}
   # -- Resources for the panda-server sidecar (panda-server + dockerd + sandboxes)
   resources:
     requests:
