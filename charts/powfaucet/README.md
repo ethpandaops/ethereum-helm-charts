@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -57,6 +57,10 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetCaptchaProvider | string | `"hcaptcha"` | Captcha module: provider (hcaptcha / recaptcha) |
 | faucetCaptchaSecret | string | `"0xCensoredHCaptchaSecretKey"` | Captcha module: provider secret |
 | faucetCaptchaSitekey | string | `"00000000-0000-0000-0000-000000000000"` | Captcha module: provider site key |
+| faucetConcurrencyByAddrOnly | bool | `false` | Concurrency module: only check concurrency by target address (set true when a trusted proxy fronts the faucet, so all traffic shares one IP) |
+| faucetConcurrencyByIPOnly | bool | `false` | Concurrency module: only check concurrency by IP address (setting both ByAddrOnly and ByIPOnly skips both checks, disabling the module) |
+| faucetConcurrencyLimit | int | `1` | Concurrency module: max sessions in 'running' state at the same time for the same IP / target address |
+| faucetConcurrencyLimitEnabled | bool | `true` | Enable concurrency-limit module (cap simultaneously running sessions) |
 | faucetEnsEnabled | bool | `true` | Enable ENS module |
 | faucetEnsRequired | bool | `false` | ENS module: enforce ens name to use the faucet |
 | faucetEnsRpcUrl | string | `"https://rpc.flashbots.net/"` | ENS module: rpc url (mainnet) |
@@ -94,6 +98,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetPowRewardPerHash | int | `500000000000000000` | PoW module: drop amount per eligible hash |
 | faucetPrivkey | string | `"feedbeef12340000feedbeef12340000feedbeef12340000feedbeef12340000"` | Faucet wallet private key |
 | faucetRecurringLimitsAmountWei | float | `100000000000000000000` | Recurring module: max amount a recurring user is allowed to request in total |
+| faucetRecurringLimitsByAddrOnly | bool | `false` | Recurring module: only match previous sessions by target address, not by IP (set true when a trusted proxy fronts the faucet, so all traffic shares one IP and a per-IP match becomes a global budget) |
 | faucetRecurringLimitsDuration | int | `86400` | Recurring module: aggregation duration for the max request amount check |
 | faucetRecurringLimitsEnabled | bool | `true` | Enable recurring module (enforce limits for recurring users) |
 | faucetRpcEndpoints | list | `[]` | Faucet el node rpc endpoints (multi-RPC mode). When non-empty, replaces faucetRpcUrl. Each entry supports: url (string, required; may include user:pass@), name (optional display label), priority (higher = preferred, default 1), metered (bool, throttles monitoring requests, default false). |
@@ -103,7 +108,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc (single endpoint legacy mode; ignored when faucetRpcEndpoints is set) |
 | faucetTitle | string | `"PoW Faucet"` | Faucet title |
 | faucetTxBroadcastCount | int | `2` | Number of highest-priority ready endpoints to broadcast each transaction to in parallel. At least one successful submission is required; other endpoints' errors (e.g. "already known") are ignored. |
-| faucetTxGasLimit | int | `21000` | Transaction gas limit |
+| faucetTxGasLimit | string | `nil` | Transaction gas limit (unset omits the setting so the faucet's built-in default applies; set explicitly only for networks with different gas rules, e.g. L2s) |
 | faucetTxMaxFee | int | `100000000000` | Max transaction gas fee (in wei) |
 | faucetTxMaxPrioFee | int | `2000000000` | Max transaction priority fee (in wei) |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
