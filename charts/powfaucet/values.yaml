@@ -366,6 +366,18 @@ faucetRecurringLimitsAmountWei: 100000000000000000000 # 100 ETH
 # -- Recurring module: aggregation duration for the max request amount check
 faucetRecurringLimitsDuration: 86400 # 1 day
 
+# -- Enable concurrency-limit module (cap simultaneously running sessions)
+faucetConcurrencyLimitEnabled: true
+
+# -- Concurrency module: max sessions in 'running' state at the same time for the same IP / target address
+faucetConcurrencyLimit: 1
+
+# -- Concurrency module: only check concurrency by target address (set true when a trusted proxy fronts the faucet, so all traffic shares one IP)
+faucetConcurrencyByAddrOnly: false
+
+# -- Concurrency module: only check concurrency by IP address
+faucetConcurrencyByIPOnly: false
+
 # -- Enable PoW module (require mining)
 faucetPowEnabled: false
 
@@ -686,11 +698,11 @@ config: |
     ## Concurrency Limit module
     concurrency-limit:
       # enable / disable concurrency limit
-      enabled: true
+      enabled: {{ .Values.faucetConcurrencyLimitEnabled }}
 
-      concurrencyLimit: 1 # only allow 1 concurrent session (sessions in 'running' state at the same time for the same ip / target addr)
-      byAddrOnly: false # only check concurrency by target address
-      byIPOnly: false # only check concurrency by IP address
+      concurrencyLimit: {{ .Values.faucetConcurrencyLimit }} # only allow N concurrent sessions (sessions in 'running' state at the same time for the same ip / target addr)
+      byAddrOnly: {{ .Values.faucetConcurrencyByAddrOnly }} # only check concurrency by target address
+      byIPOnly: {{ .Values.faucetConcurrencyByIPOnly }} # only check concurrency by IP address
       #messageByAddr: "" # custom error message when limit is exceeded by same target address
       #messageByIP: "" # custom error message when limit is exceeded by same IP address
 

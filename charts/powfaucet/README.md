@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -57,6 +57,10 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetCaptchaProvider | string | `"hcaptcha"` | Captcha module: provider (hcaptcha / recaptcha) |
 | faucetCaptchaSecret | string | `"0xCensoredHCaptchaSecretKey"` | Captcha module: provider secret |
 | faucetCaptchaSitekey | string | `"00000000-0000-0000-0000-000000000000"` | Captcha module: provider site key |
+| faucetConcurrencyByAddrOnly | bool | `false` | Concurrency module: only check concurrency by target address (set true when a trusted proxy fronts the faucet, so all traffic shares one IP) |
+| faucetConcurrencyByIPOnly | bool | `false` | Concurrency module: only check concurrency by IP address |
+| faucetConcurrencyLimit | int | `1` | Concurrency module: max sessions in 'running' state at the same time for the same IP / target address |
+| faucetConcurrencyLimitEnabled | bool | `true` | Enable concurrency-limit module (cap simultaneously running sessions) |
 | faucetEnsEnabled | bool | `true` | Enable ENS module |
 | faucetEnsRequired | bool | `false` | ENS module: enforce ens name to use the faucet |
 | faucetEnsRpcUrl | string | `"https://rpc.flashbots.net/"` | ENS module: rpc url (mainnet) |

@@ -6,7 +6,7 @@ home: https://github.com/pk910/PoWFaucet
 sources:
   - https://github.com/pk910/PoWFaucet
 type: application
-version: 1.0.0
+version: 1.1.0
 appVersion: "2.5.0"
 maintainers:
   - name: pk910
