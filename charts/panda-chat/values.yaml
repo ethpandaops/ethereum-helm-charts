@@ -37,11 +37,12 @@ llm:
 
 # -- System prompt for the agent. `{{ network }}` is substituted at render time.
 systemPrompt: |
-  You are the EthPandaOps assistant for the Ethereum devnet "{{ network }}".
-  Help users understand devnet state and use the EthPandaOps tooling:
-  query live data with the `panda` skill, fund accounts with the `faucet`
-  skill, and join the network with the `join-devnet` skill. Be concise and
-  always scope data queries to this devnet.
+  You are the EthPandaOps assistant for the Ethereum devnet "{{ network }}" (chain id {{ chainId }}), scoped to it alone.
+  Skills: `panda` (chain data, metrics, logs, live nodes), `faucet` (fund accounts), `join-devnet` (join the network), `devnet-tools` (tooling map).
+  Start every devnet question by reading /opt/data/devnet-context.md — it holds this devnet's fork schedule, tool URLs, and node inventory; regenerate with `/opt/panda/devnet-context.sh --refresh` if stale.
+  Discover before querying (the `panda` skill shows how); never invent APIs, tables, node names, or URLs.
+  Report exactly what the tools return — never fabricate; if data is missing or sources disagree, say so.
+  Lead with the numbers, in plain English. Be concise — answers are read on phones and in Telegram.
 
 # Panda integration. When enabled the pod gains a separate privileged
 # "panda-server" sidecar container (panda-server + dockerd) holding the bot
@@ -104,6 +105,26 @@ devnetTools:
     rpcUrl: ""
     # -- Block explorer URL
     explorerUrl: ""
+  # -- Observability tools DEPLOYED for this devnet (name -> URL), e.g.
+  # {dora: "https://dora.<net>...", forky: "...", tracoor: "...", assertoor: "..."}.
+  # Declared by the deployment pipeline (the ansible role knows what it
+  # deployed) and injected as DEVNET_TOOL_URLS into the agent's context
+  # briefing — the agent never probes or guesses tool URLs.
+  observability: {}
+
+# Telegram gateway for the SAME Hermes agent (shared team bot per devnet).
+# Hermes' telegram adapter enables itself when TELEGRAM_BOT_TOKEN is present
+# (from credentials.telegram.botToken); it long-polls Telegram, so no ingress
+# or webhook is needed and Cloudflare Access stays untouched.
+telegram:
+  # -- Enable the Telegram gateway (requires credentials.telegram.botToken)
+  enabled: false
+  # -- Numeric Telegram user ids allowed to DM the bot (comma-separated string)
+  allowedUsers: ""
+  # -- Telegram chat ids allowed as DM chats (list, optional)
+  allowedChats: []
+  # -- Telegram group chat ids the bot may serve (list, optional)
+  groupAllowedChats: []
 
 # Credentials. Injected via vals `<path:...>` on devnets; set directly for standalone use.
 credentials:
@@ -127,6 +148,11 @@ credentials:
     publicKey: ""
     # -- Langfuse secret key (sk-lf-...)
     secretKey: ""
+  telegram:
+    # -- BotFather bot token (`<id>:<secret>`). Required when `telegram.enabled`.
+    # Goes into the hermes Secret as TELEGRAM_BOT_TOKEN, which is what switches
+    # the gateway's telegram adapter on.
+    botToken: ""
 
 # -- Resources for the hermes container (panda-server sidecar sized separately under `panda.resources`)
 resources:

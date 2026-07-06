@@ -100,6 +100,21 @@ spec:
             - {name: HERMES_LANGFUSE_BASE_URL, value: {{ .Values.langfuse.baseUrl | quote }}}
             - {name: HERMES_LANGFUSE_ENV, value: {{ .Values.langfuse.env | default .Values.network | quote }}}
             {{- end }}
+            {{- with .Values.devnetTools.observability }}
+            # Deployment-declared tool map ("name=url …") consumed by the
+            # devnet-context briefing — the agent never probes/guesses URLs.
+            {{- $pairs := list }}
+            {{- range $name, $url := . }}
+            {{- $pairs = append $pairs (printf "%s=%s" $name $url) }}
+            {{- end }}
+            - {name: DEVNET_TOOL_URLS, value: {{ join " " $pairs | quote }}}
+            {{- end }}
+            {{- if .Values.telegram.enabled }}
+            # Token arrives via envFrom (hermes Secret); allowlist is plain env.
+            {{- with .Values.telegram.allowedUsers }}
+            - {name: TELEGRAM_ALLOWED_USERS, value: {{ . | quote }}}
+            {{- end }}
+            {{- end }}
           envFrom:
             # Hermes secret only (bearer, LLM key, langfuse) — the panda bot
             # credential lives in its own Secret on the sidecar.

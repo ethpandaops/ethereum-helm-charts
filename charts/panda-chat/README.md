@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -115,12 +115,14 @@ open-webui:
 | credentials.llmApiKey | string | `""` | The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`) |
 | credentials.panda.botToken | string | `""` | Authentik app-password token for the bot service account (client_credentials grant; minted tokens stay in memory). Required when `panda.enabled`. |
 | credentials.panda.botUsername | string | `""` | Authentik service-account username for the bot (e.g. `panda-chat-svc`). Required when `panda.enabled`. |
+| credentials.telegram.botToken | string | `""` | BotFather bot token (`<id>:<secret>`). Required when `telegram.enabled`. Materialized in the hermes Secret as TELEGRAM_BOT_TOKEN, which is what switches the gateway's telegram adapter on. |
 | devnetTools.faucet.enabled | bool | `true` | Enable the faucet (account funding) skill |
 | devnetTools.faucet.url | string | `""` | powfaucet base URL |
 | devnetTools.join.configUrl | string | `""` | Base config service URL (serves /cl/config.yaml, /el/enodes.txt, etc.) |
 | devnetTools.join.enabled | bool | `true` | Enable the join-devnet skill |
 | devnetTools.join.explorerUrl | string | `""` | Block explorer URL |
 | devnetTools.join.rpcUrl | string | `""` | Public execution RPC URL |
+| devnetTools.observability | object | `{}` | Observability tools DEPLOYED for this devnet (name -> URL), e.g. {dora: "...", forky: "...", tracoor: "...", assertoor: "..."}. Declared by the deployment pipeline and injected as DEVNET_TOOL_URLS into the agent's context briefing — the agent never probes or guesses tool URLs. |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
 | image.repository | string | `"ethpandaops/hermes-agent-panda"` | Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd). |
@@ -177,5 +179,9 @@ open-webui:
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Create a service account for the agent |
 | serviceAccount.name | string | `""` | Service account name (defaults to the fullname) |
-| systemPrompt | string | `"You are the EthPandaOps assistant for the Ethereum devnet \"{{ network }}\".\nHelp users understand devnet state and use the EthPandaOps tooling:\nquery live data with the `panda` skill, fund accounts with the `faucet`\nskill, and join the network with the `join-devnet` skill. Be concise and\nalways scope data queries to this devnet.\n"` | System prompt for the agent. `{{ network }}` is substituted at render time. |
+| systemPrompt | string | facts card (see values.yaml) | System prompt for the agent. `{{ network }}` and `{{ chainId }}` are substituted at render time; points the agent at the pre-loaded /opt/data/devnet-context.md briefing. |
+| telegram.allowedChats | list | `[]` | Telegram chat ids allowed as DM chats (optional) |
+| telegram.allowedUsers | string | `""` | Numeric Telegram user ids allowed to DM the bot (comma-separated string) |
+| telegram.enabled | bool | `false` | Enable the Telegram gateway (requires credentials.telegram.botToken). The adapter long-polls Telegram — no ingress/webhook; Cloudflare Access stays untouched. |
+| telegram.groupAllowedChats | list | `[]` | Telegram group chat ids the bot may serve (optional) |
 | tolerations | list | `[]` | Tolerations for the agent pod |
