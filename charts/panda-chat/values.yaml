@@ -12,10 +12,14 @@ network: ""
 chainId: ""
 
 image:
-  # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd).
-  repository: ethpandaops/hermes-agent-panda
-  # -- Image tag. Defaults to the chart appVersion when empty.
-  tag: ""
+  # -- Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server +
+  # dockerd). CI publishes ONLY docker.io/ethpandaops/chat with a
+  # hermes-agent-panda-* prefix (the standalone ethpandaops/hermes-agent-panda
+  # repo is a stale pre-consolidation push). Pin the immutable
+  # hermes-agent-panda-<base>-<sha> tag per deployment.
+  repository: ethpandaops/chat
+  # -- Image tag (mutable convenience default; pin a -<sha> tag in GitOps).
+  tag: "hermes-agent-panda-latest"
   # -- Image pull policy
   pullPolicy: IfNotPresent
 

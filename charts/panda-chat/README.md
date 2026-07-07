@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.7.1](https://img.shields.io/badge/AppVersion-2026.7.1-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -11,7 +11,7 @@ AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResea
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.openwebui.com | open-webui | 14.5.0 |
+| https://helm.openwebui.com | open-webui | 15.2.0 |
 
 ## What this deploys
 
@@ -80,7 +80,7 @@ wires the trusted-header config from a single toggle — see `chat.yaml.j2`.
 
 Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/chat):
 
-- `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
+- `image.repository` (`ethpandaops/chat:hermes-agent-panda-*`) — the Hermes agent
   with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
 - `open-webui.image` (`ethpandaops/chat:open-webui-cf-<ow_tag>`) — Open-WebUI patched to
   forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
@@ -125,8 +125,8 @@ open-webui:
 | devnetTools.observability | object | `{}` | Observability tools DEPLOYED for this devnet (name -> URL), e.g. {dora: "...", forky: "...", tracoor: "...", assertoor: "..."}. Declared by the deployment pipeline and injected as DEVNET_TOOL_URLS into the agent's context briefing — the agent never probes or guesses tool URLs. |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"ethpandaops/hermes-agent-panda"` | Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd). |
-| image.tag | string | `""` | Image tag. Defaults to the chart appVersion when empty. |
+| image.repository | string | `"ethpandaops/chat"` | Panda-overlay Hermes agent image; CI publishes only docker.io/ethpandaops/chat with a hermes-agent-panda-* tag prefix. |
+| image.tag | string | `"hermes-agent-panda-latest"` | Image tag (mutable convenience default; pin a -<sha> tag in GitOps). |
 | imagePullSecrets | list | `[]` | Image pull secrets for the agent image |
 | langfuse.baseUrl | string | `""` | Langfuse base URL |
 | langfuse.enabled | bool | `false` | Enable Langfuse tracing |

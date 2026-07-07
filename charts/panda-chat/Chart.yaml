@@ -5,7 +5,7 @@ home: https://github.com/ethpandaops/chat
 type: application
 version: 0.3.2
 # Hermes Agent upstream version (CalVer) baked into the panda-overlay image.
-appVersion: "2026.6.5"
+appVersion: "2026.7.1"
 keywords:
   - llm
   - agent
