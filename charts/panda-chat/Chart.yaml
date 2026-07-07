@@ -20,6 +20,6 @@ dependencies:
   # Front end. Rendered under the `open-webui` values key. Talks to the
   # in-chart Hermes agent over its OpenAI-compatible endpoint.
   - name: open-webui
-    version: "14.5.0"
+    version: "15.2.0"
     repository: "https://helm.openwebui.com"
     condition: open-webui.enabled
