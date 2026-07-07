@@ -82,7 +82,7 @@ Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/
 
 - `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
   with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
-- `open-webui.image` (`ethpandaops/open-webui-cf`) — Open-WebUI patched to
+- `open-webui.image` (`ethpandaops/chat:open-webui-cf-<ow_tag>`) — Open-WebUI patched to
   forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
   Its tag must match the `open-webui` subchart appVersion.
 
@@ -142,8 +142,8 @@ open-webui:
 | open-webui.enabled | bool | `true` | Render the Open-WebUI front end |
 | open-webui.extraEnvVars[0].name | string | `"ENABLE_OLLAMA_API"` |  |
 | open-webui.extraEnvVars[0].value | string | `"false"` |  |
-| open-webui.image.repository | string | `"ethpandaops/open-webui-cf"` |  |
-| open-webui.image.tag | string | `"0.9.5"` |  |
+| open-webui.image.repository | string | `"ethpandaops/chat"` |  |
+| open-webui.image.tag | string | `"open-webui-cf-0.10.2"` |  |
 | open-webui.ingress.annotations | object | `{}` |  |
 | open-webui.ingress.class | string | `"ingress-nginx-public"` |  |
 | open-webui.ingress.enabled | bool | `true` |  |

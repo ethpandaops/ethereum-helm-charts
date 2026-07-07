@@ -204,12 +204,16 @@ open-webui:
   enabled: true
   replicaCount: 1
   # CF-Access-aware Open-WebUI: forwards Cf-Access-Jwt-Assertion to the agent so
-  # Hermes sees the individual user (per-user auth + Langfuse attribution). The tag
-  # MUST match this subchart's appVersion (open-webui 15.2.0 -> 0.10.2); bump together.
-  # Built from github.com/ethpandaops/chat (images/open-webui-cf).
+  # Hermes sees the individual user (per-user auth + Langfuse attribution). The OW
+  # version in the tag MUST match this subchart's appVersion (open-webui 15.2.0 ->
+  # 0.10.2); bump together. Built from github.com/ethpandaops/chat
+  # (images/open-webui-cf); CI publishes ONLY docker.io/ethpandaops/chat with an
+  # open-webui-cf-<ow_tag> prefix (the standalone ethpandaops/open-webui-cf repo
+  # was a one-off manual push and does not receive new tags). Pin the immutable
+  # open-webui-cf-<ow_tag>-<sha> tag per deployment if you need reproducibility.
   image:
-    repository: ethpandaops/open-webui-cf
-    tag: "0.10.2"
+    repository: ethpandaops/chat
+    tag: "open-webui-cf-0.10.2"
   # Route models through Hermes, not the bundled Ollama / Pipelines.
   ollama:
     enabled: false
