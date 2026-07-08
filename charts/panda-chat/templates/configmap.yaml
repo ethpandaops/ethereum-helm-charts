@@ -18,13 +18,26 @@ data:
       {{- end }}
     agent:
       system_prompt: |
-        {{- .Values.systemPrompt | replace "{{ network }}" .Values.network | nindent 8 }}
+        {{- .Values.systemPrompt | replace "{{ network }}" .Values.network | replace "{{ chainId }}" (.Values.chainId | toString) | nindent 8 }}
     honcho:
       enabled: true
     {{- if .Values.langfuse.enabled }}
     plugins:
       enabled:
         - observability/langfuse
+    {{- end }}
+    {{- if and .Values.telegram.enabled (or .Values.telegram.allowedChats .Values.telegram.groupAllowedChats) }}
+    # Telegram gateway allowlists (the token itself is env: TELEGRAM_BOT_TOKEN,
+    # user allowlist is env: TELEGRAM_ALLOWED_USERS). Chat/group scoping is
+    # yaml-only in Hermes, so it lives here.
+    platforms:
+      telegram:
+        {{- with .Values.telegram.allowedChats }}
+        allowed_chats: {{- toYaml . | nindent 10 }}
+        {{- end }}
+        {{- with .Values.telegram.groupAllowedChats }}
+        group_allowed_chats: {{- toYaml . | nindent 10 }}
+        {{- end }}
     {{- end }}
   {{- if .Values.panda.enabled }}
   # panda-server config — seeded to /opt/data/.config/panda/config.yaml. The

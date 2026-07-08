@@ -1,7 +1,7 @@
 
 # panda-chat
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.6.5](https://img.shields.io/badge/AppVersion-2026.6.5-informational?style=flat-square)
+![Version: 0.3.2](https://img.shields.io/badge/Version-0.3.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2026.7.1](https://img.shields.io/badge/AppVersion-2026.7.1-informational?style=flat-square)
 
 AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResearch Hermes agent wired to the `panda` CLI, giving anyone access to devnet analytics (Xatu/Prometheus/Loki/Dora/Ethnode via panda-proxy), account funding (powfaucet) and join-the-devnet helpers.
 
@@ -11,7 +11,7 @@ AI chat for an Ethereum devnet — an Open-WebUI front end backed by a NousResea
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.openwebui.com | open-webui | 14.5.0 |
+| https://helm.openwebui.com | open-webui | 15.2.0 |
 
 ## What this deploys
 
@@ -80,9 +80,9 @@ wires the trusted-header config from a single toggle — see `chat.yaml.j2`.
 
 Two images, both built from [`ethpandaops/chat`](https://github.com/ethpandaops/chat):
 
-- `image.repository` (`ethpandaops/hermes-agent-panda`) — the Hermes agent
+- `image.repository` (`ethpandaops/chat:hermes-agent-panda-*`) — the Hermes agent
   with the panda overlay (panda CLI + panda-server + dockerd + entrypoint + skills).
-- `open-webui.image` (`ethpandaops/open-webui-cf`) — Open-WebUI patched to
+- `open-webui.image` (`ethpandaops/chat:open-webui-cf-<ow_tag>`) — Open-WebUI patched to
   forward the Cloudflare Access JWT to the agent (see [Access control](#access-control)).
   Its tag must match the `open-webui` subchart appVersion.
 
@@ -109,21 +109,24 @@ open-webui:
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for the agent pod |
 | chainId | string | `""` | The devnet chain id (informational; surfaced to the join-devnet skill). |
+| credentials.apiServerKey | string | `""` | Stable OW<->Hermes bearer (`API_SERVER_KEY`). Leave empty for a bare `helm install` (auto-generated + preserved). Under GitOps/ArgoCD you MUST set this to a stable value (sops) — `helm template` can't preserve a generated one, so an empty value drifts OW and Hermes apart on re-render. |
 | credentials.langfuse.publicKey | string | `""` | Langfuse public key (pk-lf-...) |
 | credentials.langfuse.secretKey | string | `""` | Langfuse secret key (sk-lf-...) |
 | credentials.llmApiKey | string | `""` | The LLM API key value (materialized into the Secret under `llm.apiKeyEnv`) |
 | credentials.panda.botToken | string | `""` | Authentik app-password token for the bot service account (client_credentials grant; minted tokens stay in memory). Required when `panda.enabled`. |
 | credentials.panda.botUsername | string | `""` | Authentik service-account username for the bot (e.g. `panda-chat-svc`). Required when `panda.enabled`. |
+| credentials.telegram.botToken | string | `""` | BotFather bot token (`<id>:<secret>`). Required when `telegram.enabled`. Materialized in the hermes Secret as TELEGRAM_BOT_TOKEN, which is what switches the gateway's telegram adapter on. |
 | devnetTools.faucet.enabled | bool | `true` | Enable the faucet (account funding) skill |
 | devnetTools.faucet.url | string | `""` | powfaucet base URL |
 | devnetTools.join.configUrl | string | `""` | Base config service URL (serves /cl/config.yaml, /el/enodes.txt, etc.) |
 | devnetTools.join.enabled | bool | `true` | Enable the join-devnet skill |
 | devnetTools.join.explorerUrl | string | `""` | Block explorer URL |
 | devnetTools.join.rpcUrl | string | `""` | Public execution RPC URL |
+| devnetTools.observability | object | `{}` | Observability tools DEPLOYED for this devnet (name -> URL), e.g. {dora: "...", forky: "...", tracoor: "...", assertoor: "..."}. Declared by the deployment pipeline and injected as DEVNET_TOOL_URLS into the agent's context briefing — the agent never probes or guesses tool URLs. |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | image.pullPolicy | string | `"IfNotPresent"` | Image pull policy |
-| image.repository | string | `"ethpandaops/hermes-agent-panda"` | Panda-overlay Hermes agent image (Hermes + panda CLI + panda-server + dockerd). |
-| image.tag | string | `""` | Image tag. Defaults to the chart appVersion when empty. |
+| image.repository | string | `"ethpandaops/chat"` | Panda-overlay Hermes agent image; CI publishes only docker.io/ethpandaops/chat with a hermes-agent-panda-* tag prefix. |
+| image.tag | string | `"hermes-agent-panda-latest"` | Image tag (mutable convenience default; pin a -<sha> tag in GitOps). |
 | imagePullSecrets | list | `[]` | Image pull secrets for the agent image |
 | langfuse.baseUrl | string | `""` | Langfuse base URL |
 | langfuse.enabled | bool | `false` | Enable Langfuse tracing |
@@ -139,8 +142,8 @@ open-webui:
 | open-webui.enabled | bool | `true` | Render the Open-WebUI front end |
 | open-webui.extraEnvVars[0].name | string | `"ENABLE_OLLAMA_API"` |  |
 | open-webui.extraEnvVars[0].value | string | `"false"` |  |
-| open-webui.image.repository | string | `"ethpandaops/open-webui-cf"` |  |
-| open-webui.image.tag | string | `"0.9.5"` |  |
+| open-webui.image.repository | string | `"ethpandaops/chat"` |  |
+| open-webui.image.tag | string | `"open-webui-cf-0.10.2"` |  |
 | open-webui.ingress.annotations | object | `{}` |  |
 | open-webui.ingress.class | string | `"ingress-nginx-public"` |  |
 | open-webui.ingress.enabled | bool | `true` |  |
@@ -161,9 +164,10 @@ open-webui:
 | panda.enabled | bool | `true` | Enable the panda-server sidecar container (privileged; the hermes container is not) |
 | panda.issuerUrl | string | `"https://authentik.analytics.production.platform.ethpandaops.io/application/o/panda-proxy/"` | Authentik application issuer the bot service account mints client_credentials tokens against (the trailing slash is part of the issuer — keep it) |
 | panda.proxyUrl | string | `"https://panda-proxy.analytics.production.platform.ethpandaops.io"` | Hosted panda-proxy URL (analytics data plane) |
+| panda.dockerStorage | object | `{}` | emptyDir spec for dockerd's /var/lib/docker (the sandbox layer cache). Node-local so overlay2 works; ephemeral (re-pulled on cold start). Cap it with `sizeLimit: 10Gi`, or set `medium: ""` explicitly; {} = node default. |
 | panda.resources | object | `{"limits":{"cpu":"2000m","memory":"4Gi"},"requests":{"cpu":"200m","memory":"512Mi"}}` | Resources for the panda-server sidecar (panda-server + dockerd + sandboxes) |
-| panda.sandboxImage | string | `"ethpandaops/panda:sandbox-v0.31.0"` | Sandbox container image panda-server spawns for Python execution |
-| panda.storageDriver | string | `"overlay2"` | dockerd storage driver (overlay2; set to vfs if overlayfs is unavailable in-pod) |
+| panda.sandboxImage | string | `"ethpandaops/panda:sandbox-0.37.0"` | Sandbox container image panda-server spawns for Python execution (must track the panda-server version baked into the overlay image) |
+| panda.storageDriver | string | `"overlay2"` | dockerd storage driver. overlay2 is reliable because dockerd's data-root is a node-local emptyDir (see panda.dockerStorage), not the pod's overlay rootfs — so overlay2 stacks on ext4/xfs instead of overlayfs. Fall back to vfs only for exotic nodes whose kubelet dir is itself overlayfs/NFS. |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes |
 | persistence.enabled | bool | `true` | Enable a PVC for /opt/data (Hermes state + panda config/creds/storage) |
 | persistence.existingClaim | string | `""` | Use an existing claim instead of creating one |
@@ -175,5 +179,9 @@ open-webui:
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
 | serviceAccount.create | bool | `true` | Create a service account for the agent |
 | serviceAccount.name | string | `""` | Service account name (defaults to the fullname) |
-| systemPrompt | string | `"You are the EthPandaOps assistant for the Ethereum devnet \"{{ network }}\".\nHelp users understand devnet state and use the EthPandaOps tooling:\nquery live data with the `panda` skill, fund accounts with the `faucet`\nskill, and join the network with the `join-devnet` skill. Be concise and\nalways scope data queries to this devnet.\n"` | System prompt for the agent. `{{ network }}` is substituted at render time. |
+| systemPrompt | string | facts card (see values.yaml) | System prompt for the agent. `{{ network }}` and `{{ chainId }}` are substituted at render time; points the agent at the pre-loaded /opt/data/devnet-context.md briefing. |
+| telegram.allowedChats | list | `[]` | Telegram chat ids allowed as DM chats (optional) |
+| telegram.allowedUsers | string | `""` | Numeric Telegram user ids allowed to DM the bot (comma-separated string) |
+| telegram.enabled | bool | `false` | Enable the Telegram gateway (requires credentials.telegram.botToken). The adapter long-polls Telegram — no ingress/webhook; Cloudflare Access stays untouched. |
+| telegram.groupAllowedChats | list | `[]` | Telegram group chat ids the bot may serve (optional) |
 | tolerations | list | `[]` | Tolerations for the agent pod |
