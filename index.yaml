@@ -1745,6 +1745,29 @@ entries:
     version: 0.0.1
   dora:
   - apiVersion: v2
+    created: "2026-07-08T08:48:53.729568984Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: A Beaconchain explorer is a tool that allows users to view and interact
+      with the data on the Ethereum Beacon Chain. It is similar to a blockchain explorer,
+      which allows users to view data on a blockchain such as the current state of
+      transactions and blocks - but focussed on exploring the beaconchain.
+    digest: c519766375fdb93bd1095eedb20921bb793241bdf87da6df69ef554bf67cca0e
+    home: https://github.com/pk910/dora
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: pk910@pk910.de
+      name: pk910
+    name: dora
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/dora-1.0.11/dora-1.0.11.tgz
+    version: 1.0.11
+  - apiVersion: v2
     created: "2026-06-05T15:00:44.606777155Z"
     dependencies:
     - condition: postgresql.enabled
@@ -12094,6 +12117,24 @@ entries:
     version: 0.1.0
   spamoor:
   - apiVersion: v2
+    appVersion: 1.2.3
+    created: "2026-07-08T08:48:53.858932696Z"
+    description: 'Ethereum transaction spammer for testnets and stress testing '
+    digest: 3206ff4856fe006114a46add6bc99b997712da97bc26b5630b494f7a4eec76ca
+    home: https://github.com/ethpandaops/spamoor
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    - email: philipp@pk910.de
+      name: pk910
+    name: spamoor
+    sources:
+    - https://github.com/ethpandaops/spamoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/spamoor-1.0.1/spamoor-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 1.1.16
     created: "2026-02-10T18:44:23.638474847Z"
     description: 'Ethereum transaction spammer for testnets and stress testing '
@@ -13827,4 +13868,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-06-11T13:16:06.29810493Z"
+generated: "2026-07-08T08:48:53.860119026Z"
