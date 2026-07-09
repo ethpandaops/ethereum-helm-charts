@@ -102,6 +102,7 @@ An open-source Ethereum 2.0 client, written in Go
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
+| startupProbe | object | See `values.yaml` | Startup probe |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
@@ -109,6 +110,7 @@ An open-source Ethereum 2.0 client, written in Go
 | updateStrategy.type | string | `"RollingUpdate"` | Update strategy type |
 | validatorLivenessProbe | object | See `values.yaml` | Validator Liveness probe |
 | validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
+| validatorStartupProbe | object | See `values.yaml` | Validator Startup probe |
 
 # Examples
 
