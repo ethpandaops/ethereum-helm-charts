@@ -70,7 +70,7 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "lighthouse.p2pPort" -}}
-{{- if .Values.p2pNodePort.enabled }}
+{{- if and .Values.p2pNodePort.enabled .Values.p2pNodePort.useNodePortForContainerPort }}
 {{- print .Values.p2pNodePort.port }}
 {{- else }}
 {{- print .Values.p2pPort }}

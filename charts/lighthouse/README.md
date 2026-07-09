@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 1.1.8](https://img.shields.io/badge/Version-1.1.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.9](https://img.shields.io/badge/Version-1.1.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -63,11 +63,13 @@ An open-source Ethereum 2.0 client, written in Rust
 | mode | string | `"beacon"` | Mode can be 'beacon','validator' or 'bootnode' |
 | nameOverride | string | `""` | Overrides the chart's name |
 | nodeSelector | object | `{}` | Node selector for pods |
+| p2pNodePort.advertisedPort | string | `nil` | Optional ENR advertised TCP/UDP port override when p2pNodePort.enabled=true. Leave null to advertise the discovered NodePort. |
 | p2pNodePort.enabled | bool | `false` | Expose P2P port via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.port | int | `31000` | NodePort to be used |
+| p2pNodePort.useNodePortForContainerPort | bool | `true` | Keep backward-compatible behavior by binding Lighthouse to NodePort when enabled. Set to false to keep Lighthouse listening on p2pPort and use NodePort service mapping only. |
 | p2pPort | int | `9000` | P2P Port |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access mode for the volume claim template |
 | persistence.annotations | object | `{}` | Annotations for volume claim template |
@@ -138,6 +140,21 @@ replicas: 1
 p2pNodePort:
   enabled: true
   port: 31000
+```
+
+## Exposing NodePort while keeping Lighthouse on canonical port 9000
+
+Use this when your router/NAT exposes public `9000` but Kubernetes NodePort must stay in `30000-32767`.
+In this mode Lighthouse keeps listening on `p2pPort` while NodePort maps traffic to that container port.
+
+```yaml
+p2pPort: 9000
+
+p2pNodePort:
+  enabled: true
+  port: 30304
+  useNodePortForContainerPort: false
+  advertisedPort: 9000
 ```
 
 ## Validator node targeting a beacon node service

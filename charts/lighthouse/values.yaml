@@ -113,10 +113,18 @@ defaultBeaconCommandTemplate: |
     --enr-address=$EXTERNAL_IP
     {{- end }}
     {{- if not (contains "--enr-tcp-port=" (.Values.extraArgs | join ",")) }}
+    {{- if .Values.p2pNodePort.advertisedPort }}
+    --enr-tcp-port={{ .Values.p2pNodePort.advertisedPort }}
+    {{- else }}
     --enr-tcp-port=$EXTERNAL_PORT
     {{- end }}
+    {{- end }}
     {{- if not (contains "--enr-udp-port=" (.Values.extraArgs | join ",")) }}
+    {{- if .Values.p2pNodePort.advertisedPort }}
+    --enr-udp-port={{ .Values.p2pNodePort.advertisedPort }}
+    {{- else }}
     --enr-udp-port=$EXTERNAL_PORT
+    {{- end }}
     {{- end }}
   {{- else }}
     {{- if not (contains "--enr-address=" (.Values.extraArgs | join ",")) }}
@@ -185,7 +193,11 @@ defaultBootnodeCommandTemplate: |
     {{ . }}
   {{- end }}
   {{- if .Values.p2pNodePort.enabled }}
+    {{- if .Values.p2pNodePort.advertisedPort }}
+    --enr-port={{ .Values.p2pNodePort.advertisedPort }}
+    {{- else }}
     --enr-port=$EXTERNAL_PORT
+    {{- end }}
     --enr-address=$EXTERNAL_IP
   {{- else }}
     --enr-port={{ include "lighthouse.p2pPort" . }}
@@ -204,6 +216,12 @@ p2pNodePort:
   enabled: false
   # -- NodePort to be used
   port: 31000
+  # -- Keep backward-compatible behavior by binding Lighthouse to NodePort when enabled.
+  # Set to false to keep Lighthouse listening on p2pPort and use NodePort service mapping only.
+  useNodePortForContainerPort: true
+  # -- Optional ENR advertised TCP/UDP port override when p2pNodePort.enabled=true.
+  # Leave null to advertise the discovered NodePort.
+  advertisedPort: null
   initContainer:
     image:
       # -- Container image to fetch nodeport information
