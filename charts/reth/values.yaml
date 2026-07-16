@@ -26,6 +26,11 @@ extraArgs: []
 # -- JWT secret is attached as a secret object. Change this value.
 jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
 
+# -- Use an existing Secret for the JWT instead of creating one (e.g. managed
+# by an external secrets operator). The Secret must contain the key `jwt.hex`
+# with the JWT secret as a hex string. When set, `jwt` is ignored.
+existingJwtSecret: ""
+
 # -- Devnet configuration
 devnet:
   # -- Enable devnet mode
