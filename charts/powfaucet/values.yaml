@@ -211,7 +211,7 @@ faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
 faucetHomeHtml: ""
 
 # -- Transaction gas limit
-faucetTxGasLimit: 21000
+faucetTxGasLimit: 205000
 
 # -- Max transaction gas fee (in wei)
 faucetTxMaxFee: 100000000000

@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -103,7 +103,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc (single endpoint legacy mode; ignored when faucetRpcEndpoints is set) |
 | faucetTitle | string | `"PoW Faucet"` | Faucet title |
 | faucetTxBroadcastCount | int | `2` | Number of highest-priority ready endpoints to broadcast each transaction to in parallel. At least one successful submission is required; other endpoints' errors (e.g. "already known") are ignored. |
-| faucetTxGasLimit | int | `21000` | Transaction gas limit |
+| faucetTxGasLimit | int | `205000` | Transaction gas limit |
 | faucetTxMaxFee | int | `100000000000` | Max transaction gas fee (in wei) |
 | faucetTxMaxPrioFee | int | `2000000000` | Max transaction priority fee (in wei) |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
