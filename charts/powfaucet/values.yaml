@@ -210,9 +210,6 @@ faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
 # -- Additional html to show on the faucet page
 faucetHomeHtml: ""
 
-# -- Transaction gas limit (unset omits the setting so the faucet's built-in default applies; set explicitly only for networks with different gas rules, e.g. L2s)
-faucetTxGasLimit: null
-
 # -- Max transaction gas fee (in wei)
 faucetTxMaxFee: 100000000000
 
@@ -479,8 +476,8 @@ config: |
   # erc20 = ERC20 token
   faucetCoinType: "native"
 
-  # transaction gas limit
-  # use 21000 to prevent transactions to contracts
+  # transaction gas limit (only rendered when faucetTxGasLimit is set;
+  # otherwise the faucet's built-in default applies)
   {{- if .Values.faucetTxGasLimit }}
   ethTxGasLimit: {{ .Values.faucetTxGasLimit }}
   {{- end }}

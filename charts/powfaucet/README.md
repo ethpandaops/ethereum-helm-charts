@@ -108,7 +108,6 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetRpcUrl | string | `"http://your-el-node:8545"` | Faucet el node rpc (single endpoint legacy mode; ignored when faucetRpcEndpoints is set) |
 | faucetTitle | string | `"PoW Faucet"` | Faucet title |
 | faucetTxBroadcastCount | int | `2` | Number of highest-priority ready endpoints to broadcast each transaction to in parallel. At least one successful submission is required; other endpoints' errors (e.g. "already known") are ignored. |
-| faucetTxGasLimit | string | `nil` | Transaction gas limit (unset omits the setting so the faucet's built-in default applies; set explicitly only for networks with different gas rules, e.g. L2s) |
 | faucetTxMaxFee | int | `100000000000` | Max transaction gas fee (in wei) |
 | faucetTxMaxPrioFee | int | `2000000000` | Max transaction priority fee (in wei) |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
