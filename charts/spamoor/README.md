@@ -1,6 +1,6 @@
 # spamoor
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.16](https://img.shields.io/badge/AppVersion-1.1.16-informational?style=flat-square)
+![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.3](https://img.shields.io/badge/AppVersion-1.2.3-informational?style=flat-square)
 
 Ethereum transaction spammer for testnets and stress testing
 
@@ -17,12 +17,11 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| authTokenKey | string | `""` | Authentication token key |
+| authProviderUrl | string | `""` | URL of the authenticatoor service that issues bearer tokens for the spamoor API (e.g. "https://auth.<devnet>.example.io"). When empty, the API runs unauthenticated — only safe behind a private network or upstream proxy. When set, all write endpoints require a JWT verified against that service's JWKS. |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | customArgs | list | `[]` | Custom args for the spamoor container |
 | customCommand | list | `["./spamoor-daemon"]` | Command replacement for the spamoor container |
 | defaultSpamoorArgsTemplate | string | See `values.yaml` | Template used for the default spamoor args |
-| enableAuth | bool | `false` | Enable authentication |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |

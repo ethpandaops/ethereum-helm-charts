@@ -143,6 +143,17 @@ executionIndexerDetailsMaxSize: "100GB"
 # -- Execution data retention time
 executionIndexerRetention: "720h" # 1 month
 
+# -- Enable ENS resolver
+enableEnsResolver: false
+
+# -- ENS RPC hosts
+ensRpcHosts: []
+  #- "https://ens.example.io"
+
+# -- ENS resolvers
+ensRegistries: []
+  #- "0xf7CFC9E18166c1BBae0749373C5fC80CabCaDD25"
+
 # -- Tracoor URL
 tracoorUrl: ""
 
@@ -376,6 +387,21 @@ config: |
       detailsEnabled: {{ .Values.executionIndexerDetailsEnabled }}
       tracesEnabled: {{ .Values.executionIndexerTracesEnabled }}
       detailsMaxSize: "{{ .Values.executionIndexerDetailsMaxSize }}"
+
+    ensResolver:
+      enabled: {{ .Values.enableEnsResolver }}
+      {{- if .Values.ensRpcHosts }}
+      rpcHosts:
+        {{- range .Values.ensRpcHosts }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
+      {{- if .Values.ensRegistries }}
+      registryAddresses:
+        {{- range .Values.ensRegistries }}
+        - {{ . | quote }}
+        {{- end }}
+      {{- end }}
 
     database:
       engine: "pgsql"

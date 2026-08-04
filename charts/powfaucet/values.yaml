@@ -210,9 +210,6 @@ faucetExplorerLink: "https://your-el-block-explorer.com/tx/{txid}"
 # -- Additional html to show on the faucet page
 faucetHomeHtml: ""
 
-# -- Transaction gas limit
-faucetTxGasLimit: 21000
-
 # -- Max transaction gas fee (in wei)
 faucetTxMaxFee: 100000000000
 
@@ -366,6 +363,21 @@ faucetRecurringLimitsAmountWei: 100000000000000000000 # 100 ETH
 # -- Recurring module: aggregation duration for the max request amount check
 faucetRecurringLimitsDuration: 86400 # 1 day
 
+# -- Recurring module: only match previous sessions by target address, not by IP (set true when a trusted proxy fronts the faucet, so all traffic shares one IP and a per-IP match becomes a global budget)
+faucetRecurringLimitsByAddrOnly: false
+
+# -- Enable concurrency-limit module (cap simultaneously running sessions)
+faucetConcurrencyLimitEnabled: true
+
+# -- Concurrency module: max sessions in 'running' state at the same time for the same IP / target address
+faucetConcurrencyLimit: 1
+
+# -- Concurrency module: only check concurrency by target address (set true when a trusted proxy fronts the faucet, so all traffic shares one IP)
+faucetConcurrencyByAddrOnly: false
+
+# -- Concurrency module: only check concurrency by IP address (setting both ByAddrOnly and ByIPOnly skips both checks, disabling the module)
+faucetConcurrencyByIPOnly: false
+
 # -- Enable PoW module (require mining)
 faucetPowEnabled: false
 
@@ -464,9 +476,11 @@ config: |
   # erc20 = ERC20 token
   faucetCoinType: "native"
 
-  # transaction gas limit
-  # use 21000 to prevent transactions to contracts
+  # transaction gas limit (only rendered when faucetTxGasLimit is set;
+  # otherwise the faucet's built-in default applies)
+  {{- if .Values.faucetTxGasLimit }}
   ethTxGasLimit: {{ .Values.faucetTxGasLimit }}
+  {{- end }}
 
   # use legacy (non-eip1559) transaction type
   # true: Type 0 (Legacy Transactions), false: Type 2 (EIP1559 Transactions)
@@ -682,15 +696,18 @@ config: |
       limits: # array of individual limits, which all need to be passed
         - limitAmount: {{ .Values.faucetRecurringLimitsAmountWei }}
           duration: {{ .Values.faucetRecurringLimitsDuration }}
+          {{- if .Values.faucetRecurringLimitsByAddrOnly }}
+          byAddrOnly: true # only match previous sessions by target address (trusted proxy shares one IP)
+          {{- end }}
 
     ## Concurrency Limit module
     concurrency-limit:
       # enable / disable concurrency limit
-      enabled: true
+      enabled: {{ .Values.faucetConcurrencyLimitEnabled }}
 
-      concurrencyLimit: 1 # only allow 1 concurrent session (sessions in 'running' state at the same time for the same ip / target addr)
-      byAddrOnly: false # only check concurrency by target address
-      byIPOnly: false # only check concurrency by IP address
+      concurrencyLimit: {{ .Values.faucetConcurrencyLimit }} # only allow N concurrent sessions (sessions in 'running' state at the same time for the same ip / target addr)
+      byAddrOnly: {{ .Values.faucetConcurrencyByAddrOnly }} # only check concurrency by target address
+      byIPOnly: {{ .Values.faucetConcurrencyByIPOnly }} # only check concurrency by IP address
       #messageByAddr: "" # custom error message when limit is exceeded by same target address
       #messageByIP: "" # custom error message when limit is exceeded by same IP address
 

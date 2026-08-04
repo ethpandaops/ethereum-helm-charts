@@ -6,8 +6,8 @@ home: https://github.com/ethpandaops/spamoor
 sources:
   - https://github.com/ethpandaops/spamoor
 type: application
-version: 1.0.0
-appVersion: "1.1.16"
+version: 1.0.1
+appVersion: "1.2.3"
 maintainers:
   - name: barnabasbusa
     email: busa.barnabas@gmail.com
