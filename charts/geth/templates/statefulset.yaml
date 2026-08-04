@@ -178,7 +178,7 @@ spec:
       volumes:
         - name: jwt
           secret:
-            secretName: {{ include "geth.fullname" . }}-jwt
+            secretName: {{ .Values.existingJwtSecret | default (printf "%s-jwt" (include "geth.fullname" .)) }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

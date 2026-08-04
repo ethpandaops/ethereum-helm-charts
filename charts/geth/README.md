@@ -1,7 +1,7 @@
 
 # geth
 
-![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.4](https://img.shields.io/badge/Version-1.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Go Ethereum (Geth for short) is one of the original implementations of the Ethereum protocol. Currently, it is the most widespread client with the biggest user base and variety of tooling for users and developers. It is written in Go, fully open source and licensed under the GNU LGPL v3
 
@@ -30,6 +30,7 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the geth container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |
@@ -109,6 +110,14 @@ Go Ethereum (Geth for short) is one of the original implementations of the Ether
 | wsPort | int | `8545` | WS Port |
 
 # Examples
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
 
 ## Connecting to the holesky test network
 

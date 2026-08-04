@@ -1,7 +1,7 @@
 
 # nethermind
 
-![Version: 1.1.1](https://img.shields.io/badge/Version-1.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.2](https://img.shields.io/badge/Version-1.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Nethermind is an Ethereum execution layer implementation created with the C# .NET tech stack, running on all major platforms including ARM.
 
@@ -29,6 +29,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/chainspec.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/chainspec.json"` | ChainSpec JSON URL for execution layer (Nethermind format) |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the nethermind container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -107,6 +108,14 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | wsPort | int | `8545` | WS Port |
 
 # Examples
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
 
 ## Connecting to the holesky test network
 
