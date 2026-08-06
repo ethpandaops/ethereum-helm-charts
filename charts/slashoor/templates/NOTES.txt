@@ -1,0 +1,13 @@
+slashoor has been deployed.
+
+It watches the configured beacon nodes for slashable offenses and submits
+attester and proposer slashings to the pool.
+
+Check what it's doing:
+
+  kubectl logs -n {{ .Release.Namespace }} deployment/{{ include "slashoor.fullname" . }} -f
+
+{{- if .Values.config.submitter.dry_run }}
+
+NOTE: submitter.dry_run is enabled — detected slashings are logged but NOT submitted.
+{{- end }}

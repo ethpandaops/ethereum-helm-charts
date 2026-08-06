@@ -1,0 +1,7 @@
+config:
+  beacon:
+    endpoints:
+      - "http://beacon-node:5052"
+  submitter:
+    enabled: true
+    dry_run: true
