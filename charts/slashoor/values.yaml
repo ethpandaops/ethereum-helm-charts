@@ -1,0 +1,131 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas. Keep at 1: multiple instances race to submit the
+# same slashings, which is harmless (the pool dedupes) but noisy.
+replicas: 1
+
+image:
+  # -- slashoor container image repository
+  repository: ethpandaops/slashoor
+  # -- slashoor container image tag
+  tag: latest
+  # -- slashoor container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Log level (debug, info, warn, error)
+logLevel: info
+
+# -- Command arguments
+args: []
+
+# -- Custom command to override the default entrypoint
+customCommand: []
+
+# -- Custom args for the custom command
+customArgs: []
+
+config:
+  beacon:
+    # -- Beacon node API endpoints; multiple endpoints get automatic failover
+    endpoints:
+      - "http://localhost:5052"
+    timeout: 30s
+
+  indexer:
+    # -- Attestation retention window in epochs
+    max_epochs_to_keep: 54000
+
+  detector:
+    enabled: true
+
+  submitter:
+    enabled: true
+    # -- If true, log slashings without submitting them
+    dry_run: false
+
+  proposer:
+    enabled: true
+
+  dora:
+    # -- Enable the Dora explorer integration for historical double-proposal scanning
+    enabled: false
+    url: "https://dora.example.com"
+    scan_on_startup: true
+
+  # -- Number of recent slots to backfill attestations for on startup.
+  # Committee resolution for deep history needs archive states, so keep this
+  # within a few epochs; the Dora scan covers older proposer slashings.
+  backfill_slots: 320
+
+serviceAccount:
+  # -- If true, a service account will be created
+  create: true
+  # -- Annotations for the service account
+  annotations: {}
+  # -- Name of the service account, computed from the fullname if empty
+  name: ""
+
+# -- Annotations for the Deployment
+annotations: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod security context
+securityContext:
+  runAsNonRoot: false
+
+# -- Container security context
+containerSecurityContext: {}
+
+# -- Image pull secrets
+imagePullSecrets: []
+
+# -- Priority class name
+priorityClassName: ""
+
+# -- Init containers
+initContainers: []
+
+# -- Additional containers
+extraContainers: []
+
+# -- Resource requests and limits
+resources: {}
+  # requests:
+  #   cpu: 100m
+  #   memory: 256Mi
+  # limits:
+  #   cpu: 500m
+  #   memory: 1Gi
+
+# -- Node selector
+nodeSelector: {}
+
+# -- Affinity
+affinity: {}
+
+# -- Tolerations
+tolerations: []
+
+# -- Topology spread constraints
+topologySpreadConstraints: []
+
+# -- Termination grace period in seconds
+terminationGracePeriodSeconds: 30
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional env variables
+extraEnv: []
