@@ -65,7 +65,7 @@ spec:
             subPath: config.yaml
             readOnly: true
           {{- if .Values.extraVolumeMounts }}
-            {{ toYaml .Values.extraVolumeMounts | nindent 12 }}
+            {{- toYaml .Values.extraVolumeMounts | nindent 10 }}
           {{- end }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
@@ -74,7 +74,7 @@ spec:
           {{- toYaml .Values.extraEnv | nindent 12 }}
         {{- end }}
       {{- if .Values.extraContainers }}
-        {{ toYaml .Values.extraContainers | nindent 8}}
+        {{- toYaml .Values.extraContainers | nindent 6 }}
       {{- end }}
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
