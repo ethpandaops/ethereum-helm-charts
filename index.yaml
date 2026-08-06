@@ -12050,6 +12050,21 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/rpc-snooper-0.0.1/rpc-snooper-0.0.1.tgz
     version: 0.0.1
+  slashoor:
+  - apiVersion: v2
+    created: "2026-08-06T11:08:35.360977289Z"
+    description: A beacon chain slasher that detects and submits attester and proposer
+      slashings
+    digest: 4cce11deb00ae7a25589882415be3b3d74b7d5e81d6ede6356413a5e5a8cf5b1
+    home: https://github.com/ethpandaops/slashoor
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: slashoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/slashoor-0.1.0/slashoor-0.1.0.tgz
+    version: 0.1.0
   smart-contract-verifier-http:
   - apiVersion: v2
     created: "2025-01-20T12:32:56.860861682Z"
@@ -13884,4 +13899,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-07-30T11:38:25.878168614Z"
+generated: "2026-08-06T11:08:35.361615811Z"
