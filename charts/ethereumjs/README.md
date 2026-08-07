@@ -1,7 +1,7 @@
 
 # ethereumjs
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or Nethermind) written in TypeScript/JavaScript, the non-Smart-Contract language Ethereum dApp developers are most familiar with. It is targeted to be a client for research and development and not meant to be used in production on mainnet for the foreseeable future (out of resource and security considerations).
 
@@ -30,6 +30,7 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the ethereumjs container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |
@@ -109,6 +110,14 @@ The EthereumJS Client is an Ethereum Execution Client (similar to go-ethereum or
 | wsPort | int | `8546` | WS Port |
 
 # Examples
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
 
 ## Connecting to the holesky test network
 

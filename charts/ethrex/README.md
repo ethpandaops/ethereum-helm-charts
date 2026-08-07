@@ -1,7 +1,7 @@
 
 # ethrex
 
-![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethrex is an Ethereum execution client developed by Lambda Class. It is written in Rust and designed to be modular, efficient, and fully compatible with Ethereum's Engine API for connecting to consensus layer clients.
 
@@ -31,6 +31,7 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | dnsPolicy | string | `""` | DNS policy for pods When hostNetwork is true, this should be set to ClusterFirstWithHostNet |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the ethrex container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
 | extraContainers | list | `[]` | Additional containers |
@@ -112,6 +113,14 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | wsPort | int | `8546` | WS Port |
 
 # Examples
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
 
 ## Connecting to the holesky test network
 

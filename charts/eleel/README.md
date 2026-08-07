@@ -1,7 +1,7 @@
 
 # eleel
 
-![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.7](https://img.shields.io/badge/Version-0.1.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A multiplexer for Ethereum execution clients
 
@@ -20,6 +20,7 @@ A multiplexer for Ethereum execution clients
 | customArgs | list | `[]` | Custom args for the eleel container |
 | customCommand | list | `[]` | Command replacement for the eleel container |
 | eeJWTSecret | string | `""` | Execution Engine JWT secret |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWTs instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the keys `execution.jwt`, `controller.jwt` (JWT secrets as hex strings) and `client-secrets.toml` (client secrets in eleel's TOML format). When set, `eeJWTSecret`, `controllerJWTSecret` and `clientJWTSecrets` are ignored. |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPodPorts | list | `[]` | Extra Pod ports |
@@ -56,3 +57,13 @@ A multiplexer for Ethereum execution clients
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
+
+# Examples
+
+## Using an existing JWT Secret
+
+If the JWT secrets are managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference an existing Secret instead of letting the chart create one. The Secret must contain the keys `execution.jwt`, `controller.jwt` (JWT secrets as hex strings) and `client-secrets.toml` (client secrets in eleel's TOML format). Note that `execution.jwt` must match the JWT secret of the upstream execution client (its `jwt.hex`):
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
