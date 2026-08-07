@@ -1,0 +1,9 @@
+apiVersion: v2
+name: slashoor
+description: A beacon chain slasher that detects and submits attester and proposer slashings
+home: https://github.com/ethpandaops/slashoor
+type: application
+version: 0.1.0
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com

@@ -1,0 +1,25 @@
+config:
+  beacon:
+    endpoints:
+      - "http://beacon-node:5052"
+  submitter:
+    enabled: true
+    dry_run: true
+
+# Exercise the injected-list options so CI catches indentation regressions.
+extraVolumes:
+  - name: extra
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: extra
+    mountPath: /extra
+
+extraContainers:
+  - name: sidecar
+    image: busybox:1.36
+    command: ["sleep", "infinity"]
+
+extraEnv:
+  - name: EXTRA_ENV
+    value: "1"
