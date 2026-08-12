@@ -111,4 +111,4 @@ spec:
       {{- end }}
         - name: jwt
           secret:
-            secretName: {{ include "eleel.fullname" . }}-jwt
+            secretName: {{ .Values.existingJwtSecret | default (printf "%s-jwt" (include "eleel.fullname" .)) }}

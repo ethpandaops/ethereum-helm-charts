@@ -163,7 +163,7 @@ spec:
       volumes:
         - name: jwt
           secret:
-            secretName: {{ include "grandine.fullname" . }}-jwt
+            secretName: {{ .Values.existingJwtSecret | default (printf "%s-jwt" (include "grandine.fullname" .)) }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}

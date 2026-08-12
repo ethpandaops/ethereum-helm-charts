@@ -1,7 +1,7 @@
 
 # lodestar
 
-![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.2](https://img.shields.io/badge/Version-1.2.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Lodestar is a open-source TypeScript implementation of the Ethereum consensus engine.
 
@@ -33,6 +33,7 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | devnet.urls.configYaml | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/config.yaml"` | Chain config YAML URL |
 | devnet.urls.depositContractBlock | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/deposit_contract_block.txt"` | Deposit contract block number URL |
 | devnet.urls.genesisSsz | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"` | Genesis state SSZ URL |
+| existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the lodestar container |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
@@ -110,6 +111,14 @@ Lodestar is a open-source TypeScript implementation of the Ethereum consensus en
 | validatorReadinessProbe | object | See `values.yaml` | Validator Readiness probe |
 
 # Examples
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
 
 ## Beacon node on the Holesky testnet connected to Holesky via Infura
 

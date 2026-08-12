@@ -13,3 +13,13 @@
 {{ template "chart.requirementsSection" . }}
 
 {{ template "chart.valuesSection" . }}
+
+# Examples
+
+## Using an existing JWT Secret
+
+If the JWT secrets are managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference an existing Secret instead of letting the chart create one. The Secret must contain the keys `execution.jwt`, `controller.jwt` (JWT secrets as hex strings) and `client-secrets.toml` (client secrets in eleel's TOML format). Note that `execution.jwt` must match the JWT secret of the upstream execution client (its `jwt.hex`):
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
