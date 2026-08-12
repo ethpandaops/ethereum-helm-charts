@@ -1,0 +1,23 @@
+# Values used by chart-testing (ct install) in CI.
+# Proxy mode is disabled so the pod starts without a reachable geth RPC
+# endpoint (in proxy mode the process exits at startup if the RPC probe
+# fails).
+proxy: false
+
+# Exercise the optional pod wiring to catch indentation regressions.
+extraEnv:
+  - name: EXTRA_ENV_TEST
+    value: "true"
+
+extraVolumes:
+  - name: geoip
+    emptyDir: {}
+
+extraVolumeMounts:
+  - name: geoip
+    mountPath: /app/data
+
+extraContainers:
+  - name: sidecar-test
+    image: busybox:1.36
+    command: ["sh", "-c", "sleep infinity"]
