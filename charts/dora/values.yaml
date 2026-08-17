@@ -146,9 +146,9 @@ executionIndexerRetention: "720h" # 1 month
 # -- Enable ENS resolver
 enableEnsResolver: false
 
-# -- ENS RPC hosts
-ensRpcHosts: []
-  #- "https://ens.example.io"
+# -- ENS remote networks
+ensRemoteNetworks: []
+  #- {name: "mainnet", endpoints: [{url: "https://ens.example.io"}]}
 
 # -- ENS resolvers
 ensRegistries: []
@@ -390,10 +390,29 @@ config: |
 
     ensResolver:
       enabled: {{ .Values.enableEnsResolver }}
-      {{- if .Values.ensRpcHosts }}
-      rpcHosts:
-        {{- range .Values.ensRpcHosts }}
-        - {{ . | quote }}
+      {{- if .Values.ensRemoteNetworks }}
+      remoteNetworks:
+        {{- range .Values.ensRemoteNetworks }}
+        - name: {{ .name | quote }}
+          endpoints:
+            {{- range .endpoints }}
+            - url: {{ .url | quote }}
+              {{- if .name }}
+              name: {{ .name | quote }}
+              {{- end }}
+              {{- if .priority }}
+              priority: {{ .priority }}
+              {{- end }}
+              {{- if .authGroup }}
+              authGroup: {{ .authGroup | quote }}
+              {{- end }}
+              {{- if .headers }}
+              headers:
+              {{- range $key, $value := .headers }}
+                {{ $key | quote | default "" }}: {{ $value | quote | default ""}}
+              {{- end }}
+              {{- end }}
+            {{- end }}
         {{- end }}
       {{- end }}
       {{- if .Values.ensRegistries }}
