@@ -16,6 +16,14 @@
 
 # Examples
 
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
+
 ## Connecting to the holesky test network
 
 ```yaml

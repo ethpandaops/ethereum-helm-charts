@@ -172,7 +172,7 @@ spec:
       volumes:
         - name: jwt
           secret:
-            secretName: {{ include "ethereumjs.fullname" . }}-jwt
+            secretName: {{ .Values.existingJwtSecret | default (printf "%s-jwt" (include "ethereumjs.fullname" .)) }}
       {{- if .Values.p2pNodePort.enabled }}
         - name: env-nodeport
           emptyDir: {}
