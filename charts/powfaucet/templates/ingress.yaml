@@ -6,6 +6,12 @@
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
   {{- end }}
 {{- end }}
+{{- if .Values.ingress.basicAuth }}
+{{- $annotations := default dict .Values.ingress.annotations }}
+{{- $_ := set $annotations "nginx.ingress.kubernetes.io/auth-type" "basic" }}
+{{- $_ := set $annotations "nginx.ingress.kubernetes.io/auth-secret" (printf "%s-basic-auth" $fullName) }}
+{{- $_ := set .Values.ingress "annotations" $annotations }}
+{{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}

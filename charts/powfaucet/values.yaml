@@ -32,6 +32,10 @@ ingress:
       paths: []
   # -- Ingress TLS
   tls: []
+  # -- htpasswd entry gating the ingress with basic auth, e.g. "user:{PLAIN}password"
+  # or a hashed line from `htpasswd -nbB`. Set it and the chart creates the secret and
+  # the nginx annotations; leave it empty to serve the faucet unauthenticated.
+  basicAuth: ""
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
