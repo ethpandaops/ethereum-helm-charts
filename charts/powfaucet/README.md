@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -117,6 +117,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | image.repository | string | `"pk910/powfaucet"` | powfaucet container image repository |
 | image.tag | string | `"v2-stable"` | powfaucet container image tag |
 | ingress.annotations | object | `{}` | Annotations for Ingress |
+| ingress.basicAuth | string | `""` | htpasswd entry gating the ingress with basic auth, e.g. "user:{PLAIN}password" or a hashed line from `htpasswd -nbB`. Set it and the chart creates the secret and the nginx annotations; leave it empty to serve the faucet unauthenticated. |
 | ingress.enabled | bool | `false` | Ingress resource for the HTTP API |
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
