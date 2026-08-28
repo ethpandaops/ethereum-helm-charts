@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -63,7 +63,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetConcurrencyLimitEnabled | bool | `true` | Enable concurrency-limit module (cap simultaneously running sessions) |
 | faucetEnsEnabled | bool | `true` | Enable ENS module |
 | faucetEnsRequired | bool | `false` | ENS module: enforce ens name to use the faucet |
-| faucetEnsRpcUrl | string | `"https://rpc.flashbots.net/"` | ENS module: rpc url (mainnet) |
+| faucetEnsRpcUrl | string | `"https://ethereum-rpc.publicnode.com"` | ENS module: rpc url (mainnet) |
 | faucetEthinfoDenyContract | bool | `true` | Ethinfo module: deny contract addresses |
 | faucetEthinfoEnabled | bool | `true` | Enable ethinfo module (check target wallet balance / type) |
 | faucetEthinfoMaxbalanceWei | float | `100000000000000000000` | Ethinfo module: check balance and deny session if balance exceeds the limit (in wei) |
@@ -83,7 +83,7 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetMainnetEnabled | bool | `false` | Enable mainnet module (check mainnet wallet balance / nonce) |
 | faucetMainnetMinBalanceWei | int | `10000000000000000` | Mainnet module: min balance the user needs to hold in his mainnet wallet to use the faucet |
 | faucetMainnetMinTxCount | int | `5` | Mainnet module: min number of transactions the user needs to have sent from the mainnet wallet to use the faucet |
-| faucetMainnetRpcUrl | string | `"https://rpc.flashbots.net/"` | Mainnet module: rpc url (mainnet) |
+| faucetMainnetRpcUrl | string | `"https://ethereum-rpc.publicnode.com"` | Mainnet module: rpc url (mainnet) |
 | faucetMaxDropWei | float | `50000000000000000000` | Default/Maximum drop amount in wei |
 | faucetMinDropWei | int | `1000000000000000000` | Minimum drop amount in wei |
 | faucetOutflowAmountWei | float | `1e+21` | Outflow module: allowed amount of ETH (amount/duration) (in wei) |
