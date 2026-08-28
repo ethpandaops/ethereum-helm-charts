@@ -242,7 +242,7 @@ faucetCaptchaSecret: "0xCensoredHCaptchaSecretKey"
 faucetEnsEnabled: true
 
 # -- ENS module: rpc url (mainnet)
-faucetEnsRpcUrl: "https://rpc.flashbots.net/"
+faucetEnsRpcUrl: "https://ethereum-rpc.publicnode.com"
 
 # -- ENS module: enforce ens name to use the faucet
 faucetEnsRequired: false
@@ -350,7 +350,7 @@ faucetGithubLimitDuration: 86400 # 1 day
 faucetMainnetEnabled: false
 
 # -- Mainnet module: rpc url (mainnet)
-faucetMainnetRpcUrl: "https://rpc.flashbots.net/"
+faucetMainnetRpcUrl: "https://ethereum-rpc.publicnode.com"
 
 # -- Mainnet module: min balance the user needs to hold in his mainnet wallet to use the faucet
 faucetMainnetMinBalanceWei: 10000000000000000 # 0.01 ETH
