@@ -30,20 +30,18 @@ data:
   # panda-server config — seeded to /opt/data/.config/panda/config.yaml. The
   # bot identity (PANDA_BOT_USERNAME / PANDA_BOT_TOKEN) lives in the Secret and
   # is substituted from the environment by panda's config loader; access tokens
-  # are minted via client_credentials and never touch the PVC.
+  # are minted via client_credentials and never touch the PVC. The sandbox
+  # backend is "direct" — Python runs as a subprocess inside the panda-server
+  # container, relying on the Kubernetes pod boundary for isolation. No dockerd,
+  # no sandbox image, no privileged container needed.
   panda-config.yaml: |
     server:
       host: "127.0.0.1"
       port: 2480
       base_url: "http://127.0.0.1:2480"
-      sandbox_url: "http://172.17.0.1:2480"
     sandbox:
-      backend: docker
-      image: {{ .Values.panda.sandboxImage | quote }}
-      network: "bridge"
+      backend: direct
       timeout: 300
-      memory_limit: "1g"
-      cpu_limit: 1.0
     storage:
       base_dir: "/opt/data/panda-storage"
     proxy:

@@ -4,6 +4,7 @@ metadata:
   name: {{ include "panda-chat.hermesFullname" . }}
   labels: {{- include "panda-chat.labels" . | nindent 4 }}
 spec:
+  publishNotReadyAddresses: true
   type: {{ .Values.service.type }}
   selector: {{- include "panda-chat.selectorLabels" . | nindent 4 }}
   ports:
