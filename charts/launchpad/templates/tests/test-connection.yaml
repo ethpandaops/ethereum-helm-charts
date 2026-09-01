@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "launchpad.fullname" . }}-test-connection"
+  labels:
+    {{- include "launchpad.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: curl
+      image: curlimages/curl
+      command: ['curl']
+      args:
+       - --location
+       - --request
+       - GET
+       - '{{ include "launchpad.fullname" . }}:{{ .Values.httpPort }}/'
+  restartPolicy: Never
