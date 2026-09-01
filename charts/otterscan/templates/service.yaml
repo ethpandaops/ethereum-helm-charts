@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "otterscan.fullname" . }}
+  labels:
+    {{- include "otterscan.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ include "otterscan.httpPort" . }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "otterscan.selectorLabels" . | nindent 4 }}
