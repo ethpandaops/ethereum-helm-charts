@@ -142,6 +142,21 @@ The [CT (Chart Testing)](https://github.com/helm/chart-testing) tool is used to 
 make lint
 ```
 
+### Publishing a chart
+
+Charts publish from `master` via the `release` workflow (`helm package` → GitHub Pages index). Before merging a chart change:
+
+- **Bump `version`** in `Chart.yaml` — `ct lint` rejects a changed chart without a version bump, and the release skips versions already published.
+- **Set a real `appVersion`** (the upstream app's actual version/tag).
+- **Regenerate the README** with `make docs` — it uses the pinned pre-commit helm-docs version; running a different one drifts the badges.
+- **Verify it packages**, the same way release does (CI now does this on PRs too):
+
+  ```sh
+  helm dependency build charts/<name> && helm package charts/<name> -d /tmp
+  ```
+
+  `ct lint`/`install` do **not** package, so packaging-only issues (e.g. a dependency stripped by `.helmignore`) only show up here.
+
 ## License
 
 [MIT License](LICENSE)
