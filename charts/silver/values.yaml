@@ -108,7 +108,7 @@ defaultBeaconCommandTemplate: |
     --network=/data/testnet_spec
   {{- end }}
   {{- range .Values.extraArgs }}
-    {{ tpl . $ }}
+    {{ tpl . $ | trim }}
   {{- end }}
 
 # -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
