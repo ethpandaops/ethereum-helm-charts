@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.2.15](https://img.shields.io/badge/Version-0.2.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.16](https://img.shields.io/badge/Version-0.2.16-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -16,6 +16,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 |------------|------|---------|
 | file://../observoor | observoor | 0.0.3 |
 | file://../rpc-snooper | rpc-snooper | 0.0.2 |
+| file://../silver | silver | 0.1.0 |
 | file://../xatu-sentry-logs | xatu-sentry-logs | 0.0.2 |
 | https://ethpandaops.github.io/ethereum-helm-charts | besu | 1.1.3 |
 | https://ethpandaops.github.io/ethereum-helm-charts | erigon | 2.0.1 |

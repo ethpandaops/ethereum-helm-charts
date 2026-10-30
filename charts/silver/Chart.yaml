@@ -1,0 +1,13 @@
+apiVersion: v2
+name: silver
+description: A high-performance Ethereum consensus client by Gattaca, written in Rust.
+home: https://github.com/gattaca-com/silver
+icon: https://avatars.githubusercontent.com/u/101386290?s=200&v=4
+sources:
+  - https://github.com/gattaca-com/silver
+type: application
+version: 0.1.0
+appVersion: "v0.1.0-alpha.6"
+maintainers:
+  - name: samcm
+    email: sam.calder-mason@ethereum.org

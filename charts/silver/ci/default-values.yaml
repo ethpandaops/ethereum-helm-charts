@@ -1,0 +1,3 @@
+# Silver needs an engine endpoint; without an EL it still starts and serves the beacon API.
+extraArgs:
+  - --execution-endpoint=http://localhost:8551

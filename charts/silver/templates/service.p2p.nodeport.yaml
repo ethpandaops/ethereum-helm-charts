@@ -1,0 +1,28 @@
+{{- if .Values.p2pNodePort.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "silver.fullname" $ }}-p2p-0
+  labels:
+    {{- include "silver.labels" $ | nindent 4 }}
+    pod: {{ include "silver.fullname" $ }}-0
+    type: p2p
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: p2p-udp
+      port: {{ include "silver.p2pPort" $ }}
+      protocol: UDP
+      targetPort: p2p-udp
+      nodePort: {{ include "silver.p2pPort" $ }}
+    - name: quic
+      port: {{ include "silver.quicPort" $ }}
+      protocol: UDP
+      targetPort: quic
+      nodePort: {{ include "silver.quicPort" $ }}
+  selector:
+    {{- include "silver.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: "{{ include "silver.fullname" $ }}-0"
+{{- end }}
