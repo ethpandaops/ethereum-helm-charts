@@ -240,17 +240,8 @@ rbac:
       - "get"
       - "list"
       - "watch"
-  # -- Required ClusterRole rules
-  # @default -- See `values.yaml`
-  rules:
-    # Required to get information about the services nodePort.
-    - apiGroups: [""]
-      resources:
-      - "services"
-      verbs:
-      - "get"
-      - "list"
-      - "watch"
+  # -- Namespaced Role rules. The init container only reads nodes, so none are needed by default.
+  rules: []
 
 # -- Resource requests and limits
 resources: {}

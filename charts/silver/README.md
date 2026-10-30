@@ -81,7 +81,7 @@ A high-performance Ethereum consensus client by Gattaca, written in Rust.
 | quicPort | int | `9001` | UDP QUIC port for peer connections |
 | rbac.clusterRules | list | See `values.yaml` | Required ClusterRole rules |
 | rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |
-| rbac.rules | list | See `values.yaml` | Required ClusterRole rules |
+| rbac.rules | list | `[]` | Namespaced Role rules. The init container only reads nodes, so none are needed by default. |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |

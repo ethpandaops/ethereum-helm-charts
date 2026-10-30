@@ -6,5 +6,5 @@ metadata:
   labels:
     {{- include "silver.labels" . | nindent 4 }}
 rules:
-{{- toYaml .Values.rbac.rules | nindent 0 }}
+  {{- toYaml .Values.rbac.rules | nindent 2 }}
 {{- end }}
