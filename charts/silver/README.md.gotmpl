@@ -1,0 +1,65 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Notes
+
+- Published images support Linux amd64 only.
+- Silver uses two UDP ports: one for discovery (`p2pPort`) and one for QUIC peer connections (`quicPort`). It has no TCP P2P port.
+- The chart renders a TOML config from its values and passes it with `--config`. Use `config` for any setting without a CLI flag.
+- Silver pins each of its tiles (OS threads) to fixed CPU cores 1-7. Without the kubelet's static CPU manager policy those cores are shared with other pods.
+- Silver serves `/metrics` on the beacon API port, so `serviceMonitor` scrapes `http-api`.
+
+# Examples
+
+## Beacon node on hoodi
+
+```yaml
+extraArgs:
+  - --network=hoodi
+  - --execution-endpoint=http://<EXECUTION-ENDPOINT>:8551
+```
+
+## Supernode
+
+```yaml
+config: |
+  data_column_custody_group_count = 128
+  attestation_subnet_count = 64
+```
+
+## Using an existing JWT Secret
+
+If the JWT secret is managed outside of Helm (e.g. by an external secrets operator such as External Secrets, Vault or Doppler), reference it instead of letting the chart create one. The Secret must contain the JWT secret as a hex string under the key `jwt.hex`:
+
+```yaml
+existingJwtSecret: my-jwt-secret
+```
+
+## Exposing the P2P ports via NodePort
+
+This will make your node accessible via the Internet using a service of type [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#nodeport).
+When using `p2pNodePort.enabled` the IP address in your ENR is the "External IP" of the node where the pod is running, and both UDP ports are exposed with the same NodePort numbers.
+
+**Limitations:** You can only run a single replica per chart deployment when using `p2pNodePort.enabled=true`. If you need N nodes, simply deploy the chart N times.
+
+```yaml
+replicas: 1
+
+p2pNodePort:
+  enabled: true
+  port: 31000
+  quicPort: 31001
+```

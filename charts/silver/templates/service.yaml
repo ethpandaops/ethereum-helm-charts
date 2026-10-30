@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "silver.fullname" . }}
+  labels:
+    {{- include "silver.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ include "silver.p2pPort" . }}
+      targetPort: p2p-udp
+      protocol: UDP
+      name: p2p-udp
+    - port: {{ include "silver.quicPort" . }}
+      targetPort: quic
+      protocol: UDP
+      name: quic
+    - port: {{ .Values.httpPort }}
+      targetPort: http-api
+      protocol: TCP
+      name: http-api
+  {{- if .Values.extraPorts }}
+    {{ toYaml .Values.extraPorts | nindent 4}}
+  {{- end }}
+  selector:
+    {{- include "silver.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,388 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+# -- Number of replicas
+replicas: 1
+
+image:
+  # -- silver container image repository
+  repository: ghcr.io/gattaca-com/silver
+  # -- silver container image tag. Defaults to the chart's appVersion when empty.
+  tag: ""
+  # -- silver container pull policy
+  pullPolicy: IfNotPresent
+
+# -- Extra args for the silver container.
+# Silver's CLI only accepts `--network`, `--execution-endpoint`, `--jwt-secret` and `--pbs-endpoint`;
+# everything else is set through `config`.
+extraArgs: []
+  # - --network=hoodi
+  # - --execution-endpoint=http://your-execution-node:8551
+
+# -- Additional TOML appended to the generated config file.
+# The chart manages `data_storage_dir`, `beacon_api_bind`, `discovery_port`, `quic_port`,
+# `external_ip_v4` and (with `checkpointSync.enabled`) `chain_config.checkpoint_sync_urls`.
+# Setting `external_ip_v4` here replaces the advertised address.
+config: ""
+  # data_column_custody_group_count = 128
+  # attestation_subnet_count = 64
+
+# -- JWT secret used by client as a secret. Change this value.
+jwt: ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a
+
+# -- Use an existing Secret for the JWT instead of creating one (e.g. managed
+# by an external secrets operator). The Secret must contain the key `jwt.hex`
+# with the JWT secret as a hex string. When set, `jwt` is ignored.
+existingJwtSecret: ""
+
+# -- Checkpoint sync. When disabled, Silver uses the network's built-in checkpoint providers.
+checkpointSync:
+  enabled: false
+  url: ""
+
+# -- Devnet configuration
+devnet:
+  # -- Enable devnet mode
+  enabled: false
+  # -- Base URL for devnet configuration files
+  baseUrl: "https://raw.githubusercontent.com/ethpandaops/fusaka-devnets/master/network-configs"
+  # -- Devnet name (e.g., devnet-3)
+  name: "devnet-3"
+  # -- URLs for devnet configuration files. Silver reads only these three files.
+  urls:
+    # -- Chain config YAML URL
+    configYaml: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/config.yaml"
+    # -- Genesis state SSZ URL
+    genesisSsz: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"
+    # -- Bootstrap nodes YAML URL
+    bootstrapNodesYaml: "{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/bootstrap_nodes.yaml"
+  # -- Init container configuration for downloading devnet files
+  initContainer:
+    - name: download-devnet-config
+      image: alpine:latest
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+      command:
+        - sh
+        - -ac
+        - |
+          mkdir -p /data/testnet_spec;
+          if [ ! -f /data/testnet_spec/genesis.ssz ]; then
+            echo "Downloading devnet configuration files...";
+            wget -O /data/testnet_spec/config.yaml "{{ tpl .Values.devnet.urls.configYaml . }}"
+            wget -O /data/testnet_spec/genesis.ssz "{{ tpl .Values.devnet.urls.genesisSsz . }}"
+            wget -O /data/testnet_spec/bootstrap_nodes.yaml "{{ tpl .Values.devnet.urls.bootstrapNodesYaml . }}"
+            echo "Devnet configuration download complete.";
+          else
+            echo "Genesis file already exists, skipping download.";
+          fi
+      volumeMounts:
+        - name: storage
+          mountPath: "/data"
+
+# -- Template used for the default beacon command
+# @default -- See `values.yaml`
+defaultBeaconCommandTemplate: |
+  - sh
+  - -ac
+  - >
+  {{- if not (contains "external_ip_v4" .Values.config) }}
+  {{- if .Values.p2pNodePort.enabled }}
+    . /env/init-nodeport;
+  {{- else }}
+    EXTERNAL_IP=$POD_IP;
+  {{- end }}
+    { echo "external_ip_v4 = \"$EXTERNAL_IP\""; cat /config/config.toml; } > /runtime/config.toml;
+  {{- else }}
+    cp /config/config.toml /runtime/config.toml;
+  {{- end }}
+    exec silver
+    --config=/runtime/config.toml
+    --jwt-secret=/data/jwt.hex
+  {{- if .Values.devnet.enabled }}
+    --network=/data/testnet_spec
+  {{- end }}
+  {{- range .Values.extraArgs }}
+    {{ tpl . $ }}
+  {{- end }}
+
+# -- Legacy way of overwriting the default command. You may prefer to change defaultCommandTemplates instead.
+customCommand: []
+
+# When p2pNodePort is enabled, your P2P port will be exposed via service type NodePort.
+# This will generate a service for each replica, with a port binding via NodePort.
+# This is useful if you want to expose and announce your node to the Internet.
+p2pNodePort:
+  # -- Expose P2P ports via NodePort
+  enabled: false
+  # -- NodePort used for UDP discovery
+  port: 31000
+  # -- NodePort used for UDP QUIC peer connections
+  quicPort: 31001
+  initContainer:
+    image:
+      # -- Container image to fetch nodeport information
+      repository: lachlanevenson/k8s-kubectl
+      # -- Container tag
+      tag: v1.25.4
+      # -- Container pull policy
+      pullPolicy: IfNotPresent
+
+ingress:
+  # -- Ingress resource for the HTTP API
+  enabled: false
+  # -- Annotations for Ingress
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- Ingress host
+  hosts:
+    - host: chart-example.local
+      paths: []
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Startup probe. Allows up to 30 minutes for the first checkpoint state download.
+# @default -- See `values.yaml`
+startupProbe:
+  tcpSocket:
+    port: http-api
+  periodSeconds: 10
+  failureThreshold: 180
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  tcpSocket:
+    port: http-api
+  periodSeconds: 120
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  tcpSocket:
+    port: http-api
+  periodSeconds: 10
+
+# -- UDP discovery port
+p2pPort: 9000
+
+# -- UDP QUIC port for peer connections
+quicPort: 9001
+
+# -- Beacon API port. Silver also serves `/metrics` on this port.
+httpPort: 5052
+
+# -- Node selector for pods
+nodeSelector: {}
+
+persistence:
+  # -- Uses an EmptyDir when not enabled
+  enabled: false
+  # -- Use an existing PVC when persistence.enabled
+  existingClaim: null
+  # -- Access mode for the volume claim template
+  accessModes:
+  - ReadWriteOnce
+  # -- Requested size for volume claim template
+  size: 20Gi
+  # -- Use a specific storage class
+  # E.g 'local-path' for local storage to achieve best performance
+  # Read more (https://github.com/rancher/local-path-provisioner)
+  storageClassName: null
+  # -- Annotations for volume claim template
+  annotations: {}
+  # -- Selector for volume claim template
+  selector: {}
+  #   matchLabels:
+  #     app.kubernetes.io/name: something
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod management policy
+podManagementPolicy: OrderedReady
+
+# -- Pod priority class
+priorityClassName: null
+
+rbac:
+  # -- Specifies whether RBAC resources are to be created
+  create: true
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  clusterRules:
+     # Required to obtain the nodes external IP
+    - apiGroups: [""]
+      resources:
+      - "nodes"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+  # -- Required ClusterRole rules
+  # @default -- See `values.yaml`
+  rules:
+    # Required to get information about the services nodePort.
+    - apiGroups: [""]
+      resources:
+      - "services"
+      verbs:
+      - "get"
+      - "list"
+      - "watch"
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 2Gi
+# requests:
+#   cpu: 300m
+#   memory: 1Gi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 300
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Define the PodDisruptionBudget spec
+# If not set then a PodDisruptionBudget will not be created
+podDisruptionBudget: {}
+# minAvailable: 1
+# maxUnavailable: 1
+
+# -- Update strategy for the Statefulset
+updateStrategy:
+  # -- Update strategy type
+  type: RollingUpdate
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports. Useful when using extraContainers
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+#- name: JAVA_OPTS
+#  value: "-Xmx6000m -Xms6000m"
+
+# -- Additional env variables injected via a created secret
+secretEnv: {}
+# MY_PASSWORD: supersecret
+
+# Silver's tiles talk over shared-memory queues in /dev/shm.
+# The container runtime default (64Mi) is too small, so a memory-backed volume is mounted instead.
+sharedMemory:
+  # -- Mount a memory-backed emptyDir at /dev/shm
+  enabled: true
+  # -- Size limit for /dev/shm. Usage counts against the pod's memory.
+  sizeLimit: 2Gi
+
+initChownData:
+  # -- Init container to set the correct permissions to access data directories
+  enabled: true
+  image:
+    # -- Container repository
+    repository: busybox
+    # -- Container tag
+    tag: "1.34.0"
+    # -- Container pull policy
+    pullPolicy: IfNotPresent
+  # -- Resource requests and limits
+  resources: {}
+  #  limits:
+  #    cpu: 100m
+  #    memory: 128Mi
+  #  requests:
+  #    cpu: 100m
+  #    memory: 128Mi
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []

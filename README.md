@@ -54,6 +54,7 @@ Consensus layer clients
 - [`lodestar`](charts/lodestar)
 - [`nimbus`](charts/nimbus)
 - [`prysm`](charts/prysm)
+- [`silver`](charts/silver)
 - [`teku`](charts/teku)
 
 Generic

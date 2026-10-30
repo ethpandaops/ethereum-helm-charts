@@ -31,6 +31,7 @@ global:
           lodestar: []
           nimbus: []
           prysm: []
+          silver: []
           teku: []
       sepolia:
         execution:
@@ -59,6 +60,8 @@ global:
             - --network=sepolia
           prysm:
             - --sepolia
+          silver:
+            - --network=sepolia
           teku:
             - --network=sepolia
       holesky:
@@ -117,6 +120,8 @@ global:
             - --network=hoodi
           prysm:
             - --hoodi
+          silver:
+            - --network=hoodi
           teku:
             - --network=hoodi
 
@@ -289,6 +294,24 @@ lighthouse:
       --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
       {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
         {{- range .consensus.lighthouse }}
+        {{ . }}
+        {{- end -}}
+      {{- end -}}
+
+silver:
+  enabled: false
+  nameOverride: beacon
+  httpPort: 5052
+  p2pPort: 9000
+  quicPort: 9001
+  checkpointSync:
+    enabled: "{{ default .Values.global.checkpointSync.enabled false }}"
+    url: "{{ index .Values.global.checkpointSync.addresses .Values.global.main.network }}"
+  extraArgs:
+    - >-
+      --execution-endpoint={{ if .Values.global.main.engineSnooper.enabled }}http://{{ .Release.Name }}-engine-snooper:8551{{ else }}{{ tpl .Values.global.main.engineEndpoint . }}{{ end }}
+      {{- with( index .Values.global.clientArgs.networks .Values.global.main.network ) }}
+        {{- range .consensus.silver }}
         {{ . }}
         {{- end -}}
       {{- end -}}

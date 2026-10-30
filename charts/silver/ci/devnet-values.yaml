@@ -1,0 +1,5 @@
+extraArgs:
+  - --execution-endpoint=http://localhost:8551
+devnet:
+  enabled: true
+  name: "devnet-3"

@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "silver.fullname" . }}-config
+  labels:
+    {{- include "silver.labels" . | nindent 4 }}
+data:
+  config.toml: |
+    data_storage_dir = "/data"
+    beacon_api_bind = ["0.0.0.0:{{ .Values.httpPort }}"]
+    discovery_port = {{ include "silver.p2pPort" . }}
+    quic_port = {{ include "silver.quicPort" . }}
+    {{- if .Values.checkpointSync.enabled }}
+    chain_config.checkpoint_sync_urls = [{{ tpl .Values.checkpointSync.url $ | quote }}]
+    {{- end }}
+    {{- with .Values.config }}
+    {{- tpl . $ | nindent 4 }}
+    {{- end }}
