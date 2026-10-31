@@ -1,0 +1,15 @@
+apiVersion: v2
+name: mempool-lens
+description: >
+  Live transaction-lifecycle viewer for go-ethereum's txtracker and peerstats
+  JSON-RPC namespaces. Connects to an instrumented geth node over WebSocket
+  and renders mempool status transitions, peer stats and flow diagrams in a
+  small web UI.
+home: https://github.com/cskiraly/mempool-lens
+sources:
+  - https://github.com/cskiraly/mempool-lens
+type: application
+version: 0.1.0
+maintainers:
+  - name: barnabasbusa
+    email: busa.barnabas@gmail.com
