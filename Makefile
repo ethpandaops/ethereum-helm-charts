@@ -3,13 +3,16 @@ SHELL=/bin/bash
 UID := $(shell id -u)
 CURRENT_DIR := $(shell pwd)
 
-.PHONY: init lint docs clean
+.PHONY: init lint package docs clean
 
 init:
 	@pre-commit install
 
 lint:
 	@docker run --rm --workdir /workdir --volume "$(CURRENT_DIR):/workdir" -u $(UID) -e "HOME=/tmp" quay.io/helmpack/chart-testing:v3.13.0 sh -ac 'chown ${UID} .; exec ct lint --target-branch master'
+
+package:
+	@.github/scripts/package-changed-charts.sh
 
 docs:
 	@docker run --rm --volume "$(CURRENT_DIR):/helm-docs" -u $(UID) jnorwood/helm-docs:v1.5.0
