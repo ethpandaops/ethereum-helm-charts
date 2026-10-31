@@ -1,7 +1,7 @@
 env:
   XATU_CLIENT_NAME: "ci-test"
   XATU_NETWORK_NAME: "mainnet"
-  XATU_SERVER_URL: "http://localhost:8080"
+  XATU_SERVER_URL: "http://localhost:8080/v1/events"
 
 # Dummy auth value required for Vector to start (sink config references ${XATU_AUTH})
 secretEnv:
