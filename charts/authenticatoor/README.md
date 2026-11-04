@@ -1,7 +1,7 @@
 
 # authenticatoor
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-proxy SSO. Public keys are published as a JWKS so any resource server can validate the issued tokens locally.
 
@@ -15,6 +15,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | allowedReturnHosts | list | `[]` | Hosts that /auth/login may redirect to via `return_to`. Same DNS-label glob syntax as scopePattern. Defaults to ["*.<parent zone of issuer>"]. |
 | annotations | object | `{}` | Annotations for the Deployment |
 | audience | list | `[]` | The "aud" claim. Verifiers must accept this value. Defaults to the parent zone of the issuer host. |
+| authMode | list | `[]` | Provider names advertised to unauthenticated browser users (only with `providers`). Unlisted providers keep authenticating. Defaults to all. |
 | cloudflareAccess.audTag | string | `""` | AUD tag of the CF Access application. Optional. When set, assertions whose aud doesn't match are rejected. When empty, the audience claim is not checked — assertions from any application in the same CF Access team are accepted (signature + issuer still tie them to the team). |
 | cloudflareAccess.jwtHeader | string | `"Cf-Access-Jwt-Assertion"` | Header carrying the assertion JWT. |
 | cloudflareAccess.teamDomain | string | `"ethpandaops.cloudflareaccess.com"` | Cloudflare team domain (e.g. "<team>.cloudflareaccess.com"). Required when verifyJWT is true. |
@@ -61,6 +62,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | podAnnotations | object | `{}` | Pod annotations |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
+| providers | list | `[]` | Protection provider instances (authenticatoor v0.0.3+). When set they replace the legacy single-provider config above (`cloudflareAccess`), so list the cloudflare provider explicitly as well. Each entry is rendered verbatim: `name`, `type` and the type's config block. See https://github.com/ethpandaops/service-authenticatoor/blob/main/docs/config.md#protection-providers |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |

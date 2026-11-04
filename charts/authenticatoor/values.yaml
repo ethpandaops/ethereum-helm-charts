@@ -72,6 +72,27 @@ cloudflareAccess:
   # -- Header carrying the assertion JWT.
   jwtHeader: "Cf-Access-Jwt-Assertion"
 
+# -- Protection provider instances (authenticatoor v0.0.3+). When set they
+# replace the legacy single-provider config above (`cloudflareAccess`), so
+# list the cloudflare provider explicitly as well. Each entry is rendered
+# verbatim: `name`, `type` and the type's config block. See
+# https://github.com/ethpandaops/service-authenticatoor/blob/main/docs/config.md#protection-providers
+providers: []
+# - name: cfaccess
+#   type: cloudflare
+#   cloudflareAccess:
+#     teamDomain: "ethpandaops.cloudflareaccess.com"
+# - name: authentik
+#   type: bearer
+#   bearer:
+#     issuerURL: "https://authentik.example.com/application/o/devnet-authenticatoor/"
+#     audiences: ["devnet-authenticatoor"]
+
+# -- Provider names advertised to unauthenticated browser users (only with
+# `providers`). Unlisted providers keep authenticating. Defaults to all.
+authMode: []
+# - cfaccess
+
 signing:
   # -- Use an existing Secret instead of having the chart create one. The
   # Secret must contain `active.pem`. Mutually exclusive with privateKeyPem
@@ -156,6 +177,14 @@ config: |
       {{- end }}
   {{- end }}
 
+  {{- if .Values.providers }}
+  {{- with .Values.authMode }}
+  authMode:
+    {{- toYaml . | nindent 2 }}
+  {{- end }}
+  providers:
+    {{- toYaml .Values.providers | nindent 2 }}
+  {{- else }}
   cloudflareAccess:
     verifyJWT: {{ .Values.cloudflareAccess.verifyJWT }}
     {{- if .Values.cloudflareAccess.teamDomain }}
@@ -165,6 +194,7 @@ config: |
     audTag: "{{ .Values.cloudflareAccess.audTag }}"
     {{- end }}
     jwtHeader: "{{ .Values.cloudflareAccess.jwtHeader }}"
+  {{- end }}
 
   signing:
     mode: rs256
