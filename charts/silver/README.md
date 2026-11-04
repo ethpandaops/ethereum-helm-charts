@@ -1,7 +1,7 @@
 
 # silver
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A high-performance Ethereum consensus client by Gattaca, written in Rust.
 
@@ -57,8 +57,9 @@ A high-performance Ethereum consensus client by Gattaca, written in Rust.
 | initContainers | list | `[]` | Additional init containers |
 | jwt | string | `"ecb22bc24e7d4061f7ed690ccd5846d7d73f5d2b9733267e12f56790398d908a"` | JWT secret used by client as a secret. Change this value. |
 | livenessProbe | object | See `values.yaml` | Liveness probe |
+| logLevel | string | `"info"` | Silver's log filter, passed as `RUST_LOG`. Without it Silver logs only errors. |
 | nameOverride | string | `""` | Overrides the chart's name |
-| nodeSelector | object | `{}` | Node selector for pods |
+| nodeSelector | object | `{"kubernetes.io/arch":"amd64"}` | Node selector for pods. Silver's image is linux/amd64 only. |
 | p2pNodePort.enabled | bool | `false` | Expose P2P ports via NodePort |
 | p2pNodePort.initContainer.image.pullPolicy | string | `"IfNotPresent"` | Container pull policy |
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
@@ -82,7 +83,7 @@ A high-performance Ethereum consensus client by Gattaca, written in Rust.
 | rbac.clusterRules | list | See `values.yaml` | Required ClusterRole rules |
 | rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |
 | rbac.rules | list | `[]` | Namespaced Role rules. The init container only reads nodes, so none are needed by default. |
-| readinessProbe | object | See `values.yaml` | Readiness probe |
+| readinessProbe | object | See `values.yaml` | Readiness probe. `/eth/v1/node/health` answers 206 while syncing, so a syncing node stays ready, like the other consensus client charts. |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
 | secretEnv | object | `{}` | Additional env variables injected via a created secret |
@@ -102,7 +103,7 @@ A high-performance Ethereum consensus client by Gattaca, written in Rust.
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
 | sharedMemory.enabled | bool | `true` | Mount a memory-backed emptyDir at /dev/shm |
 | sharedMemory.sizeLimit | string | `"2Gi"` | Size limit for /dev/shm. Usage counts against the pod's memory. |
-| startupProbe | object | See `values.yaml` | Startup probe. Allows up to 30 minutes for the first checkpoint state download. |
+| startupProbe | object | See `values.yaml` | Startup probe. Allows up to 30 minutes for the first checkpoint state download. HTTP rather than tcpSocket: Silver's API can accept connections while answering nothing. |
 | terminationGracePeriodSeconds | int | `300` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |

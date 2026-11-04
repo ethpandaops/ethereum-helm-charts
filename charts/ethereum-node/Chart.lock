@@ -37,7 +37,7 @@ dependencies:
   version: 1.2.3
 - name: silver
   repository: file://../silver
-  version: 0.1.0
+  version: 0.1.1
 - name: teku
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 1.2.0
@@ -59,5 +59,5 @@ dependencies:
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:70a94d4a8772a19ca0d58185ce5660357c30e481adb90f12daf3ed6f3b560cda
-generated: "2026-10-30T02:10:20.148022499Z"
+digest: sha256:3fc1fe9793757f3719a1883b9008d32941ff8721166af82a03b72615e0708e80
+generated: "2026-11-04T19:23:07.257316476Z"
