@@ -149,6 +149,10 @@ spec:
             # Log to stdout instead of rolling files.
             - name: LOG_STDOUT
               value: "1"
+            {{- with .Values.logLevel }}
+            - name: RUST_LOG
+              value: {{ . | quote }}
+            {{- end }}
           {{- range $key, $value := .Values.secretEnv }}
             - name: {{ $key }}
               valueFrom:
