@@ -72,6 +72,32 @@ cloudflareAccess:
   # -- Header carrying the assertion JWT.
   jwtHeader: "Cf-Access-Jwt-Assertion"
 
+# -- Protection provider instances. Needs an authenticatoor build that
+# includes service-authenticatoor#14 (`main` / `snapshot` images; NOT in the
+# v0.0.3 release, which ignores `providers` and then fails validation). When
+# set they replace the legacy single-provider config above
+# (`cloudflareAccess`), so list the cloudflare provider explicitly as well.
+# Entries are rendered as given (`name`, `type`, the type's config block),
+# except that cloudflare entries without `cloudflareAccess.userHeader` get
+# the top-level `userHeader`. See
+# https://github.com/ethpandaops/service-authenticatoor/blob/main/docs/config.md#protection-providers
+providers: []
+# - name: cfaccess
+#   type: cloudflare
+#   cloudflareAccess:
+#     teamDomain: "ethpandaops.cloudflareaccess.com"
+# - name: authentik
+#   type: bearer
+#   bearer:
+#     issuerURL: "https://authentik.example.com/application/o/devnet-authenticatoor/"
+#     audiences: ["devnet-authenticatoor"]
+
+# -- Provider name(s) advertised to unauthenticated browser users (only with
+# `providers`); a string or a list. Unlisted providers keep authenticating.
+# Defaults to all.
+authMode: []
+# - cfaccess
+
 signing:
   # -- Use an existing Secret instead of having the chart create one. The
   # Secret must contain `active.pem`. Mutually exclusive with privateKeyPem
@@ -156,6 +182,26 @@ config: |
       {{- end }}
   {{- end }}
 
+  {{- if .Values.providers }}
+  {{- if kindIs "string" .Values.authMode }}
+  authMode: {{ .Values.authMode | quote }}
+  {{- else if .Values.authMode }}
+  authMode:
+    {{- toYaml .Values.authMode | nindent 2 }}
+  {{- end }}
+  providers:
+  {{- range .Values.providers }}
+  {{- $provider := deepCopy . }}
+  {{- if eq ($provider.type | default "") "cloudflare" }}
+  {{- $cf := $provider.cloudflareAccess | default dict }}
+  {{- if not $cf.userHeader }}
+  {{- $_ := set $cf "userHeader" $.Values.userHeader }}
+  {{- end }}
+  {{- $_ := set $provider "cloudflareAccess" $cf }}
+  {{- end }}
+  - {{ toYaml $provider | indent 2 | trim }}
+  {{- end }}
+  {{- else }}
   cloudflareAccess:
     verifyJWT: {{ .Values.cloudflareAccess.verifyJWT }}
     {{- if .Values.cloudflareAccess.teamDomain }}
@@ -165,6 +211,7 @@ config: |
     audTag: "{{ .Values.cloudflareAccess.audTag }}"
     {{- end }}
     jwtHeader: "{{ .Values.cloudflareAccess.jwtHeader }}"
+  {{- end }}
 
   signing:
     mode: rs256
