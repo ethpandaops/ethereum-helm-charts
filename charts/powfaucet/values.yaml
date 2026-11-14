@@ -291,6 +291,10 @@ faucetAuthenticatoorExpectedAudience: ""
 # (DNS-label glob; tokens without scope claim are accepted regardless). Use the faucet's public hostname.
 faucetAuthenticatoorExpectedHost: ""
 
+# -- Authenticatoor module: service name the token's `services` claim must allow (e.g. "faucet").
+# Tokens without a services claim are accepted. Empty: no service check. Needed for grants with a `feature`.
+faucetAuthenticatoorExpectedService: ""
+
 # -- Authenticatoor module: require login to start a session
 faucetAuthenticatoorRequireLogin: false
 
@@ -298,7 +302,8 @@ faucetAuthenticatoorRequireLogin: false
 faucetAuthenticatoorConcurrencyLimit: 0
 
 # -- Authenticatoor module: recurring grants applied on session start (evaluated in order; later grants override perks of earlier ones).
-# Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message.
+# Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message, feature.
+# A grant with `feature` applies only to logins whose token holds that feature of faucetAuthenticatoorExpectedService.
 # @default -- `[]`
 faucetAuthenticatoorGrants: []
 # - limitCount: 0
@@ -309,6 +314,11 @@ faucetAuthenticatoorGrants: []
 #   duration: 86400
 #   skipModules: ["pow", "recurring-limits", "faucet-outflow"]
 #   overrideMaxDrop: 500000000000000000
+# - feature: drop_100eth
+#   limitCount: 1
+#   duration: 86400
+#   skipModules: ["pow", "recurring-limits", "faucet-outflow"]
+#   overrideMaxDrop: 100000000000000000000
 
 # -- Authenticatoor module: frontend label for the login button (null/empty for default)
 faucetAuthenticatoorLoginLabel: ""
@@ -617,18 +627,20 @@ config: |
       authUrl: "{{ .Values.faucetAuthenticatoorAuthUrl }}"
       expectedAudience: {{ if .Values.faucetAuthenticatoorExpectedAudience }}"{{ .Values.faucetAuthenticatoorExpectedAudience }}"{{ else }}null{{ end }}
       expectedHost: {{ if .Values.faucetAuthenticatoorExpectedHost }}"{{ .Values.faucetAuthenticatoorExpectedHost }}"{{ else }}null{{ end }}
+      expectedService: {{ if .Values.faucetAuthenticatoorExpectedService }}"{{ .Values.faucetAuthenticatoorExpectedService }}"{{ else }}null{{ end }}
       requireLogin: {{ .Values.faucetAuthenticatoorRequireLogin }}
       concurrencyLimit: {{ .Values.faucetAuthenticatoorConcurrencyLimit }}
       grants:
         {{- range .Values.faucetAuthenticatoorGrants }}
-        - {{- if hasKey . "limitCount" }}
+        - duration: {{ .duration | default 0 }}
+          {{- if hasKey . "feature" }}
+          feature: {{ .feature | quote }}
+          {{- end }}
+          {{- if hasKey . "limitCount" }}
           limitCount: {{ .limitCount }}
           {{- end }}
           {{- if hasKey . "limitAmount" }}
           limitAmount: {{ .limitAmount }}
-          {{- end }}
-          {{- if hasKey . "duration" }}
-          duration: {{ .duration }}
           {{- end }}
           {{- if hasKey . "skipModules" }}
           skipModules: {{ toJson .skipModules }}
