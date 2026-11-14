@@ -101,7 +101,7 @@ grants: null
 #   services: ["all:all"]
 # - name: client-teams
 #   members: ["oidc/team:lighthouse", "oidc/team:geth"]
-#   services: [upgradoor, "spamoor:user*"]
+#   services: [assertoor, "spamoor:user*"]
 
 providerSecrets:
   # -- Existing Secret whose keys are mounted as files under
