@@ -22,6 +22,9 @@ spec:
         {{- end }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.providerSecrets.files }}
+        checksum/provider-secrets: {{ toJson .Values.providerSecrets.files | sha256sum }}
+        {{- end }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -72,6 +75,11 @@ spec:
             {{- if .Values.signing.previousKeys }}
             - name: keys-prev
               mountPath: /etc/authenticatoor/keys-prev
+              readOnly: true
+            {{- end }}
+            {{- if include "authenticatoor.providerSecretName" . }}
+            - name: provider-secrets
+              mountPath: /etc/authenticatoor/secrets
               readOnly: true
             {{- end }}
             {{- if .Values.extraVolumeMounts }}
@@ -132,6 +140,12 @@ spec:
           secret:
             secretName: {{ include "authenticatoor.previousKeysSecretName" . }}
             defaultMode: 0400
+        {{- end }}
+        {{- with include "authenticatoor.providerSecretName" . }}
+        - name: provider-secrets
+          secret:
+            secretName: {{ . }}
+            defaultMode: 0440
         {{- end }}
         {{- if .Values.extraVolumes }}
         {{- toYaml .Values.extraVolumes | nindent 8 }}
