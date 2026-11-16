@@ -194,6 +194,21 @@ entries:
     version: 0.0.1
   authenticatoor:
   - apiVersion: v2
+    created: "2026-11-16T14:17:22.954674517Z"
+    description: Issues short-lived RS256 JWTs for users authenticated by an upstream
+      reverse-proxy SSO. Public keys are published as a JWKS so any resource server
+      can validate the issued tokens locally.
+    digest: d811553b6f8dcedb84dc5abd71f8f3bdd8a8550ddeeba095f2b4ee570872d8d4
+    home: https://github.com/ethpandaops/service-authenticatoor
+    maintainers:
+    - email: pk910@pk910.de
+      name: pk910
+    name: authenticatoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/authenticatoor-0.2.0/authenticatoor-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2026-04-30T20:55:03.728149305Z"
     description: Issues short-lived RS256 JWTs for users authenticated by an upstream
       reverse-proxy SSO. Public keys are published as a JWKS so any resource server
@@ -14336,4 +14351,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-10-30T03:20:39.038896455Z"
+generated: "2026-11-16T14:17:22.955166581Z"
