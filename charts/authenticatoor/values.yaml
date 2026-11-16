@@ -42,7 +42,9 @@ scopePattern: ""
 # -- Token lifetime
 tokenTTL: "30m"
 
-# -- HTTP header carrying the authenticated user's email.
+# -- HTTP header carrying the authenticated user's email. Only used by the
+# Cloudflare Access provider the chart renders from `cloudflareAccess` while
+# `providers` is empty.
 userHeader: "Cf-Access-Authenticated-User-Email"
 
 # -- Hosts that /auth/login may redirect to via `return_to`.
@@ -57,6 +59,61 @@ cors:
   allowedOrigins: []
   # - "*.example.com"
 
+# -- Names of the providers offered to unauthenticated users, in this order.
+# One name sends them straight into that provider's login; several show the
+# selection page. Providers left out stay reachable at /<name>/login.
+# Empty offers all providers.
+authMode: []
+# - oidc
+# - cfaccess
+
+# -- Auth providers, passed to the service config as written. Each entry has
+# a unique `name`, a `type` (cloudflare | oidc | github | basic | any) and the
+# block of that type. Routes live under /<name>/ (login, callback, token).
+# Empty renders a single Cloudflare Access provider named `cfaccess` from the
+# `cloudflareAccess` values below, as chart versions before 0.2.0 did.
+# Secrets are referenced as files, see `providerSecrets`.
+providers: []
+# - name: cfaccess
+#   type: cloudflare
+#   cloudflareAccess:
+#     teamDomain: "<team>.cloudflareaccess.com"
+#     audTag: "<aud tag of the Access application>"
+#     teams: [panda]
+# - name: oidc
+#   type: oidc
+#   oidc:
+#     issuerURL: "https://idp.example.com/application/o/authenticatoor/"
+#     callbackURL: "https://auth.example.com/oidc/callback"
+#     clientId: "authenticatoor"
+#     clientSecretFile: "/etc/authenticatoor/secrets/oidc-client-secret"
+#     teamRules:
+#       - claim: groups
+#         prefix: "team:"
+
+# -- Access groups: which members may use which services. Not set (null)
+# leaves the `services` claim out of the tokens; a list, even an empty one,
+# turns the gate on and denies everything no group grants. Needs a service
+# version that knows `grants`.
+grants: null
+# - name: staff
+#   members: ["cfaccess/team:panda"]
+#   services: ["all:all"]
+# - name: client-teams
+#   members: ["oidc/team:lighthouse", "oidc/team:geth"]
+#   services: [assertoor, "spamoor:user*"]
+
+providerSecrets:
+  # -- Existing Secret whose keys are mounted as files under
+  # /etc/authenticatoor/secrets. Mutually exclusive with `files`.
+  existingSecret: ""
+  # -- Files the chart writes to a Secret and mounts under
+  # /etc/authenticatoor/secrets (file name: content), e.g. an OIDC client
+  # secret or an htpasswd file.
+  files: {}
+  # oidc-client-secret: "..."
+
+# Used only while `providers` is empty.
 cloudflareAccess:
   # -- Verify the Cf-Access-Jwt-Assertion header against Cloudflare's JWKS.
   # Recommended even when the service is unreachable outside the CF tunnel.
@@ -140,7 +197,6 @@ config: |
   scopePattern: "{{ .Values.scopePattern }}"
   {{- end }}
   tokenTTL: "{{ .Values.tokenTTL }}"
-  userHeader: "{{ .Values.userHeader }}"
   {{- if .Values.allowedReturnHosts }}
   allowedReturnHosts:
     {{- range .Values.allowedReturnHosts }}
@@ -156,15 +212,35 @@ config: |
       {{- end }}
   {{- end }}
 
-  cloudflareAccess:
-    verifyJWT: {{ .Values.cloudflareAccess.verifyJWT }}
-    {{- if .Values.cloudflareAccess.teamDomain }}
-    teamDomain: "{{ .Values.cloudflareAccess.teamDomain }}"
+  {{- if .Values.authMode }}
+  authMode:
+    {{- range .Values.authMode }}
+    - {{ . | quote }}
     {{- end }}
-    {{- if .Values.cloudflareAccess.audTag }}
-    audTag: "{{ .Values.cloudflareAccess.audTag }}"
+  {{- end }}
+
+  providers:
+    {{- if .Values.providers }}
+    {{- toYaml .Values.providers | nindent 4 }}
+    {{- else }}
+    - name: cfaccess
+      type: cloudflare
+      cloudflareAccess:
+        verifyJWT: {{ .Values.cloudflareAccess.verifyJWT }}
+        {{- if .Values.cloudflareAccess.teamDomain }}
+        teamDomain: "{{ .Values.cloudflareAccess.teamDomain }}"
+        {{- end }}
+        {{- if .Values.cloudflareAccess.audTag }}
+        audTag: "{{ .Values.cloudflareAccess.audTag }}"
+        {{- end }}
+        jwtHeader: "{{ .Values.cloudflareAccess.jwtHeader }}"
+        userHeader: "{{ .Values.userHeader }}"
     {{- end }}
-    jwtHeader: "{{ .Values.cloudflareAccess.jwtHeader }}"
+
+  {{- if kindIs "slice" .Values.grants }}
+  grants:
+    {{- toYaml .Values.grants | nindent 4 }}
+  {{- end }}
 
   signing:
     mode: rs256
