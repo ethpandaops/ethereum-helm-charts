@@ -1,7 +1,7 @@
 
 # powfaucet
 
-![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.3.0](https://img.shields.io/badge/Version-1.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 PoW Faucet for EVM chains
 
@@ -47,7 +47,8 @@ faucetPowRewardPerHash: 500000000000000000 # 0.5 ETH
 | faucetAuthenticatoorEnabled | bool | `false` | Enable authenticatoor module (login via ethpandaops/service-authenticatoor) |
 | faucetAuthenticatoorExpectedAudience | string | `""` | Authenticatoor module: expected `aud` claim Authenticatoor derives the audience from its issuer URL (parent zone of the issuer) unless overridden. |
 | faucetAuthenticatoorExpectedHost | string | `""` | Authenticatoor module: optional defense-in-depth host pin matched against the token `scope` claim (DNS-label glob; tokens without scope claim are accepted regardless). Use the faucet's public hostname. |
-| faucetAuthenticatoorGrants | list | `[]` | Authenticatoor module: recurring grants applied on session start (evaluated in order; later grants override perks of earlier ones). Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message. |
+| faucetAuthenticatoorExpectedService | string | `""` | Authenticatoor module: service name the token's `services` claim must allow (e.g. "faucet"). Tokens without a services claim are accepted. Empty: no service check. Needed for grants with a `feature`. |
+| faucetAuthenticatoorGrants | list | `[]` | Authenticatoor module: recurring grants applied on session start (evaluated in order; later grants override perks of earlier ones). Each entry supports: limitCount, limitAmount, duration, skipModules, rewardFactor, overrideMaxDrop, required, message, feature. A grant with `feature` applies only to logins whose token holds that feature of faucetAuthenticatoorExpectedService. |
 | faucetAuthenticatoorInfoHtml | string | `""` | Authenticatoor module: HTML shown in the login info popover (null/empty to omit) |
 | faucetAuthenticatoorLoginLabel | string | `""` | Authenticatoor module: frontend label for the login button (null/empty for default) |
 | faucetAuthenticatoorLoginLogo | string | `""` | Authenticatoor module: URL/path to the login button logo (null/empty to omit) |
