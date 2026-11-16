@@ -1,7 +1,7 @@
 
 # authenticatoor
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-proxy SSO. Public keys are published as a JWKS so any resource server can validate the issued tokens locally.
 
@@ -15,6 +15,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | allowedReturnHosts | list | `[]` | Hosts that /auth/login may redirect to via `return_to`. Same DNS-label glob syntax as scopePattern. Defaults to ["*.<parent zone of issuer>"]. |
 | annotations | object | `{}` | Annotations for the Deployment |
 | audience | list | `[]` | The "aud" claim. Verifiers must accept this value. Defaults to the parent zone of the issuer host. |
+| authMode | list | `[]` | Names of the providers offered to unauthenticated users, in this order. One name sends them straight into that provider's login; several show the selection page. Providers left out stay reachable at /<name>/login. Empty offers all providers. |
 | cloudflareAccess.audTag | string | `""` | AUD tag of the CF Access application. Optional. When set, assertions whose aud doesn't match are rejected. When empty, the audience claim is not checked — assertions from any application in the same CF Access team are accepted (signature + issuer still tie them to the team). |
 | cloudflareAccess.jwtHeader | string | `"Cf-Access-Jwt-Assertion"` | Header carrying the assertion JWT. |
 | cloudflareAccess.teamDomain | string | `"ethpandaops.cloudflareaccess.com"` | Cloudflare team domain (e.g. "<team>.cloudflareaccess.com"). Required when verifyJWT is true. |
@@ -32,6 +33,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
+| grants | string | `nil` | Access groups: which members may use which services. Not set (null) leaves the `services` claim out of the tokens; a list, even an empty one, turns the gate on and denies everything no group grants. Needs a service version that knows `grants`. |
 | httpPort | int | `8080` | HTTP port for the main listener (auth endpoints + JWKS + healthz) |
 | image.pullPolicy | string | `"Always"` | authenticatoor container pull policy |
 | image.repository | string | `"ethpandaops/service-authenticatoor"` | authenticatoor container image repository |
@@ -61,6 +63,9 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | podAnnotations | object | `{}` | Pod annotations |
 | podLabels | object | `{}` | Pod labels |
 | priorityClassName | string | `nil` | Pod priority class |
+| providerSecrets.existingSecret | string | `""` | Existing Secret whose keys are mounted as files under /etc/authenticatoor/secrets. Mutually exclusive with `files`. |
+| providerSecrets.files | object | `{}` | Files the chart writes to a Secret and mounts under /etc/authenticatoor/secrets (file name: content), e.g. an OIDC client secret or an htpasswd file. |
+| providers | list | `[]` | Auth providers, passed to the service config as written. Each entry has a unique `name`, a `type` (cloudflare | oidc | github | basic | any) and the block of that type. Routes live under /<name>/ (login, callback, token). Empty renders a single Cloudflare Access provider named `cfaccess` from the `cloudflareAccess` values below, as chart versions before 0.2.0 did. Secrets are referenced as files, see `providerSecrets`. |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
 | replicas | int | `1` | Number of replicas |
 | resources | object | `{}` | Resource requests and limits |
@@ -89,7 +94,7 @@ Issues short-lived RS256 JWTs for users authenticated by an upstream reverse-pro
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | updateStrategy | object | `{"type":"Recreate"}` | Update strategy for the Deployment. Defaults to Recreate so the new pod can attach the signing-key PVC after the old pod releases it (the typical RWO storage class doesn't allow simultaneous attach). |
-| userHeader | string | `"Cf-Access-Authenticated-User-Email"` | HTTP header carrying the authenticated user's email. |
+| userHeader | string | `"Cf-Access-Authenticated-User-Email"` | HTTP header carrying the authenticated user's email. Only used by the Cloudflare Access provider the chart renders from `cloudflareAccess` while `providers` is empty. |
 
 # Example
 

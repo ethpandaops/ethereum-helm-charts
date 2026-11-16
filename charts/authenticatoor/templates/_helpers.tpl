@@ -83,6 +83,21 @@ active key.
 {{- end -}}
 
 {{/*
+Name of the Secret mounted under /etc/authenticatoor/secrets, empty when
+there is none.
+*/}}
+{{- define "authenticatoor.providerSecretName" -}}
+{{- if and .Values.providerSecrets.existingSecret .Values.providerSecrets.files -}}
+{{- fail "providerSecrets.existingSecret and providerSecrets.files are mutually exclusive" -}}
+{{- end -}}
+{{- if .Values.providerSecrets.existingSecret -}}
+{{ .Values.providerSecrets.existingSecret }}
+{{- else if .Values.providerSecrets.files -}}
+{{ include "authenticatoor.fullname" . }}-provider-secrets
+{{- end -}}
+{{- end -}}
+
+{{/*
 Name of the PersistentVolumeClaim holding the signing key.
 */}}
 {{- define "authenticatoor.pvcName" -}}
