@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.16
+version: 0.2.17
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -64,7 +64,7 @@ dependencies:
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: prysm.enabled
 - name: silver
-  version: "0.1.0"
+  version: "0.1.1"
   repository: "file://../silver"
   condition: silver.enabled
 - name: teku

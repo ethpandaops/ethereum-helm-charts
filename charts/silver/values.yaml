@@ -160,26 +160,34 @@ imagePullSecrets: []
 annotations: {}
 
 # -- Startup probe. Allows up to 30 minutes for the first checkpoint state download.
+# HTTP rather than tcpSocket: Silver's API can accept connections while answering nothing.
 # @default -- See `values.yaml`
 startupProbe:
-  tcpSocket:
+  httpGet:
+    path: /eth/v1/node/version
     port: http-api
   periodSeconds: 10
+  timeoutSeconds: 5
   failureThreshold: 180
 
 # -- Liveness probe
 # @default -- See `values.yaml`
 livenessProbe:
-  tcpSocket:
+  httpGet:
+    path: /eth/v1/node/version
     port: http-api
   periodSeconds: 120
+  timeoutSeconds: 5
 
-# -- Readiness probe
+# -- Readiness probe. `/eth/v1/node/health` answers 206 while syncing, so a syncing node
+# stays ready, like the other consensus client charts.
 # @default -- See `values.yaml`
 readinessProbe:
-  tcpSocket:
+  httpGet:
+    path: /eth/v1/node/health
     port: http-api
   periodSeconds: 10
+  timeoutSeconds: 5
 
 # -- UDP discovery port
 p2pPort: 9000
@@ -190,8 +198,9 @@ quicPort: 9001
 # -- Beacon API port. Silver also serves `/metrics` on this port.
 httpPort: 5052
 
-# -- Node selector for pods
-nodeSelector: {}
+# -- Node selector for pods. Silver's image is linux/amd64 only.
+nodeSelector:
+  kubernetes.io/arch: amd64
 
 persistence:
   # -- Uses an EmptyDir when not enabled
@@ -318,6 +327,9 @@ extraVolumeMounts: []
 
 # -- Additional ports. Useful when using extraContainers
 extraPorts: []
+
+# -- Silver's log filter, passed as `RUST_LOG`. Without it Silver logs only errors.
+logLevel: info
 
 # -- Additional env variables
 extraEnv: []
