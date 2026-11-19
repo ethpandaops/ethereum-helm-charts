@@ -104,17 +104,17 @@ defaultCommandArgsTemplate: >
   --p2p.port={{ include "ethrex.p2pPort" . }}
   {{- end }}
   {{- end }}
-  --http.addr=0.0.0.0
+  --http.addr={{ include "ethrex.bindAddr" . }}
   --http.port={{ .Values.httpPort }}
   --ws.enabled
-  --ws.addr=0.0.0.0
+  --ws.addr={{ include "ethrex.bindAddr" . }}
   --ws.port={{ .Values.wsPort }}
   --authrpc.jwtsecret=/secrets/jwt.hex
-  --authrpc.addr=0.0.0.0
+  --authrpc.addr={{ include "ethrex.bindAddr" . }}
   --authrpc.port={{ .Values.authPort }}
   {{- if .Values.metricsPort }}
   --metrics
-  --metrics.addr=0.0.0.0
+  --metrics.addr={{ include "ethrex.bindAddr" . }}
   --metrics.port={{ .Values.metricsPort }}
   {{- end }}
   {{- if .Values.devnet.enabled }}
@@ -170,7 +170,10 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# -- Use the host network namespace
+# -- Use the host network namespace.
+# With hostNetwork, the HTTP, WebSocket, engine and metrics listeners bind the pod IP
+# (the node's InternalIP) instead of 0.0.0.0, so they are not exposed on the node's
+# other addresses, such as a public IP. P2P is unaffected.
 # Required for ethrex when using p2pNodePort because ethrex doesn't support separate bind/advertise addresses yet
 # See: https://github.com/lambdaclass/ethrex/issues/5425
 hostNetwork: false

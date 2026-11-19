@@ -84,3 +84,16 @@ It needs to be namespace prefixed to avoid naming conflicts when using the same 
 {{- print .Values.replicas }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Address the HTTP, WebSocket, engine and metrics listeners bind. With hostNetwork the pod
+shares the node's interfaces, so bind the pod IP (the node's InternalIP) rather than every
+address on the host. Otherwise 0.0.0.0 inside the pod's own network namespace.
+*/}}
+{{- define "ethrex.bindAddr" -}}
+{{- if .Values.hostNetwork -}}
+$(POD_IP)
+{{- else -}}
+0.0.0.0
+{{- end -}}
+{{- end }}
