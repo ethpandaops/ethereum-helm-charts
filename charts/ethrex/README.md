@@ -1,7 +1,7 @@
 
 # ethrex
 
-![Version: 0.1.3](https://img.shields.io/badge/Version-0.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethrex is an Ethereum execution client developed by Lambda Class. It is written in Rust and designed to be modular, efficient, and fully compatible with Ethereum's Engine API for connecting to consensus layer clients.
 
@@ -41,7 +41,7 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
 | homeDir | string | `"/data"` | Home directory for ethrex |
-| hostNetwork | bool | `false` | Use the host network namespace Required for ethrex when using p2pNodePort because ethrex doesn't support separate bind/advertise addresses yet See: https://github.com/lambdaclass/ethrex/issues/5425 |
+| hostNetwork | bool | `false` | Use the host network namespace. With hostNetwork, the HTTP, WebSocket, engine and metrics listeners bind the pod IP (the node's InternalIP) instead of 0.0.0.0, so they are not exposed on the node's other addresses, such as a public IP. P2P is unaffected. Required for ethrex when using p2pNodePort because ethrex doesn't support separate bind/advertise addresses yet See: https://github.com/lambdaclass/ethrex/issues/5425 |
 | httpPort | int | `8545` | HTTP Port |
 | image.pullPolicy | string | `"IfNotPresent"` | ethrex container pull policy |
 | image.repository | string | `"ghcr.io/lambdaclass/ethrex"` | ethrex container image repository |
