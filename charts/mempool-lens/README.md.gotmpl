@@ -1,0 +1,42 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+
+# Usage
+
+Runs `lens --addr 0.0.0.0:<httpPort> --rpc <rpcUrl> --proxy` and serves the
+UI on the configured port. `rpcUrl` must point at the WebSocket endpoint of a
+geth build that has the `txtracker` namespace enabled
+(`geth --ws --ws.api txtracker,peerstats,admin`); without `peerstats`/`admin`
+the Peers tab columns stay empty but the rest of the UI works.
+
+In proxy mode (default) the browser talks only to the lens, which proxies the
+geth WebSocket via `/ws` — recommended behind an ingress. Auth tokens, method
+allow-lists and a GeoLite2 database can be wired up through `extraArgs` (and
+`extraVolumes`/`extraVolumeMounts` for the mmdb file).
+
+Example values:
+```yaml
+rpcUrl: ws://geth-instrumented:8546
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: mempool-lens.example.io
+      paths:
+        - path: /
+          pathType: Prefix
+```
+
+{{ template "chart.valuesSection" . }}
