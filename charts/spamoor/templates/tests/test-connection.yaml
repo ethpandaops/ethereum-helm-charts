@@ -4,8 +4,6 @@ metadata:
   name: "{{ include "spamoor.fullname" . }}-test"
   labels:
     {{- include "spamoor.labels" . | nindent 4 }}
-    helm.sh/chart: {{ include "spamoor.chart" . }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
     "helm.sh/hook": test
 spec:
