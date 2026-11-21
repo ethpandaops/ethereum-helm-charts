@@ -1,0 +1,15 @@
+apiVersion: v2
+name: otterscan
+description: >
+  An open-source, fast, local, laptop-friendly Ethereum block explorer.
+  It is designed to be run locally with an archive node companion, more specifically, with Erigon.
+home: https://github.com/wmitsuda/otterscan
+sources:
+  - https://github.com/wmitsuda/otterscan
+type: application
+version: 0.1.0
+maintainers:
+  - name: skylenet
+    email: rafael@skyle.net
+  - name: awilson
+    email: ahwilson712@gmail.com
