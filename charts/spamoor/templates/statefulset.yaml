@@ -24,6 +24,7 @@ spec:
         {{- end }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -67,6 +68,11 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: SPAMOOR_PRIVKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "spamoor.privkeySecretName" . }}
+                  key: {{ include "spamoor.privkeySecretKey" . }}
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
