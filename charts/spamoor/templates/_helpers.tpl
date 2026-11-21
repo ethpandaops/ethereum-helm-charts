@@ -64,3 +64,14 @@ Create the name of the service account to use
 {{- define "spamoor.httpPort" -}}
 {{- printf "8080" -}}
 {{- end -}}
+
+{{/*
+Secret and key holding the wallet private key
+*/}}
+{{- define "spamoor.privkeySecretName" -}}
+{{- default (printf "%s-privkey" (include "spamoor.fullname" .)) .Values.existingSecret }}
+{{- end }}
+
+{{- define "spamoor.privkeySecretKey" -}}
+{{- if .Values.existingSecret }}{{ .Values.existingSecretKey }}{{ else }}privkey{{ end }}
+{{- end }}

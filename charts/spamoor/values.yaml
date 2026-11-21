@@ -160,8 +160,17 @@ extraPorts: []
 # -- Additional env variables
 extraEnv: []
 
-# -- Required private key for the main wallet
+# -- Private key for the main wallet. The chart stores it in a Secret and passes
+# it to spamoor via the SPAMOOR_PRIVKEY env var, so it never appears in the pod spec.
+# Ignored when `existingSecret` is set.
 privateKey: ""
+
+# -- Existing Secret holding the private key under `existingSecretKey`.
+# When set, the chart does not create its own Secret for the key.
+existingSecret: ""
+
+# -- Key in `existingSecret` that holds the private key
+existingSecretKey: privkey
 
 # -- RPC endpoint to use for transactions
 rpcEndpoints:
@@ -183,7 +192,7 @@ defaultSpamoorArgsTemplate: |
   - --db=/data/spamoor.sqlite
   - --rpchost-file=/config/rpchosts.txt
   - --port={{ .Values.httpPort }}
-  - --privkey={{ .Values.privateKey }}
+  - --privkey=$(SPAMOOR_PRIVKEY)
   {{- if gt (len .Values.customArgs) 0 }}
   {{- range .Values.customArgs }}
   - {{ tpl . $ }}
