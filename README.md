@@ -104,6 +104,7 @@ Tooling
 - [`tracoor-agent`](charts/tracoor-agent) - An Ethereum beacon data and execution trace explorer in agent mode.
 - [`tracoor-server`](charts/tracoor-server) - An Ethereum beacon data and execution trace explorer in server mode.
 - [`tracoor-single`](charts/tracoor-single) - An Ethereum beacon data and execution trace explorer in single mode.
+- [`upgradoor`](charts/upgradoor) - Controller that staggers docker image rolls, package upgrades and reboots across the hosts of a devnet, gated on network health.
 - [`web3signer`](charts/web3signer) - An open-source remote signing service.
 - [`xatu-cannon`](charts/xatu-cannon) - Ethereum data collection tool that runs along side a [Ethereum consensus client](https://ethereum.org/en/developers/docs/nodes-and-clients/#consensus-clients) and collects data via the consensus client's [Beacon API](https://ethereum.github.io/beacon-APIs/).
 - [`xatu-consumoor`](charts/xatu-consumoor) - Xatu data consumer that pulls events from Kafka and inserts them into downstream sources like Clickhouse.
