@@ -6,3 +6,6 @@ publicUrls:
   - https://upgradoor.chart-example.local
 beaconEndpoints:
   - http://beacon.chart-example.local:5052
+# No auth provider in chart testing.
+extraArgs:
+  - --allow-open-api
