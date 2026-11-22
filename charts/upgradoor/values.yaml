@@ -39,6 +39,10 @@ authProviderUrl: ""
 beaconEndpoints: []
 # - http://beacon-node:5052
 
+# -- Validator ranges inventory the hosts' validators come from; empty gives no host validators
+validatorRangesUrl: ""
+# validatorRangesUrl: https://config.example.com/api/v1/nodes/validator-ranges
+
 # -- Default scheduler settings, passed as `--default-setting=<key>=<value>`. Settings changed in the UI win.
 settings: {}
 # maxUnavailablePercent: 10

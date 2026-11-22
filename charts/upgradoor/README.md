@@ -93,6 +93,7 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | trustForwardedHeaders | bool | `true` | Take the client address from X-Forwarded-For (behind an ingress) |
 | updateStrategy | object | `{"type":"Recreate"}` | Update strategy for the Deployment. Recreate, so the new pod can attach the data volume. |
+| validatorRangesUrl | string | `""` | Validator ranges inventory the hosts' validators come from; empty gives no host validators |
 
 # Example
 

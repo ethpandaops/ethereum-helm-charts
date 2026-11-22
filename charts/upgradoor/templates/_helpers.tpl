@@ -157,6 +157,9 @@ Arguments of the upgradoor container
 {{- range .Values.beaconEndpoints }}
 - {{ printf "--beacon-endpoint=%s" . | quote }}
 {{- end }}
+{{- with .Values.validatorRangesUrl }}
+- {{ printf "--validator-ranges-url=%s" . | quote }}
+{{- end }}
 {{- if .Values.trustForwardedHeaders }}
 - --trust-forwarded-headers
 {{- end }}
