@@ -1,0 +1,11 @@
+apiVersion: v2
+name: upgradoor
+description: Per-devnet controller that staggers docker image rolls, package upgrades and reboots across the hosts of an Ethereum devnet, gated on network health.
+home: https://github.com/ethpandaops/upgradoor
+sources:
+  - https://github.com/ethpandaops/upgradoor
+type: application
+version: 0.1.0
+maintainers:
+  - name: pk910
+    email: pk910@pk910.de

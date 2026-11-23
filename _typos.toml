@@ -6,4 +6,6 @@ extend-ignore-re = [
     "supress_rpc_check",
     # Ignore IPFS CIDs (Content Identifiers)
     "Qm[a-zA-Z0-9]{44}",
+    # Ignore long base64url keys (e.g. ML-DSA public keys)
+    "[A-Za-z0-9_-]{512,}",
 ]

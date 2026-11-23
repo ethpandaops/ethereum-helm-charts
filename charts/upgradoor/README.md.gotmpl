@@ -1,0 +1,60 @@
+
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+# Example
+
+`network`, `signerPublicKey`, `beaconEndpoints` and a controller seed are required:
+
+```yaml
+network: my-devnet-0
+signerPublicKey: "<output of upgradoor-controller keygen signer-pubkey>"
+controllerSeed: "<path:/secrets/services/services.enc.yaml#ethereum | jsonPath {.testnets.my-devnets.upgradoor_controller_seed}>"
+publicUrls:
+  - https://upgradoor.my-devnet-0.example.com
+beaconEndpoints:
+  - http://beacon-node:5052
+authProviderUrl: https://auth.my-devnet-0.example.com
+
+settings:
+  maxUnavailablePercent: 10
+  policyReboot: manual
+
+ingress:
+  enabled: true
+  className: ingress-nginx-public
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+  hosts:
+    - host: upgradoor.my-devnet-0.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+```
+
+The controller seed is mounted from a Secret at `/etc/upgradoor/controller-seed/seed`.
+To change it, change the value and redeploy.
+
+`registry.auth` (or `registry.existingSecret`, e.g. a `kubernetes.io/dockerconfigjson` pull secret)
+gives the controller credentials for looking up private images.
+
+`/metrics` shares the port with the API. With `metrics.blockOnIngress` the Ingress routes `/metrics`
+to a Service without endpoints, which ingress-nginx answers with 503. Check other ingress controllers
+with `curl -si https://<host>/metrics`.
+
+Agents upload their package inventory in one request; on ingress-nginx raise
+`nginx.ingress.kubernetes.io/proxy-body-size` (e.g. `8m`).
+
+More details: <https://github.com/ethpandaops/upgradoor>.

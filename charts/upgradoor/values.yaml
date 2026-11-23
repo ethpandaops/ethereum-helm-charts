@@ -1,0 +1,318 @@
+# -- Overrides the chart's name
+nameOverride: ""
+
+# -- Overrides the chart's computed fullname
+fullnameOverride: ""
+
+image:
+  # -- upgradoor container image repository
+  repository: ghcr.io/ethpandaops/upgradoor
+  # -- upgradoor container image tag
+  tag: latest
+  # -- upgradoor container pull policy
+  pullPolicy: Always
+
+# -- HTTP port for the agent API, user API, web UI, /healthz and /metrics
+httpPort: 8080
+
+# -- Name of the devnet this controller manages. Required.
+network: ""
+
+# -- Signer public key of the devnet (`upgradoor-controller keygen signer-pubkey`). Required.
+signerPublicKey: ""
+
+# -- Controller seed of the devnet group (at least 32 characters, or a vault-plugin reference).
+# Written to a Secret. Required unless controllerSeedExistingSecret is set.
+controllerSeed: ""
+
+# -- Existing Secret holding the controller seed under the key `seed`
+controllerSeedExistingSecret: ""
+
+# -- Public base URLs agents reach the controller under
+publicUrls: []
+# - https://upgradoor.example.com
+
+# -- Authenticatoor URL. Required unless allowOpenApi is set.
+authProviderUrl: ""
+
+# -- Serve the user API without login (everything allowed). Only for tests.
+allowOpenApi: false
+
+# -- Beacon API endpoints for the network health gate. Required.
+beaconEndpoints: []
+# - http://beacon-node:5052
+
+# -- Validator ranges inventory the hosts' validators come from; empty gives no host validators
+validatorRangesUrl: ""
+# validatorRangesUrl: https://config.example.com/api/v1/nodes/validator-ranges
+
+# -- Default scheduler settings, passed as `--default-setting=<key>=<value>`. Settings changed in the UI win.
+settings: {}
+# maxUnavailablePercent: 10
+# maxLeasedPercent: 10
+# policyImage: manual
+# policyReboot: manual
+# policyClients: {lighthouse: auto}
+# leaseTtl: 30m
+
+# -- Take the client address from X-Forwarded-For (behind an ingress)
+trustForwardedHeaders: true
+
+registry:
+  # -- Docker config.json (`{"auths": {...}}`) for the registry lookups, written to a Secret
+  auth: ""
+  # -- Existing Secret holding the Docker config.json under the key `.dockerconfigjson`
+  existingSecret: ""
+  # -- Extra CA bundle (PEM) for private registries
+  caBundle: ""
+  # -- Registry hosts looked up without TLS
+  plainHttp: []
+  # -- Allow lookups at registries on private, loopback and link-local addresses
+  allowPrivate: false
+
+logging:
+  # -- Log level: debug | info | warn | error
+  level: info
+  # -- Log format: text | json
+  format: json
+
+# -- Extra args for the upgradoor container
+extraArgs: []
+
+# -- Command replacement for the upgradoor container
+customCommand: []
+
+persistence:
+  # -- Keep the SQLite database on a volume claim of the StatefulSet. Uses an emptyDir when disabled.
+  enabled: true
+  # -- Use an existing PersistentVolumeClaim instead of provisioning one
+  existingClaim: ""
+  # -- Access modes for the PersistentVolumeClaim
+  accessModes:
+    - ReadWriteOnce
+  # -- Requested size for the PersistentVolumeClaim
+  size: 1Gi
+  # -- Storage class name. Uses the cluster default when null.
+  storageClassName: null
+  # -- Annotations for the PersistentVolumeClaim
+  annotations: {}
+
+metrics:
+  # -- Route /metrics on the Ingress to a Service without endpoints, so it is not public
+  blockOnIngress: true
+
+ingress:
+  # -- Ingress resource for the HTTP API and web UI
+  enabled: false
+  # -- IngressClass that will be used to implement the Ingress
+  className: ""
+  # -- Annotations for Ingress
+  annotations: {}
+    # nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+  # -- Ingress hosts
+  hosts:
+    - host: chart-example.local
+      paths: []
+      # - path: /
+      #   pathType: Prefix
+  # -- Ingress TLS
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  # -- Service type
+  type: ClusterIP
+
+# -- Affinity configuration for pods
+affinity: {}
+
+# -- Image pull secrets for Docker images
+imagePullSecrets: []
+
+# -- Annotations for the StatefulSet
+annotations: {}
+
+# -- Liveness probe
+# @default -- See `values.yaml`
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 30
+
+# -- Readiness probe
+# @default -- See `values.yaml`
+readinessProbe:
+  httpGet:
+    path: /healthz
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+# -- Node selector for pods
+nodeSelector: {}
+
+# -- Pod labels
+podLabels: {}
+
+# -- Pod annotations
+podAnnotations: {}
+
+# -- Pod priority class
+priorityClassName: null
+
+# -- Resource requests and limits
+resources: {}
+# limits:
+#   cpu: 500m
+#   memory: 512Mi
+# requests:
+#   cpu: 50m
+#   memory: 128Mi
+
+# -- The security context for pods
+# @default -- See `values.yaml`
+securityContext:
+  fsGroup: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+  runAsUser: 10001
+
+# -- The security context for containers
+# @default -- See `values.yaml`
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- How long to wait until the pod is forcefully terminated
+terminationGracePeriodSeconds: 30
+
+# -- Tolerations for pods
+## ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# -- Topology Spread Constraints for pods
+## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+topologySpreadConstraints: []
+
+# -- Update strategy for the StatefulSet. With one replica the old pod is gone before the new one starts.
+updateStrategy:
+  type: RollingUpdate
+
+# -- Pod management policy of the StatefulSet
+podManagementPolicy: OrderedReady
+
+# -- Additional init containers
+initContainers: []
+# - name: my-init-container
+#   image: busybox:latest
+#   command: ['sh', '-c', 'echo hello']
+
+# -- Additional containers
+extraContainers: []
+
+# -- Additional volumes
+extraVolumes: []
+
+# -- Additional volume mounts
+extraVolumeMounts: []
+
+# -- Additional ports on the pod (in addition to http)
+extraPodPorts: []
+
+# -- Additional ports on the Service (in addition to http)
+extraPorts: []
+
+# -- Additional env variables
+extraEnv: []
+# - name: TZ
+#   value: UTC
+
+serviceMonitor:
+  # -- If true, a ServiceMonitor CRD is created for a prometheus operator
+  # https://github.com/coreos/prometheus-operator
+  enabled: false
+  # -- Path to scrape
+  path: /metrics
+  # -- Alternative namespace for ServiceMonitor
+  namespace: null
+  # -- Additional ServiceMonitor labels
+  labels: {}
+  # -- Additional ServiceMonitor annotations
+  annotations: {}
+  # -- ServiceMonitor scrape interval
+  interval: 1m
+  # -- ServiceMonitor scheme
+  scheme: http
+  # -- ServiceMonitor TLS configuration
+  tlsConfig: {}
+  # -- ServiceMonitor scrape timeout
+  scrapeTimeout: 30s
+  # -- ServiceMonitor relabelings
+  relabelings: []
+
+prometheusRule:
+  # -- If true, a PrometheusRule CRD is created for a prometheus operator
+  enabled: false
+  # -- Alternative namespace for PrometheusRule
+  namespace: null
+  # -- Additional PrometheusRule labels
+  labels: {}
+  # -- Alert rules. `expr` is rendered as a template.
+  # @default -- See `values.yaml`
+  rules:
+    - alert: UpgradoorDown
+      expr: 'absent(up{job="{{ include "upgradoor.fullname" . }}", namespace="{{ .Release.Namespace }}"} == 1)'
+      for: 10m
+      labels:
+        severity: warning
+      annotations:
+        summary: The upgradoor controller is down or not scraped.
+        description: "No healthy scrape target for the upgradoor controller {{ $labels.namespace }}/{{ $labels.job }} for 10 minutes."
+    - alert: UpgradoorHostsStale
+      expr: upgradoor_hosts_stale > 0
+      for: 15m
+      labels:
+        severity: warning
+      annotations:
+        summary: upgradoor hosts stopped syncing.
+        description: "{{ $value }} host(s) have not synced with the upgradoor controller for more than 15 minutes."
+    - alert: UpgradoorNetworkGateClosed
+      expr: upgradoor_network_gate_ok == 0
+      for: 30m
+      labels:
+        severity: warning
+      annotations:
+        summary: The upgradoor network gate is closed.
+        description: Participation or finality has been below the configured floor for 30 minutes; rollouts are waiting.
+    - alert: UpgradoorRolloutHalted
+      expr: upgradoor_rollouts{state="halted"} > 0
+      for: 5m
+      labels:
+        severity: warning
+      annotations:
+        summary: An upgradoor rollout is halted.
+        description: "{{ $value }} rollout(s) are halted after a failure and need a retry, skip or abort."
+    - alert: UpgradoorRebootPending
+      expr: upgradoor_hosts_reboot_required > 0
+      for: 7d
+      labels:
+        severity: info
+      annotations:
+        summary: Hosts are waiting for a reboot.
+        description: "{{ $value }} host(s) have required a reboot for more than 7 days."

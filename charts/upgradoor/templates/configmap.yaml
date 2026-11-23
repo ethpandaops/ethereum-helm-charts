@@ -1,0 +1,11 @@
+{{- if .Values.registry.caBundle }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "upgradoor.fullname" . }}-registry-ca
+  labels:
+    {{- include "upgradoor.labels" . | nindent 4 }}
+data:
+  ca.crt: |
+    {{- .Values.registry.caBundle | nindent 4 }}
+{{- end }}
