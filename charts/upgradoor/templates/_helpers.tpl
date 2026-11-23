@@ -125,6 +125,9 @@ Required values
 {{- if not .Values.beaconEndpoints }}
 {{- fail "upgradoor: beaconEndpoints is required" }}
 {{- end }}
+{{- if not (or .Values.authProviderUrl .Values.allowOpenApi) }}
+{{- fail "upgradoor: set authProviderUrl, or allowOpenApi for an API without login" }}
+{{- end }}
 {{- if eq (empty .Values.controllerSeed) (empty .Values.controllerSeedExistingSecret) }}
 {{- fail "upgradoor: set exactly one of controllerSeed and controllerSeedExistingSecret" }}
 {{- end }}
@@ -153,6 +156,9 @@ Arguments of the upgradoor container
 {{- end }}
 {{- with .Values.authProviderUrl }}
 - {{ printf "--auth-provider-url=%s" . | quote }}
+{{- end }}
+{{- if .Values.allowOpenApi }}
+- --allow-open-api
 {{- end }}
 {{- range .Values.beaconEndpoints }}
 - {{ printf "--beacon-endpoint=%s" . | quote }}

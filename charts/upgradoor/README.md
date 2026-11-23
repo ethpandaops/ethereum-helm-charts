@@ -16,8 +16,9 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
+| allowOpenApi | bool | `false` | Serve the user API without login (everything allowed). Only for tests. |
 | annotations | object | `{}` | Annotations for the Deployment |
-| authProviderUrl | string | `""` | Authenticatoor URL. When empty, the user API is open. |
+| authProviderUrl | string | `""` | Authenticatoor URL. Required unless allowOpenApi is set. |
 | beaconEndpoints | list | `[]` | Beacon API endpoints for the network health gate. Required. |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
 | controllerSeed | string | `""` | Controller seed of the devnet group (at least 32 characters, or a vault-plugin reference). Written to a Secret. Required unless controllerSeedExistingSecret is set. |

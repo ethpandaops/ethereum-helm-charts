@@ -32,8 +32,11 @@ controllerSeedExistingSecret: ""
 publicUrls: []
 # - https://upgradoor.example.com
 
-# -- Authenticatoor URL. When empty, the user API is open.
+# -- Authenticatoor URL. Required unless allowOpenApi is set.
 authProviderUrl: ""
+
+# -- Serve the user API without login (everything allowed). Only for tests.
+allowOpenApi: false
 
 # -- Beacon API endpoints for the network health gate. Required.
 beaconEndpoints: []
@@ -47,7 +50,10 @@ validatorRangesUrl: ""
 settings: {}
 # maxUnavailablePercent: 10
 # maxLeasedPercent: 10
+# policyImage: manual
 # policyReboot: manual
+# policyClients: {lighthouse: auto}
+# actionPolicies: {security-upgrades: auto}
 # leaseTtl: 30m
 
 # -- Take the client address from X-Forwarded-For (behind an ingress)
