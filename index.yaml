@@ -13500,6 +13500,23 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/tracoor-single-0.0.1/tracoor-single-0.0.1.tgz
     version: 0.0.1
+  upgradoor:
+  - apiVersion: v2
+    created: "2026-11-23T13:26:06.527935689Z"
+    description: Per-devnet controller that staggers docker image rolls, package upgrades
+      and reboots across the hosts of an Ethereum devnet, gated on network health.
+    digest: 5d5d00e0aa9a55682f0b3b6e3f42d8b1999d6f2c4842bdcae7b7637427dccfff
+    home: https://github.com/ethpandaops/upgradoor
+    maintainers:
+    - email: pk910@pk910.de
+      name: pk910
+    name: upgradoor
+    sources:
+    - https://github.com/ethpandaops/upgradoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/upgradoor-0.1.0/upgradoor-0.1.0.tgz
+    version: 0.1.0
   web3signer:
   - apiVersion: v2
     created: "2025-01-20T12:32:57.10539409Z"
@@ -14484,4 +14501,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-19T08:03:36.40864342Z"
+generated: "2026-11-23T13:26:06.52883215Z"
