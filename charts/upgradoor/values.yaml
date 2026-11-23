@@ -53,7 +53,6 @@ settings: {}
 # policyImage: manual
 # policyReboot: manual
 # policyClients: {lighthouse: auto}
-# actionPolicies: {security-upgrades: auto}
 # leaseTtl: 30m
 
 # -- Take the client address from X-Forwarded-For (behind an ingress)

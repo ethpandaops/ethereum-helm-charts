@@ -121,8 +121,8 @@ Required values
 {{- if not .Values.beaconEndpoints }}
 {{- fail "upgradoor: beaconEndpoints is required" }}
 {{- end }}
-{{- if not (or .Values.authProviderUrl .Values.allowOpenApi) }}
-{{- fail "upgradoor: set authProviderUrl, or allowOpenApi for an API without login" }}
+{{- if eq (empty .Values.authProviderUrl) (not .Values.allowOpenApi) }}
+{{- fail "upgradoor: set exactly one of authProviderUrl and allowOpenApi" }}
 {{- end }}
 {{- if eq (empty .Values.controllerSeed) (empty .Values.controllerSeedExistingSecret) }}
 {{- fail "upgradoor: set exactly one of controllerSeed and controllerSeedExistingSecret" }}
