@@ -1,6 +1,6 @@
 # spamoor
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.3](https://img.shields.io/badge/AppVersion-1.2.3-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.3](https://img.shields.io/badge/AppVersion-1.2.3-informational?style=flat-square)
 
 Ethereum transaction spammer for testnets and stress testing
 
@@ -22,6 +22,8 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 | customArgs | list | `[]` | Custom args for the spamoor container |
 | customCommand | list | `["./spamoor-daemon"]` | Command replacement for the spamoor container |
 | defaultSpamoorArgsTemplate | string | See `values.yaml` | Template used for the default spamoor args |
+| existingSecret | string | `""` | Existing Secret holding the private key under `existingSecretKey`. When set, the chart does not create its own Secret for the key. |
+| existingSecretKey | string | `"privkey"` | Key in `existingSecret` that holds the private key |
 | extraContainers | list | `[]` | Additional containers |
 | extraEnv | list | `[]` | Additional env variables |
 | extraPorts | list | `[]` | Additional ports. Useful when using extraContainers |
@@ -52,7 +54,7 @@ helm install [RELEASE_NAME] ethereum-helm-charts/spamoor
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy |
 | priorityClassName | string | `nil` | Pod priority class |
-| privateKey | string | `""` | Required private key for the main wallet |
+| privateKey | string | `""` | Private key for the main wallet. The chart stores it in a Secret and passes it to spamoor via the SPAMOOR_PRIVKEY env var, so it never appears in the pod spec. Ignored when `existingSecret` is set. |
 | resources | object | `{}` | Resource requests and limits |
 | rpcEndpoints | list | `["http://execution-client:8545"]` | RPC endpoint to use for transactions |
 | rpcEndpointsFile | string | See `values.yaml` | RPC endpoints file content |
