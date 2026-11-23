@@ -17,7 +17,7 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
 | allowOpenApi | bool | `false` | Serve the user API without login (everything allowed). Only for tests. |
-| annotations | object | `{}` | Annotations for the Deployment |
+| annotations | object | `{}` | Annotations for the StatefulSet |
 | authProviderUrl | string | `""` | Authenticatoor URL. Required unless allowOpenApi is set. |
 | beaconEndpoints | list | `[]` | Beacon API endpoints for the network health gate. Required. |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
@@ -53,12 +53,13 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes for the PersistentVolumeClaim |
 | persistence.annotations | object | `{}` | Annotations for the PersistentVolumeClaim |
-| persistence.enabled | bool | `true` | Provision a PersistentVolumeClaim for the SQLite database. Uses an emptyDir when disabled. |
+| persistence.enabled | bool | `true` | Keep the SQLite database on a volume claim of the StatefulSet. Uses an emptyDir when disabled. |
 | persistence.existingClaim | string | `""` | Use an existing PersistentVolumeClaim instead of provisioning one |
 | persistence.size | string | `"1Gi"` | Requested size for the PersistentVolumeClaim |
 | persistence.storageClassName | string | `nil` | Storage class name. Uses the cluster default when null. |
 | podAnnotations | object | `{}` | Pod annotations |
 | podLabels | object | `{}` | Pod labels |
+| podManagementPolicy | string | `"OrderedReady"` | Pod management policy of the StatefulSet |
 | priorityClassName | string | `nil` | Pod priority class |
 | prometheusRule.enabled | bool | `false` | If true, a PrometheusRule CRD is created for a prometheus operator |
 | prometheusRule.labels | object | `{}` | Additional PrometheusRule labels |
@@ -93,7 +94,7 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
 | trustForwardedHeaders | bool | `true` | Take the client address from X-Forwarded-For (behind an ingress) |
-| updateStrategy | object | `{"type":"Recreate"}` | Update strategy for the Deployment. Recreate, so the new pod can attach the data volume. |
+| updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the StatefulSet. With one replica the old pod is gone before the new one starts. |
 | validatorRangesUrl | string | `""` | Validator ranges inventory the hosts' validators come from; empty gives no host validators |
 
 # Example

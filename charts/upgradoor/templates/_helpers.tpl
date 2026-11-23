@@ -64,10 +64,6 @@ Create the name of the service account to use
 {{/*
 Name of the data PersistentVolumeClaim
 */}}
-{{- define "upgradoor.pvcName" -}}
-{{- default (printf "%s-data" (include "upgradoor.fullname" .)) .Values.persistence.existingClaim }}
-{{- end }}
-
 {{/*
 Endpoint-less Service that /metrics is routed to on the Ingress. Its labels do
 not match the selector labels, so the ServiceMonitor skips it.

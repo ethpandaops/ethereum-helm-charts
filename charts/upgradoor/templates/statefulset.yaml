@@ -1,6 +1,6 @@
 {{- include "upgradoor.validate" . }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "upgradoor.fullname" . }}
   labels:
@@ -9,12 +9,14 @@ metadata:
     {{- toYaml .Values.annotations | nindent 4 }}
 spec:
   # One controller per devnet; its state is a SQLite file.
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
   replicas: 1
-  strategy:
-    {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       {{- include "upgradoor.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "upgradoor.fullname" . }}-headless
+  updateStrategy:
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
   template:
     metadata:
       labels:
@@ -106,13 +108,14 @@ spec:
         {{- toYaml .Values.topologySpreadConstraints | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       volumes:
+        {{- if not .Values.persistence.enabled }}
         - name: data
-          {{- if .Values.persistence.enabled }}
-          persistentVolumeClaim:
-            claimName: {{ include "upgradoor.pvcName" . }}
-          {{- else }}
           emptyDir: {}
-          {{- end }}
+        {{- else if .Values.persistence.existingClaim }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim }}
+        {{- end }}
         - name: controller-seed
           secret:
             secretName: {{ include "upgradoor.controllerSeedSecretName" . }}
@@ -137,3 +140,21 @@ spec:
         {{- if .Values.extraVolumes }}
         {{- toYaml .Values.extraVolumes | nindent 8 }}
         {{- end }}
+  {{- if and .Values.persistence.enabled (not .Values.persistence.existingClaim) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+        {{- with .Values.persistence.annotations }}
+        annotations:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
+      spec:
+        accessModes:
+          {{- toYaml .Values.persistence.accessModes | nindent 10 }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+        {{- with .Values.persistence.storageClassName }}
+        storageClassName: {{ . }}
+        {{- end }}
+  {{- end }}

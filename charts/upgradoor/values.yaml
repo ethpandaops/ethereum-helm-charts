@@ -84,7 +84,7 @@ extraArgs: []
 customCommand: []
 
 persistence:
-  # -- Provision a PersistentVolumeClaim for the SQLite database. Uses an emptyDir when disabled.
+  # -- Keep the SQLite database on a volume claim of the StatefulSet. Uses an emptyDir when disabled.
   enabled: true
   # -- Use an existing PersistentVolumeClaim instead of provisioning one
   existingClaim: ""
@@ -132,7 +132,7 @@ affinity: {}
 # -- Image pull secrets for Docker images
 imagePullSecrets: []
 
-# -- Annotations for the Deployment
+# -- Annotations for the StatefulSet
 annotations: {}
 
 # -- Liveness probe
@@ -211,9 +211,12 @@ tolerations: []
 ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
 topologySpreadConstraints: []
 
-# -- Update strategy for the Deployment. Recreate, so the new pod can attach the data volume.
+# -- Update strategy for the StatefulSet. With one replica the old pod is gone before the new one starts.
 updateStrategy:
-  type: Recreate
+  type: RollingUpdate
+
+# -- Pod management policy of the StatefulSet
+podManagementPolicy: OrderedReady
 
 # -- Additional init containers
 initContainers: []
