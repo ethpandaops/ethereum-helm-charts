@@ -1,7 +1,7 @@
 
 # upgradoor
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Per-devnet controller that staggers docker image rolls, package upgrades and reboots across the hosts of an Ethereum devnet, gated on network health.
 
@@ -57,6 +57,7 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | persistence.existingClaim | string | `""` | Use an existing PersistentVolumeClaim instead of provisioning one |
 | persistence.size | string | `"1Gi"` | Requested size for the PersistentVolumeClaim |
 | persistence.storageClassName | string | `nil` | Storage class name. Uses the cluster default when null. |
+| persistentVolumeClaimRetentionPolicy | object | `{}` | PersistentVolumeClaim retention policy for the StatefulSet's volumeClaimTemplates (`whenDeleted`, `whenScaled`: `Retain` or `Delete`). Not rendered when empty, so Kubernetes keeps its default of retaining the PVCs. Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention |
 | podAnnotations | object | `{}` | Pod annotations |
 | podLabels | object | `{}` | Pod labels |
 | podManagementPolicy | string | `"OrderedReady"` | Pod management policy of the StatefulSet |

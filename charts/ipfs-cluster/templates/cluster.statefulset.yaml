@@ -9,6 +9,10 @@ metadata:
 spec:
   serviceName: cluster-{{ $i }}-{{ include "helm-ipfs-cluster.name" $ }}
   replicas: 1  # must be `1`.
+  {{- with $.Values.persistentVolumeClaimRetentionPolicy }}
+  persistentVolumeClaimRetentionPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "helm-ipfs-cluster.selectorLabels" $ | nindent 6 }}

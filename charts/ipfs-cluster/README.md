@@ -1,6 +1,6 @@
 # ipfs-cluster
 
-![Version: 0.1.14](https://img.shields.io/badge/Version-0.1.14-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.15](https://img.shields.io/badge/Version-0.1.15-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Run ipfs cluster along with kubo (go-ipfs)
 
@@ -55,6 +55,7 @@ Run ipfs cluster along with kubo (go-ipfs)
 | p2pNodePort.initContainer.image.repository | string | `"lachlanevenson/k8s-kubectl"` | Container image to fetch nodeport information |
 | p2pNodePort.initContainer.image.tag | string | `"v1.25.4"` | Container tag |
 | p2pNodePort.nodePort | int | `32000` |  |
+| persistentVolumeClaimRetentionPolicy | object | `{}` | PersistentVolumeClaim retention policy for the cluster and ipfs StatefulSets' volumeClaimTemplates (`whenDeleted`, `whenScaled`: `Retain` or `Delete`). Not rendered when empty, so Kubernetes keeps its default of retaining the PVCs. Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention |
 | podAnnotations | object | `{}` |  |
 | rbac.clusterRules | list | See `values.yaml` | Required ClusterRole rules |
 | rbac.create | bool | `true` | Specifies whether RBAC resources are to be created |

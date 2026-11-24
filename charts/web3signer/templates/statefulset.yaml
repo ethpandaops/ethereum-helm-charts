@@ -13,6 +13,10 @@ spec:
   serviceName: {{ include "web3signer.fullname" . }}-headless
   updateStrategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- with .Values.persistentVolumeClaimRetentionPolicy }}
+  persistentVolumeClaimRetentionPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       labels:

@@ -1,7 +1,7 @@
 
 # genesis-generator
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Generate testnet genesis files for the execution and consensus layer clients
 
@@ -52,6 +52,7 @@ Generate testnet genesis files for the execution and consensus layer clients
 | persistence.existingClaim | string | `nil` | Use an existing PVC when persistence.enabled |
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"1Gi"` | Requested size for volume claim template |
+| persistentVolumeClaimRetentionPolicy | object | `{}` | PersistentVolumeClaim retention policy for the StatefulSet's volumeClaimTemplates (`whenDeleted`, `whenScaled`: `Retain` or `Delete`). Not rendered when empty, so Kubernetes keeps its default of retaining the PVCs. Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |

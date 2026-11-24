@@ -1,7 +1,7 @@
 
 # besu
 
-![Version: 1.1.4](https://img.shields.io/badge/Version-1.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.5](https://img.shields.io/badge/Version-1.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An Ethereum execution layer client designed to be enterprise-friendly for both public and private, permissioned network use cases. Besu is written in Java and released under the Apache 2.0 Licence.
 
@@ -74,6 +74,7 @@ An Ethereum execution layer client designed to be enterprise-friendly for both p
 | persistence.selector | object | `{}` | Selector for volume claim template |
 | persistence.size | string | `"20Gi"` | Requested size for volume claim template |
 | persistence.storageClassName | string | `nil` | Use a specific storage class E.g 'local-path' for local storage to achieve best performance Read more (https://github.com/rancher/local-path-provisioner) |
+| persistentVolumeClaimRetentionPolicy | object | `{}` | PersistentVolumeClaim retention policy for the StatefulSet's volumeClaimTemplates (`whenDeleted`, `whenScaled`: `Retain` or `Delete`). Not rendered when empty, so Kubernetes keeps its default of retaining the PVCs. Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention |
 | podAnnotations | object | `{}` | Pod annotations |
 | podDisruptionBudget | object | `{}` | Define the PodDisruptionBudget spec If not set then a PodDisruptionBudget will not be created |
 | podLabels | object | `{}` | Pod labels |
