@@ -373,6 +373,13 @@ updateStrategy:
   # -- Update strategy type
   type: RollingUpdate
 
+# -- PersistentVolumeClaim retention policy for the StatefulSet's volumeClaimTemplates (`whenDeleted`, `whenScaled`: `Retain` or `Delete`).
+# Not rendered when empty, so Kubernetes keeps its default of retaining the PVCs.
+# Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
+persistentVolumeClaimRetentionPolicy: {}
+#   whenDeleted: Delete
+#   whenScaled: Retain
+
 # -- Additional init containers
 initContainers: []
 # - name: my-init-container

@@ -12,6 +12,10 @@ spec:
   podManagementPolicy: {{ .Values.podManagementPolicy }}
   updateStrategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
+  {{- with .Values.persistentVolumeClaimRetentionPolicy }}
+  persistentVolumeClaimRetentionPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "tracoor-single.selectorLabels" . | nindent 6 }}
