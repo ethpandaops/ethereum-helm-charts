@@ -1,7 +1,7 @@
 
 # nethermind
 
-![Version: 1.1.3](https://img.shields.io/badge/Version-1.1.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.4](https://img.shields.io/badge/Version-1.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Nethermind is an Ethereum execution layer implementation created with the C# .NET tech stack, running on all major platforms including ARM.
 
@@ -29,6 +29,7 @@ Nethermind is an Ethereum execution layer implementation created with the C# .NE
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/chainspec.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/chainspec.json"` | ChainSpec JSON URL for execution layer (Nethermind format) |
+| envFrom | list | `[]` | Additional sources of env variables for the main container, such as Secrets or ConfigMaps |
 | existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the nethermind container |
 | extraContainers | list | `[]` | Additional containers |

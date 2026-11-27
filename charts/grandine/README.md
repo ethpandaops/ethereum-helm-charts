@@ -1,7 +1,7 @@
 
 # grandine
 
-![Version: 0.2.3](https://img.shields.io/badge/Version-0.2.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.4](https://img.shields.io/badge/Version-0.2.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A currently closed source, but hopefully soon to be open-source Ethereum Consensus layer client, written in Rust.
 
@@ -32,6 +32,7 @@ A currently closed source, but hopefully soon to be open-source Ethereum Consens
 | devnet.urls.configYaml | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/config.yaml"` | Chain config YAML URL |
 | devnet.urls.depositContractBlock | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/deposit_contract_block.txt"` | Deposit contract block number URL |
 | devnet.urls.genesisSsz | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"` | Genesis state SSZ URL |
+| envFrom | list | `[]` | Additional sources of env variables for the main container, such as Secrets or ConfigMaps |
 | existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the grandine container |
 | extraContainers | list | `[]` | Additional containers |

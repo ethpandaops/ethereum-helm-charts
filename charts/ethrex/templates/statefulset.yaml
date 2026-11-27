@@ -189,6 +189,10 @@ spec:
           {{- if .Values.extraEnv }}
             {{- toYaml .Values.extraEnv | nindent 12 }}
           {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- if .Values.extraContainers }}
         {{ tpl (toYaml .Values.extraContainers | nindent 8) $ }}
       {{- end }}
