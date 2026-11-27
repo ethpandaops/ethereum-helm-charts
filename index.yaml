@@ -13319,6 +13319,20 @@ entries:
     version: 0.0.1
   splitoor:
   - apiVersion: v2
+    created: "2026-11-27T01:38:43.364985289Z"
+    description: Monitor 0xSplits, validators, gnosis safe's and provide notifications
+      on relevant events
+    digest: e00388cc90fb7495da03f090a98040232ebd7d38208c5216a39fe8c212792649
+    home: https://github.com/ethpandaops/splitoor
+    maintainers:
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: splitoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/splitoor-0.0.2/splitoor-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2025-01-23T02:56:10.38353109Z"
     description: Monitor 0xSplits, validators, gnosis safe's and provide notifications
       on relevant events
@@ -15266,4 +15280,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:38:10.122504724Z"
+generated: "2026-11-27T01:38:43.365935816Z"
