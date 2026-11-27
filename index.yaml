@@ -14386,6 +14386,22 @@ entries:
     version: 0.0.1
   xatu-consumoor:
   - apiVersion: v2
+    created: "2026-11-27T01:31:31.988752876Z"
+    description: Xatu data consumer that pulls events from Kafka and inserts them
+      into downstream sources like Clickhouse.
+    digest: a8def9799d57a55e06d1bc5623b4f4dec0c484380ea0b5432ab839a74b70bcfb
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-consumoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-consumoor-0.0.2/xatu-consumoor-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     created: "2026-02-25T01:46:57.985509172Z"
     description: Xatu data consumer that pulls events from Kafka and inserts them
       into downstream sources like Clickhouse.
@@ -15041,4 +15057,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:30:32.381212627Z"
+generated: "2026-11-27T01:31:31.989448701Z"
