@@ -11708,6 +11708,20 @@ entries:
     version: 0.1.0
   observoor:
   - apiVersion: v2
+    created: "2026-11-27T01:39:21.990887115Z"
+    description: An eBPF-based kernel-level monitoring agent for Ethereum consensus
+      and execution clients.
+    digest: dc619cde88f1824350bcade4861dfc9dd61048d43b14ffd589c80881e28e8c00
+    home: https://github.com/ethpandaops/observoor
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    name: observoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/observoor-0.0.4/observoor-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
     created: "2026-02-09T07:04:19.019348991Z"
     description: An eBPF-based kernel-level monitoring agent for Ethereum consensus
       and execution clients.
@@ -15280,4 +15294,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:38:43.365935816Z"
+generated: "2026-11-27T01:39:21.991595694Z"
