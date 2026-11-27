@@ -14525,6 +14525,22 @@ entries:
     version: 0.0.1
   xatu-mimicry:
   - apiVersion: v2
+    created: "2026-11-27T01:34:02.169838725Z"
+    description: Ethereum p2p monitoring tool that collects data from the execution
+      layer.
+    digest: e22e1c91bbe508afc5f8b508417cf558064aed024d391bb275914fad5c38b9e2
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-mimicry
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-mimicry-0.0.8/xatu-mimicry-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     created: "2023-11-23T03:40:47.265809786Z"
     description: Ethereum p2p monitoring tool that collects data from the execution
       layer.
@@ -15072,4 +15088,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:32:57.661879289Z"
+generated: "2026-11-27T01:34:02.170658044Z"
