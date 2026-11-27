@@ -3,11 +3,11 @@ name: consensus-monitor
 description: >
   Web UI to monitor the ethereum consensus nodes via their beaconchain APIs.
 home: https://github.com/ralexstokes/ethereum_consensus_monitor/
-icon: https://ethereum.org/static/c48a5f760c34dfadcf05a208dab137cc/31987/eth-diamond-rainbow.png
+icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ralexstokes/ethereum_consensus_monitor/
 type: application
-version: 0.1.3
+version: 0.1.4
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
