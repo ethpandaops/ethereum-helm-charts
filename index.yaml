@@ -14226,6 +14226,22 @@ entries:
     version: 0.0.1
   xatu-cannon:
   - apiVersion: v2
+    created: "2026-11-27T01:30:32.380716163Z"
+    description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
+      client and collects data via the consensus client's Beacon API.
+    digest: 2d5ae1ff97c9df91f1f49bd97c19817fff2b8c92233f63366b0bc985173ef7da
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-cannon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-cannon-0.2.3/xatu-cannon-0.2.3.tgz
+    version: 0.2.3
+  - apiVersion: v2
     created: "2025-01-20T12:32:57.230736024Z"
     description: Ethereum p2p monitoring tool that runs along side a Ethereum consensus
       client and collects data via the consensus client's Beacon API.
@@ -15025,4 +15041,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:29:28.367339062Z"
+generated: "2026-11-27T01:30:32.381212627Z"
