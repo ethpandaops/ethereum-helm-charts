@@ -357,6 +357,11 @@ extraEnv: []
 #- name: JAVA_OPTS
 #  value: "-Xmx6000m -Xms6000m"
 
+# -- Additional sources of env variables for the main container, such as Secrets or ConfigMaps
+envFrom: []
+# - secretRef:
+#     name: my-secret
+
 # -- Additional env variables injected via a created secret
 secretEnv: {}
 # MY_PASSWORD: supersecret

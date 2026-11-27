@@ -1,7 +1,7 @@
 
 # lighthouse
 
-![Version: 1.1.10](https://img.shields.io/badge/Version-1.1.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.1.11](https://img.shields.io/badge/Version-1.1.11-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 An open-source Ethereum 2.0 client, written in Rust
 
@@ -34,6 +34,7 @@ An open-source Ethereum 2.0 client, written in Rust
 | devnet.urls.configYaml | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/config.yaml"` | Chain config YAML URL |
 | devnet.urls.depositContractBlock | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/deposit_contract_block.txt"` | Deposit contract block number URL |
 | devnet.urls.genesisSsz | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.ssz"` | Genesis state SSZ URL |
+| envFrom | list | `[]` | Additional sources of env variables for the main container, such as Secrets or ConfigMaps |
 | existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the lighthouse container |
 | extraContainers | list | `[]` | Additional containers |

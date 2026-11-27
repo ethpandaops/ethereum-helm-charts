@@ -1,7 +1,7 @@
 
 # erigon
 
-![Version: 2.0.3](https://img.shields.io/badge/Version-2.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 2.0.4](https://img.shields.io/badge/Version-2.0.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected implementation of Ethereum, currently written in Go but with implementations in other languages planned. Erigon's goal is to provide a faster, more modular, and more optimized implementation of Ethereum.
 
@@ -30,6 +30,7 @@ Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth) oriented
 | devnet.urls | object | `{"elBootnode":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt","genesisJson":"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"}` | URLs for devnet configuration files |
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
+| envFrom | list | `[]` | Additional sources of env variables for the main container, such as Secrets or ConfigMaps |
 | existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the erigon container |
 | extraContainers | list | `[]` | Additional containers |

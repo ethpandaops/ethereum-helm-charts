@@ -1,7 +1,7 @@
 
 # ethrex
 
-![Version: 0.1.5](https://img.shields.io/badge/Version-0.1.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.6](https://img.shields.io/badge/Version-0.1.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Ethrex is an Ethereum execution client developed by Lambda Class. It is written in Rust and designed to be modular, efficient, and fully compatible with Ethereum's Engine API for connecting to consensus layer clients.
 
@@ -31,6 +31,7 @@ Ethrex is an Ethereum execution client developed by Lambda Class. It is written 
 | devnet.urls.elBootnode | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/enodes.txt"` | Execution layer bootnode URL |
 | devnet.urls.genesisJson | string | `"{{ .Values.devnet.baseUrl }}/{{ .Values.devnet.name }}/metadata/genesis.json"` | Genesis JSON URL for execution layer |
 | dnsPolicy | string | `""` | DNS policy for pods When hostNetwork is true, this should be set to ClusterFirstWithHostNet |
+| envFrom | list | `[]` | Additional sources of env variables for the main container, such as Secrets or ConfigMaps |
 | existingJwtSecret | string | `""` | Use an existing Secret for the JWT instead of creating one (e.g. managed by an external secrets operator). The Secret must contain the key `jwt.hex` with the JWT secret as a hex string. When set, `jwt` is ignored. |
 | extraArgs | list | `[]` | Extra args for the ethrex container |
 | extraContainerPorts | list | `[]` | Additional ports for the main container |
