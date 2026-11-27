@@ -1,46 +1,46 @@
 dependencies:
 - name: besu
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.3
+  version: 1.1.6
 - name: erigon
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 2.0.1
+  version: 2.0.4
 - name: ethereumjs
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.1.1
 - name: geth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.3
+  version: 1.1.6
 - name: nethermind
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.1
+  version: 1.1.4
 - name: reth
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.8
+  version: 0.1.11
 - name: ethrex
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.1.4
+  version: 0.1.6
 - name: grandine
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.2.1
+  version: 0.2.4
 - name: lighthouse
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.1.8
+  version: 1.1.11
 - name: lodestar
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.2.1
+  version: 1.2.4
 - name: nimbus
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.2.0
+  version: 1.2.3
 - name: prysm
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.2.3
+  version: 1.2.6
 - name: silver
   repository: file://../silver
   version: 0.1.1
 - name: teku
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 1.2.0
+  version: 1.2.3
 - name: ethereum-metrics-exporter
   repository: https://ethpandaops.github.io/ethereum-helm-charts
   version: 0.2.1
@@ -59,5 +59,5 @@ dependencies:
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:b4173a352a762f8477cf931a24c08c2fb277f2db4f115809ca4d61e61e319a9a
-generated: "2026-11-27T01:15:54.443042501Z"
+digest: sha256:2e2b2cc83978ae7b3e1c8671a231a925570d5e867207fedba5aade946322662c
+generated: "2026-11-27T07:52:22.466141651Z"
