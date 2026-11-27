@@ -1603,6 +1603,21 @@ entries:
     version: 0.0.1
   cbt-api:
   - apiVersion: v2
+    created: "2026-11-27T01:37:41.606069093Z"
+    description: API server for CBT
+    digest: f6906d67839e2b9539a0718aa3b74c14242bd5cbcd4826ec2229af504c7a52e4
+    home: https://github.com/ethpandaops/cbt-api
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: cbt-api
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/cbt-api-0.0.15/cbt-api-0.0.15.tgz
+    version: 0.0.15
+  - apiVersion: v2
     created: "2025-10-31T06:26:09.939843278Z"
     description: API server for CBT
     digest: 5ccd606213a345e1a5161a4dbdffc83150f9f61297d6ae567da654127daccee5
@@ -15237,4 +15252,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:37:11.631052075Z"
+generated: "2026-11-27T01:37:41.606812292Z"
