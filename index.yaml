@@ -14419,6 +14419,21 @@ entries:
     version: 0.0.1
   xatu-discovery:
   - apiVersion: v2
+    created: "2026-11-27T01:32:57.661490541Z"
+    description: Ethereum p2p monitoring tool that discovers node records.
+    digest: 01d58755ae68da1b4b72f10c69891ce1becedc77d34f7eaeb308d33b6e256528
+    home: https://github.com/ethpandaops/xatu
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: xatu-discovery
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-discovery-0.0.7/xatu-discovery-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
     created: "2023-11-23T03:40:47.050157185Z"
     description: Ethereum p2p monitoring tool that discovers node records.
     digest: b474c846c30fc318d80ccc9650fee1a867ce72968b0104f1396c140891cd0a3b
@@ -15057,4 +15072,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:31:31.989448701Z"
+generated: "2026-11-27T01:32:57.661879289Z"
