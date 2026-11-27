@@ -308,6 +308,28 @@ entries:
     version: 0.1.0
   beaconchain-explorer:
   - apiVersion: v2
+    created: "2026-11-27T09:26:31.233922006Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.x.x
+    description: 'Beacon chain explorer built using golang and using a PostgreSQL
+      database for storing and indexing data. '
+    digest: 42192d7dbec135e38ba061e9a41ac2ae9a982f4ed9fd321d2ca866ccd58045db
+    home: https://beaconcha.in/
+    icon: https://avatars.githubusercontent.com/u/25928607?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: beaconchain-explorer
+    sources:
+    - https://github.com/gobitfly/eth2-beaconchain-explorer
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/beaconchain-explorer-0.1.7/beaconchain-explorer-0.1.7.tgz
+    version: 0.1.7
+  - apiVersion: v2
     created: "2025-01-20T12:32:53.473149972Z"
     dependencies:
     - condition: postgresql.enabled
@@ -1746,6 +1768,23 @@ entries:
     version: 0.1.1
   consensus-monitor:
   - apiVersion: v2
+    created: "2026-11-27T09:26:31.404123747Z"
+    description: 'Web UI to monitor the ethereum consensus nodes via their beaconchain
+      APIs. '
+    digest: 77f89fac371fc5512934e0c668afe516ec6461149b307dcdde9a31426aa9a825
+    home: https://github.com/ralexstokes/ethereum_consensus_monitor/
+    icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: consensus-monitor
+    sources:
+    - https://github.com/ralexstokes/ethereum_consensus_monitor/
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/consensus-monitor-0.1.4/consensus-monitor-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     created: "2025-01-20T12:32:54.140206026Z"
     description: 'Web UI to monitor the ethereum consensus nodes via their beaconchain
       APIs. '
@@ -2799,6 +2838,28 @@ entries:
     version: 0.1.0
   erigon:
   - apiVersion: v2
+    created: "2026-11-27T09:26:31.523098394Z"
+    description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
+      oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
+      implementation of Ethereum, currently written in Go but with implementations
+      in other languages planned. Erigon's goal is to provide a faster, more modular,
+      and more optimized implementation of Ethereum.
+    digest: 27ced819d7a032b12761cacb1c9d41127ccc01003d34823754d52e01dad0497c
+    home: https://twitter.com/ErigonEth
+    icon: https://avatars.githubusercontent.com/u/66788158?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: erigon
+    sources:
+    - https://github.com/ledgerwatch/erigon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/erigon-2.0.5/erigon-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
     created: "2026-11-27T07:51:18.087389459Z"
     description: Erigon, formerly known as Turbo‐Geth, is a fork of Go Ethereum (geth)
       oriented toward speed and disk‐space efficiency. Erigon is a completely re-architected
@@ -3575,6 +3636,23 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth-faucet-0.1.0/eth-faucet-0.1.0.tgz
     version: 0.1.0
   eth2-fork-mon:
+  - apiVersion: v2
+    created: "2026-11-27T09:26:31.658851903Z"
+    description: 'Simple client/server to track the (real-time) status of a (configurable)
+      set of eth2 beacon nodes. '
+    digest: a68bdde2f1b07126c6b4272f9c42bf4062969c2eab63bdfce4c5e94f748b4cf1
+    home: https://github.com/ralexstokes/eth2-fork-mon
+    icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    name: eth2-fork-mon
+    sources:
+    - https://github.com/ralexstokes/eth2-fork-mon
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/eth2-fork-mon-0.1.4/eth2-fork-mon-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v2
     created: "2025-01-20T12:32:54.852057961Z"
     description: 'Simple client/server to track the (real-time) status of a (configurable)
@@ -9555,6 +9633,23 @@ entries:
     version: 0.1.0
   grandine:
   - apiVersion: v2
+    created: "2026-11-27T09:26:31.787820337Z"
+    description: A currently closed source, but hopefully soon to be open-source Ethereum
+      Consensus layer client, written in Rust.
+    digest: 77e8a6859c3dde0cfde41b7c3adae640f477da1c6aa862b3dff9c09978fd01b1
+    home: https://sifrai.com
+    icon: https://avatars.githubusercontent.com/u/53257991?s=200&v=4
+    maintainers:
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: grandine
+    sources:
+    - https://github.com/sifraitech/grandine
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/grandine-0.2.5/grandine-0.2.5.tgz
+    version: 0.2.5
+  - apiVersion: v2
     created: "2026-11-27T07:51:18.609657226Z"
     description: A currently closed source, but hopefully soon to be open-source Ethereum
       Consensus layer client, written in Rust.
@@ -11548,6 +11643,24 @@ entries:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nethermind-0.1.0/nethermind-0.1.0.tgz
     version: 0.1.0
   nimbus:
+  - apiVersion: v2
+    created: "2026-11-27T09:26:31.897764918Z"
+    description: An open-source Ethereum consensus layer client, written in Nim
+    digest: 9f6f9354b7820c13a88438a351148a7a90eb4bfa2b331720d36cedad8cbead6d
+    home: https://nimbus.guide/
+    icon: https://raw.githubusercontent.com/ethereum/staking-launchpad/master/src/static/nimbus-circle.png
+    maintainers:
+    - email: rafael@skyle.net
+      name: skylenet
+    - email: busa.barnabas@gmail.com
+      name: barnabasbusa
+    name: nimbus
+    sources:
+    - https://github.com/status-im/nimbus-eth2
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/nimbus-1.2.4/nimbus-1.2.4.tgz
+    version: 1.2.4
   - apiVersion: v2
     created: "2026-11-27T07:51:19.299567431Z"
     description: An open-source Ethereum consensus layer client, written in Nim
@@ -15721,4 +15834,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T08:33:06.609322139Z"
+generated: "2026-11-27T09:26:31.89894918Z"
