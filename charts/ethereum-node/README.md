@@ -1,7 +1,7 @@
 
 # ethereum-node
 
-![Version: 0.2.18](https://img.shields.io/badge/Version-0.2.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.19](https://img.shields.io/badge/Version-0.2.19-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This chart acts as an umbrella chart and allows to run a ethereum execution and consensus layer client. It's also able to deploy optional monitoring applications.
 
@@ -14,7 +14,7 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 ## Subcharts
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../observoor | observoor | 0.0.3 |
+| file://../observoor | observoor | 0.0.4 |
 | file://../rpc-snooper | rpc-snooper | 0.0.2 |
 | file://../silver | silver | 0.1.1 |
 | file://../xatu-sentry-logs | xatu-sentry-logs | 0.0.2 |
@@ -32,8 +32,8 @@ This chart acts as an umbrella chart and allows to run a ethereum execution and 
 | https://ethpandaops.github.io/ethereum-helm-charts | prysm | 1.2.3 |
 | https://ethpandaops.github.io/ethereum-helm-charts | reth | 0.1.8 |
 | https://ethpandaops.github.io/ethereum-helm-charts | teku | 1.2.0 |
-| https://ethpandaops.github.io/ethereum-helm-charts | tracoor-agent | 0.0.1 |
-| https://ethpandaops.github.io/ethereum-helm-charts | xatu-sentry | 0.0.8 |
+| https://ethpandaops.github.io/ethereum-helm-charts | tracoor-agent | 0.0.2 |
+| https://ethpandaops.github.io/ethereum-helm-charts | xatu-sentry | 0.0.9 |
 
 # Details
 

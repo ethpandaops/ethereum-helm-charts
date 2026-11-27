@@ -8,7 +8,7 @@ icon: https://avatars.githubusercontent.com/u/6250754?s=200&v=4
 sources:
   - https://github.com/ethpandaops/ethereum-helm-charts
 type: application
-version: 0.2.18
+version: 0.2.19
 maintainers:
   - name: skylenet
     email: rafael@skyle.net
@@ -77,15 +77,15 @@ dependencies:
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: ethereum-metrics-exporter.enabled
 - name: xatu-sentry
-  version: "0.0.8"
+  version: "0.0.9"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: xatu-sentry.enabled
 - name: tracoor-agent
-  version: "0.0.1"
+  version: "0.0.2"
   repository: "https://ethpandaops.github.io/ethereum-helm-charts"
   condition: tracoor-agent.enabled
 - name: observoor
-  version: "0.0.3"
+  version: "0.0.4"
   repository: "file://../observoor"
   condition: observoor.enabled
 - name: xatu-sentry-logs

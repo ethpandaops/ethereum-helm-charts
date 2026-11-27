@@ -46,18 +46,18 @@ dependencies:
   version: 0.2.1
 - name: xatu-sentry
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.0.8
+  version: 0.0.9
 - name: tracoor-agent
   repository: https://ethpandaops.github.io/ethereum-helm-charts
-  version: 0.0.1
+  version: 0.0.2
 - name: observoor
   repository: file://../observoor
-  version: 0.0.3
+  version: 0.0.4
 - name: xatu-sentry-logs
   repository: file://../xatu-sentry-logs
   version: 0.0.2
 - name: rpc-snooper
   repository: file://../rpc-snooper
   version: 0.0.2
-digest: sha256:0db38b13bdea59d1a67e4fc518774697113e1a4d90cede32594ced5fd9aa4394
-generated: "2026-11-27T01:12:45.428472293Z"
+digest: sha256:b4173a352a762f8477cf931a24c08c2fb277f2db4f115809ca4d61e61e319a9a
+generated: "2026-11-27T01:15:54.443042501Z"
