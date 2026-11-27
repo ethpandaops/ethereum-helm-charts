@@ -8330,6 +8330,26 @@ entries:
     version: 0.1.0
   forky:
   - apiVersion: v2
+    created: "2026-11-27T01:28:06.064988729Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 15.x.x
+    description: A beacon chain fork choice viewer
+    digest: fea285b4b3188d48ba35a0d83fcdbec6dc2ac7fd9f9e1ae5e5dcbd3ef5c5b0ca
+    home: https://github.com/ethpandaops/forky
+    maintainers:
+    - email: sam.calder-mason@ethereum.org
+      name: samcm
+    - email: andrew.davis@ethereum.org
+      name: savid
+    name: forky
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/forky-0.2.2/forky-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
     created: "2024-10-04T11:10:50.800825402Z"
     dependencies:
     - condition: postgresql.enabled
@@ -14974,4 +14994,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T01:27:17.2074147Z"
+generated: "2026-11-27T01:28:06.066159815Z"
