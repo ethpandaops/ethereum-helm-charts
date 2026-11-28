@@ -60,12 +60,21 @@ spec:
             - /usr/local/bin/upgradoor-controller
           {{- end }}
           args:
-            {{- include "upgradoor.args" . | nindent 12 }}
+            - run
+            - --config=/etc/upgradoor/config/controller.yaml
+            - {{ printf "--log-level=%s" .Values.logging.level | quote }}
+            - {{ printf "--log-format=%s" .Values.logging.format | quote }}
+            {{- with .Values.extraArgs }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: config
+              mountPath: /etc/upgradoor/config
+              readOnly: true
             - name: controller-seed
               mountPath: /etc/upgradoor/controller-seed
               readOnly: true
@@ -120,6 +129,9 @@ spec:
           persistentVolumeClaim:
             claimName: {{ .Values.persistence.existingClaim }}
         {{- end }}
+        - name: config
+          configMap:
+            name: {{ include "upgradoor.fullname" . }}-config
         - name: controller-seed
           secret:
             secretName: {{ include "upgradoor.controllerSeedSecretName" . }}
