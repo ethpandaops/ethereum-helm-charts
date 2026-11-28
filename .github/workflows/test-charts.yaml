@@ -70,6 +70,11 @@ jobs:
           --config ct.yaml
           --target-branch ${{ github.event.repository.default_branch }}
 
+      # Package changed charts the same way release.yaml does, so packaging-only
+      # failures are caught on the PR rather than on master after merge.
+      - name: Verify charts package (mirrors release)
+        run: .github/scripts/package-changed-charts.sh "${{ github.event.repository.default_branch }}"
+
       - name: Create kind cluster
         uses: helm/kind-action@ef37e7f390d99f746eb8b610417061a60e82a6cc # v1.14.0
         if: steps.list-changed.outputs.changed == 'true'
