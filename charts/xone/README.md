@@ -3,7 +3,7 @@
 
 ![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-xOne (xOneRS) is an experimental Ethereum and XDC execution client written in Rust. It speaks the Engine API to a consensus layer client. Licensed under BUSL-1.1.
+xOne (xOneRS) is an experimental Ethereum and XDC execution client written in Rust. It speaks the Engine API to a consensus layer client. Licensed under GPL-3.0-or-later.
 
 **Homepage:** <https://xone.sh/>
 
