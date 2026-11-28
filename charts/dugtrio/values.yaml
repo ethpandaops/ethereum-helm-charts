@@ -269,10 +269,10 @@ config: |
     # call rate burst limit
     callRateBurst: {{ .Values.dugtrioProxyCallRateBurst }}
 
-    {{- if .dugtrioProxyBlockedPaths }}
+    {{- if .Values.dugtrioProxyBlockedPaths }}
     # blocked api paths (regex patterns)
     blockedPaths:
-      {{- range $i, $value := .dugtrioProxyBlockedPaths }}
+      {{- range $i, $value := .Values.dugtrioProxyBlockedPaths }}
       - {{ $value | quote }}
       {{- end }}
     {{- end }}
