@@ -47,6 +47,7 @@ Execution layer clients
 - [`geth`](charts/geth)
 - [`nethermind`](charts/nethermind)
 - [`reth`](charts/reth)
+- [`xone`](charts/xone)
 
 Consensus layer clients
 - [`grandine`](charts/grandine)

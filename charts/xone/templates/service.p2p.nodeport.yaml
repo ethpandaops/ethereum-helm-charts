@@ -1,0 +1,28 @@
+{{- if .Values.p2pNodePort.enabled -}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "xone.fullname" $ }}-p2p-0
+  labels:
+    {{- include "xone.labels" $ | nindent 4 }}
+    pod: {{ include "xone.fullname" $ }}-0
+    type: p2p
+spec:
+  type: NodePort
+  externalTrafficPolicy: Local
+  ports:
+    - name: p2p-tcp
+      port: {{ include "xone.p2pPort" $ }}
+      protocol: TCP
+      targetPort: p2p-tcp
+      nodePort: {{ include "xone.p2pPort" $ }}
+    - name: p2p-udp
+      port: {{ include "xone.p2pPort" $ }}
+      protocol: UDP
+      targetPort: p2p-udp
+      nodePort: {{ include "xone.p2pPort" $ }}
+  selector:
+    {{- include "xone.selectorLabels" $ | nindent 4 }}
+    statefulset.kubernetes.io/pod-name: "{{ include "xone.fullname" $ }}-0"
+{{- end }}
