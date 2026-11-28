@@ -20,10 +20,15 @@ image:
 env:
   XATU_CLIENT_NAME: ""
   XATU_NETWORK_NAME: ""
+  # -- Must include the /v1/events path (e.g. "https://xatu-server.example.com/v1/events")
   XATU_SERVER_URL: ""
 
-# -- Secret env variables injected via a created secret
+# -- Secret env variables injected via a created secret.
+# XATU_AUTH should be set to just the base64-encoded credentials (e.g. "dXNlcjpwYXNz").
+# Do NOT include the "Basic " prefix — the Vector config adds it automatically.
 secretEnv: {}
+# Example:
+#   XATU_AUTH: "dXNlcjpwYXNz"  # base64("user:pass")
 
 # -- Each key becomes a file in /etc/xatu/sources.d/<key>.yaml.
 # Values are raw YAML content rendered into the file.
