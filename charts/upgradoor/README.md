@@ -1,7 +1,7 @@
 
 # upgradoor
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 Per-devnet controller that staggers docker image rolls, package upgrades and reboots across the hosts of an Ethereum devnet, gated on network health.
 
@@ -16,12 +16,10 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity configuration for pods |
-| allowOpenApi | bool | `false` | Serve the user API without login (everything allowed). Only for tests. |
 | annotations | object | `{}` | Annotations for the StatefulSet |
-| authProviderUrl | string | `""` | Authenticatoor URL. Required unless allowOpenApi is set. |
-| beaconEndpoints | list | `[]` | Beacon API endpoints for the network health gate. Required. |
+| config | string | See `values.yaml` | Controller config file, rendered with `tpl` |
 | containerSecurityContext | object | See `values.yaml` | The security context for containers |
-| controllerSeed | string | `""` | Controller seed of the devnet group (at least 32 characters, or a vault-plugin reference). Written to a Secret. Required unless controllerSeedExistingSecret is set. |
+| controllerSeed | string | `""` | Controller seed of the devnet group (at least 32 characters, or a vault-plugin reference). Written to a Secret mounted at `/etc/upgradoor/controller-seed/seed`. Required unless controllerSeedExistingSecret is set. |
 | controllerSeedExistingSecret | string | `""` | Existing Secret holding the controller seed under the key `seed` |
 | customCommand | list | `[]` | Command replacement for the upgradoor container |
 | extraArgs | list | `[]` | Extra args for the upgradoor container |
@@ -32,7 +30,7 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | extraVolumeMounts | list | `[]` | Additional volume mounts |
 | extraVolumes | list | `[]` | Additional volumes |
 | fullnameOverride | string | `""` | Overrides the chart's computed fullname |
-| httpPort | int | `8080` | HTTP port for the agent API, user API, web UI, /healthz and /metrics |
+| httpPort | int | `8080` | HTTP port for the agent API, user API, web UI, /healthz and /metrics; `server.listen` in the default config |
 | image.pullPolicy | string | `"Always"` | upgradoor container pull policy |
 | image.repository | string | `"ghcr.io/ethpandaops/upgradoor"` | upgradoor container image repository |
 | image.tag | string | `"latest"` | upgradoor container image tag |
@@ -49,7 +47,6 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | logging.level | string | `"info"` | Log level: debug | info | warn | error |
 | metrics.blockOnIngress | bool | `true` | Route /metrics on the Ingress to a Service without endpoints, so it is not public |
 | nameOverride | string | `""` | Overrides the chart's name |
-| network | string | `""` | Name of the devnet this controller manages. Required. |
 | nodeSelector | object | `{}` | Node selector for pods |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | Access modes for the PersistentVolumeClaim |
 | persistence.annotations | object | `{}` | Annotations for the PersistentVolumeClaim |
@@ -66,13 +63,10 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | prometheusRule.labels | object | `{}` | Additional PrometheusRule labels |
 | prometheusRule.namespace | string | `nil` | Alternative namespace for PrometheusRule |
 | prometheusRule.rules | list | See `values.yaml` | Alert rules. `expr` is rendered as a template. |
-| publicUrls | list | `[]` | Public base URLs agents reach the controller under |
 | readinessProbe | object | See `values.yaml` | Readiness probe |
-| registry.allowPrivate | bool | `false` | Allow lookups at registries on private, loopback and link-local addresses |
-| registry.auth | string | `""` | Docker config.json (`{"auths": {...}}`) for the registry lookups, written to a Secret |
-| registry.caBundle | string | `""` | Extra CA bundle (PEM) for private registries |
+| registry.auth | string | `""` | Docker config.json (`{"auths": {...}}`) for the registry lookups, written to a Secret mounted at `/etc/upgradoor/registry-auth/config.json` |
+| registry.caBundle | string | `""` | Extra CA bundle (PEM) for private registries, mounted at `/etc/upgradoor/registry-ca/ca.crt` |
 | registry.existingSecret | string | `""` | Existing Secret holding the Docker config.json under the key `.dockerconfigjson` |
-| registry.plainHttp | list | `[]` | Registry hosts looked up without TLS |
 | resources | object | `{}` | Resource requests and limits |
 | securityContext | object | See `values.yaml` | The security context for pods |
 | service.type | string | `"ClusterIP"` | Service type |
@@ -89,32 +83,37 @@ Per-devnet controller that staggers docker image rolls, package upgrades and reb
 | serviceMonitor.scheme | string | `"http"` | ServiceMonitor scheme |
 | serviceMonitor.scrapeTimeout | string | `"30s"` | ServiceMonitor scrape timeout |
 | serviceMonitor.tlsConfig | object | `{}` | ServiceMonitor TLS configuration |
-| settings | object | `{}` | Default scheduler settings, passed as `--default-setting=<key>=<value>`. Settings changed in the UI win. |
-| signerPublicKey | string | `""` | Signer public key of the devnet (`upgradoor-controller keygen signer-pubkey`). Required. |
 | terminationGracePeriodSeconds | int | `30` | How long to wait until the pod is forcefully terminated |
 | tolerations | list | `[]` | Tolerations for pods |
 | topologySpreadConstraints | list | `[]` | Topology Spread Constraints for pods |
-| trustForwardedHeaders | bool | `true` | Take the client address from X-Forwarded-For (behind an ingress) |
 | updateStrategy | object | `{"type":"RollingUpdate"}` | Update strategy for the StatefulSet. With one replica the old pod is gone before the new one starts. |
-| validatorRangesUrl | string | `""` | Validator ranges inventory the hosts' validators come from; empty gives no host validators |
 
 # Example
 
-`network`, `signerPublicKey`, `beaconEndpoints` and a controller seed are required:
+The controller reads its config file from `config` (rendered with `tpl`). A controller seed,
+`network.name`, `network.beaconEndpoints`, `agents.signerPublicKey` and `auth.providerUrl` are required:
 
 ```yaml
-network: my-devnet-0
-signerPublicKey: "<output of upgradoor-controller keygen signer-pubkey>"
 controllerSeed: "<path:/secrets/services/services.enc.yaml#ethereum | jsonPath {.testnets.my-devnets.upgradoor_controller_seed}>"
-publicUrls:
-  - https://upgradoor.my-devnet-0.example.com
-beaconEndpoints:
-  - http://beacon-node:5052
-authProviderUrl: https://auth.my-devnet-0.example.com
 
-settings:
-  maxUnavailablePercent: 10
-  policyReboot: manual
+config: |
+  server:
+    listen: ":8080"
+    publicUrls:
+      - https://upgradoor.my-devnet-0.example.com
+    trustForwardedHeaders: true
+  network:
+    name: my-devnet-0
+    beaconEndpoints:
+      - http://beacon-node:5052
+  agents:
+    signerPublicKey: "<output of upgradoor-controller keygen signer-pubkey>"
+    controllerSeedFile: /etc/upgradoor/controller-seed/seed
+  auth:
+    providerUrl: https://auth.my-devnet-0.example.com
+  settingDefaults:
+    maxUnavailablePercent: 10
+    policyReboot: manual
 
 ingress:
   enabled: true
@@ -128,11 +127,16 @@ ingress:
           pathType: Prefix
 ```
 
-The controller seed is mounted from a Secret at `/etc/upgradoor/controller-seed/seed`.
-To change it, change the value and redeploy.
+The config is mounted at `/etc/upgradoor/config/controller.yaml`. Secrets stay files the config
+points to:
 
-`registry.auth` (or `registry.existingSecret`, e.g. a `kubernetes.io/dockerconfigjson` pull secret)
-gives the controller credentials for looking up private images.
+| Value | Mounted at | Config key |
+|-------|------------|------------|
+| `controllerSeed` / `controllerSeedExistingSecret` | `/etc/upgradoor/controller-seed/seed` | `agents.controllerSeedFile` |
+| `registry.auth` / `registry.existingSecret` | `/etc/upgradoor/registry-auth/config.json` | `images.registryAuthFile` |
+| `registry.caBundle` | `/etc/upgradoor/registry-ca/ca.crt` | `images.registryCaFile` |
+
+The SQLite database is on the volume at `/data` (`store.dataDir`).
 
 `/metrics` shares the port with the API. With `metrics.blockOnIngress` the Ingress routes `/metrics`
 to a Service without endpoints, which ingress-nginx answers with 503. Check other ingress controllers

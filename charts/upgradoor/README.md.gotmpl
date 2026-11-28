@@ -16,21 +16,30 @@
 
 # Example
 
-`network`, `signerPublicKey`, `beaconEndpoints` and a controller seed are required:
+The controller reads its config file from `config` (rendered with `tpl`). A controller seed,
+`network.name`, `network.beaconEndpoints`, `agents.signerPublicKey` and `auth.providerUrl` are required:
 
 ```yaml
-network: my-devnet-0
-signerPublicKey: "<output of upgradoor-controller keygen signer-pubkey>"
 controllerSeed: "<path:/secrets/services/services.enc.yaml#ethereum | jsonPath {.testnets.my-devnets.upgradoor_controller_seed}>"
-publicUrls:
-  - https://upgradoor.my-devnet-0.example.com
-beaconEndpoints:
-  - http://beacon-node:5052
-authProviderUrl: https://auth.my-devnet-0.example.com
 
-settings:
-  maxUnavailablePercent: 10
-  policyReboot: manual
+config: |
+  server:
+    listen: ":8080"
+    publicUrls:
+      - https://upgradoor.my-devnet-0.example.com
+    trustForwardedHeaders: true
+  network:
+    name: my-devnet-0
+    beaconEndpoints:
+      - http://beacon-node:5052
+  agents:
+    signerPublicKey: "<output of upgradoor-controller keygen signer-pubkey>"
+    controllerSeedFile: /etc/upgradoor/controller-seed/seed
+  auth:
+    providerUrl: https://auth.my-devnet-0.example.com
+  settingDefaults:
+    maxUnavailablePercent: 10
+    policyReboot: manual
 
 ingress:
   enabled: true
@@ -44,11 +53,16 @@ ingress:
           pathType: Prefix
 ```
 
-The controller seed is mounted from a Secret at `/etc/upgradoor/controller-seed/seed`.
-To change it, change the value and redeploy.
+The config is mounted at `/etc/upgradoor/config/controller.yaml`. Secrets stay files the config
+points to:
 
-`registry.auth` (or `registry.existingSecret`, e.g. a `kubernetes.io/dockerconfigjson` pull secret)
-gives the controller credentials for looking up private images.
+| Value | Mounted at | Config key |
+|-------|------------|------------|
+| `controllerSeed` / `controllerSeedExistingSecret` | `/etc/upgradoor/controller-seed/seed` | `agents.controllerSeedFile` |
+| `registry.auth` / `registry.existingSecret` | `/etc/upgradoor/registry-auth/config.json` | `images.registryAuthFile` |
+| `registry.caBundle` | `/etc/upgradoor/registry-ca/ca.crt` | `images.registryCaFile` |
+
+The SQLite database is on the volume at `/data` (`store.dataDir`).
 
 `/metrics` shares the port with the API. With `metrics.blockOnIngress` the Ingress routes `/metrics`
 to a Service without endpoints, which ingress-nginx answers with 503. Check other ingress controllers

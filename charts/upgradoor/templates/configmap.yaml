@@ -1,4 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "upgradoor.fullname" . }}-config
+  labels:
+    {{- include "upgradoor.labels" . | nindent 4 }}
+data:
+  controller.yaml: |
+    {{- tpl .Values.config . | nindent 4 }}
 {{- if .Values.registry.caBundle }}
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
