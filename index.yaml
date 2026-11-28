@@ -14687,6 +14687,22 @@ entries:
     version: 0.0.1
   upgradoor:
   - apiVersion: v2
+    created: "2026-11-28T03:22:41.527882239Z"
+    description: Per-devnet controller that staggers docker image rolls, package upgrades
+      and reboots across the hosts of an Ethereum devnet, gated on network health.
+    digest: ee8f1f632e58218ce1facb1221b2e1495ac62a266120090ba8b7e5926a102c77
+    home: https://github.com/ethpandaops/upgradoor
+    maintainers:
+    - email: pk910@pk910.de
+      name: pk910
+    name: upgradoor
+    sources:
+    - https://github.com/ethpandaops/upgradoor
+    type: application
+    urls:
+    - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/upgradoor-0.2.0/upgradoor-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     created: "2026-11-25T00:35:55.03375075Z"
     description: Per-devnet controller that staggers docker image rolls, package upgrades
       and reboots across the hosts of an Ethereum devnet, gated on network health.
@@ -15834,4 +15850,4 @@ entries:
     urls:
     - https://github.com/ethpandaops/ethereum-helm-charts/releases/download/xatu-server-0.0.1/xatu-server-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-27T09:26:31.89894918Z"
+generated: "2026-11-28T03:22:41.529560554Z"
