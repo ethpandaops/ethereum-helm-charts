@@ -1,0 +1,11 @@
+apiVersion: v2
+name: xone
+description: >
+  xOne (xOneRS) is an experimental Ethereum and XDC execution client written in Rust.
+  It speaks the Engine API to a consensus layer client. Licensed under GPL-3.0-or-later.
+home: https://xone.sh/
+type: application
+version: 0.1.0
+maintainers:
+  - name: AnilChinchawaleXDC
+    email: 270199611+AnilChinchawaleXDC@users.noreply.github.com
